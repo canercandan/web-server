@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZIA", "ZIA.vcproj", "{04814426-F4FC-46AC-8BEF-6BD34652C009}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04814426-F4FC-46AC-8BEF-6BD34652C009}.Debug|Win32.ActiveCfg = Debug|Win32
+		{04814426-F4FC-46AC-8BEF-6BD34652C009}.Debug|Win32.Build.0 = Debug|Win32
+		{04814426-F4FC-46AC-8BEF-6BD34652C009}.Release|Win32.ActiveCfg = Release|Win32
+		{04814426-F4FC-46AC-8BEF-6BD34652C009}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
