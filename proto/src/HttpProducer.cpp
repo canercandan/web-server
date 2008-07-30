@@ -18,11 +18,12 @@ HttpProducer::HttpProducer(Socket* sck)
 std::string*	HttpProducer::nextString()
 {
   char		buf[16];
+  int		cc;
 
-  bzero(buf, 16);
-
-  if (this->_sck->recv(buf, 15) == 0)
+  if ((cc = this->_sck->recv(buf, 15)) == 0)
     return (NULL);
+
+  buf[cc] = 0;
 
   return (new std::string(buf));
 }

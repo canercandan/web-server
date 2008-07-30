@@ -8,11 +8,6 @@
 // Last update Wed Jul 30 17:33:15 2008 morgan armand
 //
 
-#ifdef WIN32
-# include <windows.h>
-#else
-# include <pthread.h>
-#endif
 
 #include <iostream>
 #include "Logger.h"
@@ -21,7 +16,13 @@
 #include "ServerSocket.h"
 
 #ifdef WIN32
-DWORD		run(LPVOID arg)
+# include <windows.h>
+#else
+# include <pthread.h>
+#endif
+
+#ifdef WIN32
+DWORD WINAPI		run(LPVOID arg)
 #else
   void*		run(void* arg)
 #endif
