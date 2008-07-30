@@ -5,7 +5,7 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Tue Jul 29 11:51:17 2008 morgan armand
+## Last update Wed Jul 30 11:53:41 2008 morgan armand
 ##
 
 NAME	=	zia
@@ -14,7 +14,10 @@ NAME	=	zia
 # Sources
 ##
 
-SRC	=	../src/main.cpp
+SRC	=	../src/main.cpp			\
+		../src/Logger.cpp		\
+		../src/Socket.cpp		\
+		../src/ServerSocket.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
 
@@ -32,12 +35,12 @@ CFLAGS	=	-Wall -Werror
 ##
 
 $(NAME):	$(OBJ)
-		$(CXX) -o $(NAME) $(OBJ)
+		$(CXX) -o $(NAME) *.o #$(OBJ)
 
 all:		$(NAME)
 
 clean:
-		-$(RM) -f $(OBJ)
+		-$(RM) -f *.o #$(OBJ)
 		-$(RM) -f *~
 
 fclean:		clean
