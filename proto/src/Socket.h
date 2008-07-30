@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 11:39:49 2008 morgan armand
-// Last update Wed Jul 30 12:40:56 2008 morgan armand
+// Last update Wed Jul 30 13:57:37 2008 caner candan
 //
 
 #ifndef __SOCKET_H__
@@ -38,6 +38,8 @@ public:
 
   // Construct a Socket object from a existing SOCKET/sockaddr_in pair.
   Socket(const SOCKET sck, const struct sockaddr_in& sin);
+
+  ~Socket();
 
   // Create a new TCP socket
   bool		create();
