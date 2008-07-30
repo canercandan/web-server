@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Wed Jul 30 17:33:15 2008 morgan armand
+// Last update Wed Jul 30 19:37:42 2008 morgan armand
 //
 
 
@@ -22,7 +22,7 @@
 #endif
 
 #ifdef WIN32
-DWORD WINAPI		run(LPVOID arg)
+DWORD WINAPI	run(LPVOID arg)
 #else
   void*		run(void* arg)
 #endif
@@ -33,7 +33,7 @@ DWORD WINAPI		run(LPVOID arg)
 
   sck = (Socket *)arg;
   prod = new HttpProducer(sck);
-  parser = new HttpParser(prod);
+  parser = new HttpParser(*prod);
 
   if (parser->readHttpRequest())
     {

@@ -5,7 +5,7 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Wed Jul 30 17:15:20 2008 morgan armand
+## Last update Wed Jul 30 19:24:29 2008 morgan armand
 ##
 
 NAME	=	zia
@@ -20,6 +20,7 @@ SRC	=	../src/main.cpp			\
 		../src/ServerSocket.cpp		\
 		../src/HttpRequest.cpp		\
 		../src/HttpProducer.cpp		\
+		../src/HttpConsumer.cpp		\
 		../src/HttpParser.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
