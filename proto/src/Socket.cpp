@@ -27,7 +27,7 @@ bool	Socket::create()
   int		err;
   WSADATA	wsaData;
 
-  if ((err = WSAStartup(MAKEWORD(2, ,2), &wsaData)) != 0)
+  if ((err = WSAStartup(MAKEWORD(2, 2), &wsaData)) != 0)
     {
       std::cerr << "WSAStartup failed with error " << err << std::endl;
       return (false);
@@ -111,7 +111,11 @@ Socket*	Socket::accept()
 void	Socket::close()
 {
   if (this->isValid())
+#ifdef WIN32
+	  ::closesocket(this->_sck);
+#else
     ::close(this->_sck);
+#endif
 }
 
 bool	Socket::isValid()

@@ -13,6 +13,8 @@
 
 #ifndef WIN32
 typedef int	SOCKET;
+#else
+typedef int socklen_t;
 #endif
 
 #ifndef WIN32

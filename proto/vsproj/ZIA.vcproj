@@ -60,6 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="ws2_32.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -132,6 +133,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="ws2_32.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -170,12 +172,48 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath="..\src\Logger.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ServerSocket.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Socket.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Fichiers d&apos;en-tête"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\src\HttpRequest.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\HttpResponse.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Logger.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ServerSocket.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Socket.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Fichiers de ressources"
