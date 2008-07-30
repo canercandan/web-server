@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Wed Jul 30 12:28:31 2008 morgan armand
+// Last update Wed Jul 30 12:30:56 2008 morgan armand
 //
 
 #include "Logger.h"
@@ -27,7 +27,6 @@ int		main(int ac, char **av)
     {
       if (client = server.accept())
 	{
-	  pthread_create();
 	  logger.info("accept new connection from a client");
 	}
     }
