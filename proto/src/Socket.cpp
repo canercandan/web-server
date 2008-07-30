@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 11:45:23 2008 morgan armand
-// Last update Wed Jul 30 12:41:14 2008 morgan armand
+// Last update Wed Jul 30 12:42:51 2008 morgan armand
 //
 
 #include <iostream>
@@ -19,6 +19,14 @@ Socket::Socket()
 Socket::Socket(const SOCKET sck, const struct sockaddr_in& sin)
   : _sck(sck), _sin(sin)
 {
+}
+
+Socket::~Socket()
+{
+  this->close();
+#ifdef WIN32
+  WSACleanup();
+#endif
 }
 
 bool	Socket::create()
