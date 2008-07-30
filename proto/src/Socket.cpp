@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 11:45:23 2008 morgan armand
-// Last update Wed Jul 30 12:42:51 2008 morgan armand
+// Last update Wed Jul 30 16:20:24 2008 morgan armand
 //
 
 #include <iostream>
@@ -124,6 +124,16 @@ void	Socket::close()
 #else
   ::close(this->_sck);
 #endif
+}
+
+int	Socket::recv(void* buf, int len)
+{
+  return ::recv(this->_sck, buf, len, 0);
+}
+
+int	Socket::send(void* buf, int len)
+{
+  return ::send(this->_sck, buf, len, 0);
 }
 
 bool	Socket::isValid()

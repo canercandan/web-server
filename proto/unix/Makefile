@@ -5,7 +5,7 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Wed Jul 30 11:53:41 2008 morgan armand
+## Last update Wed Jul 30 17:15:20 2008 morgan armand
 ##
 
 NAME	=	zia
@@ -17,7 +17,10 @@ NAME	=	zia
 SRC	=	../src/main.cpp			\
 		../src/Logger.cpp		\
 		../src/Socket.cpp		\
-		../src/ServerSocket.cpp
+		../src/ServerSocket.cpp		\
+		../src/HttpRequest.cpp		\
+		../src/HttpProducer.cpp		\
+		../src/HttpParser.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
 
@@ -29,13 +32,14 @@ CXX	=	g++
 RM	=	rm
 
 CFLAGS	=	-Wall -Werror
+LIBS	=	-lpthread
 
 ##
 # Rules
 ##
 
 $(NAME):	$(OBJ)
-		$(CXX) -o $(NAME) *.o #$(OBJ)
+		$(CXX) -o $(NAME) *.o $(LIBS) #$(OBJ)
 
 all:		$(NAME)
 

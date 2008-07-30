@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 11:39:49 2008 morgan armand
-// Last update Wed Jul 30 13:57:37 2008 caner candan
+// Last update Wed Jul 30 17:16:08 2008 morgan armand
 //
 
 #ifndef __SOCKET_H__
@@ -33,13 +33,12 @@ typedef int	socklen_t;
 class	Socket
 {
 public:
-  // Default constructor
+  // Default ctor/dtor
   Socket();
+  ~Socket();
 
   // Construct a Socket object from a existing SOCKET/sockaddr_in pair.
   Socket(const SOCKET sck, const struct sockaddr_in& sin);
-
-  ~Socket();
 
   // Create a new TCP socket
   bool		create();
@@ -55,6 +54,10 @@ public:
 
   // Close the socket
   void		close();
+
+  // Classic read / write operations
+  int		recv(void* buf, int len);
+  int		send(void* buf, int len);
 
   // Tell if the current socket is valid or not.
   bool		isValid();
