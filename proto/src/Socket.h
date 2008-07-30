@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 11:39:49 2008 morgan armand
-// Last update Wed Jul 30 12:20:09 2008 morgan armand
+// Last update Wed Jul 30 12:40:56 2008 morgan armand
 //
 
 #ifndef __SOCKET_H__
@@ -14,7 +14,7 @@
 #ifndef WIN32
 typedef int	SOCKET;
 #else
-typedef int socklen_t;
+typedef int	socklen_t;
 #endif
 
 #ifndef WIN32

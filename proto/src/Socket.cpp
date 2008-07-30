@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 11:45:23 2008 morgan armand
-// Last update Wed Jul 30 12:21:05 2008 morgan armand
+// Last update Wed Jul 30 12:41:14 2008 morgan armand
 //
 
 #include <iostream>
@@ -112,9 +112,9 @@ void	Socket::close()
 {
   if (this->isValid())
 #ifdef WIN32
-	  ::closesocket(this->_sck);
+    ::closesocket(this->_sck);
 #else
-    ::close(this->_sck);
+  ::close(this->_sck);
 #endif
 }
 
