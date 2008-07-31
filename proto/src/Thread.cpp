@@ -51,6 +51,7 @@ DWORD WINAPI	Thread::threadProc(LPVOID arg)
 {
   ((IRunnable *)arg)->run();
 #ifdef WIN32
+  return (0);
 #else
   pthread_exit(0);
 #endif
