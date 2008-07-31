@@ -5,19 +5,32 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:38:41 2008 morgan armand
-// Last update Wed Jul 30 17:11:51 2008 morgan armand
+// Last update Wed Jul 30 20:08:45 2008 morgan armand
 //
+
+#ifndef __THREAD_H__
+#define __THREAD_H__
+
+#include "IRunnable.h"
 
 class	Thread
 {
 public:
-  // Create a new thread and call the run method.
+  Thread(IRunnable* obj);
+
+  // This method create the thread and start it.
   void	start();
 
-  // Must be overload in all class
+public:
+
 #ifdef WIN32
-  DWORD	run(LPVOID arg);
+  static DWORD WINAPI	threadProc(LPVOID arg);
 #else
-  void*	run(void* arg) = 0;
+  static void*		threadProc(void* arg);
 #endif
+
+private:
+  IRunnable*	_obj;
 };
+
+#endif // __THREAD_H__

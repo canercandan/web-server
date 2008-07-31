@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:39:45 2008 morgan armand
-// Last update Wed Jul 30 16:50:54 2008 morgan armand
+// Last update Wed Jul 30 20:09:18 2008 morgan armand
 //
 
 #ifdef WIN32
@@ -17,17 +17,22 @@
 #include <iostream>
 #include "Thread.h"
 
+Thread::Thread(IRunnable* obj)
+  : _obj(obj)
+{
+}
+
 void	Thread::start()
 {
 #ifdef WIN32
-  if (CreateThread(NULL, 0, this->run, NULL, 0, NULL) == NULL)
+  if (CreateThread(NULL, 0, Thread::threadProc, _obj, 0, NULL) == NULL)
     {
       std::cerr << "CreateThread() failed" << std::endl;
     }
 #else
   pthread_t	thread;
 
-  if (pthread_create(&thread, NULL, this->run, NULL))
+  if (pthread_create(&thread, NULL, Thread::threadProc, _obj))
     {
       std::cerr << "pthread_create() failed" << std::endl;
     }
@@ -35,5 +40,18 @@ void	Thread::start()
     {
       std::cerr << "pthread_join() failed" << std::endl;
     }
+#endif
+}
+
+#ifdef WIN32
+DWORD WINAPI	Thread::threadProc(LPVOID arg)
+#else
+  void*		Thread::threadProc(void* arg)
+#endif
+{
+  ((IRunnable *)arg)->run();
+#ifdef WIN32
+#else
+  pthread_exit(0);
 #endif
 }

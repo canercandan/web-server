@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:28:00 2008 morgan armand
-// Last update Wed Jul 30 19:39:20 2008 morgan armand
+// Last update Wed Jul 30 19:56:58 2008 morgan armand
 //
 
 #include <iostream>
@@ -15,6 +15,11 @@
 HttpParser::HttpParser(HttpProducer& prod)
   : HttpConsumer(prod)
 {
+}
+
+void	HttpParser::run()
+{
+  this->readHttpRequest();
 }
 
 bool	HttpParser::readHttpRequest(/*HttpRequest& req*/)

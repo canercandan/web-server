@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Wed Jul 30 19:35:19 2008 morgan armand
+// Last update Wed Jul 30 19:56:10 2008 morgan armand
 //
 
 #ifndef __HTTP_CONSUMER_H__
