@@ -5,51 +5,23 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Wed Jul 30 20:00:53 2008 morgan armand
+// Last update Wed Jul 30 20:17:22 2008 morgan armand
 //
 
 
 #include <iostream>
 #include "Logger.h"
+#include "Thread.h"
 #include "HttpParser.h"
 #include "HttpProducer.h"
 #include "ServerSocket.h"
-
-#ifdef WIN32
-# include <windows.h>
-#else
-# include <pthread.h>
-#endif
-
-#ifdef WIN32
-DWORD WINAPI	run(LPVOID arg)
-#else
-  void*		run(void* arg)
-#endif
-{
-  Socket*	sck;
-  HttpProducer*	prod;
-  HttpParser*	parser;
-
-  sck = (Socket *)arg;
-  prod = new HttpProducer(sck);
-  parser = new HttpParser(*prod);
-
-  if (parser->readHttpRequest())
-    {
-    }
-
-  delete prod;
-  delete parser;
-
-  return (NULL);
-}
 
 int		main(int ac, char **av)
 {
   Logger	logger;
   ServerSocket	server;
   Socket*	client;
+  Thread*	thread;
   HttpParser*	parser;
   HttpProducer*	prod;
 
@@ -65,7 +37,9 @@ int		main(int ac, char **av)
 	{
 	  logger.info("accept new connection from a client");
 	  prod = new HttpProducer(client);
-	  parser = new HttpParser(*prod);
+	  parser = new HttpParser(prod);
+	  thread = new Thread(parser);
+	  thread->start();
 	}
     }
   server.close();

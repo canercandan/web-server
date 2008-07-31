@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Wed Jul 30 19:56:10 2008 morgan armand
+// Last update Wed Jul 30 20:16:27 2008 morgan armand
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -17,7 +17,7 @@
 class	HttpConsumer
 {
 public:
-  HttpConsumer(HttpProducer& prod);
+  HttpConsumer(HttpProducer* prod);
 
 private:
   HttpProducer*	_prod;

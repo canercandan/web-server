@@ -5,14 +5,14 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:28:00 2008 morgan armand
-// Last update Wed Jul 30 19:56:58 2008 morgan armand
+// Last update Wed Jul 30 20:17:04 2008 morgan armand
 //
 
 #include <iostream>
 #include "HttpParser.h"
 #include "HttpRequest.h"
 
-HttpParser::HttpParser(HttpProducer& prod)
+HttpParser::HttpParser(HttpProducer* prod)
   : HttpConsumer(prod)
 {
 }

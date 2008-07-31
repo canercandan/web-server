@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:27:44 2008 morgan armand
-// Last update Wed Jul 30 19:57:46 2008 morgan armand
+// Last update Wed Jul 30 20:17:11 2008 morgan armand
 //
 
 #ifndef __HTTP_PARSER_H__
@@ -17,7 +17,7 @@
 class	HttpParser : public HttpConsumer, public IRunnable
 {
 public:
-  HttpParser(HttpProducer& prod);
+  HttpParser(HttpProducer* prod);
 
   // Thread entry point.
   void	run();
