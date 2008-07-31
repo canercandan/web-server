@@ -8,12 +8,6 @@
 // Last update Wed Jul 30 20:09:18 2008 morgan armand
 //
 
-#ifdef WIN32
-# include <windows.h>
-#else
-# include <pthread.h>
-#endif
-
 #include <iostream>
 #include "Thread.h"
 

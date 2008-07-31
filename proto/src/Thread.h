@@ -11,6 +11,13 @@
 #ifndef __THREAD_H__
 #define __THREAD_H__
 
+#ifdef WIN32
+# define WIN32_LEAN_AND_MEAN
+# include <windows.h>
+#else
+# include <pthread.h>
+#endif
+
 #include "IRunnable.h"
 
 class	Thread
