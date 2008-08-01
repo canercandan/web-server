@@ -208,6 +208,10 @@
 				RelativePath="..\src\Thread.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\src\XmlDomConfig.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Fichiers d&apos;en-tête"
@@ -252,6 +256,10 @@
 			</File>
 			<File
 				RelativePath="..\src\Thread.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\XmlDomConfig.h"
 				>
 			</File>
 		</Filter>
