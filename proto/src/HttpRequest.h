@@ -5,13 +5,14 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:42 2008 morgan armand
-// Last update Sat Aug  2 18:21:04 2008 florent hochwelker
+// Last update Sat Aug  2 18:36:50 2008 florent hochwelker
 //
 
 #ifndef __HTTP_REQUEST_H__
 #define __HTTP_REQUEST_H__
 
 #include <string>
+#include <list>
 
 typedef struct	s_version
 { // HTTP-Version   = "HTTP" "/" 1*DIGIT "." 1*DIGIT
@@ -45,6 +46,7 @@ private:
   std::list<std::string>	_acceptEncoding;
   std::list<std::string>	_acceptLanguage;
   std::list<std::string>	_cacheControl;
+  std::list<std::string>	_connection;
   
 };
 
