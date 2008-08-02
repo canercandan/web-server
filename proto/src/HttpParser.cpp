@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:28:00 2008 morgan armand
-// Last update Sat Aug  2 14:43:09 2008 morgan armand
+// Last update Sat Aug  2 16:34:14 2008 morgan armand
 //
 
 #include <iostream>
@@ -38,6 +38,84 @@ bool	HttpParser::readRequestLine()
       this->readRequestURI() && this->readChar(' ') &&
       this->readHttpVersion() && this->readText("\r\n"))
     return (true);
+  return (false);
+}
+
+bool	HttpParser::readGeneralHeader()
+{
+  if (this->readCacheControl() ||
+      this->readConnection() ||
+      this->readDate() ||
+      this->readPragma() ||
+      this->readTrailer() ||
+      this->readTransferEncoding() ||
+      this->readUpgrade() ||
+      this->readVia() ||
+      this->readWarning())
+    return (true);
+  return (false);
+}
+
+bool	HttpParser::readCacheControl()
+{
+  // TODO: Implementation
+  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
+  return (false);
+}
+
+bool	HttpParser::readConnection()
+{
+  // TODO: Implementation
+  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
+  return (false);
+}
+
+bool	HttpParser::readDate()
+{
+  // TODO: Implementation
+  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
+  return (false);
+}
+
+bool	HttpParser::readPragma()
+{
+  // TODO: Implementation
+  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
+  return (false);
+}
+
+bool	HttpParser::readTrailer()
+{
+  // TODO: Implementation
+  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
+  return (false);
+}
+
+bool	HttpParser::readTransferEncoding()
+{
+  // TODO: Implementation
+  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
+  return (false);
+}
+
+bool	HttpParser::readUpgrade()
+{
+  // TODO: Implementation
+  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
+  return (false);
+}
+
+bool	HttpParser::readVia()
+{
+  // TODO: Implementation
+  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
+  return (false);
+}
+
+bool	HttpParser::readWarning()
+{
+  // TODO: Implementation
+  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
   return (false);
 }
 
