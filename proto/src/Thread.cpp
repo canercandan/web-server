@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:39:45 2008 morgan armand
-// Last update Sat Aug  2 11:18:02 2008 morgan armand
+// Last update Sat Aug  2 11:38:40 2008 morgan armand
 //
 
 #include <iostream>
@@ -25,10 +25,6 @@ void	Thread::start()
     }
 #else
   if (pthread_create(&(this->thread), NULL, Thread::threadProc, _obj))
-    {
-      std::cerr << "pthread_create() failed" << std::endl;
-    }
-  if (pthread_detach(this->thread))
     {
       std::cerr << "pthread_create() failed" << std::endl;
     }
