@@ -5,53 +5,58 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Wed Jul 30 19:58:52 2008 morgan armand
+## Last update Sat Aug  2 11:19:59 2008 majdi toumi
 ##
 
-NAME	=	zia
+# Binary:
+NAME		=	zia
 
-##
-# Sources
-##
+# Sources:
+SRC		=	../src/main.cpp			\
+			../src/Logger.cpp		\
+			../src/Socket.cpp		\
+			../src/Thread.cpp		\
+			../src/ServerSocket.cpp		\
+			../src/HttpRequest.cpp		\
+			../src/HttpProducer.cpp		\
+			../src/HttpConsumer.cpp		\
+			../src/HttpParser.cpp
+#			../src/XmlDomConfig.cpp
 
-SRC	=	../src/main.cpp			\
-		../src/Logger.cpp		\
-		../src/Socket.cpp		\
-		../src/Thread.cpp		\
-		../src/ServerSocket.cpp		\
-		../src/HttpRequest.cpp		\
-		../src/HttpProducer.cpp		\
-		../src/HttpConsumer.cpp		\
-		../src/HttpParser.cpp
+# Objects:
+OBJ		=	$(SRC:.cpp=.o)
 
-OBJ	=	$(SRC:.cpp=.o)
+# Includes:
+INCS		=	-I../src `xml2-config --cflags`
 
-##
-# Tools
-##
+# Libraries:
+LIBS		=	-lpthread `xml2-config --libs`
 
-CXX	=	g++
-RM	=	rm
+# Tools:
+CXX		=	g++
+RM		=	rm
+DEBUG		=	-g
+WARNINGS	+=	-Wall
+WARNINGS	+=	-Werror
 
-CFLAGS	=	-Wall -Werror
-LIBS	=	-lpthread
+CFLAGS		+=	$(WARNINGS) $(INCS)
+LDFLAGS		+=	$(LIBS)
 
-##
-# Rules
-##
+# Rules:
+all		:
+			make $(NAME)
 
-$(NAME):	$(OBJ)
-		$(CXX) -o $(NAME) *.o $(LIBS) #$(OBJ)
+$(NAME)		:	$(OBJ)
+			$(CXX) -o $(NAME) *.o $(LDFLAGS)
 
-all:		$(NAME)
+clean		:
+			-$(RM) -f *.o #$(OBJ)
+			-$(RM) -f *~
 
-clean:
-		-$(RM) -f *.o #$(OBJ)
-		-$(RM) -f *~
+fclean		:	clean
+			-$(RM) -f $(NAME)
 
-fclean:		clean
-		-$(RM) -f $(NAME)
+re		:	fclean all
 
-re:		fclean all
-
-.PHONY:		all clean fclean re
+.PHONY		:	all clean fclean re
+.SUFFIXES	:	.cppo
