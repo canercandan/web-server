@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:28:00 2008 morgan armand
-// Last update Sat Aug  2 14:25:13 2008 morgan armand
+// Last update Sat Aug  2 14:43:09 2008 morgan armand
 //
 
 #include <iostream>
@@ -13,7 +13,7 @@
 #include "HttpRequest.h"
 
 HttpParser::HttpParser(HttpProducer* prod)
-  : HttpConsumer(prod)
+  : URIParser(prod)
 {
 }
 
@@ -57,45 +57,6 @@ bool	HttpParser::readMethod()
 }
 
 bool	HttpParser::readExtensionMethod()
-{
-  // TODO: Implementation
-  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
-  return (false);
-}
-
-bool	HttpParser::readRequestURI()
-{
-  if (this->readChar('*')	||
-      this->readAbsoluteURI()	||
-      this->readAbsPath()	||
-      this->readAuthority())
-    return (true);
-  return (false);
-}
-
-bool	HttpParser::readAbsoluteURI()
-{
-  // TODO: Implementation
-  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
-  return (false);
-}
-
-bool	HttpParser::readAbsPath()
-{
-  if (this->readChar('/') &&
-      this->readPathSegments())
-    return (true);
-  return (false);
-}
-
-bool	HttpParser::readPathSegments()
-{
-  // TODO: Implementation
-  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
-  return (false);
-}
-
-bool	HttpParser::readAuthority()
 {
   // TODO: Implementation
   std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;

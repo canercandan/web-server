@@ -5,7 +5,7 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Sat Aug  2 11:19:59 2008 majdi toumi
+## Last update Sat Aug  2 14:41:37 2008 morgan armand
 ##
 
 # Binary:
@@ -20,7 +20,8 @@ SRC		=	../src/main.cpp			\
 			../src/HttpRequest.cpp		\
 			../src/HttpProducer.cpp		\
 			../src/HttpConsumer.cpp		\
-			../src/HttpParser.cpp
+			../src/HttpParser.cpp		\
+			../src/URIParser.cpp		\
 #			../src/XmlDomConfig.cpp
 
 # Objects:
