@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Sat Aug  2 17:38:55 2008 caner candan
+// Last update Sat Aug  2 18:33:32 2008 caner candan
 //
 
 #include <sstream>
@@ -84,7 +84,7 @@ bool	HttpConsumer::readText(const std::string& s, std::string& s_r)
   return (true);
 }
 
-bool	HttpConsumer::readInteger(void)
+bool	HttpConsumer::readInteger()
 {
   int	i;
 
@@ -104,7 +104,7 @@ bool	HttpConsumer::readInteger(int& i_r)
   return (true);
 }
 
-bool	HttpConsumer::readIdentifier(void)
+bool	HttpConsumer::readIdentifier()
 {
   if (!this->readRange('a', 'z') &&
       !this->readRange('A', 'Z') &&

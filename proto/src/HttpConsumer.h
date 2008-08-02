@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Sat Aug  2 16:30:16 2008 caner candan
+// Last update Sat Aug  2 18:33:18 2008 caner candan
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -33,10 +33,10 @@ public:
   bool	readText(const std::string& s);
   bool	readText(const std::string& s, std::string& s_r);
 
-  bool	readInteger(void);
+  bool	readInteger();
   bool	readInteger(int& i_r);
 
-  bool	readIdentifier(void);
+  bool	readIdentifier();
   bool	readIdentifier(std::string& i_r);
 private:
   HttpProducer*	_prod;
