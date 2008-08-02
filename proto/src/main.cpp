@@ -5,9 +5,8 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Wed Jul 30 20:17:22 2008 morgan armand
+// Last update Sat Aug  2 11:33:46 2008 caner candan
 //
-
 
 #include <iostream>
 #include "Logger.h"
