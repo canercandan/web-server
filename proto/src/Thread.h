@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:38:41 2008 morgan armand
-// Last update Wed Jul 30 20:08:45 2008 morgan armand
+// Last update Sat Aug  2 11:07:29 2008 morgan armand
 //
 
 #ifndef __THREAD_H__
@@ -38,6 +38,12 @@ public:
 
 private:
   IRunnable*	_obj;
+
+#ifdef WIN32
+  HANDLE	thread;
+#else
+  pthread_t	thread;
+#endif
 };
 
 #endif // __THREAD_H__
