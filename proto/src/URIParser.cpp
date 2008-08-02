@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 14:34:26 2008 morgan armand
-// Last update Sat Aug  2 18:54:36 2008 caner candan
+// Last update Sat Aug  2 18:59:05 2008 caner candan
 //
 
 #include <iostream>
@@ -86,14 +86,15 @@ bool	URIParser::readUnreserved()
 
 bool	URIParser::readEscaped()
 {
-  return (readChar('%')	&&
-	  readHex()	&&
-	  readHex());
+  return (this->readChar('%')	&&
+	  this->readHex()	&&
+	  this->readHex());
 }
 
 bool	URIParser::readAlphanum()
 {
-  return (false);
+  return (this->readAlpha()	||
+	  this->readDigit());
 }
 
 bool	URIParser::readMark()
@@ -119,4 +120,19 @@ bool	URIParser::readHex()
 bool	URIParser::readDigit()
 {
   return (this->readRange('0', '9'));
+}
+
+bool	URIParser::readAlpha()
+{
+  return (this->readLowalpha());
+}
+
+bool	URIParser::readLowalpha()
+{
+  return (this->readRange('a', 'z'));
+}
+
+bool	URIParser::readUpalpha()
+{
+  return (this->readRange('A', 'Z'));
 }

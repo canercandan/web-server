@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 14:34:33 2008 morgan armand
-// Last update Sat Aug  2 18:54:43 2008 caner candan
+// Last update Sat Aug  2 18:58:02 2008 caner candan
 //
 
 #ifndef __URI_PARSER_H__
@@ -32,6 +32,9 @@ public:
   bool	readMark();
   bool	readHex();
   bool	readDigit();
+  bool	readAlpha();
+  bool	readLowalpha();
+  bool	readUpalpha();
 };
 
 #endif // __URI_PARSER_H__
