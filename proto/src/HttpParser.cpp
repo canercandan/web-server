@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:28:00 2008 morgan armand
-// Last update Sat Aug  2 16:34:14 2008 morgan armand
+// Last update Sat Aug  2 17:54:54 2008 caner candan
 //
 
 #include <iostream>
@@ -36,7 +36,8 @@ bool	HttpParser::readRequestLine()
 {
   if (this->readMethod() && this->readChar(' ') &&
       this->readRequestURI() && this->readChar(' ') &&
-      this->readHttpVersion() && this->readText("\r\n"))
+      this->readHttpVersion() &&
+      this->readText("\r\n"))
     return (true);
   return (false);
 }

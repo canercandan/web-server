@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 14:34:26 2008 morgan armand
-// Last update Sat Aug  2 14:45:25 2008 morgan armand
+// Last update Sat Aug  2 16:39:55 2008 caner candan
 //
 
 #include <iostream>
@@ -30,7 +30,7 @@ bool	URIParser::readAbsoluteURI()
 {
   // TODO: Implementation
   std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
-  return (false);
+  return (true);
 }
 
 bool	URIParser::readAbsPath()
@@ -45,12 +45,12 @@ bool	URIParser::readAuthority()
 {
   // TODO: Implementation
   std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
-  return (false);
+  return (true);
 }
 
 bool	URIParser::readPathSegments()
 {
   // TODO: Implementation
   std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
-  return (false);
+  return (true);
 }

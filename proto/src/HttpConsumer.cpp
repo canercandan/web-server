@@ -5,75 +5,107 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Sat Aug  2 11:51:33 2008 caner candan
+// Last update Sat Aug  2 17:38:55 2008 caner candan
 //
 
 #include <sstream>
+#include <iostream>
 #include "HttpConsumer.h"
 
 HttpConsumer::HttpConsumer(HttpProducer* prod)
-  : _prod(prod), _start(0), _pos(0)
+  : _prod(prod), _pos(0)
 {}
 
 HttpConsumer::~HttpConsumer()
 {}
 
+void	HttpConsumer::appendBuf(size_t size)
+{
+  if (this->_buf.size() <= size)
+    this->_buf += this->_prod->nextString();
+}
+
 bool	HttpConsumer::peekChar(char c)
 {
-  this->giveMeMoreIfntEnough(1);
+  this->appendBuf(1);
   return (this->_buf[this->_pos] == c);
 }
 
-bool	HttpConsumer::readChar(char c, bool extract /*= false*/)
+bool	HttpConsumer::readChar(char c)
 {
-  this->saveStartPos(extract);
-  if (this->peekChar(c))
-    {
-      this->_pos++;
-      return (true);
-    }
-  return (false);
+  if (!this->peekChar(c))
+    return (false);
+  this->_pos++;
+  return (true);
 }
 
-bool	HttpConsumer::readRange(char begin, char end, bool extract /*= false*/)
+bool	HttpConsumer::readChar(char c, char& c_r)
 {
-  this->saveStartPos(extract);
-  this->giveMeMoreIfntEnough(1);
-  if (this->_buf[this->_pos] >= begin &&
-      this->_buf[this->_pos] <= end)
-    {
-      this->_pos++;
-      return (true);
-    }
-  return (false);
+  if (!this->readChar(c))
+    return (false);
+  c_r = this->_buf[this->_pos - 1];
+  return (true);
 }
 
-bool	HttpConsumer::readText(char *text, bool extract /*= false*/)
+bool	HttpConsumer::readRange(char c_start, char c_end)
 {
-  std::string	str(text);
-
-  this->saveStartPos(extract);
-  this->giveMeMoreIfntEnough(str.size());
-  if (!this->_buf.compare(this->_pos, str.size(), str))
-    {
-      this->_pos += str.size();
-      return (true);
-    }
-  return (false);
+  this->appendBuf(1);
+  if (this->_buf[this->_pos] < c_start ||
+      this->_buf[this->_pos] > c_end)
+    return (false);
+  this->_pos++;
+  return (true);
 }
 
-bool	HttpConsumer::readInteger(bool extract /*= false*/)
+bool	HttpConsumer::readRange(char c_start, char c_end, char& c_r)
+{
+  if (!this->readRange(c_start, c_end))
+    return (false);
+  c_r = this->_buf[this->_pos - 1];
+  return (true);
+}
+
+bool	HttpConsumer::readText(const std::string& s)
+{
+  this->appendBuf(s.size());
+  if (this->_buf.compare(this->_pos, s.size(), s))
+    return (false);
+  this->_pos += s.size();
+  return (true);
+}
+
+bool	HttpConsumer::readText(const std::string& s, std::string& s_r)
+{
+  unsigned int	start = this->_pos;
+
+  if (!this->readText(s))
+    return (false);
+  s_r = this->_buf.substr(start, this->_pos - start);
+  return (true);
+}
+
+bool	HttpConsumer::readInteger(void)
 {
   int	i;
 
-  this->saveStartPos(extract);
   for (i = 0; this->readRange('0', '9'); i++);
   return (i > 0);
 }
 
-bool	HttpConsumer::readIdentifier(bool extract /*= false*/)
+bool	HttpConsumer::readInteger(int& i_r)
 {
-  this->saveStartPos(extract);
+  unsigned int	start = this->_pos;
+  std::stringstream	ss;
+
+  if (!this->readInteger())
+    return (false);
+  ss.str(this->_buf.substr(start, this->_pos - start));
+  ss >> i_r;
+  return (true);
+}
+
+bool	HttpConsumer::readIdentifier(void)
+{
   if (!this->readRange('a', 'z') &&
       !this->readRange('A', 'Z') &&
       !this->readChar('_'))
@@ -85,34 +117,12 @@ bool	HttpConsumer::readIdentifier(bool extract /*= false*/)
   return (true);
 }
 
-std::string	HttpConsumer::toStr(void)
+bool	HttpConsumer::readIdentifier(std::string& i_r)
 {
-  return (this->_buf.substr(this->_start,
-			    this->_pos - this->_start));
-}
+  unsigned int	start = this->_pos;
 
-char	HttpConsumer::toChar(void)
-{
-  return (this->_buf[this->_start]);
-}
-
-int	HttpConsumer::toInt(void)
-{
-  std::stringstream	ss(this->toStr());
-  int			res;
-
-  ss >> res;
-  return (res);
-}
-
-void	HttpConsumer::giveMeMoreIfntEnough(size_t size)
-{
-  if (this->_buf.size() <= size)
-    this->_buf += this->_prod->nextString();
-}
-
-void	HttpConsumer::saveStartPos(bool extract)
-{
-  if (extract)
-    this->_start = this->_pos;
+  if (!this->readIdentifier())
+    return (false);
+  i_r = this->_buf.substr(start, this->_pos - start);
+  return (true);
 }

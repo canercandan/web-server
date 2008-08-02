@@ -5,59 +5,60 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Sat Aug  2 14:41:37 2008 morgan armand
+## Last update Sat Aug  2 17:56:17 2008 caner candan
 ##
 
-# Binary:
 NAME		=	zia
 
-# Sources:
-SRC		=	../src/main.cpp			\
-			../src/Logger.cpp		\
-			../src/Socket.cpp		\
-			../src/Thread.cpp		\
-			../src/ServerSocket.cpp		\
-			../src/HttpRequest.cpp		\
-			../src/HttpProducer.cpp		\
-			../src/HttpConsumer.cpp		\
-			../src/HttpParser.cpp		\
-			../src/URIParser.cpp		\
-#			../src/XmlDomConfig.cpp
+PATH_SRC	=	../src
 
-# Objects:
-OBJ		=	$(SRC:.cpp=.o)
+SRCS		=	$(PATH_SRC)/main.cpp		\
+			$(PATH_SRC)/Logger.cpp		\
+			$(PATH_SRC)/Socket.cpp		\
+			$(PATH_SRC)/Thread.cpp		\
+			$(PATH_SRC)/ServerSocket.cpp	\
+			$(PATH_SRC)/HttpRequest.cpp	\
+			$(PATH_SRC)/HttpProducer.cpp	\
+			$(PATH_SRC)/HttpConsumer.cpp	\
+			$(PATH_SRC)/HttpParser.cpp	\
+			$(PATH_SRC)/URIParser.cpp
 
-# Includes:
-INCS		=	-I../src `xml2-config --cflags`
+OBJS		=	$(SRCS:.cpp=.o)
 
-# Libraries:
-LIBS		=	-lpthread `xml2-config --libs`
+INCLUDES_XML	=	`xml2-config --cflags`
+LIBRARY_XML	=	`xml2-config --libs`
 
-# Tools:
+INCLUDES	+=	-I$(PATH_SRC) $(INCLUDES_XML)
+LIBRARY		+=	-lpthread $(LIBRARY_XML)
+
 CXX		=	g++
-RM		=	rm
-DEBUG		=	-g
-WARNINGS	+=	-Wall
-WARNINGS	+=	-Werror
+RM		=	rm -f
 
-CFLAGS		+=	$(WARNINGS) $(INCS)
-LDFLAGS		+=	$(LIBS)
+DEBUG_42	=	-g
 
-# Rules:
-all		:
-			make $(NAME)
+WARNINGS	+=	-W -Wall -Werror
 
-$(NAME)		:	$(OBJ)
-			$(CXX) -o $(NAME) *.o $(LDFLAGS)
+CFLAGS		+=	$(WARNINGS) $(INCLUDES)
+LDFLAGS		+=	$(LIBRARY)
+
+.SUFFIXES	:	.cpp.o
+
+$(NAME)		:	$(OBJS)
+			$(CXX) -o $@ $(OBJS) $(LDFLAGS)
+
+all		:	$(NAME)
 
 clean		:
-			-$(RM) -f *.o #$(OBJ)
-			-$(RM) -f *~
+			-$(RM) $(PATH_SRC)/*~
+			-$(RM) $(PATH_SRC)/*.o
+			-$(RM) *.core
 
 fclean		:	clean
-			-$(RM) -f $(NAME)
+			-$(RM) $(NAME)
 
 re		:	fclean all
 
 .PHONY		:	all clean fclean re
-.SUFFIXES	:	.cppo
+
+.cpp.o		:
+			$(CXX) $(CFLAGS) -c $< -o $@

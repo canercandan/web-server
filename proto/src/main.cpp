@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Sat Aug  2 11:33:46 2008 caner candan
+// Last update Sat Aug  2 17:50:05 2008 caner candan
 //
 
 #include <iostream>
@@ -15,7 +15,7 @@
 #include "HttpProducer.h"
 #include "ServerSocket.h"
 
-int		main(int ac, char **av)
+int		main(void)
 {
   Logger	logger;
   ServerSocket	server;

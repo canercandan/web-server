@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Sat Aug  2 11:51:44 2008 caner candan
+// Last update Sat Aug  2 16:30:16 2008 caner candan
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -20,26 +20,29 @@ public:
   HttpConsumer(HttpProducer* prod);
   ~HttpConsumer();
 
+  void	appendBuf(unsigned int size);
+
   bool	peekChar(char c);
 
-  bool	readChar(char c, bool extract = false);
-  bool	readRange(char begin, char end, bool extract = false);
-  bool	readText(char *text, bool extract = false);
-  bool	readInteger(bool extract = false);
-  bool	readIdentifier(bool extract = false);
+  bool	readChar(char c);
+  bool	readChar(char c, char& c_r);
 
-  std::string	toStr(void);
-  char		toChar(void);
-  int		toInt(void);
+  bool	readRange(char c_start, char c_end);
+  bool	readRange(char c_start, char c_end, char& c_r);
 
-  void	giveMeMoreIfntEnough(size_t size);
-  void	saveStartPos(bool extract);
+  bool	readText(const std::string& s);
+  bool	readText(const std::string& s, std::string& s_r);
+
+  bool	readInteger(void);
+  bool	readInteger(int& i_r);
+
+  bool	readIdentifier(void);
+  bool	readIdentifier(std::string& i_r);
 private:
   HttpProducer*	_prod;
 
   std::string	_buf;
-  size_t	_start;
-  size_t	_pos;
+  unsigned int	_pos;
 };
 
 #endif // __HTTP_CONSUMER_H__

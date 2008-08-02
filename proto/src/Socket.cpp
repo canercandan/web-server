@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 11:45:23 2008 morgan armand
-// Last update Wed Jul 30 18:13:00 2008 morgan armand
+// Last update Sat Aug  2 17:53:47 2008 caner candan
 //
 
 #include <iostream>
@@ -85,7 +85,7 @@ bool	Socket::listen(const int backlog)
   if (!this->isValid())
     return (false);
 
-  if (::listen(this->_sck, 42) == SOCKET_ERROR)
+  if (::listen(this->_sck, backlog) == SOCKET_ERROR)
     {
       std::cerr << "listen() failed" << std::endl;
 #ifdef WIN32
