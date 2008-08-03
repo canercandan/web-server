@@ -5,13 +5,16 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug  3 08:34:55 2008 caner candan
-// Last update Sun Aug  3 10:05:28 2008 caner candan
+// Last update Sun Aug  3 16:08:23 2008 caner candan
 //
 
 #ifndef __PARSER_H__
 # define __PARSER_H__
 
 # include "HttpConsumer.h"
+
+# define RULE(a)	(hc->testRule(a))
+# define CONSUM(a)	(hc->a)
 
 namespace	Parser
 {
@@ -37,8 +40,11 @@ namespace	Parser
 
   namespace	URI
   {
+    bool	readURIReference(HttpConsumer*);
     bool	readRequestURI(HttpConsumer*);
     bool	readAbsoluteURI(HttpConsumer*);
+    bool	readRelativeURI(HttpConsumer*);
+    bool	readFragment(HttpConsumer*);
     bool	readAbsPath(HttpConsumer*);
     bool	readAuthority(HttpConsumer*);
     bool	readPathSegments(HttpConsumer*);

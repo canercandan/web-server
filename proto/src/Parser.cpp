@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug  3 08:33:19 2008 caner candan
-// Last update Sun Aug  3 10:16:17 2008 caner candan
+// Last update Sun Aug  3 16:09:49 2008 caner candan
 //
 
 #include <iostream>
@@ -16,7 +16,7 @@ using namespace	Parser;
 
 void	Http::run(HttpConsumer* hc)
 {
-  if (readRequest(hc))
+  if (RULE(readRequest))
     std::cout << "Valid Request" << std::endl;
   else
     std::cout << "Invalid Request" << std::endl;
@@ -24,32 +24,32 @@ void	Http::run(HttpConsumer* hc)
 
 bool	Http::readRequest(HttpConsumer* hc)
 {
-  if (readRequestLine(hc))
+  if (RULE(readRequestLine))
     return (true);
   return (false);
 }
 
 bool	Http::readRequestLine(HttpConsumer* hc)
 {
-  if (readMethod(hc) && hc->readChar(' ') &&
-      URI::readRequestURI(hc) && hc->readChar(' ') &&
-      readHttpVersion(hc) &&
-      hc->readText("\r\n"))
+  if (RULE(readMethod) && CONSUM(readChar(' ')) &&
+      RULE(URI::readRequestURI) && CONSUM(readChar(' ')) &&
+      RULE(readHttpVersion) &&
+      CONSUM(readText("\r\n")))
     return (true);
   return (false);
 }
 
 bool	Http::readGeneralHeader(HttpConsumer* hc)
 {
-  if (hc->testRule(readCacheControl)		||
-      hc->testRule(readConnection)		||
-      hc->testRule(readDate)			||
-      hc->testRule(readPragma)			||
-      hc->testRule(readTrailer)			||
-      hc->testRule(readTransferEncoding)	||
-      hc->testRule(readUpgrade)			||
-      hc->testRule(readVia)			||
-      hc->testRule(readWarning))
+  if (RULE(readCacheControl)	||
+      RULE(readConnection)	||
+      RULE(readDate)		||
+      RULE(readPragma)		||
+      RULE(readTrailer)		||
+      RULE(readTransferEncoding)||
+      RULE(readUpgrade)		||
+      RULE(readVia)		||
+      RULE(readWarning))
     return (true);
   return (false);
 }
@@ -119,17 +119,15 @@ bool	Http::readWarning(HttpConsumer*)
 
 bool	Http::readMethod(HttpConsumer* hc)
 {
-  if (hc->readText("OPTIONS")	||
-      hc->readText("GET")	||
-      hc->readText("HEAD")	||
-      hc->readText("POST")	||
-      hc->readText("PUT")	||
-      hc->readText("DELETE")	||
-      hc->readText("TRACE")	||
-      hc->readText("CONNECT")	||
-      hc->testRule(readExtensionMethod))
-    return (true);
-  return (false);
+  return (CONSUM(readText("OPTIONS"))	||
+	  CONSUM(readText("GET"))	||
+	  CONSUM(readText("HEAD"))	||
+	  CONSUM(readText("POST"))	||
+	  CONSUM(readText("PUT"))	||
+	  CONSUM(readText("DELETE"))	||
+	  CONSUM(readText("TRACE"))	||
+	  CONSUM(readText("CONNECT"))	||
+	  RULE(readExtensionMethod));
 }
 
 bool	Http::readExtensionMethod(HttpConsumer*)
@@ -141,21 +139,39 @@ bool	Http::readExtensionMethod(HttpConsumer*)
 
 bool	Http::readHttpVersion(HttpConsumer* hc)
 {
-  if (hc->readText("HTTP") &&
-      hc->readChar('/') &&
-      hc->readInteger() &&
-      hc->readChar('.') &&
-      hc->readInteger())
+  if (CONSUM(readText("HTTP")) &&
+      CONSUM(readChar('/')) &&
+      CONSUM(readInteger()) &&
+      CONSUM(readChar('.')) &&
+      CONSUM(readInteger()))
     return (true);
+  return (false);
+}
+
+bool	URI::readURIReference(HttpConsumer* hc)
+{
+  return ((RULE(readAbsoluteURI)	||
+	   RULE(readRelativeURI))	&&
+	  CONSUM(readChar('#'))		&&
+	  RULE(readFragment));
+}
+
+bool	URI::readRelativeURI(HttpConsumer*)
+{
+  return (false);
+}
+
+bool	URI::readFragment(HttpConsumer*)
+{
   return (false);
 }
 
 bool	URI::readRequestURI(HttpConsumer* hc)
 {
-  return (hc->readChar('*')		||
-	  hc->testRule(readAbsoluteURI)	||
-	  hc->testRule(readAbsPath)	||
-	  hc->testRule(readAuthority));
+  return (CONSUM(readChar('*'))	||
+	  RULE(readAbsoluteURI)	||
+	  RULE(readAbsPath)	||
+	  RULE(readAuthority));
 }
 
 bool	URI::readAbsoluteURI(HttpConsumer*)
@@ -167,8 +183,8 @@ bool	URI::readAbsoluteURI(HttpConsumer*)
 
 bool	URI::readAbsPath(HttpConsumer* hc)
 {
-  return (hc->readChar('/') &&
-	  readPathSegments(hc));
+  return (CONSUM(readChar('/')) &&
+	  RULE(readPathSegments));
 }
 
 bool	URI::readAuthority(HttpConsumer*)
@@ -180,95 +196,95 @@ bool	URI::readAuthority(HttpConsumer*)
 
 bool	URI::readPathSegments(HttpConsumer* hc)
 {
-  if (!readSegment(hc))
+  if (!RULE(readSegment))
     return (false);
-  while (hc->readChar('/'))
-    readSegment(hc);
+  while (CONSUM(readChar('/')))
+    RULE(readSegment);
   return (true);
 }
 
 bool	URI::readSegment(HttpConsumer* hc)
 {
-  while (readPchar(hc));
-  while (hc->readChar(';') && readParam(hc));
+  while (RULE(readPchar));
+  while (CONSUM(readChar(';')) && RULE(readParam));
   return (true);
 }
 
 bool	URI::readPchar(HttpConsumer* hc)
 {
-  return (hc->testRule(readUnreserved)	||
-	  hc->testRule(readEscaped)	||
-	  hc->readChar(':')		||
-	  hc->readChar('@')		||
-	  hc->readChar('&')		||
-	  hc->readChar('=')		||
-	  hc->readChar('+')		||
-	  hc->readChar('$')		||
-	  hc->readChar(','));
+  return (RULE(readUnreserved)	||
+	  RULE(readEscaped)	||
+	  CONSUM(readChar(':'))	||
+	  CONSUM(readChar('@'))	||
+	  CONSUM(readChar('&'))	||
+	  CONSUM(readChar('='))	||
+	  CONSUM(readChar('+'))	||
+	  CONSUM(readChar('$'))	||
+	  CONSUM(readChar(',')));
 }
 
 bool	URI::readParam(HttpConsumer* hc)
 {
-  while (readPchar(hc));
+  while (RULE(readPchar));
   return (true);
 }
 
 bool	URI::readUnreserved(HttpConsumer* hc)
 {
-  return (hc->testRule(readAlphanum) ||
-	  hc->testRule(readMark));
+  return (RULE(readAlphanum) ||
+	  RULE(readMark));
 }
 
 bool	URI::readEscaped(HttpConsumer* hc)
 {
-  return (hc->readChar('%')	&&
-	  readHex(hc)		&&
-	  readHex(hc));
+  return (CONSUM(readChar('%'))	&&
+	  RULE(readHex)		&&
+	  RULE(readHex));
 }
 
 bool	URI::readAlphanum(HttpConsumer* hc)
 {
-  return (hc->testRule(readAlpha) ||
-	  hc->testRule(readDigit));
+  return (RULE(readAlpha) ||
+	  RULE(readDigit));
 }
 
 bool	URI::readMark(HttpConsumer* hc)
 {
-  return (hc->readChar('-')	||
-	  hc->readChar('_')	||
-	  hc->readChar('.')	||
-	  hc->readChar('!')	||
-	  hc->readChar('~')	||
-	  hc->readChar('*')	||
-	  hc->readChar('\'')	||
-	  hc->readChar('(')	||
-	  hc->readChar(')'));
+  return (CONSUM(readChar('-'))	||
+	  CONSUM(readChar('_'))	||
+	  CONSUM(readChar('.'))	||
+	  CONSUM(readChar('!'))	||
+	  CONSUM(readChar('~'))	||
+	  CONSUM(readChar('*'))	||
+	  CONSUM(readChar('\''))||
+	  CONSUM(readChar('('))	||
+	  CONSUM(readChar(')')));
 }
 
 bool	URI::readHex(HttpConsumer* hc)
 {
-  return (hc->testRule(readDigit)	||
-	  hc->readRange('A', 'F')	||
-	  hc->readRange('a', 'f'));
+  return (RULE(readDigit)		||
+	  CONSUM(readRange('A', 'F'))	||
+	  CONSUM(readRange('a', 'f')));
 }
 
 bool	URI::readDigit(HttpConsumer* hc)
 {
-  return (hc->readRange('0', '9'));
+  return (CONSUM(readRange('0', '9')));
 }
 
 bool	URI::readAlpha(HttpConsumer* hc)
 {
-  return (hc->testRule(readLowalpha) ||
-	  hc->testRule(readUpalpha));
+  return (RULE(readLowalpha) ||
+	  RULE(readUpalpha));
 }
 
 bool	URI::readLowalpha(HttpConsumer* hc)
 {
-  return (hc->readRange('a', 'z'));
+  return (CONSUM(readRange('a', 'z')));
 }
 
 bool	URI::readUpalpha(HttpConsumer* hc)
 {
-  return (hc->readRange('A', 'Z'));
+  return (CONSUM(readRange('A', 'Z')));
 }
