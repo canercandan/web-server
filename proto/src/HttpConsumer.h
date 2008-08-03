@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Sun Aug  3 10:10:03 2008 caner candan
+// Last update Sun Aug  3 14:26:10 2008 caner candan
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -13,11 +13,12 @@
 
 #include <string>
 #include "HttpProducer.h"
+#include "HttpRequest.h"
 
 class	HttpConsumer
 {
 public:
-  HttpConsumer(HttpProducer* prod);
+  HttpConsumer(HttpProducer* prod, HttpRequest* req);
   ~HttpConsumer();
 
   void	appendBuf(unsigned int size);
@@ -42,6 +43,7 @@ public:
   bool	readIdentifier(std::string& i_r);
 private:
   HttpProducer*	_prod;
+  HttpRequest*	_req;
 
   std::string	_buf;
   unsigned int	_pos;

@@ -5,15 +5,15 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Sun Aug  3 10:09:55 2008 caner candan
+// Last update Sun Aug  3 14:34:09 2008 caner candan
 //
 
 #include <sstream>
 #include <iostream>
 #include "HttpConsumer.h"
 
-HttpConsumer::HttpConsumer(HttpProducer* prod)
-  : _prod(prod), _pos(0)
+HttpConsumer::HttpConsumer(HttpProducer* prod, HttpRequest* req)
+  : _prod(prod), _req(req), _pos(0)
 {}
 
 HttpConsumer::~HttpConsumer()
@@ -21,7 +21,7 @@ HttpConsumer::~HttpConsumer()
 
 void	HttpConsumer::appendBuf(size_t size)
 {
-  if (this->_buf.size() <= size)
+  if (this->_buf.substr(this->_pos).size() < size)
     this->_buf += this->_prod->nextString();
 }
 
