@@ -5,14 +5,14 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Sat Aug  2 17:50:05 2008 caner candan
+// Last update Sun Aug  3 09:44:56 2008 caner candan
 //
 
 #include <iostream>
 #include "Logger.h"
 #include "Thread.h"
-#include "HttpParser.h"
 #include "HttpProducer.h"
+#include "HttpConsumer.h"
 #include "ServerSocket.h"
 
 int		main(void)
@@ -21,8 +21,8 @@ int		main(void)
   ServerSocket	server;
   Socket*	client;
   Thread*	thread;
-  HttpParser*	parser;
   HttpProducer*	prod;
+  HttpConsumer*	consum;
 
   logger.info("starting zia server");
   if (!server.create(4242))
@@ -36,8 +36,8 @@ int		main(void)
 	{
 	  logger.info("accept new connection from a client");
 	  prod = new HttpProducer(client);
-	  parser = new HttpParser(prod);
-	  thread = new Thread(parser);
+	  consum = new HttpConsumer(prod);
+	  thread = new Thread(consum);
 	  thread->start();
 	}
     }

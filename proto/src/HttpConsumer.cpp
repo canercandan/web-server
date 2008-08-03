@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Sat Aug  2 18:33:32 2008 caner candan
+// Last update Sun Aug  3 08:18:36 2008 caner candan
 //
 
 #include <sstream>
@@ -125,4 +125,15 @@ bool	HttpConsumer::readIdentifier(std::string& i_r)
     return (false);
   i_r = this->_buf.substr(start, this->_pos - start);
   return (true);
+}
+
+bool	HttpConsumer::testOR(bool (*left)(void),
+			     bool (*right)(void))
+{
+  unsigned int	start = this->_pos;
+
+  if (left() || right())
+    return (true);
+  this->_pos = start;
+  return (false);
 }
