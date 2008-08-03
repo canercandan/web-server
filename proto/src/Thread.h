@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:38:41 2008 morgan armand
-// Last update Sun Aug  3 09:45:39 2008 caner candan
+// Last update Sun Aug  3 09:47:55 2008 caner candan
 //
 
 #ifndef __THREAD_H__
@@ -18,7 +18,6 @@
 # include <pthread.h>
 #endif
 
-#include "IRunnable.h"
 #include "HttpConsumer.h"
 
 class	Thread
@@ -38,7 +37,6 @@ public:
 #endif
 
 private:
-  IRunnable*	_obj;
   HttpConsumer*	_hc;
 
 #ifdef WIN32

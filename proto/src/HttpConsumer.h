@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Sun Aug  3 08:18:17 2008 caner candan
+// Last update Sun Aug  3 10:10:03 2008 caner candan
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -22,8 +22,7 @@ public:
 
   void	appendBuf(unsigned int size);
 
-  bool	testOR(bool (*left)(void),
-	       bool (*right)(void));
+  bool	testRule(bool (*func)(HttpConsumer*));
 
   bool	peekChar(char c);
 

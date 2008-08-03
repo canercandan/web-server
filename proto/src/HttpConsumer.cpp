@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Sun Aug  3 08:18:36 2008 caner candan
+// Last update Sun Aug  3 10:09:55 2008 caner candan
 //
 
 #include <sstream>
@@ -23,6 +23,16 @@ void	HttpConsumer::appendBuf(size_t size)
 {
   if (this->_buf.size() <= size)
     this->_buf += this->_prod->nextString();
+}
+
+bool	HttpConsumer::testRule(bool (*func)(HttpConsumer*))
+{
+  unsigned int	start = this->_pos;
+
+  if (func(this))
+    return (true);
+  this->_pos = start;
+  return (false);
 }
 
 bool	HttpConsumer::peekChar(char c)
@@ -125,15 +135,4 @@ bool	HttpConsumer::readIdentifier(std::string& i_r)
     return (false);
   i_r = this->_buf.substr(start, this->_pos - start);
   return (true);
-}
-
-bool	HttpConsumer::testOR(bool (*left)(void),
-			     bool (*right)(void))
-{
-  unsigned int	start = this->_pos;
-
-  if (left() || right())
-    return (true);
-  this->_pos = start;
-  return (false);
 }
