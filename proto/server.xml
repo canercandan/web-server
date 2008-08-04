@@ -4,6 +4,20 @@
   -->
 <server port="4242" shutdown="SHUTDOWN42" debug="0" >
   <config>
-    <respecRfc value="true" />
+    <respect_rfc value="true" />
   </config>
+  <vhost>
+    <rootdir value="~toto" />
+    <host value="127.0.0.1" />
+    <domain value="toto.com" />
+    <logdir value="~toto/log" />
+    <errdir value="~toto/err" />
+  </vhost>
+  <vhost>
+    <rootdir value="~tata" />
+    <host value="127.0.0.1" />
+    <domain value="tata.com" />
+    <logdir value="~tata/log" />
+    <errdir value="~tata/err" />
+  </vhost>
 </server>
