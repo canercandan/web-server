@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug  3 08:34:55 2008 caner candan
-// Last update Sun Aug  3 16:08:23 2008 caner candan
+// Last update Sun Aug  3 23:21:45 2008 caner candan
 //
 
 #ifndef __PARSER_H__
@@ -45,12 +45,22 @@ namespace	Parser
     bool	readAbsoluteURI(HttpConsumer*);
     bool	readRelativeURI(HttpConsumer*);
     bool	readFragment(HttpConsumer*);
+    bool	readQuery(HttpConsumer*);
+    bool	readUric(HttpConsumer*);
+    bool	readUricNoSlash(HttpConsumer*);
+    bool	readScheme(HttpConsumer*);
+    bool	readHierPart(HttpConsumer*);
+    bool	readOpaquePart(HttpConsumer*);
+    bool	readNetPath(HttpConsumer*);
     bool	readAbsPath(HttpConsumer*);
+    bool	readRelPath(HttpConsumer*);
+    bool	readRelSegment(HttpConsumer*);
     bool	readAuthority(HttpConsumer*);
     bool	readPathSegments(HttpConsumer*);
     bool	readSegment(HttpConsumer*);
     bool	readPchar(HttpConsumer*);
     bool	readParam(HttpConsumer*);
+    bool	readReserved(HttpConsumer*);
     bool	readUnreserved(HttpConsumer*);
     bool	readEscaped(HttpConsumer*);
     bool	readAlphanum(HttpConsumer*);

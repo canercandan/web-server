@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug  3 08:33:19 2008 caner candan
-// Last update Sun Aug  3 16:09:49 2008 caner candan
+// Last update Sun Aug  3 23:22:22 2008 caner candan
 //
 
 #include <iostream>
@@ -32,7 +32,7 @@ bool	Http::readRequest(HttpConsumer* hc)
 bool	Http::readRequestLine(HttpConsumer* hc)
 {
   if (RULE(readMethod) && CONSUM(readChar(' ')) &&
-      RULE(URI::readRequestURI) && CONSUM(readChar(' ')) &&
+      RULE(URI::readURIReference) && CONSUM(readChar(' ')) &&
       RULE(readHttpVersion) &&
       CONSUM(readText("\r\n")))
     return (true);
@@ -150,41 +150,132 @@ bool	Http::readHttpVersion(HttpConsumer* hc)
 
 bool	URI::readURIReference(HttpConsumer* hc)
 {
-  return ((RULE(readAbsoluteURI)	||
-	   RULE(readRelativeURI))	&&
-	  CONSUM(readChar('#'))		&&
-	  RULE(readFragment));
+  if (RULE(readAbsoluteURI) ||
+      RULE(readRelativeURI));
+  if (CONSUM(readChar('#')) &&
+      RULE(readFragment));
+  return (true);
 }
 
-bool	URI::readRelativeURI(HttpConsumer*)
+bool	URI::readAbsoluteURI(HttpConsumer* hc)
 {
-  return (false);
+  return (RULE(readScheme) && CONSUM(readChar(':')) &&
+	  (RULE(readHierPart) ||
+	   RULE(readOpaquePart)));
 }
 
-bool	URI::readFragment(HttpConsumer*)
+bool	URI::readRelativeURI(HttpConsumer* hc)
 {
-  return (false);
+  if (!(RULE(readNetPath)	||
+	RULE(readAbsPath)	||
+	RULE(readRelPath)))
+    return (false);
+  if (CONSUM(readChar('?')) &&
+      RULE(readQuery));
+  return (true);
 }
 
-bool	URI::readRequestURI(HttpConsumer* hc)
+bool	URI::readFragment(HttpConsumer* hc)
 {
-  return (CONSUM(readChar('*'))	||
-	  RULE(readAbsoluteURI)	||
-	  RULE(readAbsPath)	||
-	  RULE(readAuthority));
+  while (RULE(readUric));
+  return (true);
 }
 
-bool	URI::readAbsoluteURI(HttpConsumer*)
+bool	URI::readQuery(HttpConsumer* hc)
 {
-  // TODO: Implementation
-  std::cerr << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;
-  return (false);
+  while (RULE(readUric));
+  return (true);
+}
+
+bool	URI::readUric(HttpConsumer* hc)
+{
+  return (RULE(readReserved)	||
+	  RULE(readUnreserved)	||
+	  RULE(readEscaped));
+}
+
+bool	URI::readUricNoSlash(HttpConsumer* hc)
+{
+  return (RULE(readUnreserved)	||
+	  RULE(readEscaped)	||
+	  CONSUM(readChar(';'))	||
+	  CONSUM(readChar('?'))	||
+	  CONSUM(readChar(':'))	||
+	  CONSUM(readChar('@'))	||
+	  CONSUM(readChar('&'))	||
+	  CONSUM(readChar('='))	||
+	  CONSUM(readChar('+'))	||
+	  CONSUM(readChar('$'))	||
+	  CONSUM(readChar(',')));
+}
+
+bool	URI::readScheme(HttpConsumer* hc)
+{
+  if (!RULE(readAlpha))
+    return (false);
+  while (RULE(readAlpha)	||
+	 RULE(readDigit)	||
+	 CONSUM(readChar('+'))	||
+	 CONSUM(readChar('-'))	||
+	 CONSUM(readChar('.')));
+  return (true);
+}
+
+bool	URI::readHierPart(HttpConsumer* hc)
+{
+  return ((RULE(readNetPath)	||
+	   RULE(readAbsPath))	&&
+	  CONSUM(readChar('?')) &&
+	  RULE(readQuery));
+}
+
+bool	URI::readOpaquePart(HttpConsumer* hc)
+{
+  if (!RULE(readUricNoSlash))
+    return (false);
+  while (RULE(readUric));
+  return (true);
+}
+
+bool	URI::readNetPath(HttpConsumer* hc)
+{
+  if (!(CONSUM(readText("//"))	&&
+	RULE(readAuthority)))
+    return (false);
+  RULE(readAbsPath);
+  return (true);
 }
 
 bool	URI::readAbsPath(HttpConsumer* hc)
 {
   return (CONSUM(readChar('/')) &&
 	  RULE(readPathSegments));
+}
+
+bool	URI::readRelPath(HttpConsumer* hc)
+{
+  if (RULE(readRelSegment))
+    return (false);
+  RULE(readAbsPath);
+  return (true);
+}
+
+bool	URI::readRelSegment(HttpConsumer* hc)
+{
+  int	i;
+
+  for (i = 0;
+       (RULE(readUnreserved)	||
+	RULE(readEscaped)	||
+	CONSUM(readChar(';'))	||
+	CONSUM(readChar('@'))	||
+	CONSUM(readChar('&'))	||
+	CONSUM(readChar('='))	||
+	CONSUM(readChar('+'))	||
+	CONSUM(readChar('$'))	||
+	CONSUM(readChar(',')));
+       i++);
+  return (i > 0);
 }
 
 bool	URI::readAuthority(HttpConsumer*)
@@ -227,6 +318,20 @@ bool	URI::readParam(HttpConsumer* hc)
 {
   while (RULE(readPchar));
   return (true);
+}
+
+bool	URI::readReserved(HttpConsumer* hc)
+{
+  return (CONSUM(readChar(';'))	||
+	  CONSUM(readChar('/'))	||
+	  CONSUM(readChar('?'))	||
+	  CONSUM(readChar(':'))	||
+	  CONSUM(readChar('@'))	||
+	  CONSUM(readChar('&'))	||
+	  CONSUM(readChar('='))	||
+	  CONSUM(readChar('+'))	||
+	  CONSUM(readChar('$'))	||
+	  CONSUM(readChar(',')));
 }
 
 bool	URI::readUnreserved(HttpConsumer* hc)
