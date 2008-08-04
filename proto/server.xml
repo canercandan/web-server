@@ -4,6 +4,6 @@
   -->
 <server port="4242" shutdown="SHUTDOWN42" debug="0" >
   <config>
-    <respecRfc lala="true" />
+    <respecRfc value="true" />
   </config>
 </server>
