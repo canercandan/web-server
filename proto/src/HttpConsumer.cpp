@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Mon Aug  4 00:17:41 2008 caner candan
+// Last update Mon Aug  4 02:37:43 2008 caner candan
 //
 
 #include <sstream>
@@ -18,6 +18,11 @@ HttpConsumer::HttpConsumer(HttpProducer* prod, HttpRequest* req)
 
 HttpConsumer::~HttpConsumer()
 {}
+
+std::string	HttpConsumer::getBuf(void)
+{
+  return (this->_buf.substr(this->_pos));
+}
 
 void	HttpConsumer::appendBuf(size_t size)
 {

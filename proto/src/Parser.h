@@ -5,13 +5,15 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug  3 08:34:55 2008 caner candan
-// Last update Mon Aug  4 01:07:34 2008 caner candan
+// Last update Mon Aug  4 02:15:38 2008 caner candan
 //
 
 #ifndef __PARSER_H__
 # define __PARSER_H__
 
 # include "HttpConsumer.h"
+
+# define DEBUG		true
 
 # define RULE(a)	(hc->testRule(a))
 # define RULEINT(a)	(hc->testRule(a) ? true : true)

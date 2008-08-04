@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Mon Aug  4 00:16:53 2008 caner candan
+// Last update Mon Aug  4 02:34:42 2008 caner candan
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -21,6 +21,8 @@ class	HttpConsumer
 public:
   HttpConsumer(HttpProducer* prod, HttpRequest* req);
   ~HttpConsumer();
+
+  std::string	getBuf(void);
 
   void	appendBuf(unsigned int size);
 
