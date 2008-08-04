@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Sun Aug  3 14:26:10 2008 caner candan
+// Last update Mon Aug  4 00:16:53 2008 caner candan
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -17,13 +17,16 @@
 
 class	HttpConsumer
 {
+  typedef bool (*func)(HttpConsumer*);
 public:
   HttpConsumer(HttpProducer* prod, HttpRequest* req);
   ~HttpConsumer();
 
   void	appendBuf(unsigned int size);
 
-  bool	testRule(bool (*func)(HttpConsumer*));
+  bool	testRule(func);
+  bool	loopRuleAdd(func);
+  bool	loopRuleMul(func);
 
   bool	peekChar(char c);
 

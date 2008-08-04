@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Sun Aug  3 14:34:09 2008 caner candan
+// Last update Mon Aug  4 00:17:41 2008 caner candan
 //
 
 #include <sstream>
@@ -25,14 +25,28 @@ void	HttpConsumer::appendBuf(size_t size)
     this->_buf += this->_prod->nextString();
 }
 
-bool	HttpConsumer::testRule(bool (*func)(HttpConsumer*))
+bool	HttpConsumer::testRule(func fct)
 {
   unsigned int	start = this->_pos;
 
-  if (func(this))
+  if (fct(this))
     return (true);
   this->_pos = start;
   return (false);
+}
+
+bool	HttpConsumer::loopRuleAdd(func fct)
+{
+  int	i;
+
+  for (i = 0; fct(this); i++);
+  return (i > 0);
+}
+
+bool	HttpConsumer::loopRuleMul(func fct)
+{
+  while (fct(this));
+  return (true);
 }
 
 bool	HttpConsumer::peekChar(char c)
