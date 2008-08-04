@@ -5,28 +5,36 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Sun Aug  3 13:44:16 2008 caner candan
+// Last update Mon Aug  4 10:03:16 2008 User Toumi_m
 //
 
 #include <iostream>
+#include <sstream>
 #include "Logger.h"
 #include "Thread.h"
 #include "HttpProducer.h"
 #include "HttpConsumer.h"
 #include "ServerSocket.h"
+#include "XmlDomConfig.h"
 
-int		main(void)
+int			main(void)
 {
-  Logger	logger;
-  ServerSocket	server;
-  Socket*	client;
-  Thread*	thread;
-  HttpProducer*	prod;
-  HttpConsumer*	consum;
-  HttpRequest*	req;
+  Logger		logger;
+  ServerSocket		server;
+  Socket*		client;
+  Thread*		thread;
+  HttpProducer*		prod;
+  HttpConsumer*		consum;
+  HttpRequest*		req;
+  XmlDomConfig*		xml;
+  int			port;
 
+  xml = new XmlDomConfig(SERVER_CONF);
+  xml->xmlDumpConfig();
+  std::istringstream value(xml->getValue("port"));
+  value >> port;
   logger.info("starting zia server");
-  if (!server.create(4242))
+  if (!server.create(port))
     {
       logger.error("an error occured while starting the server");
       return (1);

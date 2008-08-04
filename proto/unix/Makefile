@@ -5,7 +5,7 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Sun Aug  3 09:48:21 2008 caner candan
+## Last update Mon Aug  4 08:47:11 2008 User Toumi_m
 ##
 
 NAME		=	zia
@@ -20,7 +20,8 @@ SRCS		=	$(PATH_SRC)/main.cpp		\
 			$(PATH_SRC)/HttpRequest.cpp	\
 			$(PATH_SRC)/HttpProducer.cpp	\
 			$(PATH_SRC)/HttpConsumer.cpp	\
-			$(PATH_SRC)/Parser.cpp
+			$(PATH_SRC)/Parser.cpp		\
+			$(PATH_SRC)/XmlDomConfig.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
@@ -28,7 +29,7 @@ INCLUDES_XML	=	`xml2-config --cflags`
 LIBRARY_XML	=	`xml2-config --libs`
 
 INCLUDES	+=	-I$(PATH_SRC) $(INCLUDES_XML)
-LIBRARY		+=	-lpthread $(LIBRARY_XML)
+LIBRARIES	+=	-lpthread $(LIBRARY_XML)
 
 CXX		=	g++
 RM		=	rm -f
@@ -38,7 +39,7 @@ DEBUG_42	=	-g
 WARNINGS	+=	-W -Wall -Werror
 
 CFLAGS		+=	$(WARNINGS) $(INCLUDES)
-LDFLAGS		+=	$(LIBRARY)
+LDFLAGS		+=	$(LIBRARIES)
 
 .SUFFIXES	:	.cpp.o
 

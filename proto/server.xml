@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    server.xml for ** Zia ** ->> server configuration file
+  -->
+<server port="4242" shutdown="SHUTDOWN42" debug="0" >
+  <config>
+    <respecRfc lala="true" />
+  </config>
+</server>
