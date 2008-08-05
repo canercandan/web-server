@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Tue Aug  5 10:20:10 2008 morgan armand
+// Last update Mon Aug  4 18:44:40 2008 User Toumi_m
 //
 
 #include <iostream>
@@ -14,7 +14,7 @@
 #include "Logger.h"
 #include "Thread.h"
 #include "ServerSocket.h"
-#include "XmlDomConfig.h"
+#include "ParserXml.h"
 
 int			main(void)
 {
@@ -23,15 +23,14 @@ int			main(void)
   Socket*		socket;
   Client*		client;
   Thread*		thread;
-  XmlDomConfig*		xml;
-  int			port;
+  ParserXml*		xml;
+  ZiaConfiguration	conf;
 
-  xml = new XmlDomConfig(SERVER_CONF);
+  xml = new ParserXml(SERVER_XML);
   xml->xmlDumpConfig();
-  std::istringstream value(xml->getValue("port"));
-  value >> port;
+  conf = xml->xmlLoadConfig();
   logger.info("starting zia server");
-  if (!server.create(port))
+  if (!server.create(conf.getPort()))
     {
       logger.error("an error occured while starting the server");
       return (1);

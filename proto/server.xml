@@ -2,22 +2,36 @@
 <!--
     server.xml for ** Zia ** ->> server configuration file
   -->
-<server port="8080" shutdown="SHUTDOWN42" debug="0" >
+<server>
   <config>
-    <respect_rfc value="true" />
+    <name>
+      myZia
+    </name>
+    <port>
+      4242
+    </port>
+    <shutdown>
+      shutdown42
+    </shutdown>
+    <debug>
+      true
+    </debug>
+    <respect_rfc>
+      strict
+    </respect_rfc>
   </config>
-  <vhost>
+  <virtual_host>
     <rootdir value="~toto" />
     <host value="127.0.0.1" />
     <domain value="toto.com" />
     <logdir value="~toto/log" />
     <errdir value="~toto/err" />
-  </vhost>
-  <vhost>
+  </virtual_host>
+  <virtual_host>
     <rootdir value="~tata" />
     <host value="127.0.0.1" />
     <domain value="tata.com" />
     <logdir value="~tata/log" />
     <errdir value="~tata/err" />
-  </vhost>
+  </virtual_host>
 </server>
