@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:38:41 2008 morgan armand
-// Last update Sun Aug  3 13:42:21 2008 caner candan
+// Last update Sat Aug  2 11:07:29 2008 morgan armand
 //
 
 #ifndef __THREAD_H__
@@ -18,12 +18,12 @@
 # include <pthread.h>
 #endif
 
-#include "HttpConsumer.h"
+#include "IRunnable.h"
 
 class	Thread
 {
 public:
-  Thread(HttpConsumer*);
+  Thread(IRunnable* obj);
 
   // This method create the thread and start it.
   void	start();
@@ -37,7 +37,7 @@ public:
 #endif
 
 private:
-  HttpConsumer*	_hc;
+  IRunnable*	_obj;
 
 #ifdef WIN32
   HANDLE	thread;

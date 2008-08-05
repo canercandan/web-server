@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug  3 08:33:19 2008 caner candan
-// Last update Mon Aug  4 02:47:03 2008 caner candan
+// Last update Tue Aug  5 10:51:47 2008 morgan armand
 //
 
 #include <iostream>
@@ -40,10 +40,21 @@ bool	Http::readRequestLine(HttpConsumer* hc)
 	      << hc->getBuf() << std::endl;
   return (RULE(readMethod)		&&
 	  CONSUM(readChar(' '))		&&
-	  RULE(URI::readURIReference)	&&
+	  RULE(readRequestURI)		&&
 	  CONSUM(readChar(' '))		&&
 	  RULE(readHttpVersion)		&&
 	  CONSUM(readText("\r\n")));
+}
+
+bool	Http::readRequestURI(HttpConsumer* hc)
+{
+  if (DEBUG)
+    std::cout << __FUNCTION__ << "->"
+	      << hc->getBuf() << std::endl;
+  return (CONSUM(readChar('*'))		||
+	  RULE(URI::readAbsoluteURI)	||
+	  RULE(URI::readAbsPath)	||
+	  RULE(URI::readAuthority));
 }
 
 bool	Http::readGeneralHeader(HttpConsumer* hc)

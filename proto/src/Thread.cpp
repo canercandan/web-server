@@ -5,27 +5,29 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:39:45 2008 morgan armand
-// Last update Sun Aug  3 09:45:24 2008 caner candan
+// Last update Sat Aug  2 11:38:40 2008 morgan armand
 //
 
 #include <iostream>
 #include "Thread.h"
-#include "Parser.h"
 
-Thread::Thread(HttpConsumer* hc)
-  : _hc(hc)
-{}
+Thread::Thread(IRunnable* obj)
+  : _obj(obj)
+{
+}
 
 void	Thread::start()
 {
 #ifdef WIN32
-  if ((this->thread = CreateThread(NULL, 0, Thread::threadProc,
-				   this->_hc, 0, NULL)) == NULL)
-    std::cerr << "CreateThread() failed" << std::endl;
+  if ((this->thread = CreateThread(NULL, 0, Thread::threadProc, _obj, 0, NULL)) == NULL)
+    {
+      std::cerr << "CreateThread() failed" << std::endl;
+    }
 #else
-  if (pthread_create(&(this->thread), NULL, Thread::threadProc,
-		     this->_hc))
-    std::cerr << "pthread_create() failed" << std::endl;
+  if (pthread_create(&(this->thread), NULL, Thread::threadProc, _obj))
+    {
+      std::cerr << "pthread_create() failed" << std::endl;
+    }
 #endif
 }
 
@@ -35,7 +37,7 @@ DWORD WINAPI	Thread::threadProc(LPVOID arg)
   void*		Thread::threadProc(void* arg)
 #endif
 {
-  Parser::Http::run((HttpConsumer*)arg);
+  ((IRunnable *)arg)->run();
 #ifdef WIN32
   return (0);
 #else

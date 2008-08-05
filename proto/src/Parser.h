@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug  3 08:34:55 2008 caner candan
-// Last update Mon Aug  4 02:15:38 2008 caner candan
+// Last update Tue Aug  5 10:52:14 2008 morgan armand
 //
 
 #ifndef __PARSER_H__
@@ -30,6 +30,7 @@ namespace	Parser
     bool	readRequest(HttpConsumer*);
     bool	readRequestLine(HttpConsumer*);
     bool	readMethod(HttpConsumer*);
+    bool	readRequestURI(HttpConsumer*);
     bool	readExtensionMethod(HttpConsumer*);
     bool	readHttpVersion(HttpConsumer*);
     bool	readGeneralHeader(HttpConsumer*);
