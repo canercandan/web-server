@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 09:40:58 2008 morgan armand
-// Last update Wed Jul 30 10:34:42 2008 morgan armand
+// Last update Tue Aug  5 11:36:44 2008 caner candan
 //
 
 #ifndef __LOGGER_H__
@@ -35,4 +35,3 @@ public:
 };
 
 #endif // __LOGGER_H__
-

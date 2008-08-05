@@ -2,7 +2,7 @@
 <!--
     server.xml for ** Zia ** ->> server configuration file
   -->
-<server port="4242" shutdown="SHUTDOWN42" debug="0" >
+<server port="8080" shutdown="SHUTDOWN42" debug="0" >
   <config>
     <respect_rfc value="true" />
   </config>

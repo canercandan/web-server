@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug  3 08:34:55 2008 caner candan
-// Last update Tue Aug  5 10:52:14 2008 morgan armand
+// Last update Tue Aug  5 11:59:47 2008 caner candan
 //
 
 #ifndef __PARSER_H__
@@ -13,8 +13,10 @@
 
 # include "HttpConsumer.h"
 
-# define DEBUG		true
+# define DEBUG_PARSER	true
 
+# define BUFFER()	(Debug::getBuf(hc, __FUNCTION__))
+# define RETURN(a)	return (Debug::getRes(__FUNCTION__, (a)))
 # define RULE(a)	(hc->testRule(a))
 # define RULEINT(a)	(hc->testRule(a) ? true : true)
 # define CONSUM(a)	(hc->a)
@@ -24,6 +26,14 @@
 
 namespace	Parser
 {
+  namespace	Debug
+  {
+    void	getBuf(HttpConsumer*,
+		       const std::string& sFunc);
+    bool	getRes(const std::string& sFunc,
+		       bool res);
+  };
+
   namespace	Http
   {
     void	run(HttpConsumer*);
@@ -84,8 +94,10 @@ namespace	Parser
     bool	readHostnameLoop(HttpConsumer*);
     bool	readIPv4address(HttpConsumer*);
     bool	readDomainlabel(HttpConsumer*);
+    bool	readDomainlabelCond(HttpConsumer*);
     bool	readDomainlabelLoop(HttpConsumer*);
     bool	readToplabel(HttpConsumer*);
+    bool	readToplabelCond(HttpConsumer*);
     bool	readToplabelLoop(HttpConsumer*);
     bool	readPathSegments(HttpConsumer*);
     bool	readPathSegmentsLoop(HttpConsumer*);

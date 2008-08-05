@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug  3 08:33:19 2008 caner candan
-// Last update Tue Aug  5 10:51:47 2008 morgan armand
+// Last update Tue Aug  5 11:58:13 2008 caner candan
 //
 
 #include <iostream>
@@ -14,11 +14,29 @@
 
 using namespace	Parser;
 
+void	Debug::getBuf(HttpConsumer* hc,
+		      const std::string& sFunc)
+{
+  if (DEBUG_PARSER)
+    std::cout << '[' << sFunc << ']'
+	      << " -> "
+	      << '[' << hc->getBuf() << ']'
+	      << std::endl;
+}
+
+bool	Debug::getRes(const std::string& sFunc,
+		      bool res)
+{
+  if (DEBUG_PARSER)
+    std::cout << '[' << sFunc << ']'
+	      << " -> "
+	      << '[' << std::boolalpha << res << ']'
+	      << std::endl;
+  return (res);
+}
+
 void	Http::run(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
   if (RULE(readRequest))
     std::cout << "Valid Request" << std::endl;
   else
@@ -27,710 +45,582 @@ void	Http::run(HttpConsumer* hc)
 
 bool	Http::readRequest(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readRequestLine));
+  BUFFER();
+  RETURN(RULE(readRequestLine));
 }
 
 bool	Http::readRequestLine(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readMethod)		&&
-	  CONSUM(readChar(' '))		&&
-	  RULE(readRequestURI)		&&
-	  CONSUM(readChar(' '))		&&
-	  RULE(readHttpVersion)		&&
-	  CONSUM(readText("\r\n")));
+  BUFFER();
+  RETURN(RULE(readMethod)		&&
+	 CONSUM(readChar(' '))		&&
+	 RULE(readRequestURI)		&&
+	 CONSUM(readChar(' '))		&&
+	 RULE(readHttpVersion)		&&
+	 CONSUM(readText("\r\n")));
 }
 
 bool	Http::readRequestURI(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readChar('*'))		||
-	  RULE(URI::readAbsoluteURI)	||
-	  RULE(URI::readAbsPath)	||
-	  RULE(URI::readAuthority));
+  BUFFER();
+  RETURN(CONSUM(readChar('*'))		||
+	 RULE(URI::readAbsoluteURI)	||
+	 RULE(URI::readAbsPath)	||
+	 RULE(URI::readAuthority));
 }
 
 bool	Http::readGeneralHeader(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readCacheControl)	||
-	  RULE(readConnection)		||
-	  RULE(readDate)		||
-	  RULE(readPragma)		||
-	  RULE(readTrailer)		||
-	  RULE(readTransferEncoding)	||
-	  RULE(readUpgrade)		||
-	  RULE(readVia)			||
-	  RULE(readWarning));
+  BUFFER();
+  RETURN(RULE(readCacheControl)	||
+	 RULE(readConnection)		||
+	 RULE(readDate)		||
+	 RULE(readPragma)		||
+	 RULE(readTrailer)		||
+	 RULE(readTransferEncoding)	||
+	 RULE(readUpgrade)		||
+	 RULE(readVia)			||
+	 RULE(readWarning));
 }
 
 bool	Http::readCacheControl(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (false);
+  BUFFER();
+  RETURN(false);
 }
 
 bool	Http::readConnection(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (false);
+  BUFFER();
+  RETURN(false);
 }
 
 bool	Http::readDate(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (false);
+  BUFFER();
+  RETURN(false);
 }
 
 bool	Http::readPragma(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (false);
+  BUFFER();
+  RETURN(false);
 }
 
 bool	Http::readTrailer(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (false);
+  BUFFER();
+  RETURN(false);
 }
 
 bool	Http::readTransferEncoding(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (false);
+  BUFFER();
+  RETURN(false);
 }
 
 bool	Http::readUpgrade(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (false);
+  BUFFER();
+  RETURN(false);
 }
 
 bool	Http::readVia(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (false);
+  BUFFER();
+  RETURN(false);
 }
 
 bool	Http::readWarning(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (false);
+  BUFFER();
+  RETURN(false);
 }
 
 bool	Http::readMethod(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readText("OPTIONS"))	||
-	  CONSUM(readText("GET"))	||
-	  CONSUM(readText("HEAD"))	||
-	  CONSUM(readText("POST"))	||
-	  CONSUM(readText("PUT"))	||
-	  CONSUM(readText("DELETE"))	||
-	  CONSUM(readText("TRACE"))	||
-	  CONSUM(readText("CONNECT"))	||
-	  RULE(readExtensionMethod));
+  BUFFER();
+  RETURN(CONSUM(readText("OPTIONS"))	||
+	 CONSUM(readText("GET"))	||
+	 CONSUM(readText("HEAD"))	||
+	 CONSUM(readText("POST"))	||
+	 CONSUM(readText("PUT"))	||
+	 CONSUM(readText("DELETE"))	||
+	 CONSUM(readText("TRACE"))	||
+	 CONSUM(readText("CONNECT"))	||
+	 RULE(readExtensionMethod));
 }
 
 bool	Http::readExtensionMethod(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (false);
+  BUFFER();
+  RETURN(false);
 }
 
 bool	Http::readHttpVersion(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readText("HTTP"))	&&
-	  CONSUM(readChar('/'))		&&
-	  CONSUM(readInteger())		&&
-	  CONSUM(readChar('.'))		&&
-	  CONSUM(readInteger()));
+  BUFFER();
+  RETURN(CONSUM(readText("HTTP"))	&&
+	 CONSUM(readChar('/'))		&&
+	 CONSUM(readInteger())		&&
+	 CONSUM(readChar('.'))		&&
+	 CONSUM(readInteger()));
 }
 
 bool	URI::readURIReference(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULEINT(readURIReferenceCond1) &&
-	  RULEINT(readURIReferenceCond2));
+  BUFFER();
+  RETURN(RULEINT(readURIReferenceCond1) &&
+	 RULEINT(readURIReferenceCond2));
 }
 
 bool	URI::readURIReferenceCond1(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readAbsoluteURI) ||
-	  RULE(readRelativeURI));
+  BUFFER();
+  RETURN(RULE(readAbsoluteURI) ||
+	 RULE(readRelativeURI));
 }
 
 bool	URI::readURIReferenceCond2(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readChar('#')) &&
-	  RULE(readFragment));
+  BUFFER();
+  RETURN(CONSUM(readChar('#')) &&
+	 RULE(readFragment));
 }
 
 bool	URI::readAbsoluteURI(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readScheme)	&&
-	  CONSUM(readChar(':')) &&
-	  (RULE(readHierPart)	||
-	   RULE(readOpaquePart)));
+  BUFFER();
+  RETURN(RULE(readScheme)	&&
+	 CONSUM(readChar(':')) &&
+	 (RULE(readHierPart)	||
+	  RULE(readOpaquePart)));
 }
 
 bool	URI::readRelativeURI(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return ((RULE(readNetPath)	||
-	   RULE(readAbsPath)	||
-	   RULE(readRelPath))	&&
-	  RULEINT(readRelativeURICond));
+  BUFFER();
+  RETURN((RULE(readNetPath)	||
+	  RULE(readAbsPath)	||
+	  RULE(readRelPath))	&&
+	 RULEINT(readRelativeURICond));
 }
 
 bool	URI::readRelativeURICond(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readChar('?')) &&
-	  RULE(readQuery));
+  BUFFER();
+  RETURN(CONSUM(readChar('?')) &&
+	 RULE(readQuery));
 }
 
 bool	URI::readFragment(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (LOOPM(readUric));
+  BUFFER();
+  RETURN(LOOPM(readUric));
 }
 
 bool	URI::readQuery(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (LOOPM(readUric));
+  BUFFER();
+  RETURN(LOOPM(readUric));
 }
 
 bool	URI::readUric(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readReserved)	||
-	  RULE(readUnreserved)	||
-	  RULE(readEscaped));
+  BUFFER();
+  RETURN(RULE(readReserved)	||
+	 RULE(readUnreserved)	||
+	 RULE(readEscaped));
 }
 
 bool	URI::readUricNoSlash(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readUnreserved)	||
-	  RULE(readEscaped)	||
-	  CONSUM(readChar(';'))	||
-	  CONSUM(readChar('?'))	||
-	  CONSUM(readChar(':'))	||
-	  CONSUM(readChar('@'))	||
-	  CONSUM(readChar('&'))	||
-	  CONSUM(readChar('='))	||
-	  CONSUM(readChar('+'))	||
-	  CONSUM(readChar('$'))	||
-	  CONSUM(readChar(',')));
+  BUFFER();
+  RETURN(RULE(readUnreserved)	||
+	 RULE(readEscaped)	||
+	 CONSUM(readChar(';'))	||
+	 CONSUM(readChar('?'))	||
+	 CONSUM(readChar(':'))	||
+	 CONSUM(readChar('@'))	||
+	 CONSUM(readChar('&'))	||
+	 CONSUM(readChar('='))	||
+	 CONSUM(readChar('+'))	||
+	 CONSUM(readChar('$'))	||
+	 CONSUM(readChar(',')));
 }
 
 bool	URI::readScheme(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readAlpha) &&
-	  LOOPM(readSchemeLoop));
+  BUFFER();
+  RETURN(RULE(readAlpha) &&
+	 LOOPM(readSchemeLoop));
 }
 
 bool	URI::readSchemeLoop(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readAlpha)	||
-	  RULE(readDigit)	||
-	  CONSUM(readChar('+'))	||
-	  CONSUM(readChar('-'))	||
-	  CONSUM(readChar('.')));
+  BUFFER();
+  RETURN(RULE(readAlpha)	||
+	 RULE(readDigit)	||
+	 CONSUM(readChar('+'))	||
+	 CONSUM(readChar('-'))	||
+	 CONSUM(readChar('.')));
 }
 
 bool	URI::readHierPart(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return ((RULE(readNetPath)	||
-	   RULE(readAbsPath))	&&
-	  RULEINT(readHierPartCond));
+  BUFFER();
+  RETURN((RULE(readNetPath)	||
+	  RULE(readAbsPath))	&&
+	 RULEINT(readHierPartCond));
 }
 
 bool	URI::readHierPartCond(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readChar('?')) &&
-	  RULE(readQuery));
+  BUFFER();
+  RETURN(CONSUM(readChar('?')) &&
+	 RULE(readQuery));
 }
 
 bool	URI::readOpaquePart(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << std::endl;
-  return (RULE(readUricNoSlash) &&
-	  LOOPM(readUric));
+  BUFFER();
+  RETURN(RULE(readUricNoSlash) &&
+	 LOOPM(readUric));
 }
 
 bool	URI::readNetPath(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readText("//"))	&&
-	  RULE(readAuthority)		&&
-	  RULEINT(readAbsPath));
+  BUFFER();
+  RETURN(CONSUM(readText("//"))	&&
+	 RULE(readAuthority)		&&
+	 RULEINT(readAbsPath));
 }
 
 bool	URI::readAbsPath(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readChar('/')) &&
-	  RULE(readPathSegments));
+  BUFFER();
+  RETURN(CONSUM(readChar('/')) &&
+	 RULE(readPathSegments));
 }
 
 bool	URI::readRelPath(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readRelSegment) &&
-	  RULEINT(readAbsPath));
+  BUFFER();
+  RETURN(RULE(readRelSegment) &&
+	 RULEINT(readAbsPath));
 }
 
 bool	URI::readRelSegmentLoop(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readUnreserved)	||
-	  RULE(readEscaped)	||
-	  CONSUM(readChar(';'))	||
-	  CONSUM(readChar('@'))	||
-	  CONSUM(readChar('&'))	||
-	  CONSUM(readChar('='))	||
-	  CONSUM(readChar('+'))	||
-	  CONSUM(readChar('$'))	||
-	  CONSUM(readChar(',')));
+  BUFFER();
+  RETURN(RULE(readUnreserved)	||
+	 RULE(readEscaped)	||
+	 CONSUM(readChar(';'))	||
+	 CONSUM(readChar('@'))	||
+	 CONSUM(readChar('&'))	||
+	 CONSUM(readChar('='))	||
+	 CONSUM(readChar('+'))	||
+	 CONSUM(readChar('$'))	||
+	 CONSUM(readChar(',')));
 }
 
 bool	URI::readRelSegment(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (LOOPA(readRelSegmentLoop));
+  BUFFER();
+  RETURN(LOOPA(readRelSegmentLoop));
 }
 
 bool	URI::readAuthority(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << std::endl;
-  return (RULE(readServer) ||
-	  RULE(readRegName));
+  BUFFER();
+  RETURN(RULE(readServer) ||
+	 RULE(readRegName));
 }
 
 bool	URI::readServer(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULEINT(readServerCond));
+  BUFFER();
+  RETURN(RULEINT(readServerCond));
 }
 
 bool	URI::readServerCond(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << std::endl;
-  return (RULEINT(readServerCondCond) &&
-	  RULE(readHostport));
+  BUFFER();
+  RETURN(RULEINT(readServerCondCond) &&
+	 RULE(readHostport));
 }
 
 bool	URI::readServerCondCond(HttpConsumer* hc)
 {
-  return (RULE(readUserinfo) &&
-	  CONSUM(readChar('@')));
+  BUFFER();
+  RETURN(RULE(readUserinfo) &&
+	 CONSUM(readChar('@')));
 }
 
 bool	URI::readRegName(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (LOOPA(readRegNameLoop));
+  BUFFER();
+  RETURN(LOOPA(readRegNameLoop));
 }
 
 bool	URI::readRegNameLoop(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readUnreserved)	||
-	  RULE(readEscaped)	||
-	  CONSUM(readChar('$'))	||
-	  CONSUM(readChar(','))	||
-	  CONSUM(readChar(';'))	||
-	  CONSUM(readChar(':'))	||
-	  CONSUM(readChar('@'))	||
-	  CONSUM(readChar('&'))	||
-	  CONSUM(readChar('='))	||
-	  CONSUM(readChar('+')));
+  BUFFER();
+  RETURN(RULE(readUnreserved)	||
+	 RULE(readEscaped)	||
+	 CONSUM(readChar('$'))	||
+	 CONSUM(readChar(','))	||
+	 CONSUM(readChar(';'))	||
+	 CONSUM(readChar(':'))	||
+	 CONSUM(readChar('@'))	||
+	 CONSUM(readChar('&'))	||
+	 CONSUM(readChar('='))	||
+	 CONSUM(readChar('+')));
 }
 
 bool	URI::readUserinfo(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (LOOPM(readUserinfoLoop));
+  BUFFER();
+  RETURN(LOOPM(readUserinfoLoop));
 }
 
 bool	URI::readUserinfoLoop(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readUnreserved)	||
-	  RULE(readEscaped)	||
-	  CONSUM(readChar(';'))	||
-	  CONSUM(readChar(':'))	||
-	  CONSUM(readChar('&'))	||
-	  CONSUM(readChar('='))	||
-	  CONSUM(readChar('+'))	||
-	  CONSUM(readChar('$'))	||
-	  CONSUM(readChar(',')));
+  BUFFER();
+  RETURN(RULE(readUnreserved)	||
+	 RULE(readEscaped)	||
+	 CONSUM(readChar(';'))	||
+	 CONSUM(readChar(':'))	||
+	 CONSUM(readChar('&'))	||
+	 CONSUM(readChar('='))	||
+	 CONSUM(readChar('+'))	||
+	 CONSUM(readChar('$'))	||
+	 CONSUM(readChar(',')));
 }
 
 bool	URI::readHostport(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readHost)	&&
-	  RULEINT(readHostportCond));
+  BUFFER();
+  RETURN(RULE(readHost)	&&
+	 RULEINT(readHostportCond));
 }
 
 bool	URI::readHostportCond(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readChar(':')) &&
-	  RULE(readPort));
+  BUFFER();
+  RETURN(CONSUM(readChar(':')) &&
+	 RULE(readPort));
 }
 
 bool	URI::readHost(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readHostname) ||
-	  RULE(readIPv4address));
+  BUFFER();
+  RETURN(RULE(readHostname) ||
+	 RULE(readIPv4address));
 }
 
 bool	URI::readPort(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (LOOPM(readDigit));
+  BUFFER();
+  RETURN (LOOPM(readDigit));
 }
 
 bool	URI::readHostname(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (LOOPM(readHostnameLoop)	&&
-	  RULE(readToplabel)		&&
-	  CONSUMINT(readChar('.')));
+  BUFFER();
+  RETURN(LOOPM(readHostnameLoop)	&&
+	 RULE(readToplabel)		&&
+	 CONSUMINT(readChar('.')));
 }
 
 bool	URI::readHostnameLoop(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  std::cout << "readHostnameLoop" << std::endl;
-  return (RULE(readDomainlabel) ||
-	  CONSUM(readChar('.')));
+  BUFFER();
+  RETURN(RULE(readDomainlabel) &&
+	 CONSUM(readChar('.')));
 }
 
 bool	URI::readIPv4address(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (LOOPA(readDigit)	&&
-	  CONSUM(readChar('.'))	&&
-	  LOOPA(readDigit)	&&
-	  CONSUM(readChar('.'))	&&
-	  LOOPA(readDigit)	&&
-	  CONSUM(readChar('.'))	&&
-	  LOOPA(readDigit));
+  BUFFER();
+  RETURN(LOOPA(readDigit)	&&
+	 CONSUM(readChar('.'))	&&
+	 LOOPA(readDigit)	&&
+	 CONSUM(readChar('.'))	&&
+	 LOOPA(readDigit)	&&
+	 CONSUM(readChar('.'))	&&
+	 LOOPA(readDigit));
 }
 
 bool	URI::readDomainlabel(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readAlphanum)		||
-	  (RULE(readAlphanum)		&&
-	   LOOPM(readDomainlabelLoop)));
+  BUFFER();
+  RETURN(RULE(readAlphanum) &&
+	 RULEINT(readDomainlabelCond));
 }
 
+bool	URI::readDomainlabelCond(HttpConsumer* hc)
+{
+  BUFFER();
+  RETURN(LOOPM(readDomainlabelLoop) &&
+	 RULEINT(readAlphanum));
+}
 bool	URI::readDomainlabelLoop(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readAlphanum)		||
-	  (CONSUM(readChar('-'))	&&
-	   RULE(readAlphanum)));
+  BUFFER();
+  RETURN(RULE(readAlphanum) ||
+	 CONSUM(readChar('-')));
 }
 
 bool	URI::readToplabel(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readAlpha)		||
-	  (RULE(readAlpha)		&&
-	   LOOPM(readToplabelLoop)));
+  BUFFER();
+  RETURN(RULE(readAlpha) &&
+	 RULEINT(readToplabelCond));
+}
+
+bool	URI::readToplabelCond(HttpConsumer* hc)
+{
+  BUFFER();
+  RETURN(LOOPM(readToplabelLoop) &&
+	 RULEINT(readAlphanum));
 }
 
 bool	URI::readToplabelLoop(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readAlphanum)		||
-	  (CONSUM(readChar('-'))	&&
-	   RULE(readAlphanum)));
+  BUFFER();
+  RETURN(RULE(readAlphanum) ||
+	 CONSUM(readChar('-')));
 }
 
 bool	URI::readPathSegments(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readSegment) &&
-	  LOOPM(readPathSegmentsLoop));
+  BUFFER();
+  RETURN(RULE(readSegment) &&
+	 LOOPM(readPathSegmentsLoop));
 }
 
 bool	URI::readPathSegmentsLoop(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readChar('/')) &&
-	  RULE(readSegment));
+  BUFFER();
+  RETURN(CONSUM(readChar('/')) &&
+	 RULE(readSegment));
 }
 
 bool	URI::readSegment(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (LOOPM(readPchar) &&
-	  LOOPM(readSegmentLoop));
+  BUFFER();
+  RETURN(LOOPM(readPchar) &&
+	 LOOPM(readSegmentLoop));
 }
 
 bool	URI::readSegmentLoop(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readChar(';')) &&
-	  RULE(readParam));
+  BUFFER();
+  RETURN(CONSUM(readChar(';')) &&
+	 RULE(readParam));
 }
 
 bool	URI::readPchar(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readUnreserved)	||
-	  RULE(readEscaped)	||
-	  CONSUM(readChar(':'))	||
-	  CONSUM(readChar('@'))	||
-	  CONSUM(readChar('&'))	||
-	  CONSUM(readChar('='))	||
-	  CONSUM(readChar('+'))	||
-	  CONSUM(readChar('$'))	||
-	  CONSUM(readChar(',')));
+  BUFFER();
+  RETURN(RULE(readUnreserved)	||
+	 RULE(readEscaped)	||
+	 CONSUM(readChar(':'))	||
+	 CONSUM(readChar('@'))	||
+	 CONSUM(readChar('&'))	||
+	 CONSUM(readChar('='))	||
+	 CONSUM(readChar('+'))	||
+	 CONSUM(readChar('$'))	||
+	 CONSUM(readChar(',')));
 }
 
 bool	URI::readParam(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (LOOPM(readPchar));
+  BUFFER();
+  RETURN(LOOPM(readPchar));
 }
 
 bool	URI::readReserved(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readChar(';'))	||
-	  CONSUM(readChar('/'))	||
-	  CONSUM(readChar('?'))	||
-	  CONSUM(readChar(':'))	||
-	  CONSUM(readChar('@'))	||
-	  CONSUM(readChar('&'))	||
-	  CONSUM(readChar('='))	||
-	  CONSUM(readChar('+'))	||
-	  CONSUM(readChar('$'))	||
-	  CONSUM(readChar(',')));
+  BUFFER();
+  RETURN(CONSUM(readChar(';'))	||
+	 CONSUM(readChar('/'))	||
+	 CONSUM(readChar('?'))	||
+	 CONSUM(readChar(':'))	||
+	 CONSUM(readChar('@'))	||
+	 CONSUM(readChar('&'))	||
+	 CONSUM(readChar('='))	||
+	 CONSUM(readChar('+'))	||
+	 CONSUM(readChar('$'))	||
+	 CONSUM(readChar(',')));
 }
 
 bool	URI::readUnreserved(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readAlphanum) ||
-	  RULE(readMark));
+  BUFFER();
+  RETURN(RULE(readAlphanum) ||
+	 RULE(readMark));
 }
 
 bool	URI::readEscaped(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readChar('%'))	&&
-	  RULE(readHex)		&&
-	  RULE(readHex));
+  BUFFER();
+  RETURN(CONSUM(readChar('%'))	&&
+	 RULE(readHex)		&&
+	 RULE(readHex));
 }
 
 bool	URI::readAlphanum(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readAlpha) ||
-	  RULE(readDigit));
+  BUFFER();
+  RETURN(RULE(readAlpha) ||
+	 RULE(readDigit));
 }
 
 bool	URI::readMark(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readChar('-'))	||
-	  CONSUM(readChar('_'))	||
-	  CONSUM(readChar('.'))	||
-	  CONSUM(readChar('!'))	||
-	  CONSUM(readChar('~'))	||
-	  CONSUM(readChar('*'))	||
-	  CONSUM(readChar('\''))||
-	  CONSUM(readChar('('))	||
-	  CONSUM(readChar(')')));
+  BUFFER();
+  RETURN(CONSUM(readChar('-'))	||
+	 CONSUM(readChar('_'))	||
+	 CONSUM(readChar('.'))	||
+	 CONSUM(readChar('!'))	||
+	 CONSUM(readChar('~'))	||
+	 CONSUM(readChar('*'))	||
+	 CONSUM(readChar('\'')) ||
+	 CONSUM(readChar('('))	||
+	 CONSUM(readChar(')')));
 }
 
 bool	URI::readHex(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readDigit)		||
-	  CONSUM(readRange('A', 'F'))	||
-	  CONSUM(readRange('a', 'f')));
+  BUFFER();
+  RETURN(RULE(readDigit)		||
+	 CONSUM(readRange('A', 'F'))	||
+	 CONSUM(readRange('a', 'f')));
 }
 
 bool	URI::readDigit(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readRange('0', '9')));
+  BUFFER();
+  RETURN(CONSUM(readRange('0', '9')));
 }
 
 bool	URI::readAlpha(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (RULE(readLowalpha) ||
-	  RULE(readUpalpha));
+  BUFFER();
+  RETURN(RULE(readLowalpha) ||
+	 RULE(readUpalpha));
 }
 
 bool	URI::readLowalpha(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readRange('a', 'z')));
+  BUFFER();
+  RETURN(CONSUM(readRange('a', 'z')));
 }
 
 bool	URI::readUpalpha(HttpConsumer* hc)
 {
-  if (DEBUG)
-    std::cout << __FUNCTION__ << "->"
-	      << hc->getBuf() << std::endl;
-  return (CONSUM(readRange('A', 'Z')));
+  BUFFER();
+  RETURN(CONSUM(readRange('A', 'Z')));
 }
