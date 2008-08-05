@@ -5,9 +5,10 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Mon Aug  4 16:47:00 2008 majdi toumi
+// Last update Tue Aug  5 15:35:48 2008 majdi toumi
 //
 
+#include <iostream>
 #include <sstream>
 #include <string>
 #include "ZiaConfiguration.h"
@@ -18,7 +19,7 @@ ZiaConfiguration::ZiaConfiguration()
   _port = -1;
   _shutdown = "";
   _debug = false;
-  _respect_rfc = false;
+  _respect_rfc = "";
 }
 
 ZiaConfiguration::ZiaConfiguration(const ZiaConfiguration& ziaConfig)
@@ -59,7 +60,7 @@ void			ZiaConfiguration::setDebug(bool debug)
   this->_debug = debug;
 }
 
-void			ZiaConfiguration::setRespectRfc(bool respect_rfc)
+void			ZiaConfiguration::setRespectRfc(std::string respect_rfc)
 {
   this->_respect_rfc = respect_rfc;
 }
@@ -84,7 +85,18 @@ bool			ZiaConfiguration::getDebug()
   return (this->_debug);
 }
 
-bool			ZiaConfiguration::getRespectRfc()
+std::string		ZiaConfiguration::getRespectRfc()
 {
   return (this->_respect_rfc);
+}
+
+void			ZiaConfiguration::ziaDumpConfig()
+{
+  std::cout << " ->> Dump zia configuration:" << std::endl;
+  std::cout << "Name = " << this->_name << std::endl;
+  std::cout << "Port = " << this->_port << std::endl;
+  std::cout << "Shutdown = " << this->_shutdown << std::endl;
+  std::cout << "Debug = " << std::boolalpha << this->_debug << std::endl;
+  std::cout << "Respect rfc = " << this->_respect_rfc << std::endl;
+  std::cout << std::endl;
 }

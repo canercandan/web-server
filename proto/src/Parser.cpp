@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug  3 08:33:19 2008 caner candan
-// Last update Tue Aug  5 14:34:39 2008 morgan armand
+// Last update Tue Aug  5 15:37:24 2008 majdi toumi
 //
 
 #include <iostream>
@@ -455,8 +455,8 @@ bool	URI::readIPv4address(HttpConsumer* hc)
 bool	URI::readDomainlabel(HttpConsumer* hc)
 {
   BUFFER();
-  RETURN(RULE(readAlphanum) &&
-	 RULEINT(readDomainlabelCond));
+  RETURN(RULE(readAlphanum) ||
+	 RULE(readAlphanum) && RULEINT(readDomainlabelCond));
 }
 
 bool	URI::readDomainlabelCond(HttpConsumer* hc)

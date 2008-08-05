@@ -2,23 +2,12 @@
 <!--
     server.xml for ** Zia ** ->> server configuration file
   -->
-<server>
+<server name="myZia">
   <config>
-    <name>
-      myZia
-    </name>
-    <port>
-      4242
-    </port>
-    <shutdown>
-      shutdown42
-    </shutdown>
-    <debug>
-      true
-    </debug>
-    <respect_rfc>
-      strict
-    </respect_rfc>
+    <port value="4242" />
+    <shutdown value="shutdown42"/>
+    <debug value="true" />
+    <respect_rfc value="strict" />
   </config>
   <virtual_host>
     <rootdir value="~toto" />

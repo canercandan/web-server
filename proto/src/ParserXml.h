@@ -5,7 +5,7 @@
 ** Login   <toumi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 31 22:13:58 2008 majdi toumi
-** Last update Mon Aug  4 16:31:41 2008 majdi toumi
+** Last update Tue Aug  5 15:36:45 2008 majdi toumi
 */
 
 #ifndef _PARSEXML_H__
@@ -37,7 +37,7 @@ class			ParserXml
 
   ZiaConfiguration	xmlLoadConfig();
   std::string		xmlGetValue(const char* attribut);
-  void			xmlDumpConfig();
+  void			xmlDumpFileConfig();
 };
 
 #endif /* !__PARSEXML_H__ */

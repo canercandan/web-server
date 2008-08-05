@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Mon Aug  4 18:44:40 2008 majdi toumi
+// Last update Tue Aug  5 15:37:03 2008 majdi toumi
 //
 
 #include <iostream>
@@ -27,8 +27,9 @@ int			main(void)
   ZiaConfiguration	conf;
 
   xml = new ParserXml(SERVER_XML);
-  xml->xmlDumpConfig();
+  xml->xmlDumpFileConfig();
   conf = xml->xmlLoadConfig();
+  conf.ziaDumpConfig();
   logger.info("starting zia server");
   if (!server.create(conf.getPort()))
     {

@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Mon Aug  4 18:34:52 2008 majdi toumi
+// Last update Tue Aug  5 15:36:00 2008 majdi toumi
 //
 
 #include <libxml/parser.h>
@@ -79,12 +79,7 @@ std::string		ParserXml::xmlGetValue(const char* attribut)
       for (int i = 0; i < xpath->nodesetval->nodeNr; i++)
 	{
 	  node = xpath->nodesetval->nodeTab[i];
-	  if ((node->type == XML_TEXT_NODE) || (node->type == XML_CDATA_SECTION_NODE))
-	    {
-	      std::string value((char*)node->content);
-	      xmlFreeNode(node);
-	      return (value);
-	    }
+	  return ((char*)node->properties->children->content);
 	}
     }
   std::cerr << "error: can't find [" << attribut << "] content" << std::endl;
@@ -98,14 +93,14 @@ ZiaConfiguration	ParserXml::xmlLoadConfig()
   std::string		name;
   std::string		shutdown;
   bool			debug;
-  bool			respect_rfc;
+  std::string		respect_rfc;
 
-  std::istringstream	iss(this->xmlGetValue("/server/config/port/text()"));
+  name = this->xmlGetValue("/server[@name]");
+  std::istringstream	iss(this->xmlGetValue("/server/config/port[@value]"));
   iss >> port;
-  name = this->xmlGetValue("/server/config/name/text()");
-  shutdown = this->xmlGetValue("/server/config/shutdown/text()");
-  debug = (this->xmlGetValue("/server/config/debug/text()") == "true" ? true : false);
-  respect_rfc = (this->xmlGetValue("/server/config/respect_rfc/text()") == "true" ? true : false);
+  shutdown = this->xmlGetValue("/server/config/shutdown[@value]");
+  debug = (this->xmlGetValue("/server/config/debug[@value]") == "true" ? true : false);
+  respect_rfc = this->xmlGetValue("/server/config/respect_rfc[@value]");
 
   ziaConfig.setName(name);
   ziaConfig.setPort(port);
@@ -115,10 +110,11 @@ ZiaConfiguration	ParserXml::xmlLoadConfig()
   return(ziaConfig);
 }
 
-void			ParserXml::xmlDumpConfig()
+void			ParserXml::xmlDumpFileConfig()
 {
-  std::cout << "Dump [server.xml] configuration:" << std::endl;
+  std::cout << " ->> Dump [" << SERVER_XML << "] configuration:" << std::endl;
   xmlDocFormatDump(stdout, this->_doc, 1);
+  std::cout << std::endl;
 }
 
 
