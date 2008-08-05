@@ -8,7 +8,7 @@
 ** Last update Tue Aug  5 15:26:58 2008 User Toumi_m
 */
 
-#ifndef _ZIACONFIGURATION_H__
+#ifndef __ZIACONFIGURATION_H__
 # define __ZIACONFIGURATION_H__
 
 #include <iostream>

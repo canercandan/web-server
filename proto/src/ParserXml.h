@@ -37,7 +37,6 @@ class			ParserXml
 
   ZiaConfiguration	xmlLoadConfig();
   std::string		xmlGetValue(const char* attribut);
-  void			xmlDumpFileConfig();
 };
 
 #endif /* !__PARSEXML_H__ */

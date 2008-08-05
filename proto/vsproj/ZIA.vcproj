@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;E:\{Epitech. 42}\2.cursus\3.tek3s\semestre_tek3\b6.c++ - httpd\b.project\1.zia\proto\lib\libxml2-2.6.30\include&quot;"
+				AdditionalIncludeDirectories="&quot;E:\{Epitech. 42}\2.cursus\3.tek3s\semestre_tek3\b6.c++ - httpd\b.project\1.zia\proto\lib\libxml2-2.6.32+.win32\include&quot;;&quot;E:\{Epitech. 42}\2.cursus\3.tek3s\semestre_tek3\b6.c++ - httpd\b.project\1.zia\proto\lib\iconv-1.9.2.win32\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,6 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="ws2_32.lib libxml2.lib iconv.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;E:\{Epitech. 42}\2.cursus\3.tek3s\semestre_tek3\b6.c++ - httpd\b.project\1.zia\proto\lib\libxml2-2.6.32+.win32&quot;;&quot;E:\{Epitech. 42}\2.cursus\3.tek3s\semestre_tek3\b6.c++ - httpd\b.project\1.zia\proto\lib\iconv-1.9.2.win32&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -174,11 +175,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\src\HttpConsumer.cpp"
+				RelativePath="..\src\Client.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\HttpParser.cpp"
+				RelativePath="..\src\HttpConsumer.cpp"
 				>
 			</File>
 			<File
@@ -198,6 +199,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\Parser.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ParserXml.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\ServerSocket.cpp"
 				>
 			</File>
@@ -210,7 +219,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\XmlDomConfig.cpp"
+				RelativePath="..\src\ZiaConfiguration.cpp"
 				>
 			</File>
 		</Filter>
@@ -220,11 +229,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\src\HttpConsumer.h"
+				RelativePath="..\src\Client.h"
 				>
 			</File>
 			<File
-				RelativePath="..\src\HttpParser.h"
+				RelativePath="..\src\HttpConsumer.h"
 				>
 			</File>
 			<File
@@ -248,6 +257,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\Parser.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ParserXml.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\rfcStruct.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\ServerSocket.h"
 				>
 			</File>
@@ -260,7 +281,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\XmlDomConfig.h"
+				RelativePath="..\src\ZiaConfiguration.h"
 				>
 			</File>
 		</Filter>

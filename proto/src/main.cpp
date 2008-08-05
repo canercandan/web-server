@@ -10,11 +10,12 @@
 
 #include <iostream>
 #include <sstream>
-#include "Client.h"
 #include "Logger.h"
+#include "Client.h"
 #include "Thread.h"
 #include "ServerSocket.h"
 #include "ParserXml.h"
+#include "ZiaConfiguration.h"
 
 int			main(void)
 {
@@ -27,7 +28,6 @@ int			main(void)
   ZiaConfiguration	conf;
 
   xml = new ParserXml(SERVER_XML);
-  xml->xmlDumpFileConfig();
   conf = xml->xmlLoadConfig();
   conf.ziaDumpConfig();
   logger.info("starting zia server");

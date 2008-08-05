@@ -110,14 +110,6 @@ ZiaConfiguration	ParserXml::xmlLoadConfig()
   return(ziaConfig);
 }
 
-void			ParserXml::xmlDumpFileConfig()
-{
-  std::cout << " ->> Dump [" << SERVER_XML << "] configuration:" << std::endl;
-  xmlDocFormatDump(stdout, this->_doc, 1);
-  std::cout << std::endl;
-}
-
-
 // std::string	ParserXml::getValue(const char* attribut)
 // {
 //   xmlChar*	value;
