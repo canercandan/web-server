@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug  3 08:33:19 2008 caner candan
-// Last update Tue Aug  5 11:58:13 2008 caner candan
+// Last update Tue Aug  5 14:34:39 2008 morgan armand
 //
 
 #include <iostream>
@@ -462,9 +462,9 @@ bool	URI::readDomainlabel(HttpConsumer* hc)
 bool	URI::readDomainlabelCond(HttpConsumer* hc)
 {
   BUFFER();
-  RETURN(LOOPM(readDomainlabelLoop) &&
-	 RULEINT(readAlphanum));
+  RETURN(LOOPM(readDomainlabelLoop));// && RULEINT(readAlphanum));
 }
+
 bool	URI::readDomainlabelLoop(HttpConsumer* hc)
 {
   BUFFER();
@@ -482,8 +482,7 @@ bool	URI::readToplabel(HttpConsumer* hc)
 bool	URI::readToplabelCond(HttpConsumer* hc)
 {
   BUFFER();
-  RETURN(LOOPM(readToplabelLoop) &&
-	 RULEINT(readAlphanum));
+  RETURN(LOOPM(readToplabelLoop));// && RULEINT(readAlphanum));
 }
 
 bool	URI::readToplabelLoop(HttpConsumer* hc)

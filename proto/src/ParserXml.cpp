@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Mon Aug  4 18:34:52 2008 User Toumi_m
+// Last update Mon Aug  4 18:34:52 2008 majdi toumi
 //
 
 #include <libxml/parser.h>

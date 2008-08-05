@@ -5,7 +5,7 @@
 ** Login   <toumi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 31 22:13:58 2008 majdi toumi
-** Last update Mon Aug  4 18:32:04 2008 User Toumi_m
+** Last update Mon Aug  4 18:32:04 2008 majdi toumi
 */
 
 #ifndef _ZIACONFIGURATION_H__

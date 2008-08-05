@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Mon Aug  4 18:44:40 2008 User Toumi_m
+// Last update Mon Aug  4 18:44:40 2008 majdi toumi
 //
 
 #include <iostream>
