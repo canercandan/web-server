@@ -5,15 +5,14 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Mon Aug  4 10:03:16 2008 User Toumi_m
+// Last update Tue Aug  5 10:20:10 2008 morgan armand
 //
 
 #include <iostream>
 #include <sstream>
+#include "Client.h"
 #include "Logger.h"
 #include "Thread.h"
-#include "HttpProducer.h"
-#include "HttpConsumer.h"
 #include "ServerSocket.h"
 #include "XmlDomConfig.h"
 
@@ -21,11 +20,9 @@ int			main(void)
 {
   Logger		logger;
   ServerSocket		server;
-  Socket*		client;
+  Socket*		socket;
+  Client*		client;
   Thread*		thread;
-  HttpProducer*		prod;
-  HttpConsumer*		consum;
-  HttpRequest*		req;
   XmlDomConfig*		xml;
   int			port;
 
@@ -41,14 +38,13 @@ int			main(void)
     }
   while (42)
     {
-      if (client = server.accept())
+      if (socket = server.accept())
 	{
 	  logger.info("accept new connection from a client");
-	  prod = new HttpProducer(client);
-	  req = new HttpRequest;
-	  consum = new HttpConsumer(prod, req);
-	  thread = new Thread(consum);
+	  client = new Client(socket);
+	  thread = new Thread(client);
 	  thread->start();
+	  delete thread;
 	}
     }
   server.close();

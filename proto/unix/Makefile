@@ -5,7 +5,7 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Mon Aug  4 08:47:11 2008 User Toumi_m
+## Last update Tue Aug  5 10:20:39 2008 morgan armand
 ##
 
 NAME		=	zia
@@ -16,6 +16,7 @@ SRCS		=	$(PATH_SRC)/main.cpp		\
 			$(PATH_SRC)/Logger.cpp		\
 			$(PATH_SRC)/Socket.cpp		\
 			$(PATH_SRC)/Thread.cpp		\
+			$(PATH_SRC)/Client.cpp		\
 			$(PATH_SRC)/ServerSocket.cpp	\
 			$(PATH_SRC)/HttpRequest.cpp	\
 			$(PATH_SRC)/HttpProducer.cpp	\
