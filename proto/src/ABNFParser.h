@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:00:54 2008 caner candan
-// Last update Wed Aug  6 11:50:09 2008 caner candan
+// Last update Wed Aug  6 12:05:07 2008 morgan armand
 //
 
 #ifndef __ABNFPARSER_H__
@@ -62,13 +62,14 @@ namespace Debug
 class	ABNFParser : public HttpConsumer
 {
 public:
-  ABNFParser();
+  ABNFParser(HttpProducer* prod);
   ~ABNFParser();
 
   bool	readAlpha();
   bool	readDigit();
   bool	readHexdig();
-private:
+
+protected:
   unsigned int	_deep;
 };
 

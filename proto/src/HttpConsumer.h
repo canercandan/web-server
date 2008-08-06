@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Wed Aug  6 00:32:09 2008 morgan armand
+// Last update Wed Aug  6 12:01:06 2008 morgan armand
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -19,7 +19,7 @@ class	HttpConsumer
 {
   typedef bool (*func)(HttpConsumer*);
 public:
-  HttpConsumer(HttpProducer* prod, HttpRequest* req);
+  HttpConsumer(HttpProducer* prod);
   ~HttpConsumer();
 
   std::string	getBuf(void);
@@ -31,6 +31,9 @@ public:
   //  bool	loopRuleMul(func);
 
   void	consume();
+
+  unsigned int	getPos() const;
+  void		setPos(unsigned int pos);
 
   bool	peekChar(const char c);
 

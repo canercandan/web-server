@@ -5,13 +5,13 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:12:53 2008 caner candan
-// Last update Wed Aug  6 11:59:34 2008 caner candan
+// Last update Wed Aug  6 12:00:22 2008 morgan armand
 //
 
 #include "ABNFParser.h"
 
-ABNFParser::ABNFParser()
-  : HttpConsumer()
+ABNFParser::ABNFParser(HttpProducer* prod)
+  : HttpConsumer(prod)
 {}
 
 ABNFParser::~ABNFParser()

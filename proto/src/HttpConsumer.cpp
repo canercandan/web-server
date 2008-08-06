@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Wed Aug  6 00:30:01 2008 morgan armand
+// Last update Wed Aug  6 01:15:27 2008 morgan armand
 //
 
 #include <sstream>
@@ -38,12 +38,14 @@ void	HttpConsumer::consume()
     this->_buf.erase(0, this->_pos);
 }
 
-unsigned int	HttpConsumer::getPos()
+unsigned int	HttpConsumer::getPos() const
 {
+  return (this->_pos);
 }
 
-void	HttpConsumer::setPos()
+void	HttpConsumer::setPos(unsigned int pos)
 {
+  this->_pos = pos;
 }
 
 // bool	HttpConsumer::testRule(func fct)
