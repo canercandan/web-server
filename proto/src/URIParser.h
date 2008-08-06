@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:19:54 2008 caner candan
-// Last update Wed Aug  6 00:26:42 2008 morgan armand
+// Last update Wed Aug  6 00:28:53 2008 morgan armand
 //
 
 #ifndef __URI_PARSER_H__
@@ -13,7 +13,7 @@
 
 #include "HttpConsumer.h"
 
-#define TRY(expr)	({			\
+#define RULE(expr)	({			\
       int	pos;				\
 						\
       pos = this->getPos();			\
