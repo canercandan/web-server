@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:53:09 2008 caner candan
-// Last update Wed Aug  6 15:56:49 2008 morgan armand
+// Last update Wed Aug  6 17:55:45 2008 caner candan
 //
 
 #include <iostream>
@@ -29,125 +29,124 @@ void	HttpParser::run()
 bool	HttpParser::readRequest()
 {
   DEBUG_ENTER();
-  RULE(this->readText("\r\n"));
-  //DEBUG_RETURN(RULE(this->readRequestLine()));
+  RULE(readRequestLine());
 }
 
-// bool	HttpParser::readRequestLine()
-// {
-//   DEBUG_ENTER();
-//   //   DEBUG_RETURN(RULE(this->readMethod()) &&
-//   // 	       RULE(this->readChar(' ')) &&
-//   // 	       RULE(this->readRequestURI()) &&
-//   // 	       RULE(this->readChar(' ')) &&
-//   // 	       RULE(this->readHttpVersion()) &&
-//   // 	       RULE(this->readText("\r\n")));
-//   return (false);
-// }
+bool	HttpParser::readRequestLine()
+{
+  DEBUG_ENTER();
+  RULE(readMethod() &&
+       readChar(' ') &&
+       readRequestURI() &&
+       readChar(' ') &&
+       readHttpVersion() &&
+       readText("\r\n"));
+}
 
-// bool	HttpParser::readRequestURI()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(RULE(readChar('*')) ||
-// 	       RULE(this->readAbsoluteURI()) ||
-// 	       RULE(this->readAbsPath()) ||
-// 	       RULE(this->readAuthority()));
-// }
+bool	HttpParser::readRequestURI()
+{
+  DEBUG_ENTER();
+//   RULE(readChar('*') ||
+//        readAbsoluteURI() ||
+//        readAbsPath() ||
+//        readAuthority());
+  RULE(readChar('*'));
+}
 
-// bool	HttpParser::readGeneralHeader()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(RULE(readCacheControl())	||
-// 	       RULE(readConnection()) ||
-// 	       RULE(readDate()) ||
-// 	       RULE(readPragma()) ||
-// 	       RULE(readTrailer()) ||
-// 	       RULE(readTransferEncoding()) ||
-// 	       RULE(readUpgrade()) ||
-// 	       RULE(readVia()) ||
-// 	       RULE(readWarning()));
-// }
+bool	HttpParser::readGeneralHeader()
+{
+  DEBUG_ENTER();
+  RULE(readCacheControl() ||
+       readConnection() ||
+       readDate() ||
+       readPragma() ||
+       readTrailer() ||
+       readTransferEncoding() ||
+       readUpgrade() ||
+       readVia() ||
+       readWarning());
+}
 
-// bool	HttpParser::readCacheControl()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(false);
-// }
+bool	HttpParser::readCacheControl()
+{
+  DEBUG_ENTER();
+  RULE(false);
+}
 
-// bool	HttpParser::readConnection()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(false);
-// }
+bool	HttpParser::readConnection()
+{
+  DEBUG_ENTER();
+  RULE(false);
+}
 
-// bool	HttpParser::readDate()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(false);
-// }
+bool	HttpParser::readDate()
+{
+  DEBUG_ENTER();
+  RULE(false);
+}
 
-// bool	HttpParser::readPragma()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(false);
-// }
+bool	HttpParser::readPragma()
+{
+  DEBUG_ENTER();
+  RULE(false);
+}
 
-// bool	HttpParser::readTrailer()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(false);
-// }
+bool	HttpParser::readTrailer()
+{
+  DEBUG_ENTER();
+  RULE(false);
+}
 
-// bool	HttpParser::readTransferEncoding()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(false);
-// }
+bool	HttpParser::readTransferEncoding()
+{
+  DEBUG_ENTER();
+  RULE(false);
+}
 
-// bool	HttpParser::readUpgrade()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(false);
-// }
+bool	HttpParser::readUpgrade()
+{
+  DEBUG_ENTER();
+  RULE(false);
+}
 
-// bool	HttpParser::readVia()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(false);
-// }
+bool	HttpParser::readVia()
+{
+  DEBUG_ENTER();
+  RULE(false);
+}
 
-// bool	HttpParser::readWarning()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(false);
-// }
+bool	HttpParser::readWarning()
+{
+  DEBUG_ENTER();
+  RULE(false);
+}
 
-// bool	HttpParser::readMethod()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(RULE(this->readText("OPTIONS")) ||
-// 	       RULE(this->readText("GET")) ||
-// 	       RULE(this->readText("HEAD")) ||
-// 	       RULE(this->readText("POST")) ||
-// 	       RULE(this->readText("PUT")) ||
-// 	       RULE(this->readText("DELETE")) ||
-// 	       RULE(this->readText("TRACE")) ||
-// 	       RULE(this->readText("CONNECT")) ||
-// 	       RULE(this->readExtensionMethod()));
-// }
+bool	HttpParser::readMethod()
+{
+  DEBUG_ENTER();
+  RULE(readText("OPTIONS") ||
+       readText("GET") ||
+       readText("HEAD") ||
+       readText("POST") ||
+       readText("PUT") ||
+       readText("DELETE") ||
+       readText("TRACE") ||
+       readText("CONNECT") ||
+       readExtensionMethod());
+}
 
-// bool	HttpParser::readExtensionMethod()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(false);
-// }
+bool	HttpParser::readExtensionMethod()
+{
+  DEBUG_ENTER();
+  RULE(false);
+}
 
-// bool	HttpParser::readHttpVersion()
-// {
-//   DEBUG_ENTER();
-//   DEBUG_RETURN(RULE(readText("HTTP")) &&
-// 	       RULE(readChar('/')) &&
-// 	       RULE(readInteger()) &&
-// 	       RULE(readChar('.')) &&
-// 	       RULE(readInteger()));
-// }
+bool	HttpParser::readHttpVersion()
+{
+  DEBUG_ENTER();
+  RULE(readText("HTTP") &&
+       readChar('/') &&
+       readInteger() &&
+       readChar('.') &&
+       readInteger());
+}

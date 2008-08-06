@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:17:04 2008 caner candan
-// Last update Wed Aug  6 15:58:09 2008 morgan armand
+// Last update Wed Aug  6 17:56:09 2008 caner candan
 //
 
 #ifndef __HTTP_PARSER_H__
@@ -21,21 +21,21 @@ public:
 
   void	run();
   bool	readRequest();
-//   bool	readRequestLine();
-//   bool	readMethod();
-//   bool	readRequestURI();
-//   bool	readExtensionMethod();
-//   bool	readHttpVersion();
-//   bool	readGeneralHeader();
-//   bool	readCacheControl();
-//   bool	readConnection();
-//   bool	readDate();
-//   bool	readPragma();
-//   bool	readTrailer();
-//   bool	readTransferEncoding();
-//   bool	readUpgrade();
-//   bool	readVia();
-//   bool	readWarning();
+  bool	readRequestLine();
+  bool	readMethod();
+  bool	readRequestURI();
+  bool	readExtensionMethod();
+  bool	readHttpVersion();
+  bool	readGeneralHeader();
+  bool	readCacheControl();
+  bool	readConnection();
+  bool	readDate();
+  bool	readPragma();
+  bool	readTrailer();
+  bool	readTransferEncoding();
+  bool	readUpgrade();
+  bool	readVia();
+  bool	readWarning();
 };
 
 #endif // !__HTTP_PARSER_H__
