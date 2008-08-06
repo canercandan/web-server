@@ -5,14 +5,13 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:38:23 2008 morgan armand
-// Last update Wed Aug  6 13:52:56 2008 caner candan
+// Last update Wed Aug  6 14:03:12 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
 #define __CLIENT_H__
 
 #include "IRunnable.h"
-
 #include "HttpRequest.h"
 #include "HttpProducer.h"
 #include "HttpParser.h"
@@ -27,7 +26,6 @@ public:
 
 private:
   Socket*	_sck;
-  HttpRequest*	_request;
   HttpProducer*	_producer;
   HttpParser*	_consumer;
 };
