@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:53:09 2008 caner candan
-// Last update Wed Aug  6 14:41:17 2008 morgan armand
+// Last update Wed Aug  6 14:05:08 2008 caner candan
 //
 
 #include <iostream>
@@ -29,7 +29,8 @@ void	HttpParser::run()
 bool	HttpParser::readRequest()
 {
   DEBUG_ENTER();
-  RULE(this->readChar(' '));
+  RULE(this->readChar(' ') ||
+       this->readChar('a'));
   //DEBUG_RETURN(RULE(this->readRequestLine()));
 }
 
