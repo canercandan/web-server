@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Wed Aug  6 12:14:20 2008 caner candan
+// Last update Wed Aug  6 14:55:44 2008 morgan armand
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -33,6 +33,8 @@ public:
 
   unsigned int	getPos() const;
   void		setPos(unsigned int pos);
+
+  bool	eof();
 
   bool	peekChar(const char c);
 

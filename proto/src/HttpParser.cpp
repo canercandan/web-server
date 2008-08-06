@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:53:09 2008 caner candan
-// Last update Wed Aug  6 14:36:59 2008 caner candan
+// Last update Wed Aug  6 15:46:00 2008 morgan armand
 //
 
 #include <iostream>
@@ -20,7 +20,7 @@ HttpParser::~HttpParser()
 
 void	HttpParser::run()
 {
-  if (this->readRequest())
+  if (this->readRequest() && this->eof())
     std::cout << "Valid Request" << std::endl;
   else
     std::cout << "Invalid Request" << std::endl;

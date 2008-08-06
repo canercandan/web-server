@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Wed Aug  6 12:16:30 2008 caner candan
+// Last update Wed Aug  6 15:39:44 2008 morgan armand
 //
 
 #include <sstream>
@@ -26,6 +26,7 @@ std::string	HttpConsumer::getBuf(void)
 
 void	HttpConsumer::appendBuf(unsigned int size)
 {
+  std::cout << this->_pos << std::endl;
   if (this->_buf.substr(this->_pos).size() < size)
     this->_buf += this->_prod->nextString();
 }
@@ -34,6 +35,8 @@ void	HttpConsumer::consume()
 {
   if (this->_deep == 0)
     this->_buf.erase(0, this->_pos);
+
+  this->_pos = 0;
 }
 
 unsigned int	HttpConsumer::getPos() const
@@ -69,6 +72,12 @@ void	HttpConsumer::setPos(unsigned int pos)
 //   while (fct(this));
 //   return (true);
 // }
+
+bool	HttpConsumer::eof()
+{
+  this->appendBuf(1);
+  return (this->getBuf().empty());
+}
 
 bool	HttpConsumer::peekChar(const char c)
 {

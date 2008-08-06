@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:13:12 2008 morgan armand
-// Last update Sat Aug  2 19:28:25 2008 florent hochwelker
+// Last update Wed Aug  6 15:29:19 2008 morgan armand
 //
 
 #include "HttpProducer.h"
@@ -23,11 +23,11 @@ HttpProducer::~HttpProducer()
 
 std::string	HttpProducer::nextString(void)
 {
-  char		buf[128] = {0};
+  char		buf[128];
   int		cc;
 
   if (!(cc = this->_sck->recv(buf, sizeof(buf) - 1)))
     return (std::string(""));
-  buf[cc] = 0; // useless
+  buf[cc] = 0;
   return (std::string(buf));
 }
