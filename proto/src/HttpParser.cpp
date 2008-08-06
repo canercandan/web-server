@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:53:09 2008 caner candan
-// Last update Wed Aug  6 12:07:31 2008 morgan armand
+// Last update Wed Aug  6 12:40:59 2008 caner candan
 //
 
 #include <iostream>
@@ -29,13 +29,13 @@ void	HttpParser::run()
 bool	HttpParser::readRequest()
 {
   DEBUG_ENTER();
-  DEBUG_RETURN(RULE(readRequestLine()));
+  DEBUG_RETURN(RULE(this->readRequestLine()));
 }
 
 bool	HttpParser::readRequestLine()
 {
   DEBUG_ENTER();
-  DEBUG_RETURN(RULE(readMethod())	&&
+  DEBUG_RETURN(RULE(this->readMethod())	&&
 	       RULE(readChar(' '))	&&
 	       RULE(readRequestURI())	&&
 	       RULE(readChar(' '))	&&

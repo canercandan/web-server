@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Tue Aug  5 10:20:56 2008 morgan armand
+// Last update Wed Aug  6 12:14:56 2008 caner candan
 //
 
 #include "Client.h"
@@ -17,9 +17,9 @@ Client::Client(Socket* sck)
 
 void	Client::run()
 {
-  this->_request = new HttpRequest();
+  //this->_request = new HttpRequest();
   this->_producer = new HttpProducer(this->_sck);
-  this->_consumer = new HttpConsumer(this->_producer, this->_request);
+  this->_consumer = new HttpConsumer(this->_producer);
 
   Parser::Http::run(this->_consumer);
 

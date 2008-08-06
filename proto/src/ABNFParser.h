@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:00:54 2008 caner candan
-// Last update Wed Aug  6 12:05:07 2008 morgan armand
+// Last update Wed Aug  6 12:39:02 2008 caner candan
 //
 
 #ifndef __ABNFPARSER_H__
@@ -48,12 +48,12 @@
 
 # define DEBUG_PARSER		true
 
-# define DEBUG_ENTER()		(Debug::enter(__FUNCTION__))
+# define DEBUG_ENTER()		(Debug::enter(__FUNCTION__, this->getBuf()))
 # define DEBUG_RETURN(ret)	return (Debug::leave(__FUNCTION__, (ret)))
 
 namespace Debug
 {
-  void	enter(const char* func);
+  void	enter(const char* func, const std::string& buf);
   bool	leave(const char* func, bool retn);
 
   int	indent = 0;
