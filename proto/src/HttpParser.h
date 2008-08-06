@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:17:04 2008 caner candan
-// Last update Wed Aug  6 13:46:07 2008 caner candan
+// Last update Wed Aug  6 14:41:04 2008 morgan armand
 //
 
 #include "URIParser.h"
@@ -13,7 +13,7 @@
 class	HttpParser : public URIParser
 {
 public:
-  HttpParser();
+  HttpParser(HttpProducer* prod);
   ~HttpParser();
 
   void	run();

@@ -5,13 +5,13 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:36:11 2008 caner candan
-// Last update Wed Aug  6 12:26:54 2008 caner candan
+// Last update Wed Aug  6 14:34:09 2008 morgan armand
 //
 
 #include "URIParser.h"
 
-URIParser::URIParser()
-  : ABNFParser()
+URIParser::URIParser(HttpProducer* prod)
+  : ABNFParser(prod)
 {}
 
 URIParser::~URIParser()

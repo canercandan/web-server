@@ -5,11 +5,13 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:12:53 2008 caner candan
-// Last update Wed Aug  6 12:38:59 2008 caner candan
+// Last update Wed Aug  6 14:42:50 2008 morgan armand
 //
 
 #include <iostream>
 #include "ABNFParser.h"
+
+static int indent = 0;
 
 void	Debug::enter(const char* func,
 		     const std::string& buf)

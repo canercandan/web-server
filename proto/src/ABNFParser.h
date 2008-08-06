@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:00:54 2008 caner candan
-// Last update Wed Aug  6 13:44:51 2008 caner candan
+// Last update Wed Aug  6 14:42:54 2008 morgan armand
 //
 
 #ifndef __ABNFPARSER_H__
@@ -54,8 +54,6 @@ namespace Debug
 {
   void	enter(const char* func, const std::string& buf);
   bool	leave(const char* func, bool retn);
-
-  int	indent = 0;
 };
 
 class	ABNFParser : public HttpConsumer

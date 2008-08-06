@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:19:54 2008 caner candan
-// Last update Wed Aug  6 11:19:29 2008 caner candan
+// Last update Wed Aug  6 14:34:58 2008 morgan armand
 //
 
 #ifndef __URI_PARSER_H__
@@ -16,7 +16,7 @@
 class	URIParser : public ABNFParser
 {
 public:
-  URIParser();
+  URIParser(HttpProducer* prod);
   ~URIParser();
 
   bool	readURI();
