@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Wed Aug  6 15:39:44 2008 morgan armand
+// Last update Wed Aug  6 15:53:35 2008 morgan armand
 //
 
 #include <sstream>
@@ -75,7 +75,6 @@ void	HttpConsumer::setPos(unsigned int pos)
 
 bool	HttpConsumer::eof()
 {
-  this->appendBuf(1);
   return (this->getBuf().empty());
 }
 
