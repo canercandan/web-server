@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:38:23 2008 morgan armand
-// Last update Tue Aug  5 10:21:49 2008 morgan armand
+// Last update Wed Aug  6 13:52:56 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -13,10 +13,9 @@
 
 #include "IRunnable.h"
 
-#include "Parser.h"
 #include "HttpRequest.h"
 #include "HttpProducer.h"
-#include "HttpConsumer.h"
+#include "HttpParser.h"
 
 class	Client : public IRunnable
 {
@@ -30,7 +29,7 @@ private:
   Socket*	_sck;
   HttpRequest*	_request;
   HttpProducer*	_producer;
-  HttpConsumer*	_consumer;
+  HttpParser*	_consumer;
 };
 
 #endif // __CLIENT_H__
