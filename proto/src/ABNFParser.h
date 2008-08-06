@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:00:54 2008 caner candan
-// Last update Wed Aug  6 14:26:01 2008 morgan armand
+// Last update Wed Aug  6 13:44:51 2008 caner candan
 //
 
 #ifndef __ABNFPARSER_H__
@@ -22,10 +22,10 @@
 	this->_deep--;				\
 	if (this->_deep == 0)			\
 	  this->consume();			\
-	return (true);				\
+	DEBUG_RETURN(true);			\
       }						\
       this->setPos(pos);			\
-      return (false);				\
+      DEBUG_RETURN(false);			\
     })
 
 # define ZERO_OR_ONE(expr)	({		\
@@ -41,7 +41,6 @@
 # define ONE_OR_MORE(expr)	({		\
       if (!RULE(expr))				\
 	return (false);				\
-						\
       while (RULE(expr));			\
       return (true);				\
     })
