@@ -5,10 +5,43 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:36:11 2008 caner candan
-// Last update Wed Aug  6 10:44:51 2008 caner candan
+// Last update Wed Aug  6 00:26:21 2008 morgan armand
 //
 
 #include "URIParser.h"
+
+void	Debug::enter(const char* func)
+{
+  int	i;
+
+  for (i = 0; i < Debug::indent; i++)
+    std::cout << " ";
+
+  Debug::indent++;
+
+  std::cout << "[" << func << "]"
+	    << " -> " <<
+	    << "[" << this->getBuf() << "]"
+	    << std::endl;
+}
+
+bool	Debug::leave(const char* func, bool retn)
+{
+  int	i;
+
+  indent--;
+
+  for (i = 0; i < Debug::indent; i++)
+    std::cout << " ";
+
+  std::cout << "[" << func << "]"
+	    << " -> " <<
+	    << "[" <<  retn << "]"
+	    << std::endl;
+
+  return (retn);
+}
+
 
 URIParser::URIParser()
 {}

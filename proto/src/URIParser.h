@@ -5,10 +5,40 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:19:54 2008 caner candan
-// Last update Wed Aug  6 10:38:59 2008 caner candan
+// Last update Wed Aug  6 00:26:42 2008 morgan armand
 //
 
+#ifndef __URI_PARSER_H__
+#define __URI_PARSER_H__
+
 #include "HttpConsumer.h"
+
+#define TRY(expr)	({			\
+      int	pos;				\
+						\
+      pos = this->getPos();			\
+      this->_deep++;				\
+      if (expr) {				\
+	this->_deep--;				\
+	if (this->_deep == 0)			\
+	  this->consume();			\
+	return (true);				\
+      }						\
+      this->setPos(pos);			\
+      return (false);				\
+    })
+
+#define DEBUG_PARSER		true
+#define DEBUG_ENTER()		(debug::enter(__FUNCTION__))
+#define DEBUG_RETURN(ret)	return (debug::leave(__FUNCTION__, (ret)))
+
+namespace Debug
+{
+  void	enter(const char* func);
+  bool	leave(const char* func, bool retn);
+
+  int	indent = 0;
+};
 
 class	URIParser : public HttpConsumer
 {
@@ -52,4 +82,9 @@ public:
   bool	readReserved();
   bool	readGenDelims();
   bool	readSubDelims();
+
+private:
+  unsigned int	_deep;
 };
+
+#endif // __URI_PARSER_H__

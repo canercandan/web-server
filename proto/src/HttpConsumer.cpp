@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Mon Aug  4 02:37:43 2008 caner candan
+// Last update Wed Aug  6 00:03:39 2008 morgan armand
 //
 
 #include <sstream>
@@ -13,7 +13,7 @@
 #include "HttpConsumer.h"
 
 HttpConsumer::HttpConsumer(HttpProducer* prod, HttpRequest* req)
-  : _prod(prod), _req(req), _pos(0)
+  : _prod(prod), _req(req), _pos(0), _deep(0)
 {}
 
 HttpConsumer::~HttpConsumer()
@@ -24,43 +24,57 @@ std::string	HttpConsumer::getBuf(void)
   return (this->_buf.substr(this->_pos));
 }
 
-void	HttpConsumer::appendBuf(size_t size)
+void	HttpConsumer::appendBuf(unsigned int size)
 {
   if (this->_buf.substr(this->_pos).size() < size)
     this->_buf += this->_prod->nextString();
 }
 
-bool	HttpConsumer::testRule(func fct)
+void	HttpConsumer::consume()
 {
-  unsigned int	start = this->_pos;
-
-  if (fct(this))
-    return (true);
-  this->_pos = start;
-  return (false);
+  if (this->_deep == 0)
+    this->_buf.erase(0, this->_pos);
 }
 
-bool	HttpConsumer::loopRuleAdd(func fct)
+unsigned int	HttpConsumer::getPos()
 {
-  int	i;
-
-  for (i = 0; fct(this); i++);
-  return (i > 0);
 }
 
-bool	HttpConsumer::loopRuleMul(func fct)
+void	HttpConsumer::setPos()
 {
-  while (fct(this));
-  return (true);
 }
 
-bool	HttpConsumer::peekChar(char c)
+// bool	HttpConsumer::testRule(func fct)
+// {
+//   unsigned int	start = this->_pos;
+
+//   if (fct(this))
+//     return (true);
+//   this->_pos = start;
+//   return (false);
+// }
+
+// bool	HttpConsumer::loopRuleAdd(func fct)
+// {
+//   int	i;
+
+//   for (i = 0; fct(this); i++);
+//   return (i > 0);
+// }
+
+// bool	HttpConsumer::loopRuleMul(func fct)
+// {
+//   while (fct(this));
+//   return (true);
+// }
+
+bool	HttpConsumer::peekChar(const char c)
 {
   this->appendBuf(1);
   return (this->_buf[this->_pos] == c);
 }
 
-bool	HttpConsumer::readChar(char c)
+bool	HttpConsumer::readChar(const char c)
 {
   if (!this->peekChar(c))
     return (false);
@@ -68,7 +82,7 @@ bool	HttpConsumer::readChar(char c)
   return (true);
 }
 
-bool	HttpConsumer::readChar(char c, char& c_r)
+bool	HttpConsumer::readChar(const char c, char& c_r)
 {
   if (!this->readChar(c))
     return (false);
@@ -76,7 +90,7 @@ bool	HttpConsumer::readChar(char c, char& c_r)
   return (true);
 }
 
-bool	HttpConsumer::readRange(char c_start, char c_end)
+bool	HttpConsumer::readRange(const char c_start, const char c_end)
 {
   this->appendBuf(1);
   if (this->_buf[this->_pos] < c_start ||
@@ -86,7 +100,7 @@ bool	HttpConsumer::readRange(char c_start, char c_end)
   return (true);
 }
 
-bool	HttpConsumer::readRange(char c_start, char c_end, char& c_r)
+bool	HttpConsumer::readRange(const char c_start, const char c_end, char& c_r)
 {
   if (!this->readRange(c_start, c_end))
     return (false);

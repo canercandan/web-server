@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Mon Aug  4 02:34:42 2008 caner candan
+// Last update Tue Aug  5 23:56:22 2008 morgan armand
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -26,17 +26,17 @@ public:
 
   void	appendBuf(unsigned int size);
 
-  bool	testRule(func);
-  bool	loopRuleAdd(func);
-  bool	loopRuleMul(func);
+  //  bool	testRule(func);
+  //  bool	loopRuleAdd(func);
+  //  bool	loopRuleMul(func);
 
-  bool	peekChar(char c);
+  bool	peekChar(const char c);
 
-  bool	readChar(char c);
-  bool	readChar(char c, char& c_r);
+  bool	readChar(const char c);
+  bool	readChar(const char c, char& c_r);
 
-  bool	readRange(char c_start, char c_end);
-  bool	readRange(char c_start, char c_end, char& c_r);
+  bool	readRange(const char c_start, const char c_end);
+  bool	readRange(const char c_start, const char c_end, char& c_r);
 
   bool	readText(const std::string& s);
   bool	readText(const std::string& s, std::string& s_r);
@@ -46,12 +46,14 @@ public:
 
   bool	readIdentifier();
   bool	readIdentifier(std::string& i_r);
+
 private:
   HttpProducer*	_prod;
   HttpRequest*	_req;
 
   std::string	_buf;
   unsigned int	_pos;
+  unsigned int	_deep;
 };
 
 #endif // __HTTP_CONSUMER_H__
