@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Tue Aug  5 23:56:22 2008 morgan armand
+// Last update Wed Aug  6 00:32:09 2008 morgan armand
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -29,6 +29,8 @@ public:
   //  bool	testRule(func);
   //  bool	loopRuleAdd(func);
   //  bool	loopRuleMul(func);
+
+  void	consume();
 
   bool	peekChar(const char c);
 

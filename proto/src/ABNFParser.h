@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:00:54 2008 caner candan
-// Last update Wed Aug  6 11:16:18 2008 caner candan
+// Last update Wed Aug  6 01:01:05 2008 morgan armand
 //
 
 #ifndef __ABNFPARSER_H__
@@ -18,7 +18,7 @@
 						\
       pos = this->getPos();			\
       this->_deep++;				\
-      if (expr) {				\
+      if ((expr)) {				\
 	this->_deep--;				\
 	if (this->_deep == 0)			\
 	  this->consume();			\
@@ -26,6 +26,24 @@
       }						\
       this->setPos(pos);			\
       return (false);				\
+    })
+
+# define ZERO_OR_ONE(expr)	({		\
+      TRY(expr);				\
+      return (true);				\
+    })
+
+# define ZERO_OR_MORE(expr)	({		\
+      while (TRY(expr));			\
+      return (true);				\
+    })
+
+# define ONE_OR_MORE(expr)	({		\
+      if (!TRY(expr))				\
+	return (false);				\
+						\
+      while (TRY(expr));			\
+      return (true);				\
     })
 
 # define DEBUG_PARSER		true
