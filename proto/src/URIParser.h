@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:19:54 2008 caner candan
-// Last update Wed Aug  6 11:02:50 2008 caner candan
+// Last update Wed Aug  6 11:19:29 2008 caner candan
 //
 
 #ifndef __URI_PARSER_H__
@@ -13,7 +13,7 @@
 
 #include "ABNFParser.h"
 
-class	URIParser : public HttpConsumer
+class	URIParser : public ABNFParser
 {
 public:
   URIParser();
