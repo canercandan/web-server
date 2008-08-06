@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:19:54 2008 caner candan
-// Last update Wed Aug  6 10:32:25 2008 caner candan
+// Last update Wed Aug  6 10:38:59 2008 caner candan
 //
 
 #include "HttpConsumer.h"
@@ -37,5 +37,19 @@ public:
   bool	readRegName();
   bool	readPath();
   bool	readPathAbempty();
-  //bool	read
+  bool	readPathAbsolute();
+  bool	readPathNoscheme();
+  bool	readPathRootless();
+  bool	readPathEmpty();
+  bool	readSegment();
+  bool	readSegmentNz();
+  bool	readSegmentNzNc();
+  bool	readPchar();
+  bool	readQuery();
+  bool	readFragment();
+  bool	readPctEncoded();
+  bool	readUnreserved();
+  bool	readReserved();
+  bool	readGenDelims();
+  bool	readSubDelims();
 };
