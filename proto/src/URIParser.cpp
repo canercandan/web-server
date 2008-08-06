@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:36:11 2008 caner candan
-// Last update Wed Aug  6 00:26:21 2008 morgan armand
+// Last update Wed Aug  6 11:45:54 2008 caner candan
 //
 
 #include "URIParser.h"
@@ -44,6 +44,7 @@ bool	Debug::leave(const char* func, bool retn)
 
 
 URIParser::URIParser()
+  : ABNFParser()
 {}
 
 URIParser::~URIParser()

@@ -5,12 +5,19 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:53:09 2008 caner candan
-// Last update Wed Aug  6 10:56:55 2008 caner candan
+// Last update Wed Aug  6 11:44:07 2008 caner candan
 //
 
 #include "HttpParser.h"
 
-void	HttpParser::run(HttpConsumer* hc)
+HttpParser::HttpParser()
+  : URIParser()
+{}
+
+HttpParser::~HttpParser()
+{}
+
+void	HttpParser::run()
 {
   if (readRequest())
     std::cout << "Valid Request" << std::endl;
@@ -18,126 +25,126 @@ void	HttpParser::run(HttpConsumer* hc)
     std::cout << "Invalid Request" << std::endl;
 }
 
-bool	HttpParser::readRequest(HttpConsumer* hc)
+bool	HttpParser::readRequest()
 {
   DEBUG_ENTER();
-  DEBUG_RETURN(RULE(readRequestLine));
+  DEBUG_RETURN(RULE(readRequestLine()));
 }
 
-bool	HttpParser::readRequestLine(HttpConsumer* hc)
+bool	HttpParser::readRequestLine()
 {
   DEBUG_ENTER();
-  DEBUG_RETURN(RULE(readMethod)		&&
-	 CONSUM(readChar(' '))		&&
-	 RULE(readRequestURI)		&&
-	 CONSUM(readChar(' '))		&&
-	 RULE(readHttpVersion)		&&
-	 CONSUM(readText("\r\n")));
+  DEBUG_RETURN(RULE(readMethod())	&&
+	       RULE(readChar(' '))	&&
+	       RULE(readRequestURI())	&&
+	       RULE(readChar(' '))	&&
+	       RULE(readHttpVersion())	&&
+	       RULE(readText("\r\n")));
 }
 
-bool	HttpParser::readRequestURI(HttpConsumer* hc)
+bool	HttpParser::readRequestURI()
 {
   DEBUG_ENTER();
-  DEBUG_RETURN(CONSUM(readChar('*'))		||
-	 RULE(URI::readAbsoluteURI)	||
-	 RULE(URI::readAbsPath)	||
-	 RULE(URI::readAuthority));
+  DEBUG_RETURN(RULE(readChar('*'))		||
+	       RULE(URI::readAbsoluteURI())	||
+	       RULE(URI::readAbsPath())		||
+	       RULE(URI::readAuthority()));
 }
 
-bool	HttpParser::readGeneralHeader(HttpConsumer* hc)
+bool	HttpParser::readGeneralHeader()
 {
   DEBUG_ENTER();
-  DEBUG_RETURN(RULE(readCacheControl)	||
-	 RULE(readConnection)		||
-	 RULE(readDate)		||
-	 RULE(readPragma)		||
-	 RULE(readTrailer)		||
-	 RULE(readTransferEncoding)	||
-	 RULE(readUpgrade)		||
-	 RULE(readVia)			||
-	 RULE(readWarning));
+  DEBUG_RETURN(RULE(readCacheControl())		||
+	       RULE(readConnection())		||
+	       RULE(readDate())			||
+	       RULE(readPragma())		||
+	       RULE(readTrailer())		||
+	       RULE(readTransferEncoding())	||
+	       RULE(readUpgrade())		||
+	       RULE(readVia())			||
+	       RULE(readWarning()));
 }
 
-bool	HttpParser::readCacheControl(HttpConsumer* hc)
+bool	HttpParser::readCacheControl()
 {
   DEBUG_ENTER();
   DEBUG_RETURN(false);
 }
 
-bool	HttpParser::readConnection(HttpConsumer* hc)
+bool	HttpParser::readConnection()
 {
   DEBUG_ENTER();
   DEBUG_RETURN(false);
 }
 
-bool	HttpParser::readDate(HttpConsumer* hc)
+bool	HttpParser::readDate()
 {
   DEBUG_ENTER();
   DEBUG_RETURN(false);
 }
 
-bool	HttpParser::readPragma(HttpConsumer* hc)
+bool	HttpParser::readPragma()
 {
   DEBUG_ENTER();
   DEBUG_RETURN(false);
 }
 
-bool	HttpParser::readTrailer(HttpConsumer* hc)
+bool	HttpParser::readTrailer()
 {
   DEBUG_ENTER();
   DEBUG_RETURN(false);
 }
 
-bool	HttpParser::readTransferEncoding(HttpConsumer* hc)
+bool	HttpParser::readTransferEncoding()
 {
   DEBUG_ENTER();
   DEBUG_RETURN(false);
 }
 
-bool	HttpParser::readUpgrade(HttpConsumer* hc)
+bool	HttpParser::readUpgrade()
 {
   DEBUG_ENTER();
   DEBUG_RETURN(false);
 }
 
-bool	HttpParser::readVia(HttpConsumer* hc)
+bool	HttpParser::readVia()
 {
   DEBUG_ENTER();
   DEBUG_RETURN(false);
 }
 
-bool	HttpParser::readWarning(HttpConsumer* hc)
+bool	HttpParser::readWarning()
 {
   DEBUG_ENTER();
   DEBUG_RETURN(false);
 }
 
-bool	HttpParser::readMethod(HttpConsumer* hc)
+bool	HttpParser::readMethod()
 {
   DEBUG_ENTER();
-  DEBUG_RETURN(CONSUM(readText("OPTIONS"))	||
-	 CONSUM(readText("GET"))	||
-	 CONSUM(readText("HEAD"))	||
-	 CONSUM(readText("POST"))	||
-	 CONSUM(readText("PUT"))	||
-	 CONSUM(readText("DELETE"))	||
-	 CONSUM(readText("TRACE"))	||
-	 CONSUM(readText("CONNECT"))	||
-	 RULE(readExtensionMethod));
+  DEBUG_RETURN(RULE(readText("OPTIONS"))	||
+	       RULE(readText("GET"))		||
+	       RULE(readText("HEAD"))		||
+	       RULE(readText("POST"))		||
+	       RULE(readText("PUT"))		||
+	       RULE(readText("DELETE"))		||
+	       RULE(readText("TRACE"))		||
+	       RULE(readText("CONNECT"))	||
+	       RULE(readExtensionMethod()));
 }
 
-bool	HttpParser::readExtensionMethod(HttpConsumer* hc)
+bool	HttpParser::readExtensionMethod()
 {
   DEBUG_ENTER();
   DEBUG_RETURN(false);
 }
 
-bool	HttpParser::readHttpVersion(HttpConsumer* hc)
+bool	HttpParser::readHttpVersion()
 {
   DEBUG_ENTER();
-  DEBUG_RETURN(CONSUM(readText("HTTP"))	&&
-	 CONSUM(readChar('/'))		&&
-	 CONSUM(readInteger())		&&
-	 CONSUM(readChar('.'))		&&
-	 CONSUM(readInteger()));
+  DEBUG_RETURN(RULE(readText("HTTP"))	&&
+	       RULE(readChar('/'))	&&
+	       RULE(readInteger())	&&
+	       RULE(readChar('.'))	&&
+	       RULE(readInteger()));
 }

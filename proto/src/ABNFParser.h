@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:00:54 2008 caner candan
-// Last update Wed Aug  6 01:01:05 2008 morgan armand
+// Last update Wed Aug  6 11:50:09 2008 caner candan
 //
 
 #ifndef __ABNFPARSER_H__
@@ -15,7 +15,7 @@
 
 # define RULE(expr)	({			\
       int	pos;				\
-						\
+      						\
       pos = this->getPos();			\
       this->_deep++;				\
       if ((expr)) {				\
