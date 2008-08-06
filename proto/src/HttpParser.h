@@ -5,8 +5,11 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:17:04 2008 caner candan
-// Last update Wed Aug  6 14:41:04 2008 morgan armand
+// Last update Wed Aug  6 15:58:09 2008 morgan armand
 //
+
+#ifndef __HTTP_PARSER_H__
+#define __HTTP_PARSER_H__
 
 #include "URIParser.h"
 
@@ -34,3 +37,5 @@ public:
 //   bool	readVia();
 //   bool	readWarning();
 };
+
+#endif // !__HTTP_PARSER_H__
