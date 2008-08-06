@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Wed Aug  6 15:53:35 2008 morgan armand
+// Last update Wed Aug  6 18:10:58 2008 caner candan
 //
 
 #include <sstream>
@@ -26,7 +26,6 @@ std::string	HttpConsumer::getBuf(void)
 
 void	HttpConsumer::appendBuf(unsigned int size)
 {
-  std::cout << this->_pos << std::endl;
   if (this->_buf.substr(this->_pos).size() < size)
     this->_buf += this->_prod->nextString();
 }
@@ -48,30 +47,6 @@ void	HttpConsumer::setPos(unsigned int pos)
 {
   this->_pos = pos;
 }
-
-// bool	HttpConsumer::testRule(func fct)
-// {
-//   unsigned int	start = this->_pos;
-
-//   if (fct(this))
-//     return (true);
-//   this->_pos = start;
-//   return (false);
-// }
-
-// bool	HttpConsumer::loopRuleAdd(func fct)
-// {
-//   int	i;
-
-//   for (i = 0; fct(this); i++);
-//   return (i > 0);
-// }
-
-// bool	HttpConsumer::loopRuleMul(func fct)
-// {
-//   while (fct(this));
-//   return (true);
-// }
 
 bool	HttpConsumer::eof()
 {
