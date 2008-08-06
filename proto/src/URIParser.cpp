@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:36:11 2008 caner candan
-// Last update Wed Aug  6 19:04:08 2008 caner candan
+// Last update Wed Aug  6 19:25:46 2008 caner candan
 //
 
 #include "URIParser.h"
@@ -176,30 +176,83 @@ bool	URIParser::readPathAbsolute()
 	(CHAR('/') && readSegment()))); // *()
 }
 
-bool	URIParser::readPathNoscheme(){return (false);}
+bool	URIParser::readPathNoscheme()
+{
+  RULE(readSegmentNzNc() &&
+       (CHAR('/') && readSegment())); // *()
+}
 
-bool	URIParser::readPathRootless(){return (false);}
+bool	URIParser::readPathRootless()
+{
+  RULE(readSegmentNz() &&
+       (CHAR('/') && readSegment())); // *()
+}
 
-bool	URIParser::readPathEmpty(){return (false);}
+bool	URIParser::readPathEmpty()
+{
+  RULE(true);
+}
 
-bool	URIParser::readSegment(){return (false);}
+bool	URIParser::readSegment()
+{
+  RULE(readPchar()); // *()
+}
 
-bool	URIParser::readSegmentNz(){return (false);}
+bool	URIParser::readSegmentNz()
+{
+  RULE(readPchar()); // 1*()
+}
 
-bool	URIParser::readSegmentNzNc(){return (false);}
+bool	URIParser::readSegmentNzNc()
+{
+  RULE(readUnreserved() || readPctEncoded() ||
+       readSubDelims() || CHAR('@')); // 1*()
+}
 
-bool	URIParser::readPchar(){return (false);}
+bool	URIParser::readPchar()
+{
+  RULE(readUnreserved() || readPctEncoded() ||
+       readSubDelims() || CHAR(':') ||
+       CHAR('@'));
+}
 
-bool	URIParser::readQuery(){return (false);}
+bool	URIParser::readQuery()
+{
+  RULE(readPchar() || CHAR('/') || CHAR('?')); // *()
+}
 
-bool	URIParser::readFragment(){return (false);}
+bool	URIParser::readFragment()
+{
+  RULE(readQuery());
+}
 
-bool	URIParser::readPctEncoded(){return (false);}
+bool	URIParser::readPctEncoded()
+{
+  RULE(CHAR('%') && HEXDIG && HEXDIG);
+}
 
-bool	URIParser::readUnreserved(){return (false);}
+bool	URIParser::readUnreserved()
+{
+  RULE(ALPHA || DIGIT || CHAR('-') || CHAR('.') ||
+       CHAR('_') || CHAR('~'));
+}
 
-bool	URIParser::readReserved(){return (false);}
+bool	URIParser::readReserved()
+{
+  RULE(readGenDelims() || readSubDelims());
+}
 
-bool	URIParser::readGenDelims(){return (false);}
+bool	URIParser::readGenDelims()
+{
+  RULE(CHAR(':') || CHAR('/') || CHAR('?') ||
+       CHAR('#') || CHAR('[') || CHAR(']') ||
+       CHAR('@'));
+}
 
-bool	URIParser::readSubDelims(){return (false);}
+bool	URIParser::readSubDelims()
+{
+  RULE(CHAR('!') || CHAR('$') || CHAR('&') ||
+       CHAR('\'') || CHAR('(') || CHAR(')') ||
+       CHAR('*') || CHAR('+') || CHAR(',') ||
+       CHAR(';') || CHAR('='));
+}
