@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:53:09 2008 caner candan
-// Last update Wed Aug  6 18:16:16 2008 caner candan
+// Last update Wed Aug  6 19:29:33 2008 caner candan
 //
 
 #include <iostream>
@@ -43,11 +43,10 @@ bool	HttpParser::readRequestLine()
 bool	HttpParser::readRequestURI()
 {
   DEBUG_ENTER();
-//   RULE(readChar('*') ||
-//        readAbsoluteURI() ||
-//        readAbsPath() ||
-//        readAuthority());
-  RULE(readChar('*'));
+  RULE(readChar('*') ||
+       readAbsoluteURI() ||
+       readPathAbsolute() ||
+       readAuthority());
 }
 
 bool	HttpParser::readGeneralHeader()
