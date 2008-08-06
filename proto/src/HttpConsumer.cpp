@@ -5,15 +5,15 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Wed Aug  6 01:15:27 2008 morgan armand
+// Last update Wed Aug  6 12:06:29 2008 morgan armand
 //
 
 #include <sstream>
 #include <iostream>
 #include "HttpConsumer.h"
 
-HttpConsumer::HttpConsumer(HttpProducer* prod, HttpRequest* req)
-  : _prod(prod), _req(req), _pos(0), _deep(0)
+HttpConsumer::HttpConsumer(HttpProducer* prod)
+  : _prod(prod), _pos(0), _deep(0)
 {}
 
 HttpConsumer::~HttpConsumer()

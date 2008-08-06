@@ -5,9 +5,10 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:53:09 2008 caner candan
-// Last update Wed Aug  6 11:44:07 2008 caner candan
+// Last update Wed Aug  6 12:07:31 2008 morgan armand
 //
 
+#include <iostream>
 #include "HttpParser.h"
 
 HttpParser::HttpParser()
