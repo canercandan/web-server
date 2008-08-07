@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:36:11 2008 caner candan
-// Last update Thu Aug  7 12:59:29 2008 caner candan
+// Last update Thu Aug  7 13:05:51 2008 caner candan
 //
 
 #include "URIParser.h"
@@ -112,7 +112,7 @@ bool	URIParser::readSchemeLoop()
 
 bool	URIParser::readAuthority()
 {
-  RULE(BOOL(readAuthorityBool1()) &&
+  RULE(//BOOL(readAuthorityBool1()) &&
        readHost() &&
        BOOL(readAuthorityBool2()));
 }
