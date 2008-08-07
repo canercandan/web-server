@@ -1,10 +1,11 @@
 //
-// ABNFParser.h for ABNFParser in /home/candan_c/rendu/zia/proto/src
+// ABNFParser.h for zia in /home/armand_m/zia/proto/src
 // 
-// Made by caner candan
-// Login   <candan_c@epitech.net>
+// Made by morgan armand
+// Login   <armand_m@epitech.net>
 // 
-// Started on  Wed Aug  6 11:00:54 2008 caner candan
+// Started on  Thu Aug  7 11:18:32 2008 morgan armand
+// Last update Thu Aug  7 11:34:08 2008 morgan armand
 //
 
 #ifndef __ABNFPARSER_H__
@@ -53,7 +54,14 @@
       })					\
     )
 
-# define BOOL(expr)	(expr || true)
+# define BOOL(expr)	(TRY({			\
+	if (expr)				\
+	  this->consume();			\
+	DEBUG_RETURN(true);			\
+      })					\
+    )
+
+//# define BOOL(expr)	(expr || true)
 
 # define DEBUG_PARSER		true
 

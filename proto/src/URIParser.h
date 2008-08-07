@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:19:54 2008 caner candan
-// Last update Thu Aug  7 09:43:38 2008 caner candan
+// Last update Thu Aug  7 11:27:52 2008 morgan armand
 //
 
 #ifndef __URI_PARSER_H__
@@ -32,12 +32,10 @@ public:
   bool	readAuthority();
 
   bool	readUserinfo();
-  bool	readUserinfoLoop();
 
   bool	readHost();
 
   bool	readPort();
-  bool	readPortLoop();
 
   bool	readIPLiteral();
 
@@ -52,12 +50,10 @@ public:
   bool	readDecOctet();
 
   bool	readRegName();
-  bool	readRegNameLoop();
 
   bool	readPath();
 
   bool	readPathAbempty();
-  bool	readPathAbemptyLoop();
 
   bool	readPathAbsolute();
   bool	readPathAbsoluteLoop();
@@ -71,10 +67,8 @@ public:
   bool	readPathEmpty();
 
   bool	readSegment();
-  bool	readSegmentLoop();
 
   bool	readSegmentNz();
-  bool	readSegmentNzLoop();
 
   bool	readSegmentNzNc();
   bool	readSegmentNzNcLoop();
@@ -82,7 +76,6 @@ public:
   bool	readPchar();
 
   bool	readQuery();
-  bool	readQueryLoop();
 
   bool	readFragment();
   bool	readPctEncoded();
