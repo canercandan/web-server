@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:36:11 2008 caner candan
-// Last update Thu Aug  7 11:56:05 2008 morgan armand
+// Last update Thu Aug  7 12:11:38 2008 caner candan
 //
 
 #include "URIParser.h"
@@ -21,29 +21,29 @@ bool	URIParser::readURI()
 {
   RULE(readScheme() && CHAR(':') &&
        readHierPart() &&
-       readURI1() &&
-       readURI2());
+       readURIBool1() &&
+       readURIBool2());
 }
 
-bool	URIParser::readURI1()
+bool	URIParser::readURIBool1()
 {
   BOOL(CHAR('?') && readQuery());
 }
 
-bool	URIParser::readURI2()
+bool	URIParser::readURIBool2()
 {
   BOOL(CHAR('#') && readFragment());
 }
 
 bool	URIParser::readHierPart()
 {
-  RULE(readHierPart1() ||
+  RULE(readHierPartBlock() ||
        readPathAbsolute() ||
        readPathRootless() ||
        readPathEmpty());
 }
 
-bool	URIParser::readHierPart1()
+bool	URIParser::readHierPartBlock()
 {
   RULE(readText("//") &&
        readAuthority() &&
@@ -59,10 +59,10 @@ bool	URIParser::readAbsoluteURI()
 {
   RULE(readScheme() && CHAR(':') &&
        readHierPart() &&
-       readAbsoluteURI1());
+       readAbsoluteURIBool());
 }
 
-bool	URIParser::readAbsoluteURI1()
+bool	URIParser::readAbsoluteURIBool()
 {
   BOOL(CHAR('?') && readQuery());
 }
@@ -70,29 +70,29 @@ bool	URIParser::readAbsoluteURI1()
 bool	URIParser::readRelativeRef()
 {
   RULE(readRelativePart() &&
-       readRelativeRef1() &&
-       readRelativeRef2());
+       readRelativeRefBool1() &&
+       readRelativeRefBool2());
 }
 
-bool	URIParser::readRelativeRef1()
+bool	URIParser::readRelativeRefBool1()
 {
   BOOL(CHAR('?') && readQuery());
 }
 
-bool	URIParser::readRelativeRef2()
+bool	URIParser::readRelativeRefBool2()
 {
   BOOL(CHAR('#') && readFragment());
 }
 
 bool	URIParser::readRelativePart()
 {
-  RULE(readRelativePart1() ||
+  RULE(readRelativePartBlock() ||
        readPathAbsolute() ||
        readPathNoscheme() ||
        readPathEmpty());
 }
 
-bool	URIParser::readRelativePart1()
+bool	URIParser::readRelativePartBlock()
 {
   RULE(readText("//") &&
        readAuthority() &&
@@ -106,31 +106,31 @@ bool	URIParser::readScheme()
 
 bool	URIParser::readSchemeLoop()
 {
-  LOOP(ALPHA || DIGIT || CHAR('+') || // *()
+  LOOP(ALPHA || DIGIT || CHAR('+') ||
        CHAR('-') || CHAR('.'));
 }
 
 bool	URIParser::readAuthority()
 {
-  RULE(readAuthority1() &&
+  RULE(readAuthorityBool1() &&
        readHost() &&
-       readAuthority2());
+       readAuthorityBool2());
 }
 
-bool	URIParser::readAuthority1()
+bool	URIParser::readAuthorityBool1()
 {
   BOOL(readUserinfo() && CHAR('@'));
 }
 
 
-bool	URIParser::readAuthority2()
+bool	URIParser::readAuthorityBool2()
 {
   BOOL(CHAR(':') && readPort());
 }
 
 bool	URIParser::readUserinfo()
 {
-  LOOP(readUnreserved() || // *()
+  LOOP(readUnreserved() ||
        readPctEncoded() ||
        readSubDelims() ||
        CHAR(':'));
@@ -151,11 +151,11 @@ bool	URIParser::readPort()
 bool	URIParser::readIPLiteral()
 {
   RULE(CHAR('[') &&
-       readIPLiteral1() &&
+       readIPLiteralBlock() &&
        CHAR(']'));
 }
 
-bool	URIParser::readIPLiteral1()
+bool	URIParser::readIPLiteralBlock()
 {
   RULE(readIPv6address() || readIPvFuture());
 }
@@ -170,12 +170,12 @@ bool	URIParser::readIPvFuture()
 
 bool	URIParser::readIPvFutureLoop1()
 {
-  LOOP1(HEXDIG); // 1*()
+  LOOP1(HEXDIG);
 }
 
 bool	URIParser::readIPvFutureLoop2()
 {
-  LOOP1(readUnreserved() || // 1*()
+  LOOP1(readUnreserved() ||
 	readSubDelims() ||
 	CHAR(':'));
 }
@@ -187,16 +187,16 @@ bool	URIParser::readIPv6address()
 
 bool	URIParser::readH16()
 {
-  RULE(HEXDIG && HEXDIG && HEXDIG && HEXDIG); // 1*4()
+  RULE(HEXDIG && HEXDIG && HEXDIG && HEXDIG);
 }
 
 bool	URIParser::readLs32()
 {
-  RULE(readLs321() ||
+  RULE(readLs32Block() ||
        readIPv4address());
 }
 
-bool	URIParser::readLs321()
+bool	URIParser::readLs32Block()
 {
   RULE(readH16() && CHAR(':') && readH16());
 }
@@ -212,35 +212,35 @@ bool	URIParser::readIPv4address()
 bool	URIParser::readDecOctet()
 {
   RULE(DIGIT ||
-       readDecOctet1() ||
-       readDecOctet2() ||
-       readDecOctet3() ||
-       readDecOctet4());
+       readDecOctetBlock1() ||
+       readDecOctetBlock2() ||
+       readDecOctetBlock3() ||
+       readDecOctetBlock4());
 }
 
-bool	URIParser::readDecOctet1()
+bool	URIParser::readDecOctetBlock1()
 {
   RULE(RANGE('1', '9') && DIGIT);
 }
 
-bool	URIParser::readDecOctet2()
+bool	URIParser::readDecOctetBlock2()
 {
   RULE(CHAR('1') && DIGIT && DIGIT);
 }
 
-bool	URIParser::readDecOctet3()
+bool	URIParser::readDecOctetBlock3()
 {
   RULE(CHAR('2') && RANGE('0', '4') && DIGIT);
 }
 
-bool	URIParser::readDecOctet4()
+bool	URIParser::readDecOctetBlock4()
 {
   RULE(readText("25") && RANGE('0', '5'));
 }
 
 bool	URIParser::readRegName()
 {
-  LOOP(readUnreserved() || // *()
+  LOOP(readUnreserved() ||
        readPctEncoded() ||
        readSubDelims());
 }
@@ -256,16 +256,16 @@ bool	URIParser::readPath()
 
 bool	URIParser::readPathAbempty()
 {
-  LOOP(CHAR('/') && readSegment()); // *()
+  LOOP(CHAR('/') && readSegment());
 }
 
 bool	URIParser::readPathAbsolute()
 {
   RULE(CHAR('/') &&
-       readPathAbsolute1());
+       readPathAbsoluteBool());
 }
 
-bool	URIParser::readPathAbsolute1()
+bool	URIParser::readPathAbsoluteBool()
 {
   BOOL(readSegmentNz() &&
        readPathAbsoluteLoop());
@@ -273,7 +273,7 @@ bool	URIParser::readPathAbsolute1()
 
 bool	URIParser::readPathAbsoluteLoop()
 {
-  LOOP(CHAR('/') && readSegment()); // *()
+  LOOP(CHAR('/') && readSegment());
 }
 
 bool	URIParser::readPathNoscheme()
@@ -284,7 +284,7 @@ bool	URIParser::readPathNoscheme()
 
 bool	URIParser::readPathNoschemeLoop()
 {
-  LOOP(CHAR('/') && readSegment()); // *()
+  LOOP(CHAR('/') && readSegment());
 }
 
 bool	URIParser::readPathRootless()
@@ -295,7 +295,7 @@ bool	URIParser::readPathRootless()
 
 bool	URIParser::readPathRootlessLoop()
 {
-  LOOP(CHAR('/') && readSegment()); // *()
+  LOOP(CHAR('/') && readSegment());
 }
 
 bool	URIParser::readPathEmpty()
@@ -305,12 +305,12 @@ bool	URIParser::readPathEmpty()
 
 bool	URIParser::readSegment()
 {
-  LOOP(readPchar()); // *()
+  LOOP(readPchar());
 }
 
 bool	URIParser::readSegmentNz()
 {
-  LOOP1(readPchar()); // 1*()
+  LOOP1(readPchar());
 }
 
 bool	URIParser::readSegmentNzNc()
@@ -321,7 +321,7 @@ bool	URIParser::readSegmentNzNc()
 
 bool	URIParser::readSegmentNzNcLoop()
 {
-  LOOP1(readSubDelims() || CHAR('@')); // 1*()
+  LOOP1(readSubDelims() || CHAR('@'));
 }
 
 bool	URIParser::readPchar()
@@ -333,7 +333,7 @@ bool	URIParser::readPchar()
 
 bool	URIParser::readQuery()
 {
-  LOOP(readPchar() || CHAR('/') || CHAR('?')); // *()
+  LOOP(readPchar() || CHAR('/') || CHAR('?'));
 }
 
 bool	URIParser::readFragment()

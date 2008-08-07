@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:19:54 2008 caner candan
-// Last update Thu Aug  7 11:27:52 2008 morgan armand
+// Last update Thu Aug  7 12:17:10 2008 caner candan
 //
 
 #ifndef __URI_PARSER_H__
@@ -20,24 +20,37 @@ public:
   ~URIParser();
 
   bool	readURI();
+  bool	readURIBool1();
+  bool	readURIBool2();
+
   bool	readHierPart();
+  bool	readHierPartBlock();
+
   bool	readURIReference();
+
   bool	readAbsoluteURI();
+  bool	readAbsoluteURIBool();
+
   bool	readRelativeRef();
+  bool	readRelativeRefBool1();
+  bool	readRelativeRefBool2();
+
   bool	readRelativePart();
+  bool	readRelativePartBlock();
 
   bool	readScheme();
   bool	readSchemeLoop();
 
   bool	readAuthority();
+  bool	readAuthorityBool1();
+  bool	readAuthorityBool2();
 
   bool	readUserinfo();
-
   bool	readHost();
-
   bool	readPort();
 
   bool	readIPLiteral();
+  bool	readIPLiteralBlock();
 
   bool	readIPvFuture();
   bool	readIPvFutureLoop1();
@@ -45,17 +58,24 @@ public:
 
   bool	readIPv6address();
   bool	readH16();
+
   bool	readLs32();
+  bool	readLs32Block();
+
   bool	readIPv4address();
+
   bool	readDecOctet();
+  bool	readDecOctetBlock1();
+  bool	readDecOctetBlock2();
+  bool	readDecOctetBlock3();
+  bool	readDecOctetBlock4();
 
   bool	readRegName();
-
   bool	readPath();
-
   bool	readPathAbempty();
 
   bool	readPathAbsolute();
+  bool	readPathAbsoluteBool();
   bool	readPathAbsoluteLoop();
 
   bool	readPathNoscheme();
@@ -67,16 +87,13 @@ public:
   bool	readPathEmpty();
 
   bool	readSegment();
-
   bool	readSegmentNz();
 
   bool	readSegmentNzNc();
   bool	readSegmentNzNcLoop();
 
   bool	readPchar();
-
   bool	readQuery();
-
   bool	readFragment();
   bool	readPctEncoded();
   bool	readUnreserved();
