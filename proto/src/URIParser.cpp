@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:36:11 2008 caner candan
-// Last update Thu Aug  7 12:30:02 2008 morgan armand
+// Last update Thu Aug  7 12:59:29 2008 caner candan
 //
 
 #include "URIParser.h"
@@ -21,18 +21,18 @@ bool	URIParser::readURI()
 {
   RULE(readScheme() && CHAR(':') &&
        readHierPart() &&
-       readURIBool1() &&
-       readURIBool2());
+       BOOL(readURIBool1()) &&
+       BOOL(readURIBool2()));
 }
 
 bool	URIParser::readURIBool1()
 {
-  BOOL(CHAR('?') && readQuery());
+  RULE(CHAR('?') && readQuery());
 }
 
 bool	URIParser::readURIBool2()
 {
-  BOOL(CHAR('#') && readFragment());
+  RULE(CHAR('#') && readFragment());
 }
 
 bool	URIParser::readHierPart()
@@ -59,29 +59,29 @@ bool	URIParser::readAbsoluteURI()
 {
   RULE(readScheme() && CHAR(':') &&
        readHierPart() &&
-       readAbsoluteURIBool());
+       BOOL(readAbsoluteURIBool()));
 }
 
 bool	URIParser::readAbsoluteURIBool()
 {
-  BOOL(CHAR('?') && readQuery());
+  RULE(CHAR('?') && readQuery());
 }
 
 bool	URIParser::readRelativeRef()
 {
   RULE(readRelativePart() &&
-       readRelativeRefBool1() &&
-       readRelativeRefBool2());
+       BOOL(readRelativeRefBool1()) &&
+       BOOL(readRelativeRefBool2()));
 }
 
 bool	URIParser::readRelativeRefBool1()
 {
-  BOOL(CHAR('?') && readQuery());
+  RULE(CHAR('?') && readQuery());
 }
 
 bool	URIParser::readRelativeRefBool2()
 {
-  BOOL(CHAR('#') && readFragment());
+  RULE(CHAR('#') && readFragment());
 }
 
 bool	URIParser::readRelativePart()
@@ -112,20 +112,19 @@ bool	URIParser::readSchemeLoop()
 
 bool	URIParser::readAuthority()
 {
-  RULE(readAuthorityBool1() &&
+  RULE(BOOL(readAuthorityBool1()) &&
        readHost() &&
-       readAuthorityBool2());
+       BOOL(readAuthorityBool2()));
 }
 
 bool	URIParser::readAuthorityBool1()
 {
-  BOOL(readUserinfo() && CHAR('@'));
+  RULE(readUserinfo() && CHAR('@'));
 }
-
 
 bool	URIParser::readAuthorityBool2()
 {
-  BOOL(CHAR(':') && readPort());
+  RULE(CHAR(':') && readPort());
 }
 
 bool	URIParser::readUserinfo()
@@ -262,12 +261,12 @@ bool	URIParser::readPathAbempty()
 bool	URIParser::readPathAbsolute()
 {
   RULE(CHAR('/') &&
-       readPathAbsoluteBool());
+       BOOL(readPathAbsoluteBool()));
 }
 
 bool	URIParser::readPathAbsoluteBool()
 {
-  BOOL(readSegmentNz() &&
+  RULE(readSegmentNz() &&
        readPathAbsoluteLoop());
 }
 
