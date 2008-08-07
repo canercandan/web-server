@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Thu Aug  7 11:18:32 2008 morgan armand
-// Last update Thu Aug  7 11:34:08 2008 morgan armand
+// Last update Thu Aug  7 12:37:18 2008 morgan armand
 //
 
 #ifndef __ABNFPARSER_H__
@@ -57,6 +57,8 @@
 # define BOOL(expr)	(TRY({			\
 	if (expr)				\
 	  this->consume();			\
+	else					\
+	  this->setPos(pos);			\
 	DEBUG_RETURN(true);			\
       })					\
     )
