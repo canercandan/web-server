@@ -5,7 +5,6 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:00:54 2008 caner candan
-// Last update Wed Aug  6 17:53:24 2008 caner candan
 //
 
 #ifndef __ABNFPARSER_H__
@@ -13,37 +12,48 @@
 
 # include "HttpConsumer.h"
 
-# define RULE(expr)	({			\
+# define TRY(expr)	({			\
       int	pos;				\
       						\
+      DEBUG_ENTER();				\
       pos = this->getPos();			\
-      this->_deep++;				\
-      if ((expr)) {				\
-	this->_deep--;				\
-	if (this->_deep == 0)			\
-	  this->consume();			\
-	DEBUG_RETURN(true);			\
-      }						\
+      expr;					\
       this->setPos(pos);			\
       DEBUG_RETURN(false);			\
     })
 
-# define ZERO_OR_ONE(expr)	({		\
-      RULE(expr);				\
-      return (true);				\
-    })
+# define RULE(expr)	(TRY({			\
+	this->_deep++;				\
+	if (expr)				\
+	  {					\
+	    this->_deep--;			\
+	    if (!this->_deep)			\
+	      this->consume();			\
+	    DEBUG_RETURN(true);			\
+	  }					\
+      })					\
+    )
 
-# define ZERO_OR_MORE(expr)	({		\
-      while (RULE(expr));			\
-      return (true);				\
-    })
+# define LOOP(expr)	(TRY({			\
+	while (expr);				\
+	this->consume();			\
+	DEBUG_RETURN(true);			\
+      })					\
+    )
 
-# define ONE_OR_MORE(expr)	({		\
-      if (!RULE(expr))				\
-	return (false);				\
-      while (RULE(expr));			\
-      return (true);				\
-    })
+# define LOOP1(expr)	(TRY({			\
+	int	i;				\
+						\
+	for (i = 0; expr; i++);			\
+	if (i > 0)				\
+	  {					\
+	    this->consume();			\
+	    DEBUG_RETURN(true);			\
+	  }					\
+      })					\
+    )
+
+# define BOOL(expr)	(expr || true)
 
 # define DEBUG_PARSER		true
 

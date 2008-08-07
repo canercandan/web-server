@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:53:09 2008 caner candan
-// Last update Wed Aug  6 19:29:33 2008 caner candan
+// Last update Thu Aug  7 06:25:09 2008 caner candan
 //
 
 #include <iostream>
@@ -28,13 +28,11 @@ void	HttpParser::run()
 
 bool	HttpParser::readRequest()
 {
-  DEBUG_ENTER();
   RULE(readRequestLine());
 }
 
 bool	HttpParser::readRequestLine()
 {
-  DEBUG_ENTER();
   RULE(readMethod() && SP &&
        readRequestURI() && SP &&
        readHttpVersion() && CRLF);
@@ -42,7 +40,6 @@ bool	HttpParser::readRequestLine()
 
 bool	HttpParser::readRequestURI()
 {
-  DEBUG_ENTER();
   RULE(readChar('*') ||
        readAbsoluteURI() ||
        readPathAbsolute() ||
@@ -51,7 +48,6 @@ bool	HttpParser::readRequestURI()
 
 bool	HttpParser::readGeneralHeader()
 {
-  DEBUG_ENTER();
   RULE(readCacheControl() ||
        readConnection() ||
        readDate() ||
@@ -65,61 +61,51 @@ bool	HttpParser::readGeneralHeader()
 
 bool	HttpParser::readCacheControl()
 {
-  DEBUG_ENTER();
   RULE(false);
 }
 
 bool	HttpParser::readConnection()
 {
-  DEBUG_ENTER();
   RULE(false);
 }
 
 bool	HttpParser::readDate()
 {
-  DEBUG_ENTER();
   RULE(false);
 }
 
 bool	HttpParser::readPragma()
 {
-  DEBUG_ENTER();
   RULE(false);
 }
 
 bool	HttpParser::readTrailer()
 {
-  DEBUG_ENTER();
   RULE(false);
 }
 
 bool	HttpParser::readTransferEncoding()
 {
-  DEBUG_ENTER();
   RULE(false);
 }
 
 bool	HttpParser::readUpgrade()
 {
-  DEBUG_ENTER();
   RULE(false);
 }
 
 bool	HttpParser::readVia()
 {
-  DEBUG_ENTER();
   RULE(false);
 }
 
 bool	HttpParser::readWarning()
 {
-  DEBUG_ENTER();
   RULE(false);
 }
 
 bool	HttpParser::readMethod()
 {
-  DEBUG_ENTER();
   RULE(readText("OPTIONS") ||
        readText("GET") ||
        readText("HEAD") ||
@@ -133,13 +119,11 @@ bool	HttpParser::readMethod()
 
 bool	HttpParser::readExtensionMethod()
 {
-  DEBUG_ENTER();
   RULE(false);
 }
 
 bool	HttpParser::readHttpVersion()
 {
-  DEBUG_ENTER();
   RULE(readText("HTTP") &&
        readChar('/') &&
        readInteger() &&

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:12:53 2008 caner candan
-// Last update Wed Aug  6 17:53:27 2008 caner candan
+// Last update Thu Aug  7 07:36:51 2008 caner candan
 //
 
 #include <iostream>
@@ -48,46 +48,76 @@ ABNFParser::~ABNFParser()
 {}
 
 bool	ABNFParser::readAlpha()
-{RULE(RANGE('A', 'Z') || RANGE('a', 'z'));}
+{
+  RULE(RANGE('A', 'Z') || RANGE('a', 'z'));
+}
 
 bool	ABNFParser::readBit()
-{RULE(RANGE('0', '1'));}
+{
+  RULE(RANGE('0', '1'));
+}
 
 bool	ABNFParser::readCR()
-{RULE(CHAR('\r'));}
+{
+  RULE(CHAR('\r'));
+}
 
 bool	ABNFParser::readCRLF()
-{RULE(CR && LF);}
+{
+  RULE(CR && LF);
+}
 
 bool	ABNFParser::readCTL()
-{RULE(RANGE(0, 0x1f) || CHAR(0x7f));}
+{
+  RULE(RANGE(0, 0x1f) || CHAR(0x7f));
+}
 
 bool	ABNFParser::readDigit()
-{RULE(RANGE('0', '9'));}
+{
+  RULE(RANGE('0', '9'));
+}
 
 bool	ABNFParser::readDquote()
-{RULE(CHAR('"'));}
+{
+  RULE(CHAR('"'));
+}
 
 bool	ABNFParser::readHexdig()
-{RULE(DIGIT || RANGE('A', 'F'));}
+{
+  RULE(DIGIT || RANGE('A', 'F'));
+}
 
 bool	ABNFParser::readHtab()
-{RULE(CHAR(0x9));}
+{
+  RULE(CHAR(0x9));
+}
 
 bool	ABNFParser::readLF()
-{RULE(CHAR('\n'));}
+{
+  RULE(CHAR('\n'));
+}
 
 bool	ABNFParser::readLWSP()
-{RULE(WSP || (CRLF && WSP));} // LOOP
+{
+  RULE(WSP || (CRLF && WSP)); // LOOP
+}
 
 bool	ABNFParser::readOctet()
-{RULE(RANGE(0x0, 0xff));}
+{
+  RULE(RANGE(0x0, 0xff));
+}
 
 bool	ABNFParser::readSP()
-{RULE(CHAR(' '));}
+{
+  RULE(CHAR(' '));
+}
 
 bool	ABNFParser::readVChar()
-{RULE(RANGE(0x21, 0x7e));}
+{
+  RULE(RANGE(0x21, 0x7e));
+}
 
 bool	ABNFParser::readWSP()
-{RULE(SP || HTAB);}
+{
+  RULE(SP || HTAB);
+}
