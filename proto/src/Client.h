@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:38:23 2008 morgan armand
-// Last update Wed Aug  6 14:03:12 2008 caner candan
+// Last update Fri Aug  8 10:59:43 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -26,8 +26,6 @@ public:
 
 private:
   Socket*	_sck;
-  HttpProducer*	_producer;
-  HttpParser*	_consumer;
 };
 
 #endif // __CLIENT_H__

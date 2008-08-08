@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Fri Aug  8 10:44:01 2008 morgan armand
+// Last update Fri Aug  8 11:42:56 2008 caner candan
 //
 
 #include <sstream>
@@ -32,15 +32,22 @@ void	HttpConsumer::appendBuf(unsigned int size)
 
 void	HttpConsumer::consume()
 {
-  if (this->_deep == 0)
+  std::cout << "consume now" << std::endl;
+  if (!this->_deep)
     this->_buf.erase(0, this->_pos);
-
   this->_pos = 0;
 }
 
 std::string	HttpConsumer::extract(int pos)
 {
-  return (this->_buf.substr(pos, this->_pos - pos));
+  std::string str;
+
+  str = this->_buf.substr(pos, this->_pos - pos);
+  std::cout << std::endl
+	    << "#### str: " << str
+	    << std::endl
+	    << std::endl;
+  return (str);
 }
 
 unsigned int	HttpConsumer::getPos() const

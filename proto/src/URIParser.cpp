@@ -5,13 +5,15 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:36:11 2008 caner candan
-// Last update Thu Aug  7 13:05:51 2008 caner candan
+// Last update Fri Aug  8 11:38:37 2008 caner candan
 //
 
+#include <iostream>
 #include "URIParser.h"
 
-URIParser::URIParser(HttpProducer* prod)
-  : ABNFParser(prod)
+URIParser::URIParser(HttpProducer* prod,
+		     HttpRequest* req)
+  : ABNFParser(prod), _req(req)
 {}
 
 URIParser::~URIParser()
@@ -101,7 +103,7 @@ bool	URIParser::readRelativePartBlock()
 
 bool	URIParser::readScheme()
 {
-  RULE(ALPHA && readSchemeLoop());
+  CONSUME(0,ALPHA && readSchemeLoop());
 }
 
 bool	URIParser::readSchemeLoop()
@@ -137,9 +139,10 @@ bool	URIParser::readUserinfo()
 
 bool	URIParser::readHost()
 {
-  RULE(readIPLiteral() ||
-       readIPv4address() ||
-       readRegName());
+  CONSUME(_req->httpUrlHost(),
+	  readIPLiteral() ||
+	  readIPv4address() ||
+	  readRegName());
 }
 
 bool	URIParser::readPort()

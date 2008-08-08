@@ -5,18 +5,20 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:19:54 2008 caner candan
-// Last update Fri Aug  8 09:37:14 2008 caner candan
+// Last update Fri Aug  8 11:09:08 2008 caner candan
 //
 
 #ifndef __URIPARSER_H__
 #define __URIPARSER_H__
 
 #include "ABNFParser.h"
+#include "HttpRequest.h"
 
 class	URIParser : public ABNFParser
 {
 public:
-  URIParser(HttpProducer* prod);
+  URIParser(HttpProducer* prod,
+	    HttpRequest* req);
   ~URIParser();
 
   bool	readURI();
@@ -100,6 +102,8 @@ public:
   bool	readReserved();
   bool	readGenDelims();
   bool	readSubDelims();
+private:
+  HttpRequest*	_req;
 };
 
 #endif // __URIPARSER_H__

@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Thu Aug  7 11:18:32 2008 morgan armand
-// Last update Fri Aug  8 10:37:51 2008 morgan armand
+// Last update Fri Aug  8 11:37:35 2008 caner candan
 //
 
 #ifndef __ABNFPARSER_H__
@@ -18,6 +18,7 @@
       						\
       DEBUG_ENTER();				\
       pos = this->getPos();			\
+      std::cout << "pos before: " << pos << std::endl;	\
       expr;					\
       this->setPos(pos);			\
       DEBUG_RETURN(false);			\
@@ -36,16 +37,15 @@
       })					\
     )
 
-# define CONSUME(expr, data)	(TRY({		\
+# define CONSUME(data, expr)	(TRY({		\
 	this->_deep++;				\
 	if (expr)				\
 	  {					\
+	    std::cout << "pos after: " << pos << std::endl;	\
+	    this->extract(pos);		\
 	    this->_deep--;			\
 	    if (!this->_deep)			\
-	      {					\
-		this->extract(pos, data);	\
-		this->consume();		\
-	      }					\
+	      this->consume();			\
 	    DEBUG_RETURN(true);			\
 	  }					\
       })					\

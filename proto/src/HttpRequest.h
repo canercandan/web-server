@@ -5,15 +5,15 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:42 2008 morgan armand
-// Last update Fri Aug  8 09:44:45 2008 caner candan
+// Last update Fri Aug  8 10:52:54 2008 caner candan
 //
 
 #ifndef __HTTP_REQUEST_H__
-#define __HTTP_REQUEST_H__
+# define __HTTP_REQUEST_H__
 
-#include <string>
-#include <list>
-#include "rfcStruct.h"
+# include <string>
+# include <list>
+# include "rfcStruct.h"
 
 class	HttpRequest
 {
