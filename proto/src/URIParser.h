@@ -5,11 +5,11 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 10:19:54 2008 caner candan
-// Last update Thu Aug  7 12:17:10 2008 caner candan
+// Last update Fri Aug  8 09:37:14 2008 caner candan
 //
 
-#ifndef __URI_PARSER_H__
-#define __URI_PARSER_H__
+#ifndef __URIPARSER_H__
+#define __URIPARSER_H__
 
 #include "ABNFParser.h"
 
@@ -102,4 +102,4 @@ public:
   bool	readSubDelims();
 };
 
-#endif // __URI_PARSER_H__
+#endif // __URIPARSER_H__

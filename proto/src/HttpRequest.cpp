@@ -5,173 +5,370 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:48:50 2008 morgan armand
-// Last update Sat Aug  2 23:47:03 2008 florent hochwelker
+// Last update Fri Aug  8 09:44:24 2008 caner candan
 //
 
 #include "HttpRequest.h"
 
-void	HttpRequest::setMethod(const std::string& method)
+std::string&	HttpRequest::method()
 {
-  this->_method = method;
+  return (this->_method);
 }
 
-void	HttpRequest::setHttpUrl(const std::string& host, int port, const std::string& abs, std::string query)
+std::string&	HttpRequest::httpUrlHost()
 {
-  this->_httpUrl.host.host = host;
-  this->_httpUrl.host.port = port;
-  this->_httpUrl.abs_path = abs;
-  this->_httpUrl.query = query;
+  return (this->_httpUrl.host.host);
 }
 
-void	HttpRequest::setVersionProtocol(const std::string name, int major, int minor, const std::string otherVersion)
+int&		HttpRequest::httpUrlPort()
 {
-  this->_versionProtocol.name = name;
-  this->_versionProtocol.major = major;
-  this->_versionProtocol.minor = minor;
-  this->_versionProtocol.otherVersion = otherVersion;
+  return (this->_httpUrl.host.port);
 }
 
-void	HttpRequest::addCacheControl(const std::string& key, const std::string& value)
+std::string&	HttpRequest::httpUrlAbs()
 {
-  Key	myKey;
-  myKey.key = key;
-  myKey.value.push_back(value);
-  this->_cacheControl.push_back(myKey);
+  return (this->_httpUrl.abs_path);
 }
 
-void	HttpRequest::addConnection(const std::string& connection)
+std::string&	HttpRequest::httpUrlQuery()
 {
-  this->_connection.push_back(connection);
+  return (this->_httpUrl.query);
 }
 
-void	HttpRequest::setDate(const std::string& date)
+std::string&	HttpRequest::versionProtocolName()
 {
-  this->_date = date;
+  return (this->_versionProtocol.name);
 }
 
-void	HttpRequest::addPragma(const std::string& key, const std::string& value)
+int&	HttpRequest::versionProtocolMajor()
 {
-  Key	myKey;
-  myKey.key = key;
-  myKey.value.push_back(value);
-  this->_pragma.push_back(myKey);
+  return (this->_versionProtocol.major);
 }
 
-void	HttpRequest::addTrailer(const std::string& trailer)
+int&	HttpRequest::versionProtocolMinor()
 {
-  this->_trailer.push_back(trailer);
+  return (this->_versionProtocol.minor);
 }
 
-void	HttpRequest::addTransferEncoding(const std::string& encoding)
+std::string&	HttpRequest::versionProtocolOtherVersion()
 {
-  this->_transferEncoding.push_back(encoding);
+  return (this->_versionProtocol.otherVersion);
 }
 
-void	HttpRequest::addUpgrade(const VersionProtocol& versionProtocol)
+std::string&	HttpRequest::cacheControlKey()
 {
-  this->_upgrade.push_back(versionProtocol);
+  this->_cacheControl.push_back(Key());
+  return (this->_cacheControl.back().key);
 }
 
-void	HttpRequest::addWarning(const Warning& warning)
+std::string&	HttpRequest::cacheControlValue()
 {
-  this->_warning.push_back(warning);
+  this->_cacheControl.back().value.push_back("");
+  return (this->_cacheControl.back().value.back());
 }
 
-void	HttpRequest::addAccept(const Type& type)
+std::string&	HttpRequest::connection()
 {
-  this->_accept.push_back(type);
+  this->_connection.push_back("");
+  return (this->_connection.back());
 }
 
-void	HttpRequest::addAcceptCharset(const std::string& charset)
+std::string&	HttpRequest::date()
 {
-  this->_acceptCharset.push_back(charset);
+  return (this->_date);
 }
 
-void	HttpRequest::addAcceptEncoding(const std::string& encoding)
+std::string&	HttpRequest::pragmaKey()
 {
-  this->_acceptEncoding.push_back(encoding);
+  this->_pragma.push_back(Key());
+  return (this->_pragma.back().key);
 }
 
-void	HttpRequest::addAcceptLangage(const std::string& lang)
+std::string&	HttpRequest::pragmaValue()
 {
-  this->_acceptLangage.push_back(lang);
+  this->_pragma.back().value.push_back("");
+  return (this->_pragma.back().value.back());
 }
 
-void	HttpRequest::setAuthorization(const std::string& digest)
+std::string&	HttpRequest::trailer()
 {
-  this->_authorization = digest;
+  this->_trailer.push_back("");
+  return (this->_trailer.back());
 }
 
-void	HttpRequest::addExpect(const std::string& key, const std::string& value)
+std::string&	HttpRequest::transferEncoding()
 {
-  Key	myKey;
-  myKey.key = key;
-  myKey.value.push_back(value);
-  this->_expect.push_back(myKey);
+  this->_transferEncoding.push_back("");
+  return (this->_transferEncoding.back());
 }
 
-void	HttpRequest::setFrom(const std::string& from)
+std::string&	HttpRequest::acceptCharset()
 {
-  this->_from = from;
+  this->_acceptCharset.push_back("");
+  return (this->_acceptCharset.back());
 }
 
-void	HttpRequest::setHost(const std::string& host, int port)
+std::string&	HttpRequest::acceptEncoding()
 {
-  this->_host.host = host;
-  this->_host.port = port;
+  this->_acceptEncoding.push_back("");
+  return (this->_acceptEncoding.back());
 }
 
-void	HttpRequest::addIfMatch(const std::string& match)
+std::string&	HttpRequest::acceptLanguage()
 {
-  this->_ifMatch.push_back(match);
+  this->_acceptLangage.push_back("");
+  return (this->_acceptLangage.back());
 }
 
-void	HttpRequest::addAllow(const std::string& allow)
+std::string&	HttpRequest::authorization()
 {
-  this->_allow.push_back(allow);
+  return (this->_authorization);
 }
 
-void	HttpRequest::addContentEncoding(const std::string& encoding)
+std::string&	HttpRequest::expectKey()
 {
-  this->_contentEncoding.push_back(encoding);
+  this->_expect.push_back(Key());
+  return (this->_expect.back().key);
 }
 
-void	HttpRequest::addContentLangage(const std::string& lang)
+std::string&	HttpRequest::expectValue()
 {
-  this->_contentLangage.push_back(lang);
+  this->_expect.back().value.push_back("");
+  return (this->_expect.back().value.back());
 }
 
-void	HttpRequest::setContentLength(const int length)
+std::string&	HttpRequest::from()
 {
-  this->_contentLength = length;
+  return (this->_from);
 }
 
-void	HttpRequest::setContentLocation(const std::string& location)
+std::string&	HttpRequest::host()
 {
-  this->_contentLocation = location;
+  return (this->_host.host);
 }
 
-void	HttpRequest::setContentMd5(const std::string& base64ToMd5)
+int&		HttpRequest::port()
 {
-  this->_contentMd5 = base64ToMd5;
+  return (this->_host.port);
 }
 
-void	HttpRequest::setContentRange(const std::string& range)
+std::string&	HttpRequest::match()
 {
-  this->_contentRange = range;
+  this->_ifMatch.push_back("");
+  return (this->_ifMatch.back());
 }
 
-void	HttpRequest::addContentType(const Type& type)
+std::string&	HttpRequest::allow()
 {
-  this->_contentType.push_back(type);
+  this->_allow.push_back("");
+  return (this->_allow.back());
 }
 
-void	HttpRequest::setExpires(const std::string& expires)
+std::string&	HttpRequest::contentEncoding()
 {
-  this->_expires = expires;
+  this->_contentEncoding.push_back("");
+  return (this->_contentEncoding.back());
 }
 
-void	HttpRequest::setLastModifies(const std::string& lastModified)
+std::string&	HttpRequest::contentLanguage()
 {
-  this->_lastModified = lastModified;
+  this->_contentLangage.push_back("");
+  return (this->_contentLangage.back());
 }
+
+int&		HttpRequest::contentLength()
+{
+  return (this->_contentLength);
+}
+
+std::string&	HttpRequest::contentLocation()
+{
+  return (this->_contentLocation);
+}
+
+std::string&	HttpRequest::contentMd5()
+{
+  return (this->_contentMd5);
+}
+
+std::string&	HttpRequest::contentRange()
+{
+  return (this->_contentRange);
+}
+
+std::string&	HttpRequest::expires()
+{
+  return (this->_expires);
+}
+
+std::string&	HttpRequest::lastModifies()
+{
+  return (this->_lastModified);
+}
+
+
+// void	HttpRequest::setMethod(const std::string& method)
+// {
+//   this->_method = method;
+// }
+
+// void	HttpRequest::setHttpUrl(const std::string& host, int port, const std::string& abs, std::string query)
+// {
+//   this->_httpUrl.host.host = host;
+//   this->_httpUrl.host.port = port;
+//   this->_httpUrl.abs_path = abs;
+//   this->_httpUrl.query = query;
+// }
+
+// void	HttpRequest::setVersionProtocol(const std::string name, int major, int minor, const std::string otherVersion)
+// {
+//   this->_versionProtocol.name = name;
+//   this->_versionProtocol.major = major;
+//   this->_versionProtocol.minor = minor;
+//   this->_versionProtocol.otherVersion = otherVersion;
+// }
+
+// void	HttpRequest::addCacheControl(const std::string& key, const std::string& value)
+// {
+//   Key	myKey;
+//   myKey.key = key;
+//   myKey.value.push_back(value);
+//   this->_cacheControl.push_back(myKey);
+// }
+
+// void	HttpRequest::addConnection(const std::string& connection)
+// {
+//   this->_connection.push_back(connection);
+// }
+
+// void	HttpRequest::setDate(const std::string& date)
+// {
+//   this->_date = date;
+// }
+
+// void	HttpRequest::addPragma(const std::string& key, const std::string& value)
+// {
+//   Key	myKey;
+//   myKey.key = key;
+//   myKey.value.push_back(value);
+//   this->_pragma.push_back(myKey);
+// }
+
+// void	HttpRequest::addTrailer(const std::string& trailer)
+// {
+//   this->_trailer.push_back(trailer);
+// }
+
+// void	HttpRequest::addTransferEncoding(const std::string& encoding)
+// {
+//   this->_transferEncoding.push_back(encoding);
+// }
+
+// void	HttpRequest::addUpgrade(const VersionProtocol& versionProtocol)
+// {
+//   this->_upgrade.push_back(versionProtocol);
+// }
+
+// void	HttpRequest::addWarning(const Warning& warning)
+// {
+//   this->_warning.push_back(warning);
+// }
+
+// void	HttpRequest::addAccept(const Type& type)
+// {
+//   this->_accept.push_back(type);
+// }
+
+// void	HttpRequest::addAcceptCharset(const std::string& charset)
+// {
+//   this->_acceptCharset.push_back(charset);
+// }
+
+// void	HttpRequest::addAcceptEncoding(const std::string& encoding)
+// {
+//   this->_acceptEncoding.push_back(encoding);
+// }
+
+// void	HttpRequest::addAcceptLangage(const std::string& lang)
+// {
+//   this->_acceptLangage.push_back(lang);
+// }
+
+// void	HttpRequest::setAuthorization(const std::string& digest)
+// {
+//   this->_authorization = digest;
+// }
+
+// void	HttpRequest::addExpect(const std::string& key, const std::string& value)
+// {
+//   Key	myKey;
+//   myKey.key = key;
+//   myKey.value.push_back(value);
+//   this->_expect.push_back(myKey);
+// }
+
+// void	HttpRequest::setFrom(const std::string& from)
+// {
+//   this->_from = from;
+// }
+
+// void	HttpRequest::setHost(const std::string& host, int port)
+// {
+//   this->_host.host = host;
+//   this->_host.port = port;
+// }
+
+// void	HttpRequest::addIfMatch(const std::string& match)
+// {
+//   this->_ifMatch.push_back(match);
+// }
+
+// void	HttpRequest::addAllow(const std::string& allow)
+// {
+//   this->_allow.push_back(allow);
+// }
+
+// void	HttpRequest::addContentEncoding(const std::string& encoding)
+// {
+//   this->_contentEncoding.push_back(encoding);
+// }
+
+// void	HttpRequest::addContentLangage(const std::string& lang)
+// {
+//   this->_contentLangage.push_back(lang);
+// }
+
+// void	HttpRequest::setContentLength(const int length)
+// {
+//   this->_contentLength = length;
+// }
+
+// void	HttpRequest::setContentLocation(const std::string& location)
+// {
+//   this->_contentLocation = location;
+// }
+
+// void	HttpRequest::setContentMd5(const std::string& base64ToMd5)
+// {
+//   this->_contentMd5 = base64ToMd5;
+// }
+
+// void	HttpRequest::setContentRange(const std::string& range)
+// {
+//   this->_contentRange = range;
+// }
+
+// void	HttpRequest::addContentType(const Type& type)
+// {
+//   this->_contentType.push_back(type);
+// }
+
+// void	HttpRequest::setExpires(const std::string& expires)
+// {
+//   this->_expires = expires;
+// }
+
+// void	HttpRequest::setLastModifies(const std::string& lastModified)
+// {
+//   this->_lastModified = lastModified;
+// }
