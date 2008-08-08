@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:12:53 2008 caner candan
-// Last update Thu Aug  7 07:36:51 2008 caner candan
+// Last update Fri Aug  8 11:57:09 2008 caner candan
 //
 
 #include <iostream>
@@ -14,15 +14,17 @@
 static int indent = 0;
 
 void	Debug::enter(const char* func,
-		     const std::string& buf)
+		     const std::string& buf,
+		     const unsigned int& deep)
 {
   int	i;
 
   for (i = 0; i < indent; i++)
     std::cout << " ";
   indent++;
-  std::cout << "[" << func << "]"
-	    << " -> " << "[" << buf << "]"
+  std::cout << '[' << deep << ']'
+	    << '[' << func << ']'
+	    << " -> " << '[' << buf << "]"
 	    << std::endl;
 }
 
