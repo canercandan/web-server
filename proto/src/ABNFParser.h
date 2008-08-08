@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Thu Aug  7 11:18:32 2008 morgan armand
-// Last update Fri Aug  8 11:57:25 2008 caner candan
+// Last update Fri Aug  8 12:00:19 2008 caner candan
 //
 
 #ifndef __ABNFPARSER_H__
@@ -18,7 +18,7 @@
       						\
       DEBUG_ENTER();				\
       pos = this->getPos();			\
-      std::cout << "pos before: " << pos << std::endl;	\
+      //std::cout << "pos before: " << pos << std::endl;	\
       expr;					\
       this->setPos(pos);			\
       DEBUG_RETURN(false);			\
@@ -41,7 +41,7 @@
 	this->_deep++;				\
 	if (expr)				\
 	  {					\
-	    std::cout << "pos after: " << pos << std::endl;	\
+	    //std::cout << "pos after: " << pos << std::endl;	\
 	    this->extract(pos);		\
 	    this->_deep--;			\
 	    if (!this->_deep)			\
