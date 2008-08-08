@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Aug  6 11:12:53 2008 caner candan
-// Last update Fri Aug  8 11:57:09 2008 caner candan
+// Last update Fri Aug  8 12:19:55 2008 caner candan
 //
 
 #include <iostream>
@@ -20,11 +20,11 @@ void	Debug::enter(const char* func,
   int	i;
 
   for (i = 0; i < indent; i++)
-    std::cout << " ";
+    std::cout << ' ';
   indent++;
   std::cout << '[' << deep << ']'
 	    << '[' << func << ']'
-	    << " -> " << '[' << buf << "]"
+	    << " -> " << '[' << buf << ']'
 	    << std::endl;
 }
 
@@ -34,10 +34,10 @@ bool	Debug::leave(const char* func, bool retn)
 
   indent--;
   for (i = 0; i < indent; i++)
-    std::cout << " ";
-  std::cout << "[" << func << "]"
-	    << " -> " << "["
-	    << std::boolalpha << retn << "]"
+    std::cout << ' ';
+  std::cout << '[' << func << ']'
+	    << " -> " << '['
+	    << std::boolalpha << retn << ']'
 	    << std::endl;
   return (retn);
 }
