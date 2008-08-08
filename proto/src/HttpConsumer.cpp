@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Fri Aug  8 11:42:56 2008 caner candan
+// Last update Fri Aug  8 11:52:33 2008 caner candan
 //
 
 #include <sstream>
@@ -32,7 +32,7 @@ void	HttpConsumer::appendBuf(unsigned int size)
 
 void	HttpConsumer::consume()
 {
-  std::cout << "consume now" << std::endl;
+  std::cout << "consume now [" << this->_deep << ']' << std::endl;
   if (!this->_deep)
     this->_buf.erase(0, this->_pos);
   this->_pos = 0;
