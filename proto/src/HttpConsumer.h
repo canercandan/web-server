@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Wed Aug  6 18:05:15 2008 caner candan
+// Last update Fri Aug  8 10:43:57 2008 morgan armand
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -24,7 +24,8 @@ public:
 
   void	appendBuf(unsigned int size);
 
-  void	consume();
+  void		consume();
+  std::string	extract(int pos);
 
   unsigned int	getPos() const;
   void		setPos(unsigned int pos);

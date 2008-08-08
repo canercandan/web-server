@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Thu Aug  7 11:18:32 2008 morgan armand
-// Last update Thu Aug  7 13:04:00 2008 caner candan
+// Last update Fri Aug  8 10:37:51 2008 morgan armand
 //
 
 #ifndef __ABNFPARSER_H__
@@ -23,6 +23,7 @@
       DEBUG_RETURN(false);			\
     })
 
+
 # define RULE(expr)	(TRY({			\
 	this->_deep++;				\
 	if (expr)				\
@@ -30,6 +31,21 @@
 	    this->_deep--;			\
 	    if (!this->_deep)			\
 	      this->consume();			\
+	    DEBUG_RETURN(true);			\
+	  }					\
+      })					\
+    )
+
+# define CONSUME(expr, data)	(TRY({		\
+	this->_deep++;				\
+	if (expr)				\
+	  {					\
+	    this->_deep--;			\
+	    if (!this->_deep)			\
+	      {					\
+		this->extract(pos, data);	\
+		this->consume();		\
+	      }					\
 	    DEBUG_RETURN(true);			\
 	  }					\
       })					\

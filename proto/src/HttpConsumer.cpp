@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 19:22:30 2008 morgan armand
-// Last update Wed Aug  6 18:10:58 2008 caner candan
+// Last update Fri Aug  8 10:44:01 2008 morgan armand
 //
 
 #include <sstream>
@@ -36,6 +36,11 @@ void	HttpConsumer::consume()
     this->_buf.erase(0, this->_pos);
 
   this->_pos = 0;
+}
+
+std::string	HttpConsumer::extract(int pos)
+{
+  return (this->_buf.substr(pos, this->_pos - pos));
 }
 
 unsigned int	HttpConsumer::getPos() const
