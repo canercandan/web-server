@@ -1,98 +1,68 @@
 //
-// URIParser.h for URIParser in /home/candan_c/rendu/zia/proto/src
+// URIParser.h for zia in /home/armand_m/zia/proto/src
 // 
-// Made by caner candan
-// Login   <candan_c@epitech.net>
+// Made by morgan armand
+// Login   <armand_m@epitech.net>
 // 
-// Started on  Wed Aug  6 10:19:54 2008 caner candan
-// Last update Fri Aug  8 11:09:08 2008 caner candan
+// Started on  Fri Aug  8 16:02:05 2008 morgan armand
+// Last update Fri Aug  8 20:01:53 2008 morgan armand
 //
 
-#ifndef __URIPARSER_H__
-#define __URIPARSER_H__
+#ifndef __URI_PARSER_H__
+#define __URI_PARSER_H__
 
+#include "URI.h"
 #include "ABNFParser.h"
-#include "HttpRequest.h"
 
 class	URIParser : public ABNFParser
 {
 public:
-  URIParser(HttpProducer* prod,
-	    HttpRequest* req);
+  URIParser(HttpProducer* prod);
   ~URIParser();
 
-  bool	readURI();
-  bool	readURIBool1();
-  bool	readURIBool2();
-
   bool	readHierPart();
-  bool	readHierPartBlock();
-
-  bool	readURIReference();
 
   bool	readAbsoluteURI();
-  bool	readAbsoluteURIBool();
-
-  bool	readRelativeRef();
-  bool	readRelativeRefBool1();
-  bool	readRelativeRefBool2();
-
-  bool	readRelativePart();
-  bool	readRelativePartBlock();
+  bool	readAbsoluteURIOpt();
 
   bool	readScheme();
-  bool	readSchemeLoop();
 
   bool	readAuthority();
-  bool	readAuthorityBool1();
-  bool	readAuthorityBool2();
+  bool	readAuthorityOpt1();		// NOT RFC [userinfo "@"]
+  bool	readAuthorityOpt2();		// NOT RFC [ ":" port ]
 
-  bool	readUserinfo();
+  bool	readUserInfo();
+
   bool	readHost();
   bool	readPort();
 
   bool	readIPLiteral();
-  bool	readIPLiteralBlock();
-
   bool	readIPvFuture();
-  bool	readIPvFutureLoop1();
-  bool	readIPvFutureLoop2();
-
   bool	readIPv6address();
-  bool	readH16();
-
-  bool	readLs32();
-  bool	readLs32Block();
-
   bool	readIPv4address();
 
   bool	readDecOctet();
-  bool	readDecOctetBlock1();
-  bool	readDecOctetBlock2();
-  bool	readDecOctetBlock3();
-  bool	readDecOctetBlock4();
-
   bool	readRegName();
   bool	readPath();
+
   bool	readPathAbempty();
+  bool	readPathAbemptyPart2();		// NOT RFC ("/" segment)
 
   bool	readPathAbsolute();
-  bool	readPathAbsoluteBool();
-  bool	readPathAbsoluteLoop();
+  bool	readPathAbsoluteOpt();		// NOT RFC
+  bool	readPathAbsolutePart2();	// NOT RFC ("/" segment)
 
-  bool	readPathNoscheme();
-  bool	readPathNoschemeLoop();
+  bool	readPathNoScheme();
+  bool	readPathNoSchemePart2();	// NOT RFC ("/" segment)
 
   bool	readPathRootless();
-  bool	readPathRootlessLoop();
+  bool	readPathRootlessPart2();	// NOT RFC ("/" segment)
 
   bool	readPathEmpty();
 
   bool	readSegment();
   bool	readSegmentNz();
-
   bool	readSegmentNzNc();
-  bool	readSegmentNzNcLoop();
 
   bool	readPchar();
   bool	readQuery();
@@ -102,8 +72,9 @@ public:
   bool	readReserved();
   bool	readGenDelims();
   bool	readSubDelims();
+
 private:
-  HttpRequest*	_req;
+  URI*	_uri;
 };
 
-#endif // __URIPARSER_H__
+#endif // !__URI_PARSER_H__

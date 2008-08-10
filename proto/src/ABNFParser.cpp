@@ -1,125 +1,93 @@
 //
-// ABNFParser.cpp for ABNFParser.cpp in /home/candan_c/rendu/zia/proto/src
+// ABNFParser.cpp for zia in /home/armand_m/zia/proto/src
 // 
-// Made by caner candan
-// Login   <candan_c@epitech.net>
+// Made by morgan armand
+// Login   <armand_m@epitech.net>
 // 
-// Started on  Wed Aug  6 11:12:53 2008 caner candan
-// Last update Fri Aug  8 12:19:55 2008 caner candan
+// Started on  Fri Aug  8 16:02:37 2008 morgan armand
+// Last update Fri Aug  8 20:26:56 2008 morgan armand
 //
 
-#include <iostream>
 #include "ABNFParser.h"
 
-static int indent = 0;
-
-void	Debug::enter(const char* func,
-		     const std::string& buf,
-		     const unsigned int& deep)
+// -----------------------REMOVE ME --------------------------
+namespace	Debug
 {
-  int	i;
+  static int	indent = 0;
 
-  for (i = 0; i < indent; i++)
-    std::cout << ' ';
-  indent++;
-  std::cout << '[' << deep << ']'
-	    << '[' << func << ']'
-	    << " -> " << '[' << buf << ']'
-	    << std::endl;
-}
+  void	enter(const char* func, const std::string& buf)
+  {
+    if (DEBUG_ACTIVE)
+      {
+	for (int i = 0; i < indent; i++)
+	  std::cout << ' ';
 
-bool	Debug::leave(const char* func, bool retn)
-{
-  int	i;
+	std::cout << '[' << func << "] ["
+		  << buf << ']' << std::endl;
+      }
+    indent++;
+  }
 
-  indent--;
-  for (i = 0; i < indent; i++)
-    std::cout << ' ';
-  std::cout << '[' << func << ']'
-	    << " -> " << '['
-	    << std::boolalpha << retn << ']'
-	    << std::endl;
-  return (retn);
-}
+  bool	leave(const char* func, bool ret)
+  {
+    if (DEBUG_ACTIVE)
+      {
+	for (int i = 0; i < indent; i++)
+	  std::cout << ' ';
+
+	std::cout << '[' << func << " -> "
+		  << ret << ']' << std::endl;
+      }
+    indent--;
+    return (ret);
+  }
+};
+
+// -----------------------REMOVE ME --------------------------
 
 ABNFParser::ABNFParser(HttpProducer* prod)
   : HttpConsumer(prod)
-{}
-
-ABNFParser::~ABNFParser()
-{}
-
-bool	ABNFParser::readAlpha()
 {
-  RULE(RANGE('A', 'Z') || RANGE('a', 'z'));
 }
 
-bool	ABNFParser::readBit()
+ABNFParser::~ABNFParser()
 {
-  RULE(RANGE('0', '1'));
+}
+
+bool	ABNFParser::readALPHA()
+{
+  return (this->readRange('A', 'Z') ||
+	  this->readRange('a', 'z'));
 }
 
 bool	ABNFParser::readCR()
 {
-  RULE(CHAR('\r'));
+  return (this->readChar('\r'));
 }
 
 bool	ABNFParser::readCRLF()
 {
-  RULE(CR && LF);
+  return (this->readCR() &&
+	  this->readLF());
 }
 
-bool	ABNFParser::readCTL()
+bool	ABNFParser::readDIGIT()
 {
-  RULE(RANGE(0, 0x1f) || CHAR(0x7f));
+  return (this->readRange('0', '9'));
 }
 
-bool	ABNFParser::readDigit()
+bool	ABNFParser::readHEXDIG()
 {
-  RULE(RANGE('0', '9'));
-}
-
-bool	ABNFParser::readDquote()
-{
-  RULE(CHAR('"'));
-}
-
-bool	ABNFParser::readHexdig()
-{
-  RULE(DIGIT || RANGE('A', 'F'));
-}
-
-bool	ABNFParser::readHtab()
-{
-  RULE(CHAR(0x9));
+  return (this->readDIGIT() ||
+	  this->readRange('A', 'F'));
 }
 
 bool	ABNFParser::readLF()
 {
-  RULE(CHAR('\n'));
-}
-
-bool	ABNFParser::readLWSP()
-{
-  RULE(WSP || (CRLF && WSP)); // LOOP
-}
-
-bool	ABNFParser::readOctet()
-{
-  RULE(RANGE(0x0, 0xff));
+  return (this->readChar('\n'));
 }
 
 bool	ABNFParser::readSP()
 {
-  RULE(CHAR(' '));
-}
-
-bool	ABNFParser::readVChar()
-{
-  RULE(RANGE(0x21, 0x7e));
-}
-
-bool	ABNFParser::readWSP()
-{
-  RULE(SP || HTAB);
+  return (this->readChar(' '));
 }

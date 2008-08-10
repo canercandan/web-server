@@ -5,9 +5,10 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Fri Aug  8 11:00:54 2008 caner candan
+// Last update Fri Aug  8 20:05:35 2008 morgan armand
 //
 
+#include <iostream>
 #include "Client.h"
 
 Client::Client(Socket* sck)
@@ -17,14 +18,19 @@ Client::Client(Socket* sck)
 void	Client::run()
 {
   HttpProducer*	producer;
-  HttpParser*	consumer;
+  HttpParser*	parser;
   HttpRequest*	request;
 
   producer = new HttpProducer(this->_sck);
-  request = new HttpRequest;
-  consumer = new HttpParser(producer, request);
-  consumer->run();
-  delete producer;
+  request = new HttpRequest();
+  parser = new HttpParser(producer, request);
+
+  if (parser->readRequest())
+    std::cout << "Valid request" << std::endl;
+  else
+    std::cout << "Invalid request" << std::endl;
+
   delete request;
-  delete consumer;
+  delete parser;
+  delete producer;
 }

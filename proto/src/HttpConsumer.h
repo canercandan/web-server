@@ -4,8 +4,8 @@
 // Made by morgan armand
 // Login   <armand_m@epitech.net>
 // 
-// Started on  Wed Jul 30 19:20:39 2008 morgan armand
-// Last update Fri Aug  8 10:43:57 2008 morgan armand
+// Started on  Fri Aug  8 15:07:41 2008 morgan armand
+// Last update Fri Aug  8 20:23:30 2008 morgan armand
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -20,17 +20,15 @@ public:
   HttpConsumer(HttpProducer* prod);
   ~HttpConsumer();
 
-  std::string	getBuf(void);
+  std::string getBuf();
 
-  void	appendBuf(unsigned int size);
+  void	consume();
 
-  void		consume();
-  std::string	extract(int pos);
+  void	prepare();
+  void	extract(std::string& s_r);
 
-  unsigned int	getPos() const;
-  void		setPos(unsigned int pos);
-
-  bool	eof();
+  void	save();
+  void	back();
 
   bool	peekChar(const char c);
 
@@ -47,13 +45,18 @@ public:
   bool	readInteger(int& i_r);
 
   bool	readIdentifier();
-  bool	readIdentifier(std::string& i_r);
+  bool	readIdentifier(std::string& s_r);
+
+private:
+  void	_appendBuf(size_t size);
+
 private:
   HttpProducer*	_prod;
 
   std::string	_buf;
-  unsigned int	_pos;
-  unsigned int	_deep;
+  size_t	_cur_pos;
+  size_t	_old_pos;
+  size_t	_ext_pos;
 };
 
-#endif // __HTTP_CONSUMER_H__
+#endif // !__HTTP_CONSUMER_H__

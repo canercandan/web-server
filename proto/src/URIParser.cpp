@@ -1,375 +1,443 @@
 //
-// URIParser.cpp for URIParser in /home/candan_c/rendu/zia/proto/src
+// URIParser.cpp for zia in /home/armand_m/zia/proto/src
 // 
-// Made by caner candan
-// Login   <candan_c@epitech.net>
+// Made by morgan armand
+// Login   <armand_m@epitech.net>
 // 
-// Started on  Wed Aug  6 10:36:11 2008 caner candan
-// Last update Fri Aug  8 11:38:37 2008 caner candan
+// Started on  Fri Aug  8 16:02:12 2008 morgan armand
+// Last update Fri Aug  8 21:47:50 2008 morgan armand
 //
 
-#include <iostream>
 #include "URIParser.h"
 
-URIParser::URIParser(HttpProducer* prod,
-		     HttpRequest* req)
-  : ABNFParser(prod), _req(req)
-{}
+URIParser::URIParser(HttpProducer* prod)
+  : ABNFParser(prod)
+{
+}
 
 URIParser::~URIParser()
-{}
-
-bool	URIParser::readURI()
 {
-  RULE(readScheme() && CHAR(':') &&
-       readHierPart() &&
-       BOOL(readURIBool1()) &&
-       BOOL(readURIBool2()));
-}
-
-bool	URIParser::readURIBool1()
-{
-  RULE(CHAR('?') && readQuery());
-}
-
-bool	URIParser::readURIBool2()
-{
-  RULE(CHAR('#') && readFragment());
 }
 
 bool	URIParser::readHierPart()
 {
-  RULE(readHierPartBlock() ||
-       readPathAbsolute() ||
-       readPathRootless() ||
-       readPathEmpty());
-}
-
-bool	URIParser::readHierPartBlock()
-{
-  RULE(readText("//") &&
-       readAuthority() &&
-       readPathAbempty());
-}
-
-bool	URIParser::readURIReference()
-{
-  RULE(readURI() || readRelativeRef());
+  DEBUG_ENTER;
+  if ((this->readText("//") &&
+       this->readAuthority() &&
+       this->readPathAbempty()) ||
+      this->readPathAbsolute() ||
+      this->readPathRootless() ||
+      this->readPathEmpty())
+    DEBUG_RETURN (true);
+  DEBUG_RETURN (false);
 }
 
 bool	URIParser::readAbsoluteURI()
 {
-  RULE(readScheme() && CHAR(':') &&
-       readHierPart() &&
-       BOOL(readAbsoluteURIBool()));
+  DEBUG_ENTER;
+  this->save();
+
+  if (this->readScheme() &&
+      this->readChar(':') &&
+      this->readHierPart() &&
+      this->readAbsoluteURIOpt())
+    {
+      DEBUG_RETURN (true);
+    }
+  this->back();
+  DEBUG_RETURN (false);
 }
 
-bool	URIParser::readAbsoluteURIBool()
+bool	URIParser::readAbsoluteURIOpt()
 {
-  RULE(CHAR('?') && readQuery());
-}
+  DEBUG_ENTER;
+  this->save();
 
-bool	URIParser::readRelativeRef()
-{
-  RULE(readRelativePart() &&
-       BOOL(readRelativeRefBool1()) &&
-       BOOL(readRelativeRefBool2()));
-}
+  if (this->readChar('?') &&
+      this->readQuery())
+    DEBUG_RETURN (true);
 
-bool	URIParser::readRelativeRefBool1()
-{
-  RULE(CHAR('?') && readQuery());
-}
-
-bool	URIParser::readRelativeRefBool2()
-{
-  RULE(CHAR('#') && readFragment());
-}
-
-bool	URIParser::readRelativePart()
-{
-  RULE(readRelativePartBlock() ||
-       readPathAbsolute() ||
-       readPathNoscheme() ||
-       readPathEmpty());
-}
-
-bool	URIParser::readRelativePartBlock()
-{
-  RULE(readText("//") &&
-       readAuthority() &&
-       readPathAbempty());
+  this->back();
+  DEBUG_RETURN (true);
 }
 
 bool	URIParser::readScheme()
 {
-  CONSUME(0,ALPHA && readSchemeLoop());
-}
+  DEBUG_ENTER;
+  if (!this->readALPHA())
+    DEBUG_RETURN (false);
 
-bool	URIParser::readSchemeLoop()
-{
-  LOOP(ALPHA || DIGIT || CHAR('+') ||
-       CHAR('-') || CHAR('.'));
+  while (this->readALPHA() ||
+	 this->readDIGIT() ||
+	 this->readChar('+') ||
+	 this->readChar('-') ||
+	 this->readChar('.'));
+  DEBUG_RETURN (true);
 }
 
 bool	URIParser::readAuthority()
 {
-  RULE(//BOOL(readAuthorityBool1()) &&
-       readHost() &&
-       BOOL(readAuthorityBool2()));
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readAuthorityOpt1() &&
+	  this->readHost() &&
+	  this->readAuthorityOpt2());
 }
 
-bool	URIParser::readAuthorityBool1()
+bool	URIParser::readAuthorityOpt1()
 {
-  RULE(readUserinfo() && CHAR('@'));
+  DEBUG_ENTER;
+  this->save();
+
+  if (this->readUserInfo() &&
+      this->readChar('@'))
+    DEBUG_RETURN (true);
+
+  this->back();
+  DEBUG_RETURN (true);
 }
 
-bool	URIParser::readAuthorityBool2()
+bool	URIParser::readAuthorityOpt2()
 {
-  RULE(CHAR(':') && readPort());
+  DEBUG_ENTER;
+  this->save();
+
+  if (this->readChar(':') &&
+      this->readPort())
+    DEBUG_RETURN (true);
+
+  this->back();
+  DEBUG_RETURN (true);
 }
 
-bool	URIParser::readUserinfo()
+bool	URIParser::readUserInfo()
 {
-  LOOP(readUnreserved() ||
-       readPctEncoded() ||
-       readSubDelims() ||
-       CHAR(':'));
+  DEBUG_ENTER;
+  while (this->readUnreserved() ||
+	 this->readPctEncoded() ||
+	 this->readSubDelims() ||
+	 this->readChar(':'));
+  DEBUG_RETURN (true);
 }
 
 bool	URIParser::readHost()
 {
-  CONSUME(_req->httpUrlHost(),
-	  readIPLiteral() ||
-	  readIPv4address() ||
-	  readRegName());
+  std::string	host;
+
+  DEBUG_ENTER;
+  this->prepare();
+
+  if  (this->readIPLiteral() ||
+       this->readIPv4address() ||
+       this->readRegName())
+    {
+      this->extract(host);
+      this->consume();
+      std::cout << "HOST: " << host << std::endl;
+      DEBUG_RETURN (true);
+    }
+  DEBUG_RETURN (false);
 }
 
 bool	URIParser::readPort()
 {
-  LOOP(DIGIT);
+  std::string	port;
+
+  DEBUG_ENTER;
+  this->prepare();
+  while (this->readDIGIT());
+  this->extract(port);
+  this->consume();
+  std::cout << "PORT: " << port << std::endl;
+  DEBUG_RETURN (true);
 }
 
 bool	URIParser::readIPLiteral()
 {
-  RULE(CHAR('[') &&
-       readIPLiteralBlock() &&
-       CHAR(']'));
-}
-
-bool	URIParser::readIPLiteralBlock()
-{
-  RULE(readIPv6address() || readIPvFuture());
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readChar('[') &&
+	  (this->readIPv6address() ||
+	   this->readIPvFuture()) &&
+	  this->readChar(']'));
 }
 
 bool	URIParser::readIPvFuture()
 {
-  RULE(CHAR('v') &&
-       readIPvFutureLoop1() &&
-       CHAR('.') &&
-       readIPvFutureLoop2());
-}
-
-bool	URIParser::readIPvFutureLoop1()
-{
-  LOOP1(HEXDIG);
-}
-
-bool	URIParser::readIPvFutureLoop2()
-{
-  LOOP1(readUnreserved() ||
-	readSubDelims() ||
-	CHAR(':'));
+  NOT_IMPLEMENTED;
 }
 
 bool	URIParser::readIPv6address()
 {
-  RULE(false);
-}
-
-bool	URIParser::readH16()
-{
-  RULE(HEXDIG && HEXDIG && HEXDIG && HEXDIG);
-}
-
-bool	URIParser::readLs32()
-{
-  RULE(readLs32Block() ||
-       readIPv4address());
-}
-
-bool	URIParser::readLs32Block()
-{
-  RULE(readH16() && CHAR(':') && readH16());
+  NOT_IMPLEMENTED;
 }
 
 bool	URIParser::readIPv4address()
 {
-  RULE(readDecOctet() && CHAR('.') &&
-       readDecOctet() && CHAR('.') &&
-       readDecOctet() && CHAR('.') &&
-       readDecOctet());
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readDecOctet() && this->readChar('.') &&
+	  this->readDecOctet() && this->readChar('.') &&
+	  this->readDecOctet() && this->readChar('.') &&
+	  this->readDecOctet());
 }
 
 bool	URIParser::readDecOctet()
 {
-  RULE(DIGIT ||
-       readDecOctetBlock1() ||
-       readDecOctetBlock2() ||
-       readDecOctetBlock3() ||
-       readDecOctetBlock4());
-}
-
-bool	URIParser::readDecOctetBlock1()
-{
-  RULE(RANGE('1', '9') && DIGIT);
-}
-
-bool	URIParser::readDecOctetBlock2()
-{
-  RULE(CHAR('1') && DIGIT && DIGIT);
-}
-
-bool	URIParser::readDecOctetBlock3()
-{
-  RULE(CHAR('2') && RANGE('0', '4') && DIGIT);
-}
-
-bool	URIParser::readDecOctetBlock4()
-{
-  RULE(readText("25") && RANGE('0', '5'));
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readDIGIT() ||
+	  (this->readRange('1', '9') &&
+	   this->readDIGIT()) ||
+	  (this->readChar('1') &&
+	   this->readDIGIT() &&
+	   this->readDIGIT()) ||
+	  (this->readChar('2') &&
+	   this->readRange('0', '4') &&
+	   this->readDIGIT()) ||
+	  (this->readText("25") &&
+	   this->readRange('0', '5')));
 }
 
 bool	URIParser::readRegName()
 {
-  LOOP(readUnreserved() ||
-       readPctEncoded() ||
-       readSubDelims());
+  DEBUG_ENTER;
+  while (this->readUnreserved() ||
+	 this->readPctEncoded() ||
+	 this->readSubDelims());
+  DEBUG_RETURN (true);
 }
 
 bool	URIParser::readPath()
 {
-  RULE(readPathAbempty() ||
-       readPathAbsolute() ||
-       readPathNoscheme() ||
-       readPathRootless() ||
-       readPathEmpty());
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readPathAbempty() ||
+	  this->readPathAbsolute() ||
+	  this->readPathNoScheme() ||
+	  this->readPathRootless() ||
+	  this->readPathEmpty());
 }
 
 bool	URIParser::readPathAbempty()
 {
-  LOOP(CHAR('/') && readSegment());
+  std::string	path;
+
+  DEBUG_ENTER;
+  this->prepare();
+
+  while (this->readPathAbemptyPart2());
+
+  this->extract(path);
+  this->consume();
+  DEBUG_RETURN (true);
+}
+
+bool	URIParser::readPathAbemptyPart2()
+{
+  DEBUG_ENTER;
+  this->save();
+
+  if (this->readChar('/') &&
+      this->readSegment())
+    DEBUG_RETURN (true);
+
+  this->back();
+  DEBUG_RETURN (false);
 }
 
 bool	URIParser::readPathAbsolute()
 {
-  RULE(CHAR('/') &&
-       BOOL(readPathAbsoluteBool()));
+  std::string	path;
+
+  DEBUG_ENTER;
+  this->prepare();
+
+  if (this->readChar('/') &&
+      this->readPathAbsoluteOpt())
+    {
+      this->extract(path);
+      this->consume();
+      DEBUG_RETURN (true);
+    }
+  DEBUG_RETURN (false);
 }
 
-bool	URIParser::readPathAbsoluteBool()
+bool	URIParser::readPathAbsoluteOpt()
 {
-  RULE(readSegmentNz() &&
-       readPathAbsoluteLoop());
+  DEBUG_ENTER;
+  if (this->readSegmentNz())
+    while(this->readPathAbsolutePart2());
+  DEBUG_RETURN (true);
 }
 
-bool	URIParser::readPathAbsoluteLoop()
+bool	URIParser::readPathAbsolutePart2()
 {
-  LOOP(CHAR('/') && readSegment());
+  DEBUG_ENTER;
+  this->save();
+
+  if (this->readChar('/') &&
+      this->readSegment())
+    DEBUG_RETURN (true);
+
+  this->back();
+  DEBUG_RETURN (false);
 }
 
-bool	URIParser::readPathNoscheme()
+bool	URIParser::readPathNoScheme()
 {
-  RULE(readSegmentNzNc() &&
-       readPathNoschemeLoop());
+  DEBUG_ENTER;
+  if (this->readSegmentNzNc())
+    {
+      while (this->readPathNoSchemePart2());
+      DEBUG_RETURN (true);
+    }
+  DEBUG_RETURN (false);
 }
 
-bool	URIParser::readPathNoschemeLoop()
+bool	URIParser::readPathNoSchemePart2()
 {
-  LOOP(CHAR('/') && readSegment());
+  DEBUG_ENTER;
+  this->save();
+
+  if (this->readChar('/') &&
+      this->readSegment())
+    DEBUG_RETURN (true);
+
+  this->back();
+  DEBUG_RETURN (false);
 }
 
 bool	URIParser::readPathRootless()
 {
-  RULE(readSegmentNz() &&
-       readPathRootlessLoop());
+  std::string	path;
+
+  DEBUG_ENTER;
+  this->prepare();
+
+  if (this->readSegmentNz())
+    {
+      while (this->readPathRootlessPart2());
+      this->extract(path);
+      this->consume();
+      DEBUG_RETURN (true);
+    }
+  DEBUG_RETURN (false);
 }
 
-bool	URIParser::readPathRootlessLoop()
+bool	URIParser::readPathRootlessPart2()
 {
-  LOOP(CHAR('/') && readSegment());
+  DEBUG_ENTER;
+  this->save();
+
+  if (this->readChar('/') &&
+      this->readSegment())
+    DEBUG_RETURN (true);
+
+  this->back();
+  DEBUG_RETURN (false);
 }
 
 bool	URIParser::readPathEmpty()
 {
-  RULE(true);
+  NOT_IMPLEMENTED;
 }
 
 bool	URIParser::readSegment()
 {
-  LOOP(readPchar());
+  DEBUG_ENTER;
+  while (this->readPchar());
+  DEBUG_RETURN (true);
 }
 
 bool	URIParser::readSegmentNz()
 {
-  LOOP1(readPchar());
+  DEBUG_ENTER;
+  if (!this->readPchar())
+    DEBUG_RETURN (false);
+  while (this->readPchar());
+  DEBUG_RETURN (true);
 }
 
 bool	URIParser::readSegmentNzNc()
 {
-  RULE(readUnreserved() || readPctEncoded() ||
-       readSegmentNzNcLoop());
-}
+  int	i;
 
-bool	URIParser::readSegmentNzNcLoop()
-{
-  LOOP1(readSubDelims() || CHAR('@'));
+  DEBUG_ENTER;
+  i = 0;
+  while (this->readUnreserved() &&
+	 this->readPctEncoded() &&
+	 this->readSubDelims() &&
+	 this->readChar('@'))
+    i++;
+  DEBUG_RETURN (i > 0);
 }
 
 bool	URIParser::readPchar()
 {
-  RULE(readUnreserved() || readPctEncoded() ||
-       readSubDelims() || CHAR(':') ||
-       CHAR('@'));
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readUnreserved() ||
+		this->readPctEncoded() ||
+		this->readSubDelims() ||
+		this->readChar(':') ||
+		this->readChar('@'));
 }
 
 bool	URIParser::readQuery()
 {
-  LOOP(readPchar() || CHAR('/') || CHAR('?'));
+  DEBUG_ENTER;
+  while (this->readPchar() ||
+	 this->readChar('/') ||
+	 this->readChar('?'));
+  DEBUG_RETURN (true);
 }
 
 bool	URIParser::readFragment()
 {
-  RULE(readQuery());
+  DEBUG_ENTER;
+  while (this->readPchar() ||
+	 this->readChar('/') ||
+	 this->readChar('?'));
+  DEBUG_RETURN (true);
 }
 
 bool	URIParser::readPctEncoded()
 {
-  RULE(CHAR('%') && HEXDIG && HEXDIG);
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readChar('%') &&
+		this->readHEXDIG() &&
+		this->readHEXDIG());
 }
 
 bool	URIParser::readUnreserved()
 {
-  RULE(ALPHA || DIGIT || CHAR('-') || CHAR('.') ||
-       CHAR('_') || CHAR('~'));
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readALPHA() ||
+		this->readDIGIT() ||
+		this->readChar('-') ||
+		this->readChar('.') ||
+		this->readChar('_') ||
+		this->readChar('~'));
 }
 
 bool	URIParser::readReserved()
 {
-  RULE(readGenDelims() || readSubDelims());
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readGenDelims() ||
+		this->readSubDelims());
 }
 
 bool	URIParser::readGenDelims()
 {
-  RULE(CHAR(':') || CHAR('/') || CHAR('?') ||
-       CHAR('#') || CHAR('[') || CHAR(']') ||
-       CHAR('@'));
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readChar(':') || this->readChar('/') ||
+		this->readChar('?') || this->readChar('#') ||
+		this->readChar('[') || this->readChar(']') ||
+		this->readChar('@'));
 }
 
 bool	URIParser::readSubDelims()
 {
-  RULE(CHAR('!') || CHAR('$') || CHAR('&') ||
-       CHAR('\'') || CHAR('(') || CHAR(')') ||
-       CHAR('*') || CHAR('+') || CHAR(',') ||
-       CHAR(';') || CHAR('='));
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readChar('!') || this->readChar('$') ||
+		this->readChar('&') || this->readChar('\'') ||
+		this->readChar('(') || this->readChar(')') ||
+		this->readChar('*') || this->readChar('+') ||
+		this->readChar(',') || this->readChar(';') ||
+		this->readChar('='));
 }

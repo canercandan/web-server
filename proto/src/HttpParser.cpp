@@ -1,133 +1,86 @@
 //
-// HttpParser.cpp for HttpParser in /home/candan_c/rendu/zia/proto/src
+// HttpParser.cpp for zia in /home/armand_m/zia/proto/src
 // 
-// Made by caner candan
-// Login   <candan_c@epitech.net>
+// Made by morgan armand
+// Login   <armand_m@epitech.net>
 // 
-// Started on  Wed Aug  6 10:53:09 2008 caner candan
-// Last update Fri Aug  8 11:10:18 2008 caner candan
+// Started on  Fri Aug  8 16:01:54 2008 morgan armand
+// Last update Fri Aug  8 20:09:05 2008 morgan armand
 //
 
-#include <iostream>
 #include "HttpParser.h"
 
-HttpParser::HttpParser(HttpProducer* prod,
-		       HttpRequest* req)
-  : URIParser(prod, req), _req(req)
-{}
+HttpParser::HttpParser(HttpProducer* prod, HttpRequest* request)
+  : URIParser(prod), _request(request)
+{
+}
 
 HttpParser::~HttpParser()
-{}
-
-void	HttpParser::run()
 {
-  if (this->readRequest() && this->eof())
-    std::cout << "Valid Request" << std::endl;
-  else
-    std::cout << "Invalid Request" << std::endl;
 }
 
 bool	HttpParser::readRequest()
 {
-  RULE(readRequestLine());
+  if (this->readRequestLine())
+    return (true);
+  return (false);
 }
 
 bool	HttpParser::readRequestLine()
 {
-  RULE(readMethod() && SP &&
-       readRequestURI() && SP &&
-       readHttpVersion() && CRLF);
-}
-
-bool	HttpParser::readRequestURI()
-{
-  RULE(readChar('*') ||
-       readAbsoluteURI() ||
-       readPathAbsolute() ||
-       readAuthority());
-}
-
-bool	HttpParser::readGeneralHeader()
-{
-  RULE(readCacheControl() ||
-       readConnection() ||
-       readDate() ||
-       readPragma() ||
-       readTrailer() ||
-       readTransferEncoding() ||
-       readUpgrade() ||
-       readVia() ||
-       readWarning());
-}
-
-bool	HttpParser::readCacheControl()
-{
-  RULE(false);
-}
-
-bool	HttpParser::readConnection()
-{
-  RULE(false);
-}
-
-bool	HttpParser::readDate()
-{
-  RULE(false);
-}
-
-bool	HttpParser::readPragma()
-{
-  RULE(false);
-}
-
-bool	HttpParser::readTrailer()
-{
-  RULE(false);
-}
-
-bool	HttpParser::readTransferEncoding()
-{
-  RULE(false);
-}
-
-bool	HttpParser::readUpgrade()
-{
-  RULE(false);
-}
-
-bool	HttpParser::readVia()
-{
-  RULE(false);
-}
-
-bool	HttpParser::readWarning()
-{
-  RULE(false);
+  if (this->readMethod() && this->readSP() &&
+      this->readRequestURI() && this->readSP() &&
+      this->readHttpVersion() && this->readCRLF())
+    return (true);
+  return (false);
 }
 
 bool	HttpParser::readMethod()
 {
-  RULE(readText("OPTIONS") ||
-       readText("GET") ||
-       readText("HEAD") ||
-       readText("POST") ||
-       readText("PUT") ||
-       readText("DELETE") ||
-       readText("TRACE") ||
-       readText("CONNECT") ||
-       readExtensionMethod());
+  std::string	method;
+
+  this->prepare();
+
+  if (this->readText("OPTIONS") ||
+      this->readText("GET") ||
+      this->readText("HEAD") ||
+      this->readText("POST") ||
+      this->readText("PUT") ||
+      this->readText("DELETE") ||
+      this->readText("TRACE") ||
+      this->readText("CONNECT") ||
+      this->readExtensionMethod())
+    {
+      this->extract(method);
+      this->consume();
+      std::cout << "METHOD: " << method << std::endl;
+      return (true);
+    }
+  return (false);
 }
 
 bool	HttpParser::readExtensionMethod()
 {
-  RULE(false);
+  NOT_IMPLEMENTED;
+}
+
+bool	HttpParser::readRequestURI()
+{
+  if (this->readChar('*') ||
+      this->readAbsoluteURI() ||
+      this->readPathAbsolute() ||
+      this->readAuthority())
+    return (true);
+  return (false);
 }
 
 bool	HttpParser::readHttpVersion()
 {
-  RULE(readText("HTTP") &&
-       readChar('/') &&
-       readInteger() &&
-       readChar('.') &&
-       readInteger());
+  if (this->readText("HTTP") &&
+      this->readChar('/') &&
+      this->readInteger() &&
+      this->readChar('.') &&
+      this->readInteger())
+    return (true);
+  return (false);
 }

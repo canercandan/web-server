@@ -4,112 +4,34 @@
 // Made by morgan armand
 // Login   <armand_m@epitech.net>
 // 
-// Started on  Thu Aug  7 11:18:32 2008 morgan armand
-// Last update Fri Aug  8 12:01:02 2008 caner candan
+// Started on  Fri Aug  8 16:02:26 2008 morgan armand
+// Last update Fri Aug  8 20:26:05 2008 morgan armand
 //
 
-#ifndef __ABNFPARSER_H__
-# define __ABNFPARSER_H__
+#ifndef __ABNF_PARSER_H__
+#define __ABNF_PARSER_H__
 
-# include "HttpConsumer.h"
+#include <iostream>
+#include "HttpConsumer.h"
 
-# define TRY(expr)	({			\
-      int	pos;				\
-      						\
-      DEBUG_ENTER();				\
-      pos = this->getPos();			\
-      expr;					\
-      this->setPos(pos);			\
-      DEBUG_RETURN(false);			\
-    })
+// -----------------------REMOVE ME --------------------------
+#define DEBUG_ACTIVE		1
+#define DEBUG_ENTER		(Debug::enter(__FUNCTION__, this->getBuf()))
+#define DEBUG_RETURN(ret)	return (Debug::leave(__FUNCTION__, ret))
 
-
-# define RULE(expr)	(TRY({			\
-	this->_deep++;				\
-	if (expr)				\
-	  {					\
-	    this->_deep--;			\
-	    if (!this->_deep)			\
-	      this->consume();			\
-	    DEBUG_RETURN(true);			\
-	  }					\
-      })					\
-    )
-
-# define CONSUME(data, expr)	(TRY({		\
-	this->_deep++;				\
-	if (expr)				\
-	  {					\
-	    this->extract(pos);			\
-	    this->_deep--;			\
-	    if (!this->_deep)			\
-	      this->consume();			\
-	    DEBUG_RETURN(true);			\
-	  }					\
-      })					\
-    )
-
-# define LOOP(expr)	(TRY({			\
-	while (expr);				\
-	this->consume();			\
-	DEBUG_RETURN(true);			\
-      })					\
-    )
-
-# define LOOP1(expr)	(TRY({			\
-	int	i;				\
-						\
-	for (i = 0; expr; i++);			\
-	if (i > 0)				\
-	  {					\
-	    this->consume();			\
-	    DEBUG_RETURN(true);			\
-	  }					\
-      })					\
-    )
-
-/*
-# define BOOL(expr)	(TRY({			\
-	if (expr)				\
-	  this->consume();			\
-	else					\
-	  this->setPos(pos);			\
-	DEBUG_RETURN(true);			\
-      })					\
-    )
-*/
-
-# define BOOL(expr)	(expr || true)
-
-# define DEBUG_PARSER		true
-
-# define DEBUG_ENTER()		(Debug::enter(__FUNCTION__, this->getBuf(), this->_deep))
-# define DEBUG_RETURN(ret)	return (Debug::leave(__FUNCTION__, (ret)))
-
-# define RANGE(a, b)	(readRange((a), (b)))
-# define CHAR(a)	(readChar(a))
-
-# define ALPHA	(readAlpha())
-# define BIT	(readBit())
-# define CR	(readCR())
-# define CRLF	(readCRLF())
-# define DIGIT	(readDigit())
-# define DQUOTE	(readDquote())
-# define HEXDIG	(readHexdig())
-# define HTAB	(readHtab())
-# define LF	(readLF())
-# define LWSP	(readLWSP())
-# define OCTET	(readOctet())
-# define SP	(readSP())
-# define VCHAR	(readVChar())
-# define WSP	(readWSP())
-
-namespace Debug
+namespace	Debug
 {
-  void	enter(const char* func, const std::string& buf,
-	      const unsigned int& deep);
-  bool	leave(const char* func, bool retn);
+  void	enter(const char* func, const std::string& buf);
+  bool	leave(const char* func, bool ret);
 };
+
+#define NOT_IMPLEMENTED		({		\
+      std::cout << __FUNCTION__			\
+		<< " NOT IMPLEMENTED"		\
+		<< std::endl;			\
+      return (false);				\
+    })
+// -----------------------REMOVE ME --------------------------
 
 class	ABNFParser : public HttpConsumer
 {
@@ -117,23 +39,21 @@ public:
   ABNFParser(HttpProducer* prod);
   ~ABNFParser();
 
-  bool	readAlpha();
-  bool	readBit();
+  bool	readALPHA();
+  //  bool	readBit();
   bool	readCR();
   bool	readCRLF();
-  bool	readCTL();
-  bool	readDigit();
-  bool	readDquote();
-  bool	readHexdig();
-  bool	readHtab();
+  //  bool	readCTL();
+  bool	readDIGIT();
+  //  bool	readDquote();
+  bool	readHEXDIG();
+  //  bool	readHtab();
   bool	readLF();
-  bool	readLWSP();
-  bool	readOctet();
+  //  bool	readLWSP();
+  //  bool	readOctet();
   bool	readSP();
-  bool	readVChar();
-  bool	readWSP();
-protected:
-  unsigned int	_deep;
+  //  bool	readVChar();
+  //  bool	readWSP();
 };
 
-#endif // !__ABNFPARSER_H__
+#endif // !__ABNF_PARSER_H__
