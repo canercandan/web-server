@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:26 2008 morgan armand
-// Last update Fri Aug  8 20:26:05 2008 morgan armand
+// Last update Fri Aug  8 21:33:17 2008 caner candan
 //
 
 #ifndef __ABNF_PARSER_H__
@@ -33,6 +33,26 @@ namespace	Debug
     })
 // -----------------------REMOVE ME --------------------------
 
+#define CHAR(a)		(readChar(a))
+#define RANGE(a, b)	(readRange((a), (b)))
+#define TEXT(a)		(readText(a))
+
+#define CHAR_R(a)		(readChar(a))
+#define INTEGER_R(a)		(readInteger(a))
+#define IDENTIFIER_R(a)		(readIdentifier(a))
+#define RANGE_R(a, b, c)	(readRange((a), (b), (c)))
+#define TEXT_R(a, b)		(readText((a), (b)))
+
+#define	ALPHA		(readALPHA())
+#define CR		(readCR())
+#define CRLF		(readCRLF())
+#define DIGIT		(readDIGIT())
+#define HEXDIG		(readHEXDIG())
+#define IDENTIFIER	(readIdentifier())
+#define INTEGER		(readInteger())
+#define LF		(readLF())
+#define SP		(readSP())
+
 class	ABNFParser : public HttpConsumer
 {
 public:
@@ -40,20 +60,12 @@ public:
   ~ABNFParser();
 
   bool	readALPHA();
-  //  bool	readBit();
   bool	readCR();
   bool	readCRLF();
-  //  bool	readCTL();
   bool	readDIGIT();
-  //  bool	readDquote();
   bool	readHEXDIG();
-  //  bool	readHtab();
   bool	readLF();
-  //  bool	readLWSP();
-  //  bool	readOctet();
   bool	readSP();
-  //  bool	readVChar();
-  //  bool	readWSP();
 };
 
 #endif // !__ABNF_PARSER_H__

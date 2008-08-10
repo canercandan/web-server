@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 15:07:41 2008 morgan armand
-// Last update Fri Aug  8 20:23:30 2008 morgan armand
+// Last update Fri Aug  8 17:00:04 2008 caner candan
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -25,7 +25,9 @@ public:
   void	consume();
 
   void	prepare();
-  void	extract(std::string& s_r);
+
+  void		extract(std::string& s_r);
+  std::string	extract();
 
   void	save();
   void	back();

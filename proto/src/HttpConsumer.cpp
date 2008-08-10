@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 15:10:07 2008 morgan armand
-// Last update Fri Aug  8 20:32:55 2008 morgan armand
+// Last update Fri Aug  8 17:00:37 2008 caner candan
 //
 
 #include <sstream>
@@ -41,6 +41,16 @@ void	HttpConsumer::extract(std::string& s_r)
   s_r = this->_buf.substr(this->_ext_pos,
 			  this->_cur_pos - this->_ext_pos);
   this->_ext_pos = 0;
+}
+
+std::string	HttpConsumer::extract()
+{
+  std::string	res;
+
+  res = this->_buf.substr(this->_ext_pos,
+			  this->_cur_pos - this->_ext_pos);
+  this->_ext_pos = 0;
+  return (res);
 }
 
 void	HttpConsumer::save()

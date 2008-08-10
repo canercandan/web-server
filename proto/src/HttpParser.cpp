@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:54 2008 morgan armand
-// Last update Fri Aug  8 20:09:05 2008 morgan armand
+// Last update Fri Aug  8 21:29:35 2008 caner candan
 //
 
 #include "HttpParser.h"
@@ -21,39 +21,31 @@ HttpParser::~HttpParser()
 
 bool	HttpParser::readRequest()
 {
-  if (this->readRequestLine())
-    return (true);
-  return (false);
+  return (this->readRequestLine());
 }
 
 bool	HttpParser::readRequestLine()
 {
-  if (this->readMethod() && this->readSP() &&
-      this->readRequestURI() && this->readSP() &&
-      this->readHttpVersion() && this->readCRLF())
-    return (true);
-  return (false);
+  return (this->readMethod() && SP &&
+	  this->readRequestURI() && SP &&
+	  this->readHttpVersion() && CRLF);
 }
 
 bool	HttpParser::readMethod()
 {
-  std::string	method;
-
   this->prepare();
-
-  if (this->readText("OPTIONS") ||
-      this->readText("GET") ||
-      this->readText("HEAD") ||
-      this->readText("POST") ||
-      this->readText("PUT") ||
-      this->readText("DELETE") ||
-      this->readText("TRACE") ||
-      this->readText("CONNECT") ||
+  if (TEXT("OPTIONS") ||
+      TEXT("GET") ||
+      TEXT("HEAD") ||
+      TEXT("POST") ||
+      TEXT("PUT") ||
+      TEXT("DELETE") ||
+      TEXT("TRACE") ||
+      TEXT("CONNECT") ||
       this->readExtensionMethod())
     {
-      this->extract(method);
+      this->_request->setMethod(this->extract());
       this->consume();
-      std::cout << "METHOD: " << method << std::endl;
       return (true);
     }
   return (false);
@@ -66,7 +58,7 @@ bool	HttpParser::readExtensionMethod()
 
 bool	HttpParser::readRequestURI()
 {
-  if (this->readChar('*') ||
+  if (CHAR('*') ||
       this->readAbsoluteURI() ||
       this->readPathAbsolute() ||
       this->readAuthority())
@@ -76,11 +68,18 @@ bool	HttpParser::readRequestURI()
 
 bool	HttpParser::readHttpVersion()
 {
-  if (this->readText("HTTP") &&
-      this->readChar('/') &&
-      this->readInteger() &&
-      this->readChar('.') &&
-      this->readInteger())
-    return (true);
+  std::string	name;
+  int		major;
+  int		minor;
+
+  if (TEXT_R("HTTP", name) &&
+      CHAR('/') &&
+      INTEGER_R(major) &&
+      CHAR('.') &&
+      INTEGER_R(minor))
+    {
+      this->_request->setVersionProtocol(name, major, minor);
+      return (true);
+    }
   return (false);
 }

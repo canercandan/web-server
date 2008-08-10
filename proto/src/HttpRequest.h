@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:42 2008 morgan armand
-// Last update Fri Aug  8 10:52:54 2008 caner candan
+// Last update Fri Aug  8 17:55:09 2008 caner candan
 //
 
 #ifndef __HTTP_REQUEST_H__
@@ -19,85 +19,85 @@ class	HttpRequest
 {
   typedef std::list<std::string>	listString;
 public:
-  std::string&	method();
+//   std::string&	method();
 
-  std::string&	httpUrlHost();
-  int&		httpUrlPort();
-  std::string&	httpUrlAbs();
-  std::string&	httpUrlQuery();
+//   std::string&	httpUrlHost();
+//   int&		httpUrlPort();
+//   std::string&	httpUrlAbs();
+//   std::string&	httpUrlQuery();
 
-  std::string&	versionProtocolName();
-  int&		versionProtocolMajor();
-  int&		versionProtocolMinor();
-  std::string&	versionProtocolOtherVersion();
+//   std::string&	versionProtocolName();
+//   int&		versionProtocolMajor();
+//   int&		versionProtocolMinor();
+//   std::string&	versionProtocolOtherVersion();
 
-  std::string&	cacheControlKey();
-  std::string&	cacheControlValue();
+//   std::string&	cacheControlKey();
+//   std::string&	cacheControlValue();
 
-  std::string&	connection();
-  std::string&	date();
+//   std::string&	connection();
+//   std::string&	date();
 
-  std::string&	pragmaKey();
-  std::string&	pragmaValue();
+//   std::string&	pragmaKey();
+//   std::string&	pragmaValue();
 
-  std::string&	trailer();
-  std::string&	transferEncoding();
+//   std::string&	trailer();
+//   std::string&	transferEncoding();
 
-  std::string&	acceptCharset();
-  std::string&	acceptEncoding();
-  std::string&	acceptLanguage();
+//   std::string&	acceptCharset();
+//   std::string&	acceptEncoding();
+//   std::string&	acceptLanguage();
 
-  std::string&	authorization();
+//   std::string&	authorization();
 
-  std::string&	expectKey();
-  std::string&	expectValue();
+//   std::string&	expectKey();
+//   std::string&	expectValue();
 
-  std::string&	from();
-  std::string&	host();
-  int&		port();
-  std::string&	match();
-  std::string&	allow();
+//   std::string&	from();
+//   std::string&	host();
+//   int&		port();
+//   std::string&	match();
+//   std::string&	allow();
 
-  std::string&	contentEncoding();
-  std::string&	contentLanguage();
-  int&		contentLength();
-  std::string&	contentLocation();
-  std::string&	contentMd5();
-  std::string&	contentRange();
+//   std::string&	contentEncoding();
+//   std::string&	contentLanguage();
+//   int&		contentLength();
+//   std::string&	contentLocation();
+//   std::string&	contentMd5();
+//   std::string&	contentRange();
 
-  std::string&	expires();
-  std::string&	lastModifies();
+//   std::string&	expires();
+//   std::string&	lastModifies();
 
-//   void	setMethod(const std::string& method);
-//   void	setHttpUrl(const std::string& host, int port, const std::string& abs, std::string query = "");
-//   void	setVersionProtocol(const std::string name, int major, int minor, const std::string otherVersion);
-//   void	addCacheControl(const std::string& key, const std::string& value = "");
-//   void	addConnection(const std::string& connection);
-//   void	setDate(const std::string& date);
-//   void	addPragma(const std::string& key, const std::string& value = "");
-//   void	addTrailer(const std::string& trailer);
-//   void	addTransferEncoding(const std::string& encoding);
-//   void	addUpgrade(const VersionProtocol& versionProtocol);
-//   void	addWarning(const Warning& warning);
-//   void	addAccept(const Type& type);
-//   void	addAcceptCharset(const std::string& charset);
-//   void	addAcceptEncoding(const std::string& encoding);
-//   void	addAcceptLangage(const std::string& lang);
-//   void	setAuthorization(const std::string& digest);
-//   void	addExpect(const std::string& key, const std::string& value = "");
-//   void	setFrom(const std::string& from);
-//   void	setHost(const std::string& host, int port);
-//   void	addIfMatch(const std::string& match);
-//   void	addAllow(const std::string& allow);
-//   void	addContentEncoding(const std::string& encoding);
-//   void	addContentLangage(const std::string& lang);
-//   void	setContentLength(const int length);
-//   void	setContentLocation(const std::string& location);
-//   void	setContentMd5(const std::string& base64ToMd5);
-//   void	setContentRange(const std::string& range);
-//   void	addContentType(const Type& type);
-//   void	setExpires(const std::string& expires);
-//   void	setLastModifies(const std::string& modified);
+  void	setMethod(const std::string& method);
+  void	setHttpUrl(const std::string& host, int port, const std::string& abs, std::string query = "");
+  void	setVersionProtocol(const std::string name, int major, int minor, const std::string otherVersion = "");
+  void	addCacheControl(const std::string& key, const std::string& value = "");
+  void	addConnection(const std::string& connection);
+  void	setDate(const std::string& date);
+  void	addPragma(const std::string& key, const std::string& value = "");
+  void	addTrailer(const std::string& trailer);
+  void	addTransferEncoding(const std::string& encoding);
+  void	addUpgrade(const VersionProtocol& versionProtocol);
+  void	addWarning(const Warning& warning);
+  void	addAccept(const Type& type);
+  void	addAcceptCharset(const std::string& charset);
+  void	addAcceptEncoding(const std::string& encoding);
+  void	addAcceptLangage(const std::string& lang);
+  void	setAuthorization(const std::string& digest);
+  void	addExpect(const std::string& key, const std::string& value = "");
+  void	setFrom(const std::string& from);
+  void	setHost(const std::string& host, int port);
+  void	addIfMatch(const std::string& match);
+  void	addAllow(const std::string& allow);
+  void	addContentEncoding(const std::string& encoding);
+  void	addContentLangage(const std::string& lang);
+  void	setContentLength(const int length);
+  void	setContentLocation(const std::string& location);
+  void	setContentMd5(const std::string& base64ToMd5);
+  void	setContentRange(const std::string& range);
+  void	addContentType(const Type& type);
+  void	setExpires(const std::string& expires);
+  void	setLastModifies(const std::string& modified);
 private:
   // Request-Line Section 5.1
   std::string		_method;	// 5.1.1
