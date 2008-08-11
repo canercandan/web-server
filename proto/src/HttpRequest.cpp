@@ -5,9 +5,10 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:24 2008 morgan armand
-// Last update Mon Aug 11 13:01:40 2008 morgan armand
+// Last update Mon Aug 11 16:53:04 2008 morgan armand
 //
 
+#include <sstream>
 #include "HttpRequest.h"
 
 HttpRequest::HttpRequest()

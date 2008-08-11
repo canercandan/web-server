@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:10 2008 morgan armand
-// Last update Mon Aug 11 13:02:40 2008 morgan armand
+// Last update Mon Aug 11 16:53:15 2008 morgan armand
 //
 
 #ifndef __HTTP_REQUEST_H__
