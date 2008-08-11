@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Mon Aug 11 12:48:23 2008 morgan armand
+// Last update Mon Aug 11 15:00:41 2008 majdi toumi
 //
 
 #include <iostream>
@@ -37,7 +37,7 @@ void	Client::run()
       std::cout << "HOST: " << request->getHost() << std::endl;
       std::cout << "PORT: " << request->getPort() << std::endl;
       std::cout << "PATH: " << request->getPath() << std::endl;
-      //response = new HttpResponse(request);
+      //response = new HttpResponse(request, this->_sck);
       //delete response;
     }
   else

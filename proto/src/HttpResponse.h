@@ -5,13 +5,14 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:59 2008 morgan armand
-** Last update Mon Aug 11 12:54:34 2008 majdi toumi
+** Last update Mon Aug 11 15:01:43 2008 majdi toumi
 //
 
 #ifndef __HTTP_RESPONSE_H__
 #define __HTTP_RESPONSE_H__
 
 #include <string>
+#include "Socket.h"
 #include "HttpRequest.h"
 
 class		HttpResponse
@@ -24,6 +25,7 @@ class		HttpResponse
 
  private:
   HttpRequest	_req;
+  Socket*	_sck;
   unsigned int	_status_code;
   std::string	_status_line;
 
