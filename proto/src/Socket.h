@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 11:39:49 2008 morgan armand
-// Last update Sat Aug  2 17:53:52 2008 caner candan
+// Last update Mon Aug 11 21:29:18 2008 morgan armand
 //
 
 #ifndef __SOCKET_H__
@@ -56,8 +56,8 @@ public:
   void		close();
 
   // Classic read / write operations
-  int		recv(char* buf, int len);
-  int		send(char* buf, int len);
+  int		recv(const char* buf, int len);
+  int		send(const char* buf, int len);
 
   // Tell if the current socket is valid or not.
   bool		isValid();
