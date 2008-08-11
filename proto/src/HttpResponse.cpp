@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Mon Aug 11 21:42:11 2008 majdi toumi
+// Last update Mon Aug 11 21:54:13 2008 majdi toumi
 //
 
 #include "HttpResponse.h"
@@ -44,6 +44,7 @@ void		HttpResponse::sendResponse(Socket* sck)
     {
       sck->send("<h1>File not found</h1>", 23);
     }
+  sck->send("\r\n", 2);
 }
 
 void		HttpResponse::generateMapResponse()
