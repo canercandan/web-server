@@ -5,7 +5,7 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Fri Aug  8 20:07:27 2008 morgan armand
+## Last update Mon Aug 11 17:14:33 2008 majdi toumi
 ##
 
 NAME		=	zia
@@ -22,6 +22,7 @@ SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/HttpRequest.cpp		\
 			$(PATH_SRC)/HttpProducer.cpp		\
 			$(PATH_SRC)/HttpConsumer.cpp		\
+			$(PATH_SRC)/HttpResponse.cpp		\
 			$(PATH_SRC)/Client.cpp			\
 			$(PATH_SRC)/ABNFParser.cpp		\
 			$(PATH_SRC)/HttpParser.cpp		\

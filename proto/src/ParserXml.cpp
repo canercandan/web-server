@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Tue Aug  5 15:36:00 2008 majdi toumi
+// Last update Mon Aug 11 20:26:14 2008 majdi toumi
 //
 
 #include <libxml/parser.h>
@@ -94,6 +94,7 @@ ZiaConfiguration	ParserXml::xmlLoadConfig()
   std::string		shutdown;
   bool			debug;
   std::string		respect_rfc;
+  std::string		document_root;
 
   name = this->xmlGetValue("/server[@name]");
   std::istringstream	iss(this->xmlGetValue("/server/config/port[@value]"));
@@ -101,12 +102,15 @@ ZiaConfiguration	ParserXml::xmlLoadConfig()
   shutdown = this->xmlGetValue("/server/config/shutdown[@value]");
   debug = (this->xmlGetValue("/server/config/debug[@value]") == "true" ? true : false);
   respect_rfc = this->xmlGetValue("/server/config/respect_rfc[@value]");
+  document_root = this->xmlGetValue("/server/config/document_root[@value]");
 
+  std::cout << document_root << std::endl;
   ziaConfig.setName(name);
   ziaConfig.setPort(port);
   ziaConfig.setShutdown(shutdown);
   ziaConfig.setDebug(debug);
   ziaConfig.setRespectRfc(respect_rfc);
+  ziaConfig.setDocumentRoot(document_root);
   return(ziaConfig);
 }
 

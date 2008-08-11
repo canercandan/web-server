@@ -8,6 +8,7 @@
     <shutdown value="shutdown42"/>
     <debug value="true" />
     <respect_rfc value="strict" />
+    <document_root value="/tmp" />
   </config>
   <virtual_host>
     <rootdir value="~toto" />
