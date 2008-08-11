@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Mon Aug 11 17:12:33 2008 majdi toumi
+// Last update Mon Aug 11 21:43:38 2008 majdi toumi
 //
 
 #include <iostream>
@@ -24,7 +24,6 @@ void	Client::run()
   HttpProducer*	producer;
   HttpParser*	parser;
   HttpRequest*	request;
-  HttpResponse*	response;
 
   producer = new HttpProducer(this->_sck);
   request = new HttpRequest();
@@ -37,9 +36,8 @@ void	Client::run()
       std::cout << "HOST: " << request->getHost() << std::endl;
       std::cout << "PORT: " << request->getPort() << std::endl;
       std::cout << "PATH: " << request->getPath() << std::endl;
-      response = new HttpResponse(request);
-      response->sendResponse(this->_sck);
-      delete response;
+      HttpResponse response = HttpResponse(*request);
+      response.sendResponse(this->_sck);
     }
   else
     {

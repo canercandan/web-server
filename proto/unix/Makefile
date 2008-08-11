@@ -5,7 +5,7 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Mon Aug 11 17:14:33 2008 majdi toumi
+## Last update Mon Aug 11 21:00:33 2008 majdi toumi
 ##
 
 NAME		=	zia
@@ -44,7 +44,7 @@ DEBUG_42	=	-g
 
 WARNINGS	+=	-W -Wall -Werror
 
-CFLAGS		+=	$(WARNINGS) $(INCLUDES) $(DEBUG_$(DEBUG))
+CFLAGS		+=	$(WARNINGS) $(INCLUDES) $(DEBUG_42)
 LDFLAGS		+=	$(LIBRARIES)
 
 .SUFFIXES	:	.cpp.o

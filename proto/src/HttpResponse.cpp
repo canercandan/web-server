@@ -5,14 +5,12 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Mon Aug 11 21:11:11 2008 florent hochwelker
+// Last update Mon Aug 11 21:42:11 2008 majdi toumi
 //
 
-#include <iostream>
-#include <string>
 #include "HttpResponse.h"
 
-HttpResponse::HttpResponse(const HttpRequest* req)
+HttpResponse::HttpResponse(const HttpRequest& req)
   : _req(req)
 {
 }
@@ -30,16 +28,21 @@ void		HttpResponse::sendResponse(Socket* sck)
   status_line = generateStatusLine();
   std::cout << "Status line = " << status_line << std::endl;
 
-  ifstream *infile = generateMessageBody();
+  sck->send(status_line.c_str(), status_line.length());
+  sck->send("\r\n", 2);
+  std::ifstream *infile = generateMessageBody();
   if (infile->is_open())
     {
       while (infile->good())
-	sck->send((char)infile->get());
+	{
+	  char c = infile->get();
+	  sck->send(&c, 1);
+	}
       infile->close();
     }
   else
     {
-      sck->send("<h1>File not found</h1>");
+      sck->send("<h1>File not found</h1>", 23);
     }
 }
 
@@ -99,11 +102,21 @@ std::string	HttpResponse::generateHeader()
 
 std::ifstream*	HttpResponse::generateMessageBody()
 {
-  infile = new	ifstream();
+  std::ifstream* infile = new std::ifstream();
   std::string	file("/tmp");
-  file->push_back(this->_req.getPath());
-  infile->open(file);
-  return infile;
+
+  file += this->_req.getPath();
+  std::cout << "file = " << file << std::endl;
+  infile->open(file.c_str());
+  return (infile);
+}
+
+std::string             HttpResponse::generateStatusLine()
+{
+  std::string           http_version;
+
+  http_version = "HTTP/1.1 200 OK\r\n";
+  return (http_version);
 }
 
 std::string	HttpResponse::defineStatusCode()

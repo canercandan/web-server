@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 11:45:23 2008 morgan armand
-// Last update Mon Aug 11 21:29:35 2008 morgan armand
+// Last update Mon Aug 11 21:36:53 2008 majdi toumi
 //
 
 #include <iostream>
@@ -126,7 +126,7 @@ void	Socket::close()
 #endif
 }
 
-int	Socket::recv(const char* buf, int len)
+int	Socket::recv(char* buf, int len)
 {
   return ::recv(this->_sck, buf, len, 0);
 }
