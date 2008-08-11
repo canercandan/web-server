@@ -5,13 +5,13 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:54 2008 morgan armand
-// Last update Fri Aug  8 21:29:35 2008 caner candan
+// Last update Mon Aug 11 12:35:08 2008 morgan armand
 //
 
 #include "HttpParser.h"
 
 HttpParser::HttpParser(HttpProducer* prod, HttpRequest* request)
-  : URIParser(prod), _request(request)
+  : URIParser(prod, request)
 {
 }
 
@@ -78,7 +78,7 @@ bool	HttpParser::readHttpVersion()
       CHAR('.') &&
       INTEGER_R(minor))
     {
-      this->_request->setVersionProtocol(name, major, minor);
+      //this->_request->setVersionProtocol(name, major, minor);
       return (true);
     }
   return (false);

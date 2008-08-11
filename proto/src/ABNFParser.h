@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:26 2008 morgan armand
-// Last update Fri Aug  8 21:33:17 2008 caner candan
+// Last update Mon Aug 11 12:37:18 2008 morgan armand
 //
 
 #ifndef __ABNF_PARSER_H__
@@ -15,7 +15,7 @@
 #include "HttpConsumer.h"
 
 // -----------------------REMOVE ME --------------------------
-#define DEBUG_ACTIVE		1
+#define DEBUG_ACTIVE		0
 #define DEBUG_ENTER		(Debug::enter(__FUNCTION__, this->getBuf()))
 #define DEBUG_RETURN(ret)	return (Debug::leave(__FUNCTION__, ret))
 

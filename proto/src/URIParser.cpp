@@ -5,14 +5,15 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:12 2008 morgan armand
-// Last update Fri Aug  8 17:42:40 2008 caner candan
+// Last update Mon Aug 11 12:36:19 2008 morgan armand
 //
 
 #include "URIParser.h"
 
-URIParser::URIParser(HttpProducer* prod)
-  : ABNFParser(prod)
+URIParser::URIParser(HttpProducer* prod, HttpRequest* request)
+  : ABNFParser(prod), _request(request)
 {
+  std::cout << _request << std::endl;
 }
 
 URIParser::~URIParser()
@@ -116,7 +117,7 @@ bool	URIParser::readHost()
     {
       this->extract(host);
       this->consume();
-      std::cout << "HOST: " << host << std::endl;
+      this->_request->setHost(host);
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
@@ -131,7 +132,7 @@ bool	URIParser::readPort()
   while (this->readDIGIT());
   this->extract(port);
   this->consume();
-  std::cout << "PORT: " << port << std::endl;
+  this->_request->setHost(port);
   DEBUG_RETURN (true);
 }
 
@@ -207,6 +208,7 @@ bool	URIParser::readPathAbempty()
   while (this->readPathAbemptyPart2());
   this->extract(path);
   this->consume();
+  this->_request->setPath(path);
   DEBUG_RETURN (true);
 }
 
@@ -235,6 +237,7 @@ bool	URIParser::readPathAbsolute()
     {
       this->extract(path);
       this->consume();
+      this->_request->setPath(path);
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
@@ -297,6 +300,7 @@ bool	URIParser::readPathRootless()
       while (this->readPathRootlessPart2());
       this->extract(path);
       this->consume();
+      this->_request->setPath(path);
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);

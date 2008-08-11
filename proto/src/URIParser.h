@@ -5,19 +5,19 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:05 2008 morgan armand
-// Last update Fri Aug  8 20:01:53 2008 morgan armand
+// Last update Mon Aug 11 11:51:42 2008 morgan armand
 //
 
 #ifndef __URI_PARSER_H__
 #define __URI_PARSER_H__
 
-#include "URI.h"
 #include "ABNFParser.h"
+#include "HttpRequest.h"
 
 class	URIParser : public ABNFParser
 {
 public:
-  URIParser(HttpProducer* prod);
+  URIParser(HttpProducer* prod, HttpRequest* request);
   ~URIParser();
 
   bool	readHierPart();
@@ -73,8 +73,8 @@ public:
   bool	readGenDelims();
   bool	readSubDelims();
 
-private:
-  URI*	_uri;
+protected:
+  HttpRequest*	_request;
 };
 
 #endif // !__URI_PARSER_H__

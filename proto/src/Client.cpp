@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Fri Aug  8 20:05:35 2008 morgan armand
+// Last update Mon Aug 11 12:34:11 2008 morgan armand
 //
 
 #include <iostream>
@@ -26,9 +26,17 @@ void	Client::run()
   parser = new HttpParser(producer, request);
 
   if (parser->readRequest())
-    std::cout << "Valid request" << std::endl;
+    {
+      std::cout << "Valid request" << std::endl;
+      std::cout << "METHOD: " << request->getMethod() << std::endl;
+      std::cout << "HOST: " << request->getHost() << std::endl;
+      std::cout << "PORT: " << request->getPort() << std::endl;
+      std::cout << "PATH: " << request->getPath() << std::endl;
+    }
   else
-    std::cout << "Invalid request" << std::endl;
+    {
+      std::cout << "Invalid request" << std::endl;
+    }
 
   delete request;
   delete parser;
