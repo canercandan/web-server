@@ -5,11 +5,15 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Mon Aug 11 12:34:11 2008 morgan armand
+// Last update Mon Aug 11 12:48:23 2008 morgan armand
 //
 
 #include <iostream>
 #include "Client.h"
+#include "HttpParser.h"
+#include "HttpRequest.h"
+#include "HttpResponse.h"
+#include "HttpProducer.h"
 
 Client::Client(Socket* sck)
   : _sck(sck)
@@ -20,6 +24,7 @@ void	Client::run()
   HttpProducer*	producer;
   HttpParser*	parser;
   HttpRequest*	request;
+  //  HttpResponse*	response;
 
   producer = new HttpProducer(this->_sck);
   request = new HttpRequest();
@@ -32,6 +37,8 @@ void	Client::run()
       std::cout << "HOST: " << request->getHost() << std::endl;
       std::cout << "PORT: " << request->getPort() << std::endl;
       std::cout << "PATH: " << request->getPath() << std::endl;
+      //response = new HttpResponse(request);
+      //delete response;
     }
   else
     {
