@@ -5,13 +5,13 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:59 2008 morgan armand
-// Last update Mon Aug 11 20:49:10 2008 majdi toumi
+// Last update Mon Aug 11 21:07:07 2008 florent hochwelker
 //
 
 #ifndef __HTTP_RESPONSE_H__
 #define __HTTP_RESPONSE_H__
 
-#include <iostream>
+#include <ifstream>
 #include <string>
 #include <map>
 #include "Socket.h"
@@ -19,21 +19,22 @@
 
 class					HttpResponse
 {
- public:
+public:
   HttpResponse(const HttpRequest* req);
   ~HttpResponse();
   void					sendResponse(Socket* sck);
 
- private:
+private:
   const HttpRequest*			_req;
   std::map<std::string, std::string>	_map_response;
 
-  void					generateMapResponse();
-  std::string				generateHeader();
-  std::string				generateStatusLine();
-  std::string				defineStatusCode();
-  std::string				generateReasonPhrase();
-  std::iostream&			generateMessageBody();
+  std::string		generateHeader();
+  std::string		generateStatusLine();
+  std::ifstream*	generateMessageBody();
+  void			generateMapResponse();
+  std::string		generateStatusLine();
+  std::string		defineStatusCode();
+  std::string		generateReasonPhrase();
 };
 
 #endif // __HTTP_RESPONSE_H__

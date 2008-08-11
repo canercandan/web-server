@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Mon Aug 11 20:49:40 2008 majdi toumi
+// Last update Mon Aug 11 21:11:11 2008 florent hochwelker
 //
 
 #include <iostream>
@@ -21,7 +21,7 @@ HttpResponse::~HttpResponse()
 {
 }
 
-void		HttpResponse::sendResponse(Socket*)
+void		HttpResponse::sendResponse(Socket* sck)
 {
   std::string	status_line;
 
@@ -29,6 +29,18 @@ void		HttpResponse::sendResponse(Socket*)
   this->generateMapResponse();
   status_line = generateStatusLine();
   std::cout << "Status line = " << status_line << std::endl;
+
+  ifstream *infile = generateMessageBody();
+  if (infile->is_open())
+    {
+      while (infile->good())
+	sck->send((char)infile->get());
+      infile->close();
+    }
+  else
+    {
+      sck->send("<h1>File not found</h1>");
+    }
 }
 
 void		HttpResponse::generateMapResponse()
@@ -85,24 +97,16 @@ std::string	HttpResponse::generateHeader()
   return ("");
 }
 
-std::string		HttpResponse::generateStatusLine()
+std::ifstream*	HttpResponse::generateMessageBody()
 {
-  std::string		http_version;
-  //  unsigned int	status_code;
-  //   std::string	reason_phrase;
-
-  //  status_code = defineStatusCode();
-  http_version = "HTTP/"; // + "x.x";
-  //     + this->generateStatusCode()
-  //     + this->generateReasonPhrase()
-  return (http_version + "/r/n");
+  infile = new	ifstream();
+  std::string	file("/tmp");
+  file->push_back(this->_req.getPath());
+  infile->open(file);
+  return infile;
 }
 
 std::string	HttpResponse::defineStatusCode()
 {
   return ("");
 }
-
-// std::iostream&	HttpResponse::generateMessageBody()
-// {
-// }
