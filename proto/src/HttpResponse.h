@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:59 2008 morgan armand
-// Last update Mon Aug 11 17:59:25 2008 majdi toumi
+// Last update Mon Aug 11 20:49:10 2008 majdi toumi
 //
 
 #ifndef __HTTP_RESPONSE_H__
@@ -26,9 +26,9 @@ class					HttpResponse
 
  private:
   const HttpRequest*			_req;
-  std::map<unsigned int, std::string>	_map_error;
+  std::map<std::string, std::string>	_map_response;
 
-  void					generateMapError();
+  void					generateMapResponse();
   std::string				generateHeader();
   std::string				generateStatusLine();
   std::string				defineStatusCode();

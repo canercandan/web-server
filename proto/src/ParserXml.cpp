@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Mon Aug 11 20:26:14 2008 majdi toumi
+// Last update Mon Aug 11 20:50:36 2008 majdi toumi
 //
 
 #include <libxml/parser.h>
@@ -104,7 +104,6 @@ ZiaConfiguration	ParserXml::xmlLoadConfig()
   respect_rfc = this->xmlGetValue("/server/config/respect_rfc[@value]");
   document_root = this->xmlGetValue("/server/config/document_root[@value]");
 
-  std::cout << document_root << std::endl;
   ziaConfig.setName(name);
   ziaConfig.setPort(port);
   ziaConfig.setShutdown(shutdown);
