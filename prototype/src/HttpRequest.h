@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:10 2008 morgan armand
-// Last update Tue Aug 12 17:21:58 2008 caner candan
+// Last update Tue Aug 12 17:30:19 2008 caner candan
 //
 
 #ifndef __HTTP_REQUEST_H__
@@ -126,19 +126,13 @@ class	HttpRequest
 public:
   HttpRequest();
 
-  const std::string&	getMethod() const
-  {return (this->_method);}
-  HttpUrl&		getHttpUrl()
-  {return (this->_httpUrl);}
-  VersionProtocol&	getVersionProtocol()
-  {return (this->_versionProtocol);}
-  const std::string&	getPath() const
-  {return (this->_path);}
+  const std::string&	getMethod() const;
+  HttpUrl&		getHttpUrl();
+  VersionProtocol&	getVersionProtocol();
+  const std::string&	getPath() const;
 
-  void		setMethod(const std::string& method)
-  {this->_method = method;}
-  void		setPath(const std::string& path)
-  {this->_path = path;}
+  void	setMethod(const std::string& method);
+  void	setPath(const std::string& path);
 private:
   // Request-Line Section 5.1
   std::string		_method;		// 5.1.1

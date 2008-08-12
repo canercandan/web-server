@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:24 2008 morgan armand
-// Last update Tue Aug 12 17:21:36 2008 caner candan
+// Last update Tue Aug 12 17:30:53 2008 caner candan
 //
 
 #include <sstream>
@@ -189,4 +189,34 @@ void	HttpRequest::Warning::setText(const std::string& text)
 void	HttpRequest::Warning::setDate(const std::string& date)
 {
   this->_date = date;
+}
+
+const std::string&	HttpRequest::getMethod() const
+{
+  return (this->_method);
+}
+
+HttpRequest::HttpUrl&	HttpRequest::getHttpUrl()
+{
+  return (this->_httpUrl);
+}
+
+HttpRequest::VersionProtocol&	HttpRequest::getVersionProtocol()
+{
+  return (this->_versionProtocol);
+}
+
+const std::string&	HttpRequest::getPath() const
+{
+  return (this->_path);
+}
+
+void	HttpRequest::setMethod(const std::string& method)
+{
+  this->_method = method;
+}
+
+void	HttpRequest::setPath(const std::string& path)
+{
+  this->_path = path;
 }
