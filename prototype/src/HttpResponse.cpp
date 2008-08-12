@@ -5,11 +5,12 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Tue Aug 12 16:56:59 2008 caner candan
+// Last update Tue Aug 12 01:39:28 2008 florent hochwelker
 //
 
 #include <sstream>
 #include "HttpResponse.h"
+#include "InfoFile.h"
 
 HttpResponse::HttpResponse(HttpRequest* req, const ZiaConfiguration& conf)
   : _req(req), _conf(conf)
@@ -34,20 +35,7 @@ void		HttpResponse::sendResponse(Socket* sck)
   sck->send(status_line.c_str(), status_line.length());
   sck->send(header.c_str(), header.length());
   sck->send("\r\n", 2);
-  std::ifstream *infile = generateMessageBody();
-  if (infile->is_open())
-    {
-      while (infile->good())
-	{
-	  char c = infile->get();
-	  sck->send(&c, 1);
-	}
-      infile->close();
-    }
-  else
-    {
-      sck->send("<h1>File not found</h1>", 23);
-    }
+  sendMessageBody(sck);
 }
 
 void		HttpResponse::generateMapResponse()
@@ -127,16 +115,58 @@ std::string	HttpResponse::findStatusCode()
   return ("202");
 }
 
-std::ifstream*	HttpResponse::generateMessageBody()
+void	HttpResponse::sendMessageBody(Socket* sck)
 {
+  std::ifstream infile;
   std::cout << "[debug generate message body]" << std::endl;
-
-  std::ifstream* infile = new std::ifstream();
   std::string	file(this->_conf.getDocumentRoot());
-
   file += this->_req->getPath();
   std::cout << "file = " << file << std::endl;
-  infile->open(file.c_str());
-  return (infile);
+  InfoFile	info(file);
+  if (info.isGood())
+    {
+      switch (info.getType())
+	{
+	case InfoFile::FILE:
+	  {
+	    infile.open(file.c_str());
+	    if (infile.is_open())
+	      {
+		while (infile.good())
+		  {
+		    char c = infile.get();
+		    sck->send(&c, 1);
+		  }
+		infile.close();
+	      }
+	    break;
+	  }
+	case InfoFile::DIR:
+	  {
+	    std::list<std::string> *listDir = info.getListDir();
+	    sck->send("<h1>Index of ", 13);
+	    sck->send(this->_req->getPath().c_str(), this->_req->getPath().length());
+	    sck->send("</h1>", 5);
+	    sck->send("<ul>", 4);
+	    std::list<std::string>::iterator it;
+	    for (it = listDir->begin(); it != listDir->end(); ++it)
+	      {
+		sck->send("<li>", 4);
+		sck->send("<a href=\"", 9);
+		sck->send(it->c_str(), it->length());
+		sck->send("\">", 2);
+		sck->send(it->c_str(), it->length());
+		sck->send("</a>", 4);
+		sck->send("</li>", 5);
+	      }
+	    sck->send("</ul>", 5);
+	    delete listDir;
+	    break;
+	  }
+	default:
+	  sck->send("<h1>File not found</h1>", 23);
+	}
+    }
+  else
+    sck->send("<h1>File not found</h1>", 23);
 }
-

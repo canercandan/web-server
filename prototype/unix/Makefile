@@ -5,7 +5,7 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Tue Aug 12 17:34:42 2008 caner candan
+## Last update Tue Aug 12 01:37:07 2008 florent hochwelker
 ##
 
 NAME		=	zia
@@ -27,7 +27,8 @@ SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/ABNFParser.cpp		\
 			$(PATH_SRC)/HttpParser.cpp		\
 			$(PATH_SRC)/URIParser.cpp		\
-			$(PATH_SRC)/URI.cpp
+			$(PATH_SRC)/URI.cpp			\
+			$(PATH_SRC)/InfoFile.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
