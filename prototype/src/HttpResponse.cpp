@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Tue Aug 12 15:42:03 2008 majdi toumi
+// Last update Tue Aug 12 16:15:35 2008 majdi toumi
 //
 
 #include <sstream>
@@ -107,12 +107,10 @@ std::string	HttpResponse::generateHeader()
 
 std::string             HttpResponse::generateStatusLine()
 {
-  std::stringstream	ss;
-  std::string		status_code;
-  std::string		reason_phrase;
+  std::stringstream			ss;
+  std::string				status_code;
 
-  status_code = "200";
-  reason_phrase = "OK";
+  status_code = this->findStatusCode();
   ss << "HTTP/"
      << this->_req.getHttpMajorVersion()
      << "."
@@ -120,14 +118,14 @@ std::string             HttpResponse::generateStatusLine()
      << " "
      << status_code
      << " "
-     << reason_phrase
+     << this->_map_response[status_code]
      << "\r\n";
   return (ss.str());
 }
 
 std::string	HttpResponse::findStatusCode()
 {
-  return ("");
+  return ("202");
 }
 
 std::ifstream*	HttpResponse::generateMessageBody()
