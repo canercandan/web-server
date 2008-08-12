@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:12 2008 morgan armand
-// Last update Mon Aug 11 12:36:19 2008 morgan armand
+// Last update Mon Aug 11 22:43:52 2008 caner candan
 //
 
 #include "URIParser.h"
@@ -68,10 +68,15 @@ bool	URIParser::readScheme()
 
 bool	URIParser::readAuthority()
 {
+  std::string	host;
+
   DEBUG_ENTER;
-  DEBUG_RETURN (this->readAuthorityOpt1() &&
-		this->readHost() &&
-		this->readAuthorityOpt2());
+  if (!(this->readAuthorityOpt1() &&
+	this->readHost(host) &&
+	this->readAuthorityOpt2()))
+    return (false);
+  this->_request->setHost(host);
+  return (true);
 }
 
 bool	URIParser::readAuthorityOpt1()
@@ -86,10 +91,15 @@ bool	URIParser::readAuthorityOpt1()
 
 bool	URIParser::readAuthorityOpt2()
 {
+  std::string	port;
+
   DEBUG_ENTER;
   this->save();
-  if (CHAR(':') && this->readPort())
-    DEBUG_RETURN (true);
+  if (CHAR(':') && this->readPort(port))
+    {
+      this->_request->setPort(port);
+      DEBUG_RETURN (true);
+    }
   this->back();
   DEBUG_RETURN (true);
 }
@@ -104,10 +114,8 @@ bool	URIParser::readUserInfo()
   DEBUG_RETURN (true);
 }
 
-bool	URIParser::readHost()
+bool	URIParser::readHost(std::string& extract)
 {
-  std::string	host;
-
   DEBUG_ENTER;
   this->prepare();
 
@@ -115,24 +123,20 @@ bool	URIParser::readHost()
        this->readIPv4address() ||
        this->readRegName())
     {
-      this->extract(host);
+      this->extract(extract);
       this->consume();
-      this->_request->setHost(host);
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
 }
 
-bool	URIParser::readPort()
+bool	URIParser::readPort(std::string& extract)
 {
-  std::string	port;
-
   DEBUG_ENTER;
   this->prepare();
   while (this->readDIGIT());
-  this->extract(port);
+  this->extract(extract);
   this->consume();
-  this->_request->setHost(port);
   DEBUG_RETURN (true);
 }
 

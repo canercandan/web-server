@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:05 2008 morgan armand
-// Last update Mon Aug 11 11:51:42 2008 morgan armand
+// Last update Mon Aug 11 22:43:07 2008 caner candan
 //
 
 #ifndef __URI_PARSER_H__
@@ -33,8 +33,8 @@ public:
 
   bool	readUserInfo();
 
-  bool	readHost();
-  bool	readPort();
+  bool	readHost(std::string& extract);
+  bool	readPort(std::string& extract);
 
   bool	readIPLiteral();
   bool	readIPvFuture();

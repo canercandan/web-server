@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:24 2008 morgan armand
-// Last update Mon Aug 11 16:53:04 2008 morgan armand
+// Last update Mon Aug 11 22:46:27 2008 caner candan
 //
 
 #include <sstream>
@@ -56,9 +56,13 @@ void			HttpRequest::setMethod(const std::string& method)
   this->_method = method;
 }
 
-void			HttpRequest::setPort(const int port)
+void			HttpRequest::setPort(const std::string& port)
 {
-  this->_port = port;
+  std::stringstream	ss(port);
+  int			portInt;
+
+  ss >> portInt;
+  this->_port = portInt;
 }
 
 void			HttpRequest::setPath(const std::string& path)

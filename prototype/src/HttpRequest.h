@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:10 2008 morgan armand
-// Last update Mon Aug 11 16:53:15 2008 morgan armand
+// Last update Mon Aug 11 22:45:32 2008 caner candan
 //
 
 #ifndef __HTTP_REQUEST_H__
@@ -27,7 +27,7 @@ public:
 
   void			setMethod(const std::string& method);
   void			setHost(const std::string& host);
-  void			setPort(const int port);
+  void			setPort(const std::string& port);
   void			setPath(const std::string& path);
   void			setHttpMajorVersion(int major);
   void			setHttpMinorVersion(int minor);
