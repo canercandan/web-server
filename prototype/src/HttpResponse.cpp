@@ -5,16 +5,15 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Tue Aug 12 16:15:35 2008 majdi toumi
+// Last update Tue Aug 12 16:56:59 2008 caner candan
 //
 
 #include <sstream>
 #include "HttpResponse.h"
 
-HttpResponse::HttpResponse(const HttpRequest& req, const ZiaConfiguration& conf)
+HttpResponse::HttpResponse(HttpRequest* req, const ZiaConfiguration& conf)
   : _req(req), _conf(conf)
-{
-}
+{}
 
 HttpResponse::~HttpResponse()
 {
@@ -105,16 +104,16 @@ std::string	HttpResponse::generateHeader()
   return ("Content-Type: text/html\r\n");
 }
 
-std::string             HttpResponse::generateStatusLine()
+std::string		HttpResponse::generateStatusLine()
 {
   std::stringstream			ss;
   std::string				status_code;
 
   status_code = this->findStatusCode();
   ss << "HTTP/"
-     << this->_req.getHttpMajorVersion()
+     << this->_req->getVersionProtocol().getMajor()
      << "."
-     << this->_req.getHttpMinorVersion()
+     << this->_req->getVersionProtocol().getMinor()
      << " "
      << status_code
      << " "
@@ -135,7 +134,7 @@ std::ifstream*	HttpResponse::generateMessageBody()
   std::ifstream* infile = new std::ifstream();
   std::string	file(this->_conf.getDocumentRoot());
 
-  file += this->_req.getPath();
+  file += this->_req->getPath();
   std::cout << "file = " << file << std::endl;
   infile->open(file.c_str());
   return (infile);

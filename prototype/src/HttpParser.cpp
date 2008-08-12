@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:54 2008 morgan armand
-// Last update Mon Aug 11 22:02:18 2008 morgan armand
+// Last update Tue Aug 12 15:53:07 2008 caner candan
 //
 
 #include "HttpParser.h"
@@ -96,8 +96,8 @@ bool	HttpParser::readHttpVersion()
       CHAR('.') &&
       INTEGER_R(minor))
     {
-      this->_request->setHttpMajorVersion(major);
-      this->_request->setHttpMinorVersion(minor);
+      this->_request->getVersionProtocol().setMajor(major);
+      this->_request->getVersionProtocol().setMinor(minor);
       return (true);
     }
   return (false);

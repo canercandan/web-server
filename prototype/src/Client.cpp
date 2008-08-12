@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Tue Aug 12 15:42:46 2008 majdi toumi
+// Last update Tue Aug 12 16:19:42 2008 caner candan
 //
 
 #include <iostream>
@@ -33,10 +33,10 @@ void	Client::run()
     {
       std::cout << "Valid request" << std::endl;
       std::cout << "METHOD: " << request->getMethod() << std::endl;
-      std::cout << "HOST: " << request->getHost() << std::endl;
-      std::cout << "PORT: " << request->getPort() << std::endl;
+      std::cout << "HOST: " << request->getHttpUrl().getHost().getHost() << std::endl;
+      std::cout << "PORT: " << request->getHttpUrl().getHost().getHost() << std::endl;
       std::cout << "PATH: " << request->getPath() << std::endl;
-      HttpResponse	response(*request, this->_conf);
+      HttpResponse	response(request, this->_conf);
       response.sendResponse(this->_sck);
     }
   else

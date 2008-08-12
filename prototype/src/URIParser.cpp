@@ -5,9 +5,10 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:12 2008 morgan armand
-// Last update Mon Aug 11 22:43:52 2008 caner candan
+// Last update Tue Aug 12 16:55:14 2008 caner candan
 //
 
+#include <sstream>
 #include "URIParser.h"
 
 URIParser::URIParser(HttpProducer* prod, HttpRequest* request)
@@ -75,7 +76,7 @@ bool	URIParser::readAuthority()
 	this->readHost(host) &&
 	this->readAuthorityOpt2()))
     return (false);
-  this->_request->setHost(host);
+  this->_request->getHttpUrl().getHost().setHost(host);
   return (true);
 }
 
@@ -97,7 +98,11 @@ bool	URIParser::readAuthorityOpt2()
   this->save();
   if (CHAR(':') && this->readPort(port))
     {
-      this->_request->setPort(port);
+      std::stringstream	ss(port);
+      int		portInt;
+
+      ss >> portInt;
+      this->_request->getHttpUrl().getHost().setPort(portInt);
       DEBUG_RETURN (true);
     }
   this->back();
