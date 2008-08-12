@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:10 2008 morgan armand
-// Last update Tue Aug 12 15:58:03 2008 caner candan
+// Last update Tue Aug 12 17:21:58 2008 caner candan
 //
 
 #ifndef __HTTP_REQUEST_H__
@@ -33,23 +33,15 @@ class	HttpRequest
   class	VersionProtocol
   {
   public:
-    const std::string&	getName() const
-    {return (this->_name);}
-    const int&		getMajor() const
-    {return (this->_major);}
-    const int&		getMinor() const
-    {return (this->_minor);}
-    const std::string&	getOtherVersion() const
-    {return (this->_otherVersion);}
+    const std::string&	getName() const;
+    const int&		getMajor() const;
+    const int&		getMinor() const;
+    const std::string&	getOtherVersion() const;
 
-    void	setName(const std::string& name)
-    {this->_name = name;}
-    void	setMajor(const int& major)
-    {this->_major = major;}
-    void	setMinor(const int& minor)
-    {this->_minor = minor;}
-    void	setOtherVersion(const std::string& otherVersion)
-    {this->_otherVersion = otherVersion;}
+    void	setName(const std::string& name);
+    void	setMajor(const int& major);
+    void	setMinor(const int& minor);
+    void	setOtherVersion(const std::string& otherVersion);
   private:
     std::string	_name;
     int		_major;
@@ -60,34 +52,25 @@ class	HttpRequest
   class	Host
   {
   public:
-    const std::string&	getHost() const
-    {return (this->_host);}
-    const int&		getPort() const
-    {return (this->_port);}
+    const std::string&	getHostname() const;
+    const int&		getPort() const;
 
-    void	setHost(const std::string& host)
-    {this->_host = host;}
-    void	setPort(const int& port)
-    {this->_port = port;}
+    void	setHostname(const std::string& hostname);
+    void	setPort(const int& port);
   private:
-    std::string	_host;
+    std::string	_hostname;
     int		_port;
   };
 
   class	HttpUrl
   {
   public:
-    Host&		getHost()
-    {return (this->_host);}
-    const std::string&	getAbsPath() const
-    {return (this->_absPath);}
-    const std::string&	getQuery() const
-    {return (this->_query);}
+    Host&		getHost();
+    const std::string&	getAbsPath() const;
+    const std::string&	getQuery() const;
 
-    void	setAbsPath(const std::string& absPath)
-    {this->_absPath = absPath;}
-    void	setQuery(const std::string& query)
-    {this->_query = query;}
+    void	setAbsPath(const std::string& absPath);
+    void	setQuery(const std::string& query);
   private:
     Host	_host;
     std::string	_absPath;
@@ -97,15 +80,11 @@ class	HttpRequest
   class	Key
   {
   public:
-    const std::string&	getKey() const
-    {return (this->_key);}
-    const listString&	getValues() const
-    {return (this->_values);}
+    const std::string&	getKey() const;
+    const listString&	getValues() const;
 
-    void	setKey(const std::string& key)
-    {this->_key = key;}
-    void	setValues(const std::string& value)
-    {this->_values.push_back(value);}
+    void	setKey(const std::string& key);
+    void	setValues(const std::string& value);
   private:
     std::string	_key;
     listString	_values;
@@ -114,19 +93,13 @@ class	HttpRequest
   class	Type
   {
   public:
-    const std::string&	getMajor() const
-    {return (this->_major);}
-    const std::string&	getMinor() const
-    {return (this->_minor);}
-    const listKey&	getParam() const
-    {return (this->_param);}
+    const std::string&	getMajor() const;
+    const std::string&	getMinor() const;
+    const listKey&	getParam() const;
 
-    void	setMajor(const std::string& major)
-    {this->_major = major;}
-    void	setMinor(const std::string& minor)
-    {this->_minor = minor;}
-    void	setParam(const Key& key)
-    {this->_param.push_back(key);}
+    void	setMajor(const std::string& major);
+    void	setMinor(const std::string& minor);
+    void	setParam(const Key& key);
   private:
     std::string	_major;
     std::string	_minor;
@@ -135,23 +108,15 @@ class	HttpRequest
 
   class	Warning
   {
-    const std::string&	getCode() const
-    {return (this->_code);}
-    const std::string&	getAgent() const
-    {return (this->_agent);}
-    const std::string&	getText() const
-    {return (this->_text);}
-    const std::string&	getDate() const
-    {return (this->_date);}
+    const std::string&	getCode() const;
+    const std::string&	getAgent() const;
+    const std::string&	getText() const;
+    const std::string&	getDate() const;
 
-    void	setCode(const std::string& code)
-    {this->_code = code;}
-    void	setAgent(const std::string& agent)
-    {this->_agent = agent;}
-    void	setText(const std::string& text)
-    {this->_text = text;}
-    void	setDate(const std::string& date)
-    {this->_date = date;}
+    void	setCode(const std::string& code);
+    void	setAgent(const std::string& agent);
+    void	setText(const std::string& text);
+    void	setDate(const std::string& date);
   private:
     std::string	_code;
     std::string	_agent;

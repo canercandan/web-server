@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:12 2008 morgan armand
-// Last update Tue Aug 12 16:55:14 2008 caner candan
+// Last update Tue Aug 12 17:26:46 2008 caner candan
 //
 
 #include <sstream>
@@ -69,14 +69,14 @@ bool	URIParser::readScheme()
 
 bool	URIParser::readAuthority()
 {
-  std::string	host;
+  std::string	hostname;
 
   DEBUG_ENTER;
   if (!(this->readAuthorityOpt1() &&
-	this->readHost(host) &&
+	this->readHost(hostname) &&
 	this->readAuthorityOpt2()))
     return (false);
-  this->_request->getHttpUrl().getHost().setHost(host);
+  this->_request->getHttpUrl().getHost().setHostname(hostname);
   return (true);
 }
 
