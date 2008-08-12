@@ -5,9 +5,10 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Tue Aug 12 15:13:02 2008 majdi toumi
+// Last update Tue Aug 12 15:42:03 2008 majdi toumi
 //
 
+#include <sstream>
 #include "HttpResponse.h"
 
 HttpResponse::HttpResponse(const HttpRequest& req, const ZiaConfiguration& conf)
@@ -22,13 +23,17 @@ HttpResponse::~HttpResponse()
 void		HttpResponse::sendResponse(Socket* sck)
 {
   std::string	status_line;
+  std::string	header;
 
-  std::cout << "debuG response:" << std::endl;
+  std::cout << "[debug sendResponse]:" << std::endl;
   this->generateMapResponse();
   status_line = generateStatusLine();
+  header = generateHeader();
   std::cout << "Status line = " << status_line << std::endl;
+  std::cout << "Header = " << header << std::endl;
 
   sck->send(status_line.c_str(), status_line.length());
+  sck->send(header.c_str(), header.length());
   sck->send("\r\n", 2);
   std::ifstream *infile = generateMessageBody();
   if (infile->is_open())
@@ -97,6 +102,31 @@ void		HttpResponse::generateMapResponse()
 
 std::string	HttpResponse::generateHeader()
 {
+  return ("Content-Type: text/html\r\n");
+}
+
+std::string             HttpResponse::generateStatusLine()
+{
+  std::stringstream	ss;
+  std::string		status_code;
+  std::string		reason_phrase;
+
+  status_code = "200";
+  reason_phrase = "OK";
+  ss << "HTTP/"
+     << this->_req.getHttpMajorVersion()
+     << "."
+     << this->_req.getHttpMinorVersion()
+     << " "
+     << status_code
+     << " "
+     << reason_phrase
+     << "\r\n";
+  return (ss.str());
+}
+
+std::string	HttpResponse::findStatusCode()
+{
   return ("");
 }
 
@@ -113,15 +143,3 @@ std::ifstream*	HttpResponse::generateMessageBody()
   return (infile);
 }
 
-std::string             HttpResponse::generateStatusLine()
-{
-  std::string           http_version;
-
-  http_version = "HTTP/1.1 200 OK\r\n";
-  return (http_version);
-}
-
-std::string	HttpResponse::defineStatusCode()
-{
-  return ("");
-}

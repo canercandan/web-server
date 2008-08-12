@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:59 2008 morgan armand
-// Last update Tue Aug 12 15:02:30 2008 majdi toumi
+// Last update Tue Aug 12 15:22:25 2008 majdi toumi
 //
 
 #ifndef __HTTP_RESPONSE_H__
@@ -32,10 +32,10 @@ private:
   std::map<std::string, std::string>	_map_response;
 
   std::string		generateHeader();
+  std::string		findStatusCode();
   std::string		generateStatusLine();
   std::ifstream*	generateMessageBody();
   void			generateMapResponse();
-  std::string		defineStatusCode();
   std::string		generateReasonPhrase();
 };
 
