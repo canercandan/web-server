@@ -9,6 +9,7 @@
     <debug value="true" />
     <respect_rfc value="strict" />
     <document_root value="/tmp" />
+    <cgi_script value="/tmp/cgi-bin" />
   </config>
   <virtual_host>
     <rootdir value="~toto" />

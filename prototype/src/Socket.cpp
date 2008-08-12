@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 11:45:23 2008 morgan armand
-// Last update Mon Aug 11 21:36:53 2008 majdi toumi
+// Last update Tue Aug 12 17:58:52 2008 morgan armand
 //
 
 #include <iostream>
@@ -98,6 +98,7 @@ bool	Socket::listen(const int backlog)
 
 Socket*	Socket::accept()
 {
+  int			opt;
   SOCKET		sck;
   struct sockaddr_in	sin;
   socklen_t		len;
@@ -105,11 +106,19 @@ Socket*	Socket::accept()
   if (!this->isValid())
     return (false);
 
+  opt = 1;
   len = sizeof(sin);
 
   if ((sck = ::accept(this->_sck, (struct sockaddr *)&sin, &len)) == INVALID_SOCKET)
     {
       std::cerr << "accept() failed" << std::endl;
+      return (NULL);
+    }
+
+  if (::setsockopt(sck, SOL_SOCKET, SO_NOSIGPIPE, &opt, sizeof(opt)) == SOCKET_ERROR)
+    {
+      std::cerr << "accept() failed" << std::endl;
+      ::close(sck);
       return (NULL);
     }
 
