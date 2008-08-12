@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Mon Aug 11 21:15:58 2008 majdi toumi
+// Last update Tue Aug 12 15:09:10 2008 majdi toumi
 //
 
 #include <libxml/parser.h>
@@ -89,7 +89,7 @@ std::string		ParserXml::xmlGetValue(const char* attribut)
 ZiaConfiguration	ParserXml::xmlLoadConfig()
 {
   ZiaConfiguration	ziaConfig;
-  int			port;
+  unsigned int		port;
   std::string		name;
   std::string		shutdown;
   bool			debug;

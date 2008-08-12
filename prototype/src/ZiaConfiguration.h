@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:13:58 2008 majdi toumi
-// Last update Mon Aug 11 20:16:45 2008 majdi toumi
+// Last update Tue Aug 12 15:10:48 2008 majdi toumi
 //
 
 #ifndef __ZIACONFIGURATION_H__
@@ -23,23 +23,23 @@ class			ZiaConfiguration
   ZiaConfiguration&	operator=(const ZiaConfiguration& ziaConfig);
 
   void			setName(std::string name);
-  void			setPort(int port);
+  void			setPort(unsigned int port);
   void			setShutdown(std::string shutdown);
   void			setDebug(bool debug);
   void			setRespectRfc(std::string respect_rfc);
   void			setDocumentRoot(std::string document_root);
   void			ziaDumpConfig();
 
-  std::string		getName();
-  int			getPort();
-  std::string		getShutdown();
-  bool			getDebug();
-  std::string		getRespectRfc();
-  std::string		getDocumentRoot();
+  const std::string	getName() const;
+  const unsigned int	getPort() const;
+  const std::string	getShutdown() const;
+  const bool		getDebug() const;
+  const std::string	getRespectRfc() const;
+  const std::string	getDocumentRoot() const;
 
  private:
   std::string		_name;
-  int			_port;
+  unsigned int		_port;
   std::string		_shutdown;
   bool			_debug;
   std::string		_respect_rfc;

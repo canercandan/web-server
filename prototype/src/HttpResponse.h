@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:59 2008 morgan armand
-// Last update Mon Aug 11 21:30:26 2008 majdi toumi
+// Last update Tue Aug 12 15:02:30 2008 majdi toumi
 //
 
 #ifndef __HTTP_RESPONSE_H__
@@ -17,16 +17,18 @@
 #include <map>
 #include "Socket.h"
 #include "HttpRequest.h"
+#include "ZiaConfiguration.h"
 
 class					HttpResponse
 {
 public:
-  HttpResponse(const HttpRequest& req);
+  HttpResponse(const HttpRequest& req, const ZiaConfiguration& conf);
   ~HttpResponse();
   void					sendResponse(Socket* sck);
 
 private:
   const HttpRequest&			_req;
+  const ZiaConfiguration&		_conf;
   std::map<std::string, std::string>	_map_response;
 
   std::string		generateHeader();

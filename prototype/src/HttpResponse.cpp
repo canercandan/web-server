@@ -5,13 +5,13 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Mon Aug 11 22:04:19 2008 majdi toumi
+// Last update Tue Aug 12 15:13:02 2008 majdi toumi
 //
 
 #include "HttpResponse.h"
 
-HttpResponse::HttpResponse(const HttpRequest& req)
-  : _req(req)
+HttpResponse::HttpResponse(const HttpRequest& req, const ZiaConfiguration& conf)
+  : _req(req), _conf(conf)
 {
 }
 
@@ -102,8 +102,10 @@ std::string	HttpResponse::generateHeader()
 
 std::ifstream*	HttpResponse::generateMessageBody()
 {
+  std::cout << "[debug generate message body]" << std::endl;
+
   std::ifstream* infile = new std::ifstream();
-  std::string	file("/tmp");
+  std::string	file(this->_conf.getDocumentRoot());
 
   file += this->_req.getPath();
   std::cout << "file = " << file << std::endl;

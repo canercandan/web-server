@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:38:23 2008 morgan armand
-// Last update Mon Aug 11 12:47:36 2008 morgan armand
+// Last update Tue Aug 12 15:05:51 2008 majdi toumi
 //
 
 #ifndef __CLIENT_H__
@@ -13,17 +13,19 @@
 
 #include "Socket.h"
 #include "IRunnable.h"
+#include "ZiaConfiguration.h"
 
-class	Client : public IRunnable
+class				Client : public IRunnable
 {
 public:
-  Client(Socket* sck);
+  Client(Socket* sck, const ZiaConfiguration& conf);
 
   // must be reimplemented. thread main entry point
   void	run();
 
 private:
-  Socket*	_sck;
+  Socket*			_sck;
+  const ZiaConfiguration&	_conf;
 };
 
 #endif // __CLIENT_H__

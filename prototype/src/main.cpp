@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Mon Aug 11 12:50:59 2008 majdi toumi
+// Last update Tue Aug 12 15:11:03 2008 majdi toumi
 //
 
 #include <iostream>
@@ -26,12 +26,14 @@ int			main(void)
   Thread*		thread;
   ParserXml*		xml;
   ZiaConfiguration	conf;
+  unsigned int		port;
 
   xml = new ParserXml(SERVER_XML);
   conf = xml->xmlLoadConfig();
   conf.ziaDumpConfig();
   logger.info("starting zia server");
-  if (!server.create(conf.getPort()))
+  port = conf.getPort();
+  if (!server.create(port))
     {
       logger.error("an error occured while starting the server");
       return (1);
@@ -41,7 +43,7 @@ int			main(void)
       if (socket = server.accept())
 	{
 	  logger.info("accept new connection from a client");
-	  client = new Client(socket);
+	  client = new Client(socket, conf);
 	  thread = new Thread(client);
 	  thread->start();
 	  delete thread;

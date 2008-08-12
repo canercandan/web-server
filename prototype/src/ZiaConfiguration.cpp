@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Mon Aug 11 20:25:17 2008 majdi toumi
+// Last update Tue Aug 12 15:10:50 2008 majdi toumi
 //
 
 #include <iostream>
@@ -16,7 +16,7 @@
 ZiaConfiguration::ZiaConfiguration()
 {
   _name = "";
-  _port = -1;
+  _port = 80;
   _shutdown = "";
   _debug = false;
   _respect_rfc = "";
@@ -47,7 +47,7 @@ void			ZiaConfiguration::setName(std::string name)
   this->_name = name;
 }
 
-void			ZiaConfiguration::setPort(int port)
+void			ZiaConfiguration::setPort(unsigned int port)
 {
   this->_port = port;
 }
@@ -72,32 +72,32 @@ void			ZiaConfiguration::setDocumentRoot(std::string document_root)
   this->_document_root = document_root;
 }
 
-std::string		ZiaConfiguration::getName()
+const std::string	ZiaConfiguration::getName() const
 {
   return (this->_name);
 }
 
-int			ZiaConfiguration::getPort()
+const unsigned int	ZiaConfiguration::getPort() const
 {
   return (this->_port);
 }
 
-std::string		ZiaConfiguration::getShutdown()
+const std::string	ZiaConfiguration::getShutdown() const
 {
   return (this->_shutdown);
 }
 
-bool			ZiaConfiguration::getDebug()
+const bool		ZiaConfiguration::getDebug() const
 {
   return (this->_debug);
 }
 
-std::string		ZiaConfiguration::getRespectRfc()
+const std::string	ZiaConfiguration::getRespectRfc() const
 {
   return (this->_respect_rfc);
 }
 
-std::string		ZiaConfiguration::getDocumentRoot()
+const std::string	ZiaConfiguration::getDocumentRoot() const
 {
   return (this->_document_root);
 }
