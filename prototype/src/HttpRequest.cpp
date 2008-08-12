@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:24 2008 morgan armand
-// Last update Tue Aug 12 17:30:53 2008 caner candan
+// Last update Tue Aug 12 18:45:35 2008 caner candan
 //
 
 #include <sstream>
@@ -101,26 +101,6 @@ void	HttpRequest::HttpUrl::setQuery(const std::string& query)
   this->_query = query;
 }
 
-const std::string&	HttpRequest::Key::getKey() const
-{
-  return (this->_key);
-}
-
-const HttpRequest::listString&	HttpRequest::Key::getValues() const
-{
-  return (this->_values);
-}
-
-void	HttpRequest::Key::setKey(const std::string& key)
-{
-  this->_key = key;
-}
-
-void	HttpRequest::Key::setValues(const std::string& value)
-{
-  this->_values.push_back(value);
-}
-
 const std::string&	HttpRequest::Type::getMajor() const
 {
   return (this->_major);
@@ -131,9 +111,28 @@ const std::string&	HttpRequest::Type::getMinor() const
   return (this->_minor);
 }
 
-const HttpRequest::listKey&	HttpRequest::Type::getParam() const
+const HttpRequest::mapKey&	HttpRequest::Type::getParam() const
 {
   return (this->_param);
+}
+
+const HttpRequest::listString&	HttpRequest::Type::getParam(const std::string& key)
+{
+  return (this->_param[key]);
+}
+
+const std::string&	HttpRequest::Type::getParam(const std::string& key,
+						    const int& pos)
+{
+  listString::const_iterator	it;
+  listString::const_iterator	end = this->_param[key].end();
+  int				i;
+
+  i = 0;
+  for (it = this->_param[key].begin(); it != end; ++it)
+    if (i == pos)
+      return (*it);
+  return (*it);
 }
 
 void	HttpRequest::Type::setMajor(const std::string& major)
@@ -146,9 +145,10 @@ void	HttpRequest::Type::setMinor(const std::string& minor)
   this->_minor = minor;
 }
 
-void	HttpRequest::Type::setParam(const Key& key)
+void	HttpRequest::Type::addParam(const std::string& key,
+				    const std::string& value)
 {
-  this->_param.push_back(key);
+  this->_param[key].push_back(value);
 }
 
 const std::string&	HttpRequest::Warning::getCode() const

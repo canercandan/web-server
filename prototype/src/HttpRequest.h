@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:10 2008 morgan armand
-// Last update Tue Aug 12 17:30:19 2008 caner candan
+// Last update Tue Aug 12 18:40:04 2008 caner candan
 //
 
 #ifndef __HTTP_REQUEST_H__
@@ -13,22 +13,21 @@
 
 #include <string>
 #include <list>
+#include <map>
 
 class	HttpRequest
 {
-  typedef std::list<std::string>	listString;
-
   class	VersionProtocol;
   class	Host;
   class	HttpUrl;
-  class	Key;
   class	Type;
   class	Warning;
 
-  typedef std::list<Key>		listKey;
-  typedef std::list<VersionProtocol>	listVP;
-  typedef std::list<Type>		listType;
-  typedef std::list<Warning>		listWarning;
+  typedef std::list<std::string>		listString;
+  typedef std::map<std::string, listString>	mapKey;
+  typedef std::list<VersionProtocol>		listVP;
+  typedef std::list<Type>			listType;
+  typedef std::list<Warning>			listWarning;
 
   class	VersionProtocol
   {
@@ -77,33 +76,24 @@ class	HttpRequest
     std::string	_query;
   };
 
-  class	Key
-  {
-  public:
-    const std::string&	getKey() const;
-    const listString&	getValues() const;
-
-    void	setKey(const std::string& key);
-    void	setValues(const std::string& value);
-  private:
-    std::string	_key;
-    listString	_values;
-  };
-
   class	Type
   {
   public:
     const std::string&	getMajor() const;
     const std::string&	getMinor() const;
-    const listKey&	getParam() const;
+    const mapKey&	getParam() const;
+    const listString&	getParam(const std::string& key);
+    const std::string&	getParam(const std::string& key,
+				 const int& pos);
 
     void	setMajor(const std::string& major);
     void	setMinor(const std::string& minor);
-    void	setParam(const Key& key);
+    void	addParam(const std::string& key,
+			 const std::string& value);
   private:
     std::string	_major;
     std::string	_minor;
-    listKey	_param;
+    mapKey	_param;
   };
 
   class	Warning
@@ -141,10 +131,10 @@ private:
   std::string		_path;
 
   // General Header Section 4.5
-  listKey	_cacheControl;			// 14.9
+  mapKey	_cacheControl;			// 14.9
   listString	_connection;			// 14.10
   std::string	_date;				// 14.18
-  listKey	_pragma;			// 14.32
+  mapKey	_pragma;			// 14.32
   listString	_trailer;			// 14.40
   listString	_transferEncoding;		// 14.41
   listVP	_upgrade;			// 14.42
@@ -156,7 +146,7 @@ private:
   listString	_acceptEncoding;		// 14.3
   listString	_acceptLangage;			// 14.4
   std::string	_authorization;			// 14.8
-  listKey	_expect;			// 14.20
+  mapKey	_expect;			// 14.20
   std::string	_from;				// 14.22
   Host		_host;				// 14.23
   listString	_ifMatch;			// 14.24
