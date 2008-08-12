@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:54 2008 morgan armand
-// Last update Mon Aug 11 20:59:21 2008 morgan armand
+// Last update Mon Aug 11 22:02:18 2008 morgan armand
 //
 
 #include "HttpParser.h"
@@ -22,12 +22,12 @@ HttpParser::~HttpParser()
 bool	HttpParser::readRequest()
 {
   return (this->readRequestLine() &&
-	  this->readRequestOpt() && CRLF);
+	  this->readRequestOpt());// && CRLF);
 }
 
 bool	HttpParser::readRequestOpt()
 {
-  while (this->readRequestHeader());
+  while (this->readRequestOptPart2());
   return (true);
 }
 
@@ -178,7 +178,7 @@ bool	HttpParser::readRequestHeader()
 	  this->readAuthorization() ||
 	  this->readExpect() ||
 	  this->readFrom() ||
-	  this->readHost() ||
+	  //	  this->readHost() ||
 	  this->readIfMatch() ||
 	  this->readIfModifiedSince() ||
 	  this->readIfNoneMatch() ||
