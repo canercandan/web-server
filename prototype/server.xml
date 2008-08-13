@@ -2,7 +2,7 @@
 <!--
     server.xml for ** Zia ** ->> server configuration file
   -->
-<server name="myZia">
+<server name="myZia-papy42">
   <config>
     <port value="4242" />
     <shutdown value="shutdown42"/>

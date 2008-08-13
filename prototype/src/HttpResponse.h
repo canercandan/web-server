@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:59 2008 morgan armand
-// Last update Tue Aug 12 18:20:11 2008 majdi toumi
+// Last update Wed Aug 13 15:54:06 2008 majdi toumi
 //
 
 #ifndef __HTTP_RESPONSE_H__
@@ -22,26 +22,28 @@
 class	HttpResponse
 {
 public:
-  HttpResponse(HttpRequest* req, const ZiaConfiguration& conf);
+  HttpResponse(HttpRequest* req, ZiaConfiguration& conf);
   ~HttpResponse();
   void			sendResponse(Socket* sck);
 
 private:
   HttpRequest*			_req;
-  const ZiaConfiguration&	_conf;
-  std::map<std::string, std::string>	_map_response;
+  ZiaConfiguration&		_conf;
+  int				_status_code;
+  std::map<int, std::string>	_map_response;
 
   void			generateMapResponse();
   std::string		generateResponse();
   std::string		createStatusLine();
   std::string		createGeneralHeader();
   std::string		createResponseHeader();
-  std::string		findStatusCode();
-  std::string		informationalCode();
-  std::string		successfulCode();
-  std::string		redirectionCode();
-  std::string		clientErrorCode();
-  std::string		serverErrorCode();
+  std::string		createEntityHeader();
+  int			findStatusCode();
+  int			informationalCode();
+  int			successfulCode();
+  int			redirectionCode();
+  int			clientErrorCode();
+  int			serverErrorCode();
   void			sendMessageBody(Socket* sck);
 };
 

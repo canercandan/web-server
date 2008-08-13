@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Wed Aug 13 00:42:37 2008 majdi toumi
+// Last update Wed Aug 13 15:50:02 2008 majdi toumi
 //
 
 #include <iostream>
@@ -15,7 +15,7 @@
 
 ZiaConfiguration::ZiaConfiguration()
 {
-  _map_config["port"] = 80;
+  _map_config["port"] = "80";
 }
 
 ZiaConfiguration::ZiaConfiguration(const ZiaConfiguration& ziaConfig)

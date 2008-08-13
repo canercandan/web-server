@@ -5,14 +5,14 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Wed Aug 13 09:51:34 2008 caner candan
+// Last update Wed Aug 13 15:54:10 2008 majdi toumi
 //
 
 #include <sstream>
 #include "HttpResponse.h"
 #include "InfoFile.h"
 
-HttpResponse::HttpResponse(HttpRequest* req, const ZiaConfiguration& conf)
+HttpResponse::HttpResponse(HttpRequest* req, ZiaConfiguration& conf)
   : _req(req), _conf(conf)
 {}
 
@@ -34,51 +34,50 @@ void		HttpResponse::sendResponse(Socket* sck)
 
 void		HttpResponse::generateMapResponse()
 {
-  this->_map_response["100"] = "Continue";
-  this->_map_response["101"] = "Switching Protocols";
+  this->_map_response[100] = "Continue";
+  this->_map_response[101] = "Switching Protocols";
 
-  this->_map_response["200"] = "OK";
-  this->_map_response["201"] = "Created";
-  this->_map_response["202"] = "Accepted";
-  this->_map_response["203"] = "Non-Authoritative Information";
-  this->_map_response["204"] = "No Content";
-  this->_map_response["205"] = "Reset Content";
-  this->_map_response["206"] = "Partial Content";
+  this->_map_response[200] = "OK";
+  this->_map_response[201] = "Created";
+  this->_map_response[202] = "Accepted";
+  this->_map_response[203] = "Non-Authoritative Information";
+  this->_map_response[204] = "No Content";
+  this->_map_response[205] = "Reset Content";
+  this->_map_response[206] = "Partial Content";
 
-  this->_map_response["300"] = "Multiple Choices";
-  this->_map_response["301"] = "Moved Permanently";
-  this->_map_response["302"] = "Found";
-  this->_map_response["303"] = "See Other";
-  this->_map_response["304"] = "Not Modified";
-  this->_map_response["305"] = "Use Proxy";
-  this->_map_response["307"] = "Temporary Redirect";
+  this->_map_response[300] = "Multiple Choices";
+  this->_map_response[301] = "Moved Permanently";
+  this->_map_response[302] = "Found";
+  this->_map_response[303] = "See Other";
+  this->_map_response[304] = "Not Modified";
+  this->_map_response[305] = "Use Proxy";
+  this->_map_response[307] = "Temporary Redirect";
 
-  this->_map_response["400"] = "Bad Request";
-  this->_map_response["401"] = "Unauthorized";
-  this->_map_response["402"] = "Payment Required";
-  this->_map_response["403"] = "Forbidden";
-  this->_map_response["404"] = "Not Found";
-  this->_map_response["405"] = "Method Not Allowed";
-  this->_map_response["406"] = "Not Acceptable";
-  this->_map_response["407"] = "Proxy Authentication Required";
-  this->_map_response["408"] = "Request Time-out";
-  this->_map_response["409"] = "Conflict";
-  this->_map_response["410"] = "Gone";
+  this->_map_response[400] = "Bad Request";
+  this->_map_response[401] = "Unauthorized";
+  this->_map_response[402] = "Payment Required";
+  this->_map_response[403] = "Forbidden";
+  this->_map_response[404] = "Not Found";
+  this->_map_response[405] = "Method Not Allowed";
+  this->_map_response[406] = "Not Acceptable";
+  this->_map_response[407] = "Proxy Authentication Required";
+  this->_map_response[408] = "Request Time-out";
+  this->_map_response[409] = "Conflict";
+  this->_map_response[410] = "Gone";
+  this->_map_response[411] = "Length Required";
+  this->_map_response[412] = "Precondition Failed";
+  this->_map_response[413] = "Request Entity Too Large";
+  this->_map_response[414] = "Request-URI Too Large";
+  this->_map_response[414] = "Unsupported Media Type";
+  this->_map_response[416] = "Requested range not satisfiable";
+  this->_map_response[417] = "Expectation Failed";
 
-  this->_map_response["411"] = "Length Required";
-  this->_map_response["412"] = "Precondition Failed";
-  this->_map_response["413"] = "Request Entity Too Large";
-  this->_map_response["414"] = "Request-URI Too Large";
-  this->_map_response["414"] = "Unsupported Media Type";
-  this->_map_response["416"] = "Requested range not satisfiable";
-  this->_map_response["417"] = "Expectation Failed";
-
-  this->_map_response["500"] = "Internal Server Error";
-  this->_map_response["501"] = "Not Implemented";
-  this->_map_response["502"] = "Bad Gateway";
-  this->_map_response["503"] = "Service Unavailable";
-  this->_map_response["504"] = "Gateway Time-out";
-  this->_map_response["505"] = "HTTP Version not supported";
+  this->_map_response[500] = "Internal Server Error";
+  this->_map_response[501] = "Not Implemented";
+  this->_map_response[502] = "Bad Gateway";
+  this->_map_response[503] = "Service Unavailable";
+  this->_map_response[504] = "Gateway Time-out";
+  this->_map_response[505] = "HTTP Version not supported";
 }
 
 std::string	HttpResponse::generateResponse()
@@ -106,96 +105,107 @@ std::string	HttpResponse::generateResponse()
   return (status_line + "\r\n" + content);
 }
 
-std::string		HttpResponse::createStatusLine()
+std::string	HttpResponse::createStatusLine()
 {
-  std::stringstream			ss;
-  std::string				status_code;
+  std::stringstream	ss;
 
-  status_code = this->findStatusCode();
-  status_code = "200";
+  this->_status_code = this->findStatusCode();
+  this->_status_code = 200;
   ss << "HTTP/"
      << this->_req->getVersionProtocol().getMajor()
      << "."
      << this->_req->getVersionProtocol().getMinor()
      << " "
-     << status_code
+     << this->_status_code
      << " "
-     << this->_map_response[status_code]
+     << this->_map_response[this->_status_code]
      << "\r\n";
   return (ss.str());
 }
 
-std::string	HttpResponse::findStatusCode()
+int		HttpResponse::findStatusCode()
 {
-  std::string	code;
+  int		code;
 
-  code = informationalCode();
-  if (code != "")
+  code = this->informationalCode();
+  if (code != -1)
     return (code);
-  code = successfulCode();
-  if (code != "")
+
+  code = this->successfulCode();
+  if (code != -1)
     return (code);
-  code = redirectionCode();
-  if (code != "")
+
+  code = this->redirectionCode();
+  if (code != -1)
     return (code);
-  code = clientErrorCode();
-  if (code != "")
+
+  code = this->clientErrorCode();
+  if (code != -1)
     return (code);
-  code = serverErrorCode();
-  if (code != "")
+
+  code = this->serverErrorCode();
+  if (code != -1)
     return (code);
-  return ("");
+  return (-1);
 }
 
-std::string	HttpResponse::informationalCode()
+int		HttpResponse::informationalCode()
 {
   if (this->_req->getVersionProtocol().getMajor() == 1)
-    return ("");
-  return ("");
+    return (-1);
+  return (-1);
 }
 
-std::string	HttpResponse::successfulCode()
+int		HttpResponse::successfulCode()
 {
-  return ("200");
+  return (200);
 }
 
-std::string	HttpResponse::redirectionCode()
+int		HttpResponse::redirectionCode()
 {
-  return ("");
+  return (-1);
 }
 
-std::string	HttpResponse::clientErrorCode()
+int		HttpResponse::clientErrorCode()
 {
-  return ("");
+  return (-1);
 }
 
-std::string	HttpResponse::serverErrorCode()
+int		HttpResponse::serverErrorCode()
 {
-  return ("");
+  return (-1);
 }
 
 std::string	HttpResponse::createGeneralHeader()
 {
-  std::stringstream	ss;
-
-  // todo -> Accept-Range +
-  //   ss << "ETag: \"\""
-  //      << "Location:" << this->_conf.getValue("location");
-    //     << "Server:" << this->_
-    //    ;
   return ("");
 }
 
 std::string	HttpResponse::createResponseHeader()
 {
-  return ("");
+  std::stringstream	ss;
+
+//   ss << "Location:" << this->_conf.getValue("location")
+//      << "Server:" << this->conf.getValue("name")
+//     ;
+  return (ss.str());
+}
+
+std::string	HttpResponse::createEntityHeader()
+{
+  std::stringstream	ss;
+
+//   // FIXME: 407-Allow,
+//   ss << "Content-Lenght:" << this->_req.getContentLength()
+//     ;
+  return (ss.str());
 }
 
 void		HttpResponse::sendMessageBody(Socket* sck)
 {
   std::ifstream infile;
   std::cout << "[debug generate message body]" << std::endl;
-  std::string	file("/tmp"); //this->_conf.getValue("document_root"));
+  std::string	file = this->_conf.getValue("document_root");
   file += this->_req->getPath();
   std::cout << "file = " << file << std::endl;
   InfoFile	info(file);

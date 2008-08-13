@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Tue Aug 12 19:02:25 2008 caner candan
+// Last update Wed Aug 13 15:54:20 2008 majdi toumi
 //
 
 #include <iostream>
@@ -15,7 +15,7 @@
 #include "HttpResponse.h"
 #include "HttpProducer.h"
 
-Client::Client(Socket* sck, const ZiaConfiguration& conf)
+Client::Client(Socket* sck, ZiaConfiguration& conf)
   : _sck(sck), _conf(conf)
 {}
 
