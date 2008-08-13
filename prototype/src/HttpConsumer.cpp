@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 15:10:07 2008 morgan armand
-// Last update Wed Aug 13 16:40:08 2008 caner candan
+// Last update Wed Aug 13 17:17:47 2008 caner candan
 //
 
 #include <sstream>
@@ -86,8 +86,8 @@ bool	HttpConsumer::readChar(const char c, char &c_r)
 bool	HttpConsumer::peekRange(const char c_start, const char c_end)
 {
   this->_appendBuf(1);
-  return (this->_buf[this->_cur_pos] > c_start &&
-	  this->_buf[this->_cur_pos] < c_end);
+  return (this->_buf[this->_cur_pos] >= c_start &&
+	  this->_buf[this->_cur_pos] <= c_end);
 }
 
 bool	HttpConsumer::readRange(const char c_start, const char c_end)
