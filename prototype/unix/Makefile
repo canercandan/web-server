@@ -5,7 +5,7 @@
 ## Login   <armand_m@epitech.net>
 ## 
 ## Started on  Tue Jul 29 11:41:07 2008 morgan armand
-## Last update Tue Aug 12 01:37:07 2008 florent hochwelker
+## Last update Wed Aug 13 20:54:22 2008 caner candan
 ##
 
 NAME		=	zia
@@ -13,22 +13,21 @@ NAME		=	zia
 PATH_SRC	=	../src
 
 SRCS		=	$(PATH_SRC)/main.cpp			\
-			$(PATH_SRC)/ParserXml.cpp		\
-			$(PATH_SRC)/ZiaConfiguration.cpp	\
+			$(PATH_SRC)/ABNFParser.cpp		\
+			$(PATH_SRC)/Client.cpp			\
+			$(PATH_SRC)/HttpConsumer.cpp		\
+			$(PATH_SRC)/HttpProducer.cpp		\
+			$(PATH_SRC)/HttpRequest.cpp		\
+			$(PATH_SRC)/HttpResponse.cpp		\
+			$(PATH_SRC)/HttpParser.cpp		\
+			$(PATH_SRC)/InfoFile.cpp		\
 			$(PATH_SRC)/Logger.cpp			\
+			$(PATH_SRC)/ParserXml.cpp		\
+			$(PATH_SRC)/ServerSocket.cpp		\
 			$(PATH_SRC)/Socket.cpp			\
 			$(PATH_SRC)/Thread.cpp			\
-			$(PATH_SRC)/ServerSocket.cpp		\
-			$(PATH_SRC)/HttpRequest.cpp		\
-			$(PATH_SRC)/HttpProducer.cpp		\
-			$(PATH_SRC)/HttpConsumer.cpp		\
-			$(PATH_SRC)/HttpResponse.cpp		\
-			$(PATH_SRC)/Client.cpp			\
-			$(PATH_SRC)/ABNFParser.cpp		\
-			$(PATH_SRC)/HttpParser.cpp		\
 			$(PATH_SRC)/URIParser.cpp		\
-			$(PATH_SRC)/URI.cpp			\
-			$(PATH_SRC)/InfoFile.cpp
+			$(PATH_SRC)/ZiaConfiguration.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 

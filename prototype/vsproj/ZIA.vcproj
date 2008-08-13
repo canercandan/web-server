@@ -174,116 +174,41 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\src\Client.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\HttpConsumer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\HttpProducer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\HttpRequest.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Logger.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\main.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Parser.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ParserXml.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ServerSocket.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Socket.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Thread.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ZiaConfiguration.cpp"
-				>
-			</File>
+			<File RelativePath="..\src\main.cpp" />
+			<File RelativePath="..\src\ABNFParser.cpp" />
+			<File RelativePath="..\src\Client.cpp" />
+			<File RelativePath="..\src\HttpConsumer.cpp" />
+			<File RelativePath="..\src\HttpProducer.cpp" />
+			<File RelativePath="..\src\HttpRequest.cpp" />
+			<File RelativePath="..\src\HttpResponse.cpp" />
+			<File RelativePath="..\src\HttpParser.cpp" />
+			<File RelativePath="..\src\InfoFile.cpp" />
+			<File RelativePath="..\src\Logger.cpp" />
+			<File RelativePath="..\src\ParserXml.cpp" />
+			<File RelativePath="..\src\ServerSocket.cpp" />
+			<File RelativePath="..\src\Thread.cpp" />
+			<File RelativePath="..\src\URIParser.cpp" />
+			<File RelativePath="..\src\ZiaConfiguration.cpp" />
 		</Filter>
 		<Filter
 			Name="Fichiers d&apos;en-tête"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath="..\src\Client.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\HttpConsumer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\HttpProducer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\HttpRequest.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\HttpResponse.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\IRunnable.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Logger.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Parser.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ParserXml.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\rfcStruct.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ServerSocket.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Socket.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Thread.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ZiaConfiguration.h"
-				>
-			</File>
+			<File RelativePath="..\src\ABNFParser.h" />
+			<File RelativePath="..\src\Client.h" />
+			<File RelativePath="..\src\HttpConsumer.h" />
+			<File RelativePath="..\src\HttpProducer.h" />
+			<File RelativePath="..\src\HttpRequest.h" />
+			<File RelativePath="..\src\HttpResponse.h" />
+			<File RelativePath="..\src\HttpParser.h" />
+			<File RelativePath="..\src\InfoFile.h" />
+			<File RelativePath="..\src\Logger.h" />
+			<File RelativePath="..\src\ParserXml.h" />
+			<File RelativePath="..\src\ServerSocket.h" />
+			<File RelativePath="..\src\Thread.h" />
+			<File RelativePath="..\src\URIParser.h" />
+			<File RelativePath="..\src\ZiaConfiguration.h" />
 		</Filter>
 		<Filter
 			Name="Fichiers de ressources"
