@@ -5,9 +5,10 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Wed Aug 13 20:10:53 2008 caner candan
+// Last update Wed Aug 13 20:30:30 2008 caner candan
 //
 
+#include <ctime>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -65,31 +66,22 @@ void	ZiaConfiguration::loadConfig()
 {
   if (this->_parserXml)
     {
+      int		time = ::time(NULL);
+      std::stringstream	ss;
+
+      ss << time;
       this->setValue("name", this->_parserXml->xmlGetValue("/server[@name]"));
       this->setValue("port", this->_parserXml->xmlGetValue("/server/config/port[@value]"));
       this->setValue("shutdown", this->_parserXml->xmlGetValue("/server/config/shutdown[@value]"));
       this->setValue("debug", this->_parserXml->xmlGetValue("/server/config/debug[@value]"));
       this->setValue("respect_rfc", this->_parserXml->xmlGetValue("/server/config/respect_rfc[@value]"));
       this->setValue("document_root", this->_parserXml->xmlGetValue("/server/config/document_root[@value]"));
+      this->setValue("timestart", ss.str());
     }
 }
 
 void	ZiaConfiguration::ziaDumpConfig()
 {
-  //   std::cout << " ->> Dump zia configuration:"
-  // 	    << std::endl
-  // 	    << "Name = " << this->_map_config["name"]
-  // 	    << std::endl
-  // 	    << "Port = " << this->_map_config["port"]
-  // 	    << std::endl
-  // 	    << "Shutdown = " << this->_map_config["shutdown"]
-  // 	    << std::endl
-  // 	    << "Debug = " << this->_map_config["debug"]
-  // 	    << std::endl
-  // 	    << "Respect rfc = " << this->_map_config["respect_rfc"]
-  // 	    << std::endl
-  // 	    << "Document root = " << this->_map_config["document_root"]
-  // 	    << std::endl;
   mapConfig::const_iterator	it;
   mapConfig::const_iterator	end = this->_map_config.end();
 

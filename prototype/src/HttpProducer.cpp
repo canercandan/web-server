@@ -5,10 +5,12 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:13:12 2008 morgan armand
-// Last update Wed Aug 13 18:35:07 2008 caner candan
+// Last update Wed Aug 13 20:31:22 2008 caner candan
 //
 
+#include <sstream>
 #include "HttpProducer.h"
+#include "ZiaConfiguration.h"
 
 HttpProducer::HttpProducer(Socket* sck)
   : _sck(sck)
@@ -21,12 +23,22 @@ HttpProducer::~HttpProducer()
     _sck->close();
 }
 
-std::string	HttpProducer::nextString(void)
+std::string		HttpProducer::nextString(void)
 {
-  char		buf[128];
-  int		cc;
+  char			buf[128];
+  int			cc;
+  ZiaConfiguration*	conf;
+  std::stringstream	ss;
+  int			timeout;
+  int			timestart;
 
-  // todo: add the timeout
+  conf = ZiaConfiguration::getInstance();
+  ss.str(conf->getParserXml()->xmlGetValue("/server/config/timeout[@value]"));
+  ss >> timeout;
+  ss.str(conf->getValue("timestart"));
+  ss >> timestart;
+  if (timestart + timeout >= ::time(NULL))
+    return (std::string(""));
   if (!(cc = this->_sck->recv(buf, sizeof(buf) - 1)))
     return (std::string(""));
   buf[cc] = 0;
