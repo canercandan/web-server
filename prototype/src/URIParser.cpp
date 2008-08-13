@@ -24,7 +24,7 @@ URIParser::~URIParser()
 bool	URIParser::readHierPart()
 {
   DEBUG_ENTER;
-  if ((TEXT("//") &&
+  if ((TEXT_("//") &&
        this->readAuthority() &&
        this->readPathAbempty()) ||
       this->readPathAbsolute() ||
@@ -185,7 +185,7 @@ bool	URIParser::readDecOctet()
 	       (CHAR('2') &&
 		RANGE('0', '4') &&
 		DIGIT) ||
-	       (TEXT("25") &&
+	       (TEXT_("25") &&
 		RANGE('0', '5')));
 }
 

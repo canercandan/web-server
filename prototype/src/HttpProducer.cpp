@@ -8,6 +8,11 @@
 // Last update Wed Aug 13 20:38:05 2008 caner candan
 //
 
+#ifdef WIN32
+#include <time.h>
+#else
+#include <ctime>
+#endif
 #include <sstream>
 #include "HttpProducer.h"
 #include "ZiaConfiguration.h"

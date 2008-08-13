@@ -95,14 +95,14 @@ bool	HttpParser::readMethod()
 {
   DEBUG_ENTER;
   this->prepare();
-  if (TEXT("OPTIONS") ||
-      TEXT("GET") ||
-      TEXT("HEAD") ||
-      TEXT("POST") ||
-      TEXT("PUT") ||
-      TEXT("DELETE") ||
-      TEXT("TRACE") ||
-      TEXT("CONNECT") ||
+  if (TEXT_("OPTIONS") ||
+      TEXT_("GET") ||
+      TEXT_("HEAD") ||
+      TEXT_("POST") ||
+      TEXT_("PUT") ||
+      TEXT_("DELETE") ||
+      TEXT_("TRACE") ||
+      TEXT_("CONNECT") ||
       this->readExtensionMethod())
     {
       this->_request->setMethod(this->extract());
@@ -176,7 +176,7 @@ bool	HttpParser::readGeneralHeader()
 bool	HttpParser::readCacheControl()
 {
   NOT_IMPLEMENTED;
-  //   return (TEXT("Cache-Control") && CHAR(':') &&
+  //   return (TEXT_("Cache-Control") && CHAR(':') &&
   //    	  this->readCacheDirective());
 }
 
@@ -199,30 +199,30 @@ bool	HttpParser::readCacheDirectiveSharp()
 bool	HttpParser::readCacheRequestDirective()
 {
   DEBUG_ENTER;
-  DEBUG_RETURN (TEXT("no-cache") ||
-	  TEXT("no-store") ||
-	  (TEXT("max-age") && CHAR('=') && readDeltaSeconds()) ||
-	  (TEXT("max-stale") && (CHAR('=') && readDeltaSeconds())) || // todo: backtracking
-	  (TEXT("min-fresh") && CHAR('=') && readDeltaSeconds()) ||
-	  TEXT("no-transform") ||
-	  TEXT("only-if-cached") ||
+  DEBUG_RETURN (TEXT_("no-cache") ||
+	  TEXT_("no-store") ||
+	  (TEXT_("max-age") && CHAR('=') && readDeltaSeconds()) ||
+	  (TEXT_("max-stale") && (CHAR('=') && readDeltaSeconds())) || // todo: backtracking
+	  (TEXT_("min-fresh") && CHAR('=') && readDeltaSeconds()) ||
+	  TEXT_("no-transform") ||
+	  TEXT_("only-if-cached") ||
 	  readCacheExtension());
 }
 
 bool	HttpParser::readCacheResponseDirective()
 {
   DEBUG_ENTER;
-  DEBUG_RETURN (TEXT("public") ||
-	  (TEXT("private") &&
+  DEBUG_RETURN (TEXT_("public") ||
+	  (TEXT_("private") &&
 	   (CHAR('=') && CHAR('"') && this->readFieldName() && CHAR('"'))) ||
-	  (TEXT("no-cache") &&
+	  (TEXT_("no-cache") &&
 	   (CHAR('=') && CHAR('"') && this->readFieldName() && CHAR('"'))) ||
-	  TEXT("no-store") ||
-	  TEXT("no-transform") ||
-	  TEXT("must-revalidate") ||
-	  TEXT("proxy-revalidate") ||
-	  (TEXT("max-age") && CHAR('=') && this->readDeltaSeconds()) ||
-	  (TEXT("s-maxage") && CHAR('=') && this->readDeltaSeconds()) ||
+	  TEXT_("no-store") ||
+	  TEXT_("no-transform") ||
+	  TEXT_("must-revalidate") ||
+	  TEXT_("proxy-revalidate") ||
+	  (TEXT_("max-age") && CHAR('=') && this->readDeltaSeconds()) ||
+	  (TEXT_("s-maxage") && CHAR('=') && this->readDeltaSeconds()) ||
 	  this->readCacheExtension());
 }
 
@@ -415,7 +415,7 @@ bool	HttpParser::readTE()
 bool	HttpParser::readUserAgent()
 {
   DEBUG_ENTER;
-  DEBUG_RETURN (TEXT("User-Agent") && CHAR(':') &&
+  DEBUG_RETURN (TEXT_("User-Agent") && CHAR(':') &&
 	  this->readUserAgentPart2());
 }
 

@@ -9,13 +9,23 @@
 //
 
 #include <sys/types.h>
+#ifdef WIN32
+#include <windows.h>
+#else
 #include <dirent.h>
+#endif
 #include "InfoFile.h"
 
 InfoFile::InfoFile(const std::string& file)
   : _file(file)
 {
+#ifdef WIN32
+  ::WIN32_FIND_DATA	FindFileData;
+
+  _good = (::FindFirstFile((LPCWSTR)file.c_str(), &FindFileData) != INVALID_HANDLE_VALUE);
+#else
   _good = (lstat(file.c_str(), &_sb) == 0);
+#endif
 }
 
 bool	InfoFile::isGood()
@@ -25,20 +35,41 @@ bool	InfoFile::isGood()
 
 InfoFile::Type	InfoFile::getType()
 {
-  if (_good == true)
+if (_good == true)
     {
+#ifdef WIN32
+  ::WIN32_FIND_DATA	FindFileData;
+
+  ::FindFirstFile((LPCWSTR)this->_file.c_str(), &FindFileData);
+  if (FindFileData.dwFileAttributes &= FILE_ATTRIBUTE_DIRECTORY)
+	  return (DIR);
+  else
+	  return (FILE);
+#else
       if (S_ISDIR(this->_sb.st_mode))
 	return (DIR);
       if (S_ISREG(this->_sb.st_mode))
 	return (FILE);
-    }
+#endif
+	}
   return (OTHER);
 }
 
 std::list<std::string>		*InfoFile::getListDir()
 {
-  struct dirent			*dp;
   std::list<std::string>	*listDir = new std::list<std::string>;
+#ifdef WIN32
+  ::WIN32_FIND_DATA	FindFileData;
+  ::HANDLE			hFind;
+
+  if ((hFind = ::FindFirstFile((LPCWSTR)this->_file.c_str(), &FindFileData)) != INVALID_HANDLE_VALUE)
+    {
+		while (::FindNextFile(hFind, &FindFileData))
+			listDir->push_back((char*)FindFileData.cFileName);
+	::FindClose(hFind);
+    }
+#else
+  struct dirent			*dp; 
   ::DIR *dirp;
 
   if ((dirp = opendir(this->_file.c_str())) != NULL)
@@ -47,5 +78,6 @@ std::list<std::string>		*InfoFile::getListDir()
 	listDir->push_back(dp->d_name);
       closedir(dirp);
     }
+#endif
   return (listDir);
 }

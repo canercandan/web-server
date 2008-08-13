@@ -25,18 +25,15 @@ namespace	Debug
   bool	leave(const char* func, bool ret);
 };
 
-#define NOT_IMPLEMENTED		({		\
-      std::cout << __FUNCTION__			\
-		<< " NOT IMPLEMENTED"		\
-		<< std::endl;			\
-      return (false);				\
-    })
+#define NOT_IMPLEMENTED		\
+	std::cout << __FUNCTION__	<< " NOT IMPLEMENTED" << std::endl;	\
+      return (false);
 // -----------------------REMOVE ME --------------------------
 
 #define CHAR(a)		(readChar(a))
 #define RANGE(a, b)	(readRange((a), (b)))
 #define SHARP(a)	while (LWS && CHAR(',') && LWS && (a))
-#define TEXT(a)		(readText(a))
+#define TEXT_(a)	(readText(a))
 
 #define CHAR_R(a)		(readChar(a))
 #define INTEGER_R(a)		(readInteger(a))
