@@ -11,6 +11,7 @@
     <document_root value="/tmp" />
     <cgi_script value="/tmp/cgi-bin" />
     <timeout value="30" />
+    <!-- <timeout value="-1" /> : disable -->
     <contentType value="42">
       <html value="text/html" />
     </contentType>
