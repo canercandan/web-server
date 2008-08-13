@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:10 2008 morgan armand
-// Last update Tue Aug 12 18:40:04 2008 caner candan
+// Last update Wed Aug 13 12:15:37 2008 caner candan
 //
 
 #ifndef __HTTP_REQUEST_H__
@@ -123,6 +123,87 @@ public:
 
   void	setMethod(const std::string& method);
   void	setPath(const std::string& path);
+
+  const mapKey&	getCacheControl() const
+  {return (this->_cacheControl);}
+
+  const listString&	getConnection() const
+  {return (this->_connection);}
+
+  const std::string&	getDate() const
+  {return (this->_date);}
+
+  const mapKey&	getPragma() const
+  {return (this->_pragma);}
+
+  const listString&	getTrailer() const
+  {return (this->_trailer);}
+
+  const listString&	getTransferEncoding() const
+  {return (this->_transferEncoding);}
+
+  const listVP&	getUpgrade() const
+  {return (this->_upgrade);}
+
+  const listWarning& getWarning() const
+  {return (this->_warning);}
+
+  const listType&	getAccept() const
+  {return (this->_accept);}
+
+  const listString&	getAcceptCharset() const
+  {return (this->_acceptCharset);}
+
+  const listString&	getAcceptEncoding() const
+  {return (this->_acceptEncoding);}
+
+  const listString&	getAcceptLangage() const
+  {return (this->_acceptLangage);}
+
+  const std::string&	getAuthorization() const
+  {return (this->_authorization);}
+
+  const mapKey&	getExcept() const
+  {return (this->_expect);}
+
+  const std::string	getFrom() const
+  {return (this->_from);}
+
+  const Host&	getHost() const
+  {return (this->_host);}
+
+  const listString&	getIfMatch()
+  {return (this->_ifMatch);}
+
+  const listString&	getAllow() const
+  {return (this->_allow);}
+
+  const listString&	getContentEncoding() const
+  {return (this->_contentEncoding);}
+
+  const listString&	getContentLangage() const
+  {return (this->_contentLangage);}
+
+  const int&	getContentLength() const
+  {return (this->_contentLength);}
+
+  const std::string&	getContentLocation() const
+  {return (this->_contentLocation);}
+
+  const std::string&	getContentMd5() const
+  {return (this->_contentMd5);}
+
+  const std::string&	getContentRange() const
+  {return (this->_contentRange);}
+
+  const listType&	getContentType() const
+  {return (this->_contentType);}
+
+  const std::string&	getExpires() const
+  {return (this->_expires);}
+
+  const std::string&	getLastModified() const
+  {return (this->_lastModified);}
 private:
   // Request-Line Section 5.1
   std::string		_method;		// 5.1.1
