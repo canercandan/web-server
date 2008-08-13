@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:10 2008 morgan armand
-// Last update Wed Aug 13 17:38:06 2008 caner candan
+// Last update Tue Aug 12 08:01:04 2008 florent hochwelker
 //
 
 #ifndef __HTTP_REQUEST_H__
@@ -208,6 +208,8 @@ private:
   listString	_ifMatch;			// 14.24
 
   // Entity Header Fields Section 7.1
+  // N'a pas lieu d'etre ici normalement on peux delete
+  // ainsi que les setter/getter
   listString	_allow;				// 14.7
   listString	_contentEncoding;		// 14.11
   listString	_contentLangage;		// 14.12

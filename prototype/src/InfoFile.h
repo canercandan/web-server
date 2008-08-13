@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Mon Aug 11 22:34:42 2008 florent hochwelker
-// Last update Tue Aug 12 01:36:11 2008 florent hochwelker
+// Last update Tue Aug 12 08:38:14 2008 florent hochwelker
 //
 
 #ifndef __INFOFILE_H__
@@ -24,6 +24,8 @@ public:
   bool				isGood();
   InfoFile::Type		getType();
   std::list<std::string>	*getListDir();
+  const std::string&		getPath();
+  int				getSize();
 
 private:
   struct stat	_sb;

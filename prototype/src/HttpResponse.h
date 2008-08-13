@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:59 2008 morgan armand
-// Last update Tue Aug 12 06:43:12 2008 florent hochwelker
+// Last update Tue Aug 12 08:36:16 2008 florent hochwelker
 //
 
 #ifndef __HTTP_RESPONSE_H__
@@ -25,11 +25,13 @@ class				HttpResponse
 public:
   HttpResponse(HttpRequest* req);
   ~HttpResponse();
+
   void				sendResponse(Socket* sck);
 
 private:
   HttpRequest*			_req;
   ZiaConfiguration*		_conf;
+  InfoFile*			_currentFile;
   int				_status_code;
   std::map<int, std::string>	_map_response;
 
@@ -46,7 +48,7 @@ private:
   int				clientErrorCode();
   int				serverErrorCode();
   void				sendMessageBody(Socket* sck);
-  void		        sendListingDirectoryHTML(InfoFile&, Socket* sck);
+  void			        sendListingDirectoryHTML(Socket* sck);
 };
 
 #endif // __HTTP_RESPONSE_H__

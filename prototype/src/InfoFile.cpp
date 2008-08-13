@@ -5,6 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Mon Aug 11 22:36:09 2008 florent hochwelker
+// Last update Tue Aug 12 09:39:35 2008 florent hochwelker
 // Last update Wed Aug 13 22:10:02 2008 caner candan
 //
 
@@ -31,6 +32,11 @@ InfoFile::InfoFile(const std::string& file)
 bool	InfoFile::isGood()
 {
   return (this->_good);
+}
+
+const std::string&		InfoFile::getPath()
+{
+  return this->_file;
 }
 
 InfoFile::Type	InfoFile::getType()
@@ -81,4 +87,11 @@ std::list<std::string>		*InfoFile::getListDir()
     }
 #endif
   return (listDir);
+}
+
+int				InfoFile::getSize()
+{
+  if (this->_good)
+    return this->_sb.st_size;
+  return -1;
 }

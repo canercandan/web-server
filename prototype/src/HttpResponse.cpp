@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Tue Aug 12 06:45:17 2008 florent hochwelker
+// Last update Tue Aug 12 09:38:56 2008 florent hochwelker
 //
 
 #include <sstream>
@@ -13,20 +13,21 @@
 #include "InfoFile.h"
 
 HttpResponse::HttpResponse(HttpRequest* req)
-  : _req(req)
+  : _req(req), _currentFile(NULL)
 {
   _conf = ZiaConfiguration::getInstance();
 }
 
 HttpResponse::~HttpResponse()
 {
+  if (this->_currentFile != NULL)
+    delete this->_currentFile;
 }
 
 void		HttpResponse::sendResponse(Socket* sck)
 {
   std::string	response;
 
-  std::cout << "[debug sendResponse]:" << std::endl;
   this->generateMapResponse();
   response = this->generateResponse();
   std::cout << "response => [\n" << response << "]" << std::endl;
@@ -86,26 +87,15 @@ void		HttpResponse::generateMapResponse()
 std::string	HttpResponse::generateResponse()
 {
   std::string	status_line;
-  std::string	general_header("");
-  std::string	response_header("");
-  std::string	entity_header("");
   std::string	content;
+  this->_currentFile = new InfoFile(this->_conf->getValue("document_root") + this->_req->getPath());
 
   status_line = this->createStatusLine();
-  general_header = this->createGeneralHeader();
+  content = this->createGeneralHeader()
+    + this->createResponseHeader()
+    + this->createEntityHeader();
 
-  content = ((general_header != "") ? general_header
-	     : (response_header != "") ? response_header
-	     : (entity_header != "") ? entity_header : "");
-  content = ((content != "") ? content + "\r\n" : content);
-
-  std::cout << "Status line = " << status_line << std::endl;
-  std::cout << "general_header = " << general_header << std::endl;
-  std::cout << "response_header = " << response_header << std::endl;
-  std::cout << "entity_header = " << entity_header << std::endl;
-
-  return (status_line + "Content-Type: text/html\r\n" + "\r\n");
-  return (status_line + "\r\n" + content);
+  return (status_line + content + "\r\n");
 }
 
 std::string	HttpResponse::createStatusLine()
@@ -188,15 +178,14 @@ std::string	HttpResponse::createResponseHeader()
 {
   std::stringstream	ss;
 
-  ss << "Location:" << this->_conf->getValue("location")
-     << "Server:" << this->_conf->getValue("name")
-    ;
-  return (ss.str());
+  ss << "Location:" << this->_conf->getValue("location") << "\r\n"
+     << "Server:" << this->_conf->getValue("name")<< "\r\n";
+  return ss.str();
 }
 
-void		HttpResponse::sendListingDirectoryHTML(InfoFile& info, Socket* sck)
+void		HttpResponse::sendListingDirectoryHTML(Socket* sck)
 {
-  std::list<std::string>	*listDir = info.getListDir();
+  std::list<std::string>	*listDir = this->_currentFile->getListDir();
   std::string			buf;
   bool				errSend = false;
 
@@ -231,42 +220,37 @@ void		HttpResponse::sendListingDirectoryHTML(InfoFile& info, Socket* sck)
   delete listDir;
 }
 
-std::string	HttpResponse::createEntityHeader()
+std::string		HttpResponse::createEntityHeader()
 {
   std::stringstream	ss;
 
-  // FIXME: 407-Allow,
-  //   ss << "Content-Lenght:" << this->_req.getContentLength()
-  //     ;
+  ss << "Content-Lenght:" << this->_currentFile->getSize() << "\r\n";
   return (ss.str());
 }
 
 void		HttpResponse::sendMessageBody(Socket* sck)
 {
   std::ifstream infile;
-  std::cout << "[debug generate message body]" << std::endl;
-  std::string	file(this->_conf->getValue("document_root"));
-  file += this->_req->getPath();
-  std::cout << "file = " << file << std::endl;
-  InfoFile	info(file);
-  if (info.isGood())
+  if (this->_currentFile->isGood())
     {
-      switch (info.getType())
+      switch (this->_currentFile->getType())
 	{
 	case InfoFile::FILE:
 	  {
-	    infile.open(file.c_str());
+	    std::string	bufString;
+	    infile.open(this->_currentFile->getPath().c_str());
 	    if (infile.is_open())
 	      {
 		std::string	c;
 		while (infile.good())
 		  {
 		    c = infile.get();
-		    if (sck->send(c) <= 0)
-		      {
-			sck->close();
-			break;
-		      }
+		    if (infile.good())
+		      if (sck->send(c) <= 0)
+			{
+			  sck->close();
+			  break;
+			}
 		  }
 		infile.close();
 	      }
@@ -274,7 +258,7 @@ void		HttpResponse::sendMessageBody(Socket* sck)
 	  }
 	case InfoFile::DIR:
 	  {
-	    sendListingDirectoryHTML(info, sck);
+	    sendListingDirectoryHTML(sck);
 	    break;
 	  }
 	default:
