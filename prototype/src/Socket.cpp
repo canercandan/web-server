@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 11:45:23 2008 morgan armand
-// Last update Tue Aug 12 17:58:52 2008 morgan armand
+// Last update Tue Aug 12 06:03:06 2008 florent hochwelker
 //
 
 #include <iostream>
@@ -128,11 +128,13 @@ Socket*	Socket::accept()
 void	Socket::close()
 {
   if (this->isValid())
+    {
 #ifdef WIN32
-    ::closesocket(this->_sck);
+      ::closesocket(this->_sck);
 #else
-  ::close(this->_sck);
+      ::close(this->_sck);
 #endif
+    }
 }
 
 int	Socket::recv(char* buf, int len)
@@ -140,9 +142,17 @@ int	Socket::recv(char* buf, int len)
   return ::recv(this->_sck, buf, len, 0);
 }
 
-int	Socket::send(const char* buf, int len)
+int	Socket::send(std::string& buf)
 {
-  return ::send(this->_sck, buf, len, 0);
+  int	ret;
+  if ((ret = ::send(this->_sck, buf.c_str(), buf.length(), 0)) < 0)
+    return (-1);
+  if (ret < (signed int)buf.length())
+    {
+      buf = buf.substr(ret);
+      return (Socket::send(buf));
+    }
+  return (ret);
 }
 
 bool	Socket::isValid()

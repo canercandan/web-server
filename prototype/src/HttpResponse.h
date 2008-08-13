@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:59 2008 morgan armand
-// Last update Wed Aug 13 18:53:04 2008 majdi toumi
+// Last update Tue Aug 12 06:43:12 2008 florent hochwelker
 //
 
 #ifndef __HTTP_RESPONSE_H__
@@ -18,6 +18,7 @@
 #include "Socket.h"
 #include "HttpRequest.h"
 #include "ZiaConfiguration.h"
+#include "InfoFile.h"
 
 class				HttpResponse
 {
@@ -45,6 +46,7 @@ private:
   int				clientErrorCode();
   int				serverErrorCode();
   void				sendMessageBody(Socket* sck);
+  void		        sendListingDirectoryHTML(InfoFile&, Socket* sck);
 };
 
 #endif // __HTTP_RESPONSE_H__

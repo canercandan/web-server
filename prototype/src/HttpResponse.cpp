@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Wed Aug 13 18:53:49 2008 majdi toumi
+// Last update Tue Aug 12 06:45:17 2008 florent hochwelker
 //
 
 #include <sstream>
@@ -30,7 +30,7 @@ void		HttpResponse::sendResponse(Socket* sck)
   this->generateMapResponse();
   response = this->generateResponse();
   std::cout << "response => [\n" << response << "]" << std::endl;
-  sck->send(response.c_str(), response.length());
+  sck->send(response);
   sendMessageBody(sck);
 }
 
@@ -194,6 +194,43 @@ std::string	HttpResponse::createResponseHeader()
   return (ss.str());
 }
 
+void		HttpResponse::sendListingDirectoryHTML(InfoFile& info, Socket* sck)
+{
+  std::list<std::string>	*listDir = info.getListDir();
+  std::string			buf;
+  bool				errSend = false;
+
+  buf = "<h1>Index of ";
+  buf += this->_req->getPath();
+  buf += "</h1><ul>";
+  if (sck->send(buf) <= 0)
+    return;
+  std::list<std::string>::iterator	it;
+  std::list<std::string>::iterator	end = listDir->end();
+  std::string				slashDir;
+  for (it = listDir->begin(); it != end; ++it)
+    {
+      InfoFile checkDir = InfoFile(this->_conf->getValue("document_root") + "/" + this->_req->getPath() + *it);
+      if (checkDir.isGood() == true && checkDir.getType() == InfoFile::DIR)
+	slashDir = "/";
+      else
+	slashDir = "";
+      buf = "<li><a href=\"" + *it + slashDir + "\">"
+	+ *it + slashDir + "</a></li>";
+      if (sck->send(buf) <= 0)
+	{
+	  errSend = true;
+	  break;
+	}
+    }
+  if (errSend != false)
+    {
+      buf = "</ul>";
+      sck->send(buf);
+    }
+  delete listDir;
+}
+
 std::string	HttpResponse::createEntityHeader()
 {
   std::stringstream	ss;
@@ -221,10 +258,15 @@ void		HttpResponse::sendMessageBody(Socket* sck)
 	    infile.open(file.c_str());
 	    if (infile.is_open())
 	      {
+		std::string	c;
 		while (infile.good())
 		  {
-		    char c = infile.get();
-		    sck->send(&c, 1);
+		    c = infile.get();
+		    if (sck->send(c) <= 0)
+		      {
+			sck->close();
+			break;
+		      }
 		  }
 		infile.close();
 	      }
@@ -232,34 +274,17 @@ void		HttpResponse::sendMessageBody(Socket* sck)
 	  }
 	case InfoFile::DIR:
 	  {
-	    std::list<std::string> *listDir = info.getListDir();
-
-	    sck->send("<h1>Index of ", 13);
-	    sck->send(this->_req->getPath().c_str(), this->_req->getPath().length());
-	    sck->send("</h1>", 5);
-	    sck->send("<ul>", 4);
-
-	    std::list<std::string>::iterator	it;
-	    std::list<std::string>::iterator	end = listDir->end();
-
-	    for (it = listDir->begin(); it != end; ++it)
-	      {
-		sck->send("<li>", 4);
-		sck->send("<a href=\"", 9);
-		sck->send(it->c_str(), it->length());
-		sck->send("\">", 2);
-		sck->send(it->c_str(), it->length());
-		sck->send("</a>", 4);
-		sck->send("</li>", 5);
-	      }
-	    sck->send("</ul>", 5);
-	    delete listDir;
+	    sendListingDirectoryHTML(info, sck);
 	    break;
 	  }
 	default:
-	  sck->send("<h1>File not found</h1>", 23);
+	  std::string	buf = "<h1>File not found</h1>";
+	  sck->send(buf);
 	}
     }
   else
-    sck->send("<h1>File not found</h1>", 23);
+    {
+      std::string	buf = "<h1>File not found</h1>";
+      sck->send(buf);
+    }
 }

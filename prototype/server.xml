@@ -11,6 +11,9 @@
     <document_root value="/tmp" />
     <location value="http://youporn.com/index.html" />
     <cgi_script value="/tmp/cgi-bin" />
+    <contentType value="42">
+      <html value="text/html" />
+    </contentType>
   </config>
   <virtual_host>
     <rootdir value="~toto" />
