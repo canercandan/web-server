@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:54 2008 morgan armand
-// Last update Wed Aug 13 18:54:07 2008 caner candan
+// Last update Wed Aug 13 19:30:28 2008 morgan armand
 //
 
 #include "HttpParser.h"
@@ -59,36 +59,41 @@ bool	HttpParser::readToken()
 
 bool	HttpParser::readRequest()
 {
-  return (this->readRequestLine() &&
-	  this->readRequestOpt());// && CRLF);
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readRequestLine() &&
+		this->readRequestOpt()); //&& CRLF);
 }
 
 bool	HttpParser::readRequestOpt()
 {
+  DEBUG_ENTER;
   while (this->readRequestOptPart2());
-  return (true);
+  DEBUG_RETURN (true);
 }
 
 bool	HttpParser::readRequestOptPart2()
 {
+  DEBUG_ENTER;
   this->save();
   if ((this->readGeneralHeader() ||
        this->readRequestHeader() ||
        this->readEntityHeader()) && CRLF)
-    return (true);
+    DEBUG_RETURN (true);
   this->back();
-  return (false);
+  DEBUG_RETURN (false);
 }
 
 bool	HttpParser::readRequestLine()
 {
-  return (this->readMethod() && SP &&
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readMethod() && SP &&
 	  this->readRequestURI() && SP &&
 	  this->readHttpVersion() && CRLF);
 }
 
 bool	HttpParser::readMethod()
 {
+  DEBUG_ENTER;
   this->prepare();
   if (TEXT("OPTIONS") ||
       TEXT("GET") ||
@@ -102,24 +107,35 @@ bool	HttpParser::readMethod()
     {
       this->_request->setMethod(this->extract());
       this->consume();
-      return (true);
+      DEBUG_RETURN (true);
     }
-  return (false);
+  DEBUG_RETURN (false);
 }
 
 bool	HttpParser::readExtensionMethod()
 {
-  return (this->readToken());
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readToken());
 }
 
 bool	HttpParser::readRequestURI()
 {
+  DEBUG_ENTER;
   if (CHAR('*') ||
       this->readAbsoluteURI() ||
-      this->readPathAbsolute() ||
+      (this->readPathAbsolute() &&
+       this->readPathAbsoluteQuery()) ||
       this->readAuthority())
-    return (true);
-  return (false);
+    DEBUG_RETURN (true);
+  DEBUG_RETURN (false);
+}
+
+bool	HttpParser::readPathAbsoluteQuery()
+{
+  if (CHAR('?'))
+    this->readQuery();
+
+  DEBUG_RETURN (true);
 }
 
 bool	HttpParser::readHttpVersion()
@@ -128,6 +144,7 @@ bool	HttpParser::readHttpVersion()
   int		major;
   int		minor;
 
+  DEBUG_ENTER;
   if (TEXT_R("HTTP", name) &&
       CHAR('/') &&
       INTEGER_R(major) &&
@@ -137,14 +154,15 @@ bool	HttpParser::readHttpVersion()
       this->_request->getVersionProtocol().setName(name);
       this->_request->getVersionProtocol().setMajor(major);
       this->_request->getVersionProtocol().setMinor(minor);
-      return (true);
+      DEBUG_RETURN (true);
     }
-  return (false);
+  DEBUG_RETURN (false);
 }
 
 bool	HttpParser::readGeneralHeader()
 {
-  return (this->readCacheControl() ||
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readCacheControl() ||
 	  this->readConnection() ||
 	  this->readDate() ||
 	  this->readPragma() ||
@@ -158,27 +176,30 @@ bool	HttpParser::readGeneralHeader()
 bool	HttpParser::readCacheControl()
 {
   NOT_IMPLEMENTED;
-//   return (TEXT("Cache-Control") && CHAR(':') &&
-//    	  this->readCacheDirective());
+  //   return (TEXT("Cache-Control") && CHAR(':') &&
+  //    	  this->readCacheDirective());
 }
 
 bool	HttpParser::readCacheDirective()
 {
+  DEBUG_ENTER;
   if (!this->readCacheDirectiveSharp())
-    return (false);
+    DEBUG_RETURN (false);
   SHARP(this->readCacheDirectiveSharp());
-  return (true);
+  DEBUG_RETURN (true);
 }
 
 bool	HttpParser::readCacheDirectiveSharp()
 {
-  return (this->readCacheRequestDirective() ||
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readCacheRequestDirective() ||
 	  this->readCacheResponseDirective());
 }
 
 bool	HttpParser::readCacheRequestDirective()
 {
-  return (TEXT("no-cache") ||
+  DEBUG_ENTER;
+  DEBUG_RETURN (TEXT("no-cache") ||
 	  TEXT("no-store") ||
 	  (TEXT("max-age") && CHAR('=') && readDeltaSeconds()) ||
 	  (TEXT("max-stale") && (CHAR('=') && readDeltaSeconds())) || // todo: backtracking
@@ -190,7 +211,8 @@ bool	HttpParser::readCacheRequestDirective()
 
 bool	HttpParser::readCacheResponseDirective()
 {
-  return (TEXT("public") ||
+  DEBUG_ENTER;
+  DEBUG_RETURN (TEXT("public") ||
 	  (TEXT("private") &&
 	   (CHAR('=') && CHAR('"') && this->readFieldName() && CHAR('"'))) ||
 	  (TEXT("no-cache") &&
@@ -206,7 +228,8 @@ bool	HttpParser::readCacheResponseDirective()
 
 bool	HttpParser::readCacheExtension()
 {
-  return (this->readToken() &&
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readToken() &&
 	  (this->readToken() || // todo: backtracking
 	   this->readQuotedString()));
 }
@@ -215,21 +238,24 @@ bool	HttpParser::readDeltaSeconds()
 {
   int	i;
 
+  DEBUG_ENTER;
   for (i = 0; DIGIT; i++);
-  return (i > 0);
+  DEBUG_RETURN (i > 0);
 }
 
 bool	HttpParser::readFieldName()
 {
+  DEBUG_ENTER;
   if (!this->readFieldNameSharp())
-    return (false);
+    DEBUG_RETURN (false);
   SHARP(this->readFieldNameSharp());
-  return (true);
+  DEBUG_RETURN (true);
 }
 
 bool	HttpParser::readFieldNameSharp()
 {
-  return (this->readToken());
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readToken());
 }
 
 bool	HttpParser::readConnection()
@@ -274,7 +300,8 @@ bool	HttpParser::readWarning()
 
 bool	HttpParser::readRequestHeader()
 {
-  return (this->readAccept() ||
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readAccept() ||
 	  this->readAcceptCharset() ||
 	  this->readAcceptEncoding() ||
 	  this->readAcceptLanguage() ||
@@ -387,7 +414,8 @@ bool	HttpParser::readTE()
 
 bool	HttpParser::readUserAgent()
 {
-  return (TEXT("User-Agent") && CHAR(':') &&
+  DEBUG_ENTER;
+  DEBUG_RETURN (TEXT("User-Agent") && CHAR(':') &&
 	  this->readUserAgentPart2());
 }
 
@@ -395,50 +423,56 @@ bool	HttpParser::readUserAgentPart2()
 {
   int	i;
 
+  DEBUG_ENTER;
   i = 0;
   while (this->readProduct() ||
 	 this->readComment())
     i++;
 
-  return (i > 0);
+  DEBUG_RETURN (i > 0);
 }
 
 bool	HttpParser::readProduct()
 {
-  return (this->readToken() &&
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readToken() &&
 	  this->readProductOpt());
 }
 
 bool	HttpParser::readComment()
 {
-  return (this->readChar('(') &&
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readChar('(') &&
 	  this->readCommentOpt() &&
 	  this->readChar(')'));
 }
 
 bool	HttpParser::readProductOpt()
 {
+  DEBUG_ENTER;
   this->save();
 
   if (this->readChar('/') &&
       this->readProductVersion())
-    return (true);
+    DEBUG_RETURN (true);
 
   this->back();
-  return (false);
+  DEBUG_RETURN (false);
 }
 
 bool	HttpParser::readProductVersion()
 {
-  return (this->readToken());
+  DEBUG_ENTER;
+  DEBUG_RETURN (this->readToken());
 }
 
 bool	HttpParser::readCommentOpt()
 {
+  DEBUG_ENTER;
   while (this->readCtext() ||
 	 this->readQuotedPair() ||
 	 this->readComment());
-  return (true);
+  DEBUG_RETURN (true);
 }
 
 bool	HttpParser::readCtext()

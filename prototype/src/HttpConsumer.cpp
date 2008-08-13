@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 15:10:07 2008 morgan armand
-// Last update Wed Aug 13 17:17:47 2008 caner candan
+// Last update Wed Aug 13 19:29:50 2008 morgan armand
 //
 
 #include <sstream>
@@ -108,13 +108,19 @@ bool	HttpConsumer::readRange(const char c_start, const char c_end, char& c_r)
 
 bool	HttpConsumer::readText(const std::string& s)
 {
+  size_t	i;
   size_t	size;
 
   size = s.size();
-  this->_appendBuf(size);
-  if (this->_buf.compare(this->_cur_pos, size, s))
-    return (false);
-  this->_cur_pos += size;
+  this->save();
+  for (i = 0; i < size; i++)
+    {
+      if (!this->readChar(s.at(i)))
+	{
+	  this->back();
+	  return (false);
+	}
+    }
   return (true);
 }
 
@@ -178,6 +184,15 @@ bool	HttpConsumer::readIdentifier(std::string& s_r)
 
 void	HttpConsumer::_appendBuf(size_t size)
 {
+  std::string	s;
+
   while (this->_buf.substr(this->_cur_pos).size() < size)
-    this->_buf += this->_prod->nextString();
+    {
+      s = this->_prod->nextString();
+
+      if (s.empty())
+	break;
+
+      this->_buf += s;
+    }
 }

@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:46 2008 morgan armand
-// Last update Wed Aug 13 13:56:21 2008 caner candan
+// Last update Wed Aug 13 18:46:23 2008 morgan armand
 //
 
 #ifndef __HTTP_PARSER_H__
@@ -36,6 +36,8 @@ public:
   bool	readExtensionMethod();
 
   bool	readRequestURI();
+  bool	readPathAbsoluteQuery();
+
   bool	readHttpVersion();
 
   bool	readGeneralHeader();
