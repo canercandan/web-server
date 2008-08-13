@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:46 2008 morgan armand
-// Last update Wed Aug 13 12:42:00 2008 caner candan
+// Last update Wed Aug 13 13:29:01 2008 caner candan
 //
 
 #ifndef __HTTP_PARSER_H__
@@ -47,8 +47,9 @@ public:
   bool	readCacheControl();
   bool	readCacheDirective();
   bool	readCacheDirectiveSharp();
-  bool	readDeltaSeconds();
   bool	readCacheExtension();
+  bool	readDeltaSeconds();
+  bool	readFieldName();
 
   bool	readCacheRequestDirective();
   bool	readCacheResponseDirective();

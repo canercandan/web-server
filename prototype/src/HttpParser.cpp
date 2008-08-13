@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:54 2008 morgan armand
-// Last update Wed Aug 13 12:41:24 2008 caner candan
+// Last update Wed Aug 13 13:28:50 2008 caner candan
 //
 
 #include "HttpParser.h"
@@ -185,33 +185,44 @@ bool	HttpParser::readCacheControl()
 
 bool	HttpParser::readCacheDirective()
 {
-  if (!readCacheDirectiveSharp())
+  if (!this->readCacheDirectiveSharp())
     return (false);
-  SHARP(readCacheDirectiveSharp());
+  SHARP(this->readCacheDirectiveSharp());
   return (true);
 }
 
 bool	HttpParser::readCacheDirectiveSharp()
 {
+  return (this->readCacheRequestDirective() ||
+	  this->readCacheResponseDirective());
+}
+
+bool	HttpParser::readCacheRequestDirective()
+{
   return (TEXT("no-cache") ||
 	  TEXT("no-store") ||
-	  (TEXT("max-age") &&
-	   CHAR('=') &&
-	   readDeltaSeconds()) ||
-	  (TEXT("max-stale") &&
-	   CHAR('=') &&
-	   readDeltaSeconds()) ||
-	  (TEXT("min-fresh") &&
-	   CHAR('=') &&
-	   readDeltaSeconds()) ||
+	  (TEXT("max-age") && CHAR('=') && readDeltaSeconds()) ||
+	  (TEXT("max-stale") && (CHAR('=') && readDeltaSeconds())) || // todo: backtracking
+	  (TEXT("min-fresh") && CHAR('=') && readDeltaSeconds()) ||
 	  TEXT("no-transform") ||
 	  TEXT("only-if-cached") ||
 	  readCacheExtension());
 }
 
-bool	HttpParser::readDeltaSeconds()
+bool	HttpParser::readCacheResponseDirective()
 {
-  NOT_IMPLEMENTED;
+  return (TEXT("public") ||
+	  (TEXT("private") &&
+	   (CHAR('=') && CHAR('"') && readFieldName() && CHAR('"'))) ||
+	  (TEXT("no-cache") &&
+	   (CHAR('=') && CHAR('"') && readFieldName() && CHAR('"'))) ||
+	  TEXT("no-store") ||
+	  TEXT("no-transform") ||
+	  TEXT("must-revalidate") ||
+	  TEXT("proxy-revalidate") ||
+	  (TEXT("max-age") && CHAR('=') && readDeltaSeconds()) ||
+	  (TEXT("s-maxage") && CHAR('=') && readDeltaSeconds()) ||
+	  readCacheExtension()); 
 }
 
 bool	HttpParser::readCacheExtension()
@@ -219,12 +230,12 @@ bool	HttpParser::readCacheExtension()
   NOT_IMPLEMENTED;
 }
 
-bool	HttpParser::readCacheRequestDirective()
+bool	HttpParser::readDeltaSeconds()
 {
   NOT_IMPLEMENTED;
 }
 
-bool	HttpParser::readCacheResponseDirective()
+bool	HttpParser::readFieldName()
 {
   NOT_IMPLEMENTED;
 }
