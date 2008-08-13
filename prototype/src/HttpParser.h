@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:46 2008 morgan armand
-// Last update Mon Aug 11 20:53:42 2008 morgan armand
+// Last update Wed Aug 13 12:22:00 2008 morgan armand
 //
 
 #ifndef __HTTP_PARSER_H__
@@ -19,6 +19,16 @@ class	HttpParser : public URIParser
 public:
   HttpParser(HttpProducer* prod, HttpRequest* request);
   ~HttpParser();
+
+  bool	readCHAR();
+
+  bool	peekCTL();
+  bool	readCTL();
+
+  bool	peekSeparators();
+  bool	readSeparators();
+
+  bool	readToken();
 
   bool	readRequest();
   bool	readRequestOpt();	// NOT RFC
@@ -64,7 +74,19 @@ public:
   //  bool	readRange();
   bool	readReferer();
   bool	readTE();
+
   bool	readUserAgent();
+  bool	readUserAgentPart2();
+
+  bool	readProduct();
+  bool	readProductOpt();
+  bool	readProductVersion();
+
+  bool	readComment();
+  bool	readCommentOpt();
+
+  bool	readCtext();
+  bool	readQuotedPair();
 
   bool	readEntityHeader();
 };

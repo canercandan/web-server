@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 15:07:41 2008 morgan armand
-// Last update Fri Aug  8 17:00:04 2008 caner candan
+// Last update Wed Aug 13 11:42:58 2008 morgan armand
 //
 
 #ifndef __HTTP_CONSUMER_H__
@@ -33,10 +33,10 @@ public:
   void	back();
 
   bool	peekChar(const char c);
-
   bool	readChar(const char c);
   bool	readChar(const char c, char& c_r);
 
+  bool	peekRange(const char c_start, const char c_end);
   bool	readRange(const char c_start, const char c_end);
   bool	readRange(const char c_start, const char c_end, char& c_r);
 

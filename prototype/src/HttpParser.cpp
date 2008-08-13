@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:54 2008 morgan armand
-// Last update Tue Aug 12 17:47:12 2008 caner candan
+// Last update Wed Aug 13 12:22:17 2008 morgan armand
 //
 
 #include "HttpParser.h"
@@ -17,6 +17,66 @@ HttpParser::HttpParser(HttpProducer* prod, HttpRequest* request)
 
 HttpParser::~HttpParser()
 {
+}
+
+bool	HttpParser::readCHAR()
+{
+  return (this->readRange(0, 127));
+}
+
+bool	HttpParser::peekCTL()
+{
+  return (this->peekRange(0, 31) ||
+	  this->peekChar(127));
+}
+
+bool	HttpParser::readCTL()
+{
+  return (this->readRange(0, 31) ||
+	  this->readChar(127));
+}
+
+bool	HttpParser::peekSeparators()
+{
+  return (this->peekChar('(') || this->peekChar(')') ||
+	  this->peekChar('<') || this->peekChar('>') ||
+	  this->peekChar('@') || this->peekChar(',') ||
+	  this->peekChar(';') || this->peekChar(':') ||
+	  this->peekChar('\\') || this->peekChar('"') ||
+	  this->peekChar('/') || this->peekChar('[') ||
+	  this->peekChar(']') || this->peekChar('?') ||
+	  this->peekChar('=') || this->peekChar('{') ||
+	  this->peekChar('}') || this->peekChar(' ') ||
+	  this->peekChar('\t'));
+}
+
+bool	HttpParser::readSeparators()
+{
+  return (this->readChar('(') || this->readChar(')') ||
+	  this->readChar('<') || this->readChar('>') ||
+	  this->readChar('@') || this->readChar(',') ||
+	  this->readChar(';') || this->readChar(':') ||
+	  this->readChar('\\') || this->readChar('"') ||
+	  this->readChar('/') || this->readChar('[') ||
+	  this->readChar(']') || this->readChar('?') ||
+	  this->readChar('=') || this->readChar('{') ||
+	  this->readChar('}') || this->readChar(' ') ||
+	  this->readChar('\t'));
+}
+
+bool	HttpParser::readToken()
+{
+  int	i;
+
+  i = 0;
+  while (!this->peekCTL() &&
+	 !this->peekSeparators())
+    {
+      this->readCHAR();
+      i++;
+    }
+
+  return (i > 0);
 }
 
 bool	HttpParser::readRequest()
@@ -71,7 +131,7 @@ bool	HttpParser::readMethod()
 
 bool	HttpParser::readExtensionMethod()
 {
-  NOT_IMPLEMENTED;
+  return (this->readToken());
 }
 
 bool	HttpParser::readRequestURI()
@@ -120,15 +180,7 @@ bool	HttpParser::readGeneralHeader()
 bool	HttpParser::readCacheControl()
 {
   NOT_IMPLEMENTED;
-  //   return (TEXT("Cache-Control") && CHAR(':') &&
-  // 	  this->readCacheDirective() &&
-  // 	  this->readCacheDirectiveOpt());
 }
-
-// bool	HttpParser::readCacheDirective()
-// {
-//   NOT_IMPLEMENTED;
-// }
 
 bool	HttpParser::readConnection()
 {
@@ -284,6 +336,67 @@ bool	HttpParser::readTE()
 }
 
 bool	HttpParser::readUserAgent()
+{
+  return (TEXT("User-Agent") && CHAR(':') &&
+	  this->readUserAgentPart2());
+}
+
+bool	HttpParser::readUserAgentPart2()
+{
+  int	i;
+
+  i = 0;
+  while (this->readProduct() ||
+	 this->readComment())
+    i++;
+
+  return (i > 0);
+}
+
+bool	HttpParser::readProduct()
+{
+  return (this->readToken() &&
+	  this->readProductOpt());
+}
+
+bool	HttpParser::readComment()
+{
+  return (this->readChar('(') &&
+	  this->readCommentOpt() &&
+	  this->readChar(')'));
+}
+
+bool	HttpParser::readProductOpt()
+{
+  this->save();
+
+  if (this->readChar('/') &&
+      this->readProductVersion())
+    return (true);
+
+  this->back();
+  return (false);
+}
+
+bool	HttpParser::readProductVersion()
+{
+  return (this->readToken());
+}
+
+bool	HttpParser::readCommentOpt()
+{
+  while (this->readCtext() ||
+	 this->readQuotedPair() ||
+	 this->readComment());
+  return (true);
+}
+
+bool	HttpParser::readCtext()
+{
+  NOT_IMPLEMENTED;
+}
+
+bool	HttpParser::readQuotedPair()
 {
   NOT_IMPLEMENTED;
 }
