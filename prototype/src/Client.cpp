@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Wed Aug 13 15:54:20 2008 majdi toumi
+// Last update Wed Aug 13 18:48:08 2008 majdi toumi
 //
 
 #include <iostream>
@@ -15,8 +15,8 @@
 #include "HttpResponse.h"
 #include "HttpProducer.h"
 
-Client::Client(Socket* sck, ZiaConfiguration& conf)
-  : _sck(sck), _conf(conf)
+Client::Client(Socket* sck)
+  : _sck(sck)
 {}
 
 void	Client::run()
@@ -36,8 +36,7 @@ void	Client::run()
       std::cout << "HOST: " << request->getHttpUrl().getHost().getHostname() << std::endl;
       std::cout << "PORT: " << request->getHttpUrl().getHost().getPort() << std::endl;
       std::cout << "PATH: " << request->getPath() << std::endl;
-      HttpResponse	response(request, this->_conf);
-
+      HttpResponse	response(request);
       response.sendResponse(this->_sck);
     }
   else

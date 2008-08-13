@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:26 2008 morgan armand
-// Last update Wed Aug 13 12:54:44 2008 caner candan
+// Last update Wed Aug 13 18:01:23 2008 majdi toumi
 //
 
 #ifndef __ABNF_PARSER_H__
@@ -60,6 +60,7 @@ namespace	Debug
 class	ABNFParser : public HttpConsumer
 {
 public:
+
   ABNFParser(HttpProducer* prod);
   ~ABNFParser();
 };

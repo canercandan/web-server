@@ -5,16 +5,18 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Wed Aug 13 15:54:10 2008 majdi toumi
+// Last update Wed Aug 13 18:53:49 2008 majdi toumi
 //
 
 #include <sstream>
 #include "HttpResponse.h"
 #include "InfoFile.h"
 
-HttpResponse::HttpResponse(HttpRequest* req, ZiaConfiguration& conf)
-  : _req(req), _conf(conf)
-{}
+HttpResponse::HttpResponse(HttpRequest* req)
+  : _req(req)
+{
+  _conf = ZiaConfiguration::getInstance();
+}
 
 HttpResponse::~HttpResponse()
 {
@@ -64,6 +66,7 @@ void		HttpResponse::generateMapResponse()
   this->_map_response[408] = "Request Time-out";
   this->_map_response[409] = "Conflict";
   this->_map_response[410] = "Gone";
+
   this->_map_response[411] = "Length Required";
   this->_map_response[412] = "Precondition Failed";
   this->_map_response[413] = "Request Entity Too Large";
@@ -185,9 +188,9 @@ std::string	HttpResponse::createResponseHeader()
 {
   std::stringstream	ss;
 
-//   ss << "Location:" << this->_conf.getValue("location")
-//      << "Server:" << this->conf.getValue("name")
-//     ;
+  ss << "Location:" << this->_conf->getValue("location")
+     << "Server:" << this->_conf->getValue("name")
+    ;
   return (ss.str());
 }
 
@@ -195,9 +198,9 @@ std::string	HttpResponse::createEntityHeader()
 {
   std::stringstream	ss;
 
-//   // FIXME: 407-Allow,
-//   ss << "Content-Lenght:" << this->_req.getContentLength()
-//     ;
+  // FIXME: 407-Allow,
+  //   ss << "Content-Lenght:" << this->_req.getContentLength()
+  //     ;
   return (ss.str());
 }
 
@@ -205,7 +208,7 @@ void		HttpResponse::sendMessageBody(Socket* sck)
 {
   std::ifstream infile;
   std::cout << "[debug generate message body]" << std::endl;
-  std::string	file = this->_conf.getValue("document_root");
+  std::string	file(this->_conf->getValue("document_root"));
   file += this->_req->getPath();
   std::cout << "file = " << file << std::endl;
   InfoFile	info(file);
