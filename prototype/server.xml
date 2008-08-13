@@ -9,6 +9,7 @@
     <debug value="true" />
     <respect_rfc value="strict" />
     <document_root value="/tmp" />
+    <location value="http://youporn.com/index.html" />
     <cgi_script value="/tmp/cgi-bin" />
   </config>
   <virtual_host>
