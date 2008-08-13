@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Mon Aug 11 22:36:09 2008 florent hochwelker
-// Last update Wed Aug 13 09:46:07 2008 caner candan
+// Last update Tue Aug 12 07:21:12 2008 florent hochwelker
 //
 
 #include <sys/types.h>
@@ -15,7 +15,7 @@
 InfoFile::InfoFile(const std::string& file)
   : _file(file)
 {
-  _good = (!lstat(file.c_str(), &_sb));
+  _good = (lstat(file.c_str(), &_sb) == 0);
 }
 
 bool	InfoFile::isGood()
