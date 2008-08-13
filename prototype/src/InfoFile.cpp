@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Mon Aug 11 22:36:09 2008 florent hochwelker
-// Last update Tue Aug 12 07:21:50 2008 florent hochwelker
+// Last update Tue Aug 12 07:24:41 2008 florent hochwelker
 //
 
 #include <sys/types.h>
@@ -41,9 +41,11 @@ std::list<std::string>		*InfoFile::getListDir()
   std::list<std::string>	*listDir = new std::list<std::string>;
   ::DIR *dirp;
 
-  dirp = opendir(this->_file.c_str());
-  while ((dp = readdir(dirp)) != NULL)
-    listDir->push_back(dp->d_name);
-  closedir(dirp);
+  if ((dirp = opendir(this->_file.c_str())) != NULL)
+    {
+      while ((dp = readdir(dirp)) != NULL)
+	listDir->push_back(dp->d_name);
+      closedir(dirp);
+    }
   return (listDir);
 }
