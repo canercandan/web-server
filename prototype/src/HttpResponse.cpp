@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Tue Aug 12 01:39:28 2008 florent hochwelker
+// Last update Wed Aug 13 00:04:24 2008 majdi toumi
 //
 
 #include <sstream>
@@ -22,19 +22,13 @@ HttpResponse::~HttpResponse()
 
 void		HttpResponse::sendResponse(Socket* sck)
 {
-  std::string	status_line;
-  std::string	header;
+  std::string	response;
 
   std::cout << "[debug sendResponse]:" << std::endl;
   this->generateMapResponse();
-  status_line = generateStatusLine();
-  header = generateHeader();
-  std::cout << "Status line = " << status_line << std::endl;
-  std::cout << "Header = " << header << std::endl;
-
-  sck->send(status_line.c_str(), status_line.length());
-  sck->send(header.c_str(), header.length());
-  sck->send("\r\n", 2);
+  response = this->generateResponse();
+  std::cout << "response => [\n" << response << "]" << std::endl;
+  sck->send(response.c_str(), response.length());
   sendMessageBody(sck);
 }
 
@@ -87,12 +81,32 @@ void		HttpResponse::generateMapResponse()
   this->_map_response["505"] = "HTTP Version not supported";
 }
 
-std::string	HttpResponse::generateHeader()
+std::string	HttpResponse::generateResponse()
 {
-  return ("Content-Type: text/html\r\n");
+  std::string	status_line;
+  std::string	general_header("");
+  std::string	response_header("");
+  std::string	entity_header("");
+  std::string	content;
+
+  status_line = this->createStatusLine();
+  general_header = this->createGeneralHeader();
+
+  content = ((general_header != "") ? general_header
+	     : (response_header != "") ? response_header
+	     : (entity_header != "") ? entity_header : "");
+  content = ((content != "") ? content + "\r\n" : content);
+
+  std::cout << "Status line = " << status_line << std::endl;
+  std::cout << "general_header = " << general_header << std::endl;
+  std::cout << "response_header = " << response_header << std::endl;
+  std::cout << "entity_header = " << entity_header << std::endl;
+
+  return (status_line + "Content-Type: text/html\r\n" + "\r\n");
+  return (status_line + "\r\n" + content);
 }
 
-std::string		HttpResponse::generateStatusLine()
+std::string		HttpResponse::createStatusLine()
 {
   std::stringstream			ss;
   std::string				status_code;
@@ -112,14 +126,75 @@ std::string		HttpResponse::generateStatusLine()
 
 std::string	HttpResponse::findStatusCode()
 {
-  return ("202");
+  std::string	code;
+
+  code = informationalCode();
+  if (code != "")
+    return (code);
+  code = successfulCode();
+  if (code != "")
+    return (code);
+  code = redirectionCode();
+  if (code != "")
+    return (code);
+  code = clientErrorCode();
+  if (code != "")
+    return (code);
+  code = serverErrorCode();
+  if (code != "")
+    return (code);
+  return ("");
 }
 
-void	HttpResponse::sendMessageBody(Socket* sck)
+std::string	HttpResponse::informationalCode()
+{
+  if (this->_req->getVersionProtocol().getMajor() == 1)
+    return ("");
+  return ("");
+}
+
+std::string	HttpResponse::successfulCode()
+{
+  return ("200");
+}
+
+std::string	HttpResponse::redirectionCode()
+{
+  return ("");
+}
+
+std::string	HttpResponse::clientErrorCode()
+{
+  return ("");
+}
+
+std::string	HttpResponse::serverErrorCode()
+{
+  return ("");
+}
+
+std::string	HttpResponse::createGeneralHeader()
+{
+  std::stringstream	ss;
+
+  // todo -> Accept-Range +
+  //   ss << "ETag: \"\""
+  //      << "Location:" << this->_conf.getValue("location");
+    //     << "Server:" << this->_
+    //    ;
+  return ("");
+}
+
+std::string	HttpResponse::createResponseHeader()
+{
+  return ("");
+}
+
+void		HttpResponse::sendMessageBody(Socket* sck)
 {
   std::ifstream infile;
   std::cout << "[debug generate message body]" << std::endl;
-  std::string	file(this->_conf.getDocumentRoot());
+  std::string	file("/tmp"); //this->_conf.getValue("document_root"));
   file += this->_req->getPath();
   std::cout << "file = " << file << std::endl;
   InfoFile	info(file);

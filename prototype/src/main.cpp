@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Tue Aug 12 15:11:03 2008 majdi toumi
+// Last update Wed Aug 13 00:44:49 2008 majdi toumi
 //
 
 #include <iostream>
@@ -31,8 +31,10 @@ int			main(void)
   xml = new ParserXml(SERVER_XML);
   conf = xml->xmlLoadConfig();
   conf.ziaDumpConfig();
+
+  std::istringstream	iss(conf.getValue("port"));
+  iss >> port;
   logger.info("starting zia server");
-  port = conf.getPort();
   if (!server.create(port))
     {
       logger.error("an error occured while starting the server");

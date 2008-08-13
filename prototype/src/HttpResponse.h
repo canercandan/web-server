@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:59 2008 morgan armand
-// Last update Tue Aug 12 01:38:34 2008 florent hochwelker
+// Last update Tue Aug 12 18:20:11 2008 majdi toumi
 //
 
 #ifndef __HTTP_RESPONSE_H__
@@ -31,13 +31,18 @@ private:
   const ZiaConfiguration&	_conf;
   std::map<std::string, std::string>	_map_response;
 
-  std::string		generateHeader();
-  std::string		generateStatusLine();
-  void			sendMessageBody(Socket* sck);
   void			generateMapResponse();
-  std::string		defineStatusCode();
-  std::string		generateReasonPhrase();
+  std::string		generateResponse();
+  std::string		createStatusLine();
+  std::string		createGeneralHeader();
+  std::string		createResponseHeader();
   std::string		findStatusCode();
+  std::string		informationalCode();
+  std::string		successfulCode();
+  std::string		redirectionCode();
+  std::string		clientErrorCode();
+  std::string		serverErrorCode();
+  void			sendMessageBody(Socket* sck);
 };
 
 #endif // __HTTP_RESPONSE_H__

@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Tue Aug 12 15:09:10 2008 majdi toumi
+// Last update Wed Aug 13 00:06:50 2008 majdi toumi
 //
 
 #include <libxml/parser.h>
@@ -89,27 +89,14 @@ std::string		ParserXml::xmlGetValue(const char* attribut)
 ZiaConfiguration	ParserXml::xmlLoadConfig()
 {
   ZiaConfiguration	ziaConfig;
-  unsigned int		port;
-  std::string		name;
-  std::string		shutdown;
-  bool			debug;
-  std::string		respect_rfc;
-  std::string		document_root;
 
-  name = this->xmlGetValue("/server[@name]");
-  std::istringstream	iss(this->xmlGetValue("/server/config/port[@value]"));
-  iss >> port;
-  shutdown = this->xmlGetValue("/server/config/shutdown[@value]");
-  debug = (this->xmlGetValue("/server/config/debug[@value]") == "true" ? true : false);
-  respect_rfc = this->xmlGetValue("/server/config/respect_rfc[@value]");
-  document_root = this->xmlGetValue("/server/config/document_root[@value]");
-
-  ziaConfig.setName(name);
-  ziaConfig.setPort(port);
-  ziaConfig.setShutdown(shutdown);
-  ziaConfig.setDebug(debug);
-  ziaConfig.setRespectRfc(respect_rfc);
-  ziaConfig.setDocumentRoot(document_root);
+  ziaConfig.setValue("name", this->xmlGetValue("/server[@name]"));
+  ziaConfig.setValue("port", this->xmlGetValue("/server/config/port[@value]"));
+  ziaConfig.setValue("shutdown", this->xmlGetValue("/server/config/shutdown[@value]"));
+  ziaConfig.setValue("debug", this->xmlGetValue("/server/config/debug[@value]"));
+  ziaConfig.setValue("respect_rfc", this->xmlGetValue("/server/config/respect_rfc[@value]"));
+  ziaConfig.setValue("document_root", this->xmlGetValue("/server/config/document_root[@value]"));
+  ziaConfig.setValue("location", this->xmlGetValue("/server/config/location[@value]"));
   return(ziaConfig);
 }
 
