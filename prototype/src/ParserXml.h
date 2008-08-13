@@ -5,31 +5,26 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:13:58 2008 majdi toumi
-// Last update Wed Aug 13 18:41:56 2008 majdi toumi
+// Last update Wed Aug 13 20:04:32 2008 caner candan
 //
 
-#ifndef _PARSEXML_H__
+#ifndef __PARSEXML_H__
 # define __PARSEXML_H__
 
 #include <libxml/parser.h>
 #include <libxml/xpath.h>
 #include <string>
-#include "ZiaConfiguration.h"
 
-# define SERVER_XML	"../server.xml"
+#define SERVER_XML	"../server.xml"
 
-class			ParserXml
+class	ParserXml
 {
- public:
-  typedef void (*funCourse_t)(xmlNodePtr);
-
- public:
+public:
   ParserXml(const char *filename);
   ParserXml(const ParserXml& xmlDoc);
   ParserXml&	operator=(const ParserXml& xmlDoc);
   ~ParserXml();
 
-  ZiaConfiguration*	xmlLoadConfig();
   std::string		xmlGetValue(const char* attribut);
 
  private:
@@ -39,4 +34,4 @@ class			ParserXml
   xmlXPathContextPtr	_ctxt;
 };
 
-#endif /* !__PARSEXML_H__ */
+#endif // !__PARSEXML_H__

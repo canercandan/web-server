@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Wed Aug 13 19:07:06 2008 caner candan
+// Last update Wed Aug 13 20:04:47 2008 caner candan
 //
 
 #include <iostream>
@@ -24,12 +24,12 @@ int			main(void)
   Socket*		socket;
   Client*		client;
   Thread*		thread;
-  ParserXml*		xml;
-  ZiaConfiguration	*conf;
+  ZiaConfiguration*	conf;
   unsigned int		port;
 
-  xml = new ParserXml(SERVER_XML);
-  conf = xml->xmlLoadConfig();
+  conf = ZiaConfiguration::getInstance();
+  conf->setParserXml(new ParserXml(SERVER_XML));
+  conf->loadConfig();
   conf->ziaDumpConfig();
 
   std::istringstream	iss(conf->getValue("port"));
@@ -41,16 +41,14 @@ int			main(void)
       return (1);
     }
   while (42)
-    {
-      if (socket = server.accept())
-	{
-	  logger.info("accept new connection from a client");
-	  client = new Client(socket);
-	  thread = new Thread(client);
-	  thread->start();
-	  delete thread;
-	}
-    }
+    if (socket = server.accept())
+      {
+	logger.info("accept new connection from a client");
+	client = new Client(socket);
+	thread = new Thread(client);
+	thread->start();
+	delete thread;
+      }
   server.close();
   conf->kill();
   logger.info("stopping zia server");

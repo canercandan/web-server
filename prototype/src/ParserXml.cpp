@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Wed Aug 13 18:49:52 2008 majdi toumi
+// Last update Wed Aug 13 20:03:09 2008 caner candan
 //
 
 #include <libxml/parser.h>
@@ -75,31 +75,13 @@ std::string		ParserXml::xmlGetValue(const char* attribut)
       exit(-1);
     }
   if (xpath->type == XPATH_NODESET)
-    {
-      for (int i = 0; i < xpath->nodesetval->nodeNr; i++)
-	{
-	  node = xpath->nodesetval->nodeTab[i];
-	  return ((char*)node->properties->children->content);
-	}
-    }
+    for (int i = 0; i < xpath->nodesetval->nodeNr; i++)
+      {
+	node = xpath->nodesetval->nodeTab[i];
+	return ((char*)node->properties->children->content);
+      }
   std::cerr << "error: can't find [" << attribut << "] content" << std::endl;
   exit(-1);
-}
-
-ZiaConfiguration*	ParserXml::xmlLoadConfig()
-{
-  ZiaConfiguration	*ziaConfig;
-
-  ziaConfig = ZiaConfiguration::getInstance();
-
-  ziaConfig->setValue("name", this->xmlGetValue("/server[@name]"));
-  ziaConfig->setValue("port", this->xmlGetValue("/server/config/port[@value]"));
-  ziaConfig->setValue("shutdown", this->xmlGetValue("/server/config/shutdown[@value]"));
-  ziaConfig->setValue("debug", this->xmlGetValue("/server/config/debug[@value]"));
-  ziaConfig->setValue("respect_rfc", this->xmlGetValue("/server/config/respect_rfc[@value]"));
-  ziaConfig->setValue("document_root", this->xmlGetValue("/server/config/document_root[@value]"));
-  ziaConfig->setValue("location", this->xmlGetValue("/server/config/location[@value]"));
-  return(ziaConfig);
 }
 
 // std::string	ParserXml::getValue(const char* attribut)

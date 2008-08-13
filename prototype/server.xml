@@ -9,24 +9,10 @@
     <debug value="true" />
     <respect_rfc value="strict" />
     <document_root value="/tmp" />
-    <location value="http://youporn.com/index.html" />
     <cgi_script value="/tmp/cgi-bin" />
+    <timeout value="30" />
     <contentType value="42">
       <html value="text/html" />
     </contentType>
   </config>
-  <virtual_host>
-    <rootdir value="~toto" />
-    <host value="127.0.0.1" />
-    <domain value="toto.com" />
-    <logdir value="~toto/log" />
-    <errdir value="~toto/err" />
-  </virtual_host>
-  <virtual_host>
-    <rootdir value="~tata" />
-    <host value="127.0.0.1" />
-    <domain value="tata.com" />
-    <logdir value="~tata/log" />
-    <errdir value="~tata/err" />
-  </virtual_host>
 </server>
