@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Mon Aug 11 11:14:10 2008 morgan armand
-// Last update Wed Aug 13 12:15:37 2008 caner candan
+// Last update Wed Aug 13 17:38:06 2008 caner candan
 //
 
 #ifndef __HTTP_REQUEST_H__
@@ -120,90 +120,65 @@ public:
   HttpUrl&		getHttpUrl();
   VersionProtocol&	getVersionProtocol();
   const std::string&	getPath() const;
+  const mapKey&		getCacheControl() const;
+  const listString&	getConnection() const;
+  const std::string&	getDate() const;
+  const mapKey&		getPragma() const;
+  const listString&	getTrailer() const;
+  const listString&	getTransferEncoding() const;
+  const listVP&		getUpgrade() const;
+  const listWarning&	getWarning() const;
+  const listType&	getAccept() const;
+  const listString&	getAcceptCharset() const;
+  const listString&	getAcceptEncoding() const;
+  const listString&	getAcceptLangage() const;
+  const std::string&	getAuthorization() const;
+  const mapKey&		getExcept() const;
+  const std::string	getFrom() const;
+  const Host&		getHost() const;
+  const listString&	getIfMatch();
+  const listString&	getAllow() const;
+  const listString&	getContentEncoding() const;
+  const listString&	getContentLangage() const;
+  const int&		getContentLength() const;
+  const std::string&	getContentLocation() const;
+  const std::string&	getContentMd5() const;
+  const std::string&	getContentRange() const;
+  const listType&	getContentType() const;
+  const std::string&	getExpires() const;
+  const std::string&	getLastModified() const;
 
   void	setMethod(const std::string& method);
   void	setPath(const std::string& path);
-
-  const mapKey&	getCacheControl() const
-  {return (this->_cacheControl);}
-
-  const listString&	getConnection() const
-  {return (this->_connection);}
-
-  const std::string&	getDate() const
-  {return (this->_date);}
-
-  const mapKey&	getPragma() const
-  {return (this->_pragma);}
-
-  const listString&	getTrailer() const
-  {return (this->_trailer);}
-
-  const listString&	getTransferEncoding() const
-  {return (this->_transferEncoding);}
-
-  const listVP&	getUpgrade() const
-  {return (this->_upgrade);}
-
-  const listWarning& getWarning() const
-  {return (this->_warning);}
-
-  const listType&	getAccept() const
-  {return (this->_accept);}
-
-  const listString&	getAcceptCharset() const
-  {return (this->_acceptCharset);}
-
-  const listString&	getAcceptEncoding() const
-  {return (this->_acceptEncoding);}
-
-  const listString&	getAcceptLangage() const
-  {return (this->_acceptLangage);}
-
-  const std::string&	getAuthorization() const
-  {return (this->_authorization);}
-
-  const mapKey&	getExcept() const
-  {return (this->_expect);}
-
-  const std::string	getFrom() const
-  {return (this->_from);}
-
-  const Host&	getHost() const
-  {return (this->_host);}
-
-  const listString&	getIfMatch()
-  {return (this->_ifMatch);}
-
-  const listString&	getAllow() const
-  {return (this->_allow);}
-
-  const listString&	getContentEncoding() const
-  {return (this->_contentEncoding);}
-
-  const listString&	getContentLangage() const
-  {return (this->_contentLangage);}
-
-  const int&	getContentLength() const
-  {return (this->_contentLength);}
-
-  const std::string&	getContentLocation() const
-  {return (this->_contentLocation);}
-
-  const std::string&	getContentMd5() const
-  {return (this->_contentMd5);}
-
-  const std::string&	getContentRange() const
-  {return (this->_contentRange);}
-
-  const listType&	getContentType() const
-  {return (this->_contentType);}
-
-  const std::string&	getExpires() const
-  {return (this->_expires);}
-
-  const std::string&	getLastModified() const
-  {return (this->_lastModified);}
+  void	addCacheControl(const std::string& key,
+			const std::string& value = "");
+  void	addConnection(const std::string& connection);
+  void	setDate(const std::string& date);
+  void	addPragma(const std::string& key,
+		  const std::string& value = "");
+  void	addTrailer(const std::string& trailer);
+  void	addTransferEncoding(const std::string& encoding);
+  void	addUpgrade(const VersionProtocol& versionProtocol);
+  void	addWarning(const Warning& warning);
+  void	addAccept(const Type& type);
+  void	addAcceptCharset(const std::string& charset);
+  void	addAcceptEncoding(const std::string& encoding);
+  void	addAcceptLangage(const std::string& lang);
+  void	setAuthorization(const std::string& digest);
+  void	addExpect(const std::string& key,
+		  const std::string& value = "");
+  void	setFrom(const std::string& from);
+  void	addIfMatch(const std::string& match);
+  void	addAllow(const std::string& allow);
+  void	addContentEncoding(const std::string& encoding);
+  void	addContentLangage(const std::string& lang);
+  void	setContentLength(const int length);
+  void	setContentLocation(const std::string& location);
+  void	setContentMd5(const std::string& base64ToMd5);
+  void	setContentRange(const std::string& range);
+  void	addContentType(const Type& type);
+  void	setExpires(const std::string& expires);
+  void	setLastModifies(const std::string& modified);
 private:
   // Request-Line Section 5.1
   std::string		_method;		// 5.1.1

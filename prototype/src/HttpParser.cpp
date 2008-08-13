@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:54 2008 morgan armand
-// Last update Wed Aug 13 17:17:04 2008 caner candan
+// Last update Wed Aug 13 18:54:07 2008 caner candan
 //
 
 #include "HttpParser.h"
@@ -157,8 +157,9 @@ bool	HttpParser::readGeneralHeader()
 
 bool	HttpParser::readCacheControl()
 {
-  return (TEXT("Cache-Control") && CHAR(':') &&
-   	  this->readCacheDirective());
+  NOT_IMPLEMENTED;
+//   return (TEXT("Cache-Control") && CHAR(':') &&
+//    	  this->readCacheDirective());
 }
 
 bool	HttpParser::readCacheDirective()

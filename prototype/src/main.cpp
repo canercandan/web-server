@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 11:38:55 2008 morgan armand
-// Last update Wed Aug 13 18:42:34 2008 majdi toumi
+// Last update Wed Aug 13 19:07:06 2008 caner candan
 //
 
 #include <iostream>
@@ -52,7 +52,7 @@ int			main(void)
 	}
     }
   server.close();
-  conf->delZiaConfiguration();
+  conf->kill();
   logger.info("stopping zia server");
   return (0);
 }
