@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:37 2008 morgan armand
-// Last update Fri Aug  8 17:22:17 2008 caner candan
+// Last update Wed Aug 13 12:53:48 2008 caner candan
 //
 
 #include "ABNFParser.h"
@@ -52,39 +52,3 @@ ABNFParser::ABNFParser(HttpProducer* prod)
 
 ABNFParser::~ABNFParser()
 {}
-
-bool	ABNFParser::readALPHA()
-{
-  return (RANGE('A', 'Z') ||
-	  RANGE('a', 'z'));
-}
-
-bool	ABNFParser::readCR()
-{
-  return (CHAR('\r'));
-}
-
-bool	ABNFParser::readCRLF()
-{
-  return (CR && LF);
-}
-
-bool	ABNFParser::readDIGIT()
-{
-  return (RANGE('0', '9'));
-}
-
-bool	ABNFParser::readHEXDIG()
-{
-  return (DIGIT || RANGE('A', 'F'));
-}
-
-bool	ABNFParser::readLF()
-{
-  return (CHAR('\n'));
-}
-
-bool	ABNFParser::readSP()
-{
-  return (CHAR(' '));
-}

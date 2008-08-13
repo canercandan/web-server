@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:12 2008 morgan armand
-// Last update Tue Aug 12 17:26:46 2008 caner candan
+// Last update Wed Aug 13 12:55:50 2008 caner candan
 //
 
 #include <sstream>
@@ -60,7 +60,7 @@ bool	URIParser::readAbsoluteURIOpt()
 bool	URIParser::readScheme()
 {
   DEBUG_ENTER;
-  if (!this->readALPHA())
+  if (!ALPHA)
     DEBUG_RETURN (false);
   while (ALPHA || DIGIT ||
 	 CHAR('+') || CHAR('-') || CHAR('.'));
@@ -139,7 +139,7 @@ bool	URIParser::readPort(std::string& extract)
 {
   DEBUG_ENTER;
   this->prepare();
-  while (this->readDIGIT());
+  while (DIGIT);
   this->extract(extract);
   this->consume();
   DEBUG_RETURN (true);

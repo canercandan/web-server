@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:54 2008 morgan armand
-// Last update Wed Aug 13 12:22:17 2008 morgan armand
+// Last update Wed Aug 13 12:41:24 2008 caner candan
 //
 
 #include "HttpParser.h"
@@ -178,6 +178,53 @@ bool	HttpParser::readGeneralHeader()
 }
 
 bool	HttpParser::readCacheControl()
+{
+  return (TEXT("Cache-Control") && CHAR(':') &&
+   	  this->readCacheDirective());
+}
+
+bool	HttpParser::readCacheDirective()
+{
+  if (!readCacheDirectiveSharp())
+    return (false);
+  SHARP(readCacheDirectiveSharp());
+  return (true);
+}
+
+bool	HttpParser::readCacheDirectiveSharp()
+{
+  return (TEXT("no-cache") ||
+	  TEXT("no-store") ||
+	  (TEXT("max-age") &&
+	   CHAR('=') &&
+	   readDeltaSeconds()) ||
+	  (TEXT("max-stale") &&
+	   CHAR('=') &&
+	   readDeltaSeconds()) ||
+	  (TEXT("min-fresh") &&
+	   CHAR('=') &&
+	   readDeltaSeconds()) ||
+	  TEXT("no-transform") ||
+	  TEXT("only-if-cached") ||
+	  readCacheExtension());
+}
+
+bool	HttpParser::readDeltaSeconds()
+{
+  NOT_IMPLEMENTED;
+}
+
+bool	HttpParser::readCacheExtension()
+{
+  NOT_IMPLEMENTED;
+}
+
+bool	HttpParser::readCacheRequestDirective()
+{
+  NOT_IMPLEMENTED;
+}
+
+bool	HttpParser::readCacheResponseDirective()
 {
   NOT_IMPLEMENTED;
 }
