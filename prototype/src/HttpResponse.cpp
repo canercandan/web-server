@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Wed Aug 13 01:49:38 2008 majdi toumi
+// Last update Wed Aug 13 09:51:34 2008 caner candan
 //
 
 #include <sstream>
@@ -220,12 +220,16 @@ void		HttpResponse::sendMessageBody(Socket* sck)
 	case InfoFile::DIR:
 	  {
 	    std::list<std::string> *listDir = info.getListDir();
+
 	    sck->send("<h1>Index of ", 13);
 	    sck->send(this->_req->getPath().c_str(), this->_req->getPath().length());
 	    sck->send("</h1>", 5);
 	    sck->send("<ul>", 4);
-	    std::list<std::string>::iterator it;
-	    for (it = listDir->begin(); it != listDir->end(); ++it)
+
+	    std::list<std::string>::iterator	it;
+	    std::list<std::string>::iterator	end = listDir->end();
+
+	    for (it = listDir->begin(); it != end; ++it)
 	      {
 		sck->send("<li>", 4);
 		sck->send("<a href=\"", 9);

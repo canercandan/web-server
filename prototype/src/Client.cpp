@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Tue Aug 12 17:26:08 2008 caner candan
+// Last update Tue Aug 12 19:02:25 2008 caner candan
 //
 
 #include <iostream>
@@ -37,6 +37,7 @@ void	Client::run()
       std::cout << "PORT: " << request->getHttpUrl().getHost().getPort() << std::endl;
       std::cout << "PATH: " << request->getPath() << std::endl;
       HttpResponse	response(request, this->_conf);
+
       response.sendResponse(this->_sck);
     }
   else
