@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:26 2008 morgan armand
-// Last update Wed Aug 13 18:01:23 2008 majdi toumi
+// Last update Wed Aug 13 22:10:59 2008 caner candan
 //
 
 #ifndef __ABNF_PARSER_H__
@@ -25,9 +25,9 @@ namespace	Debug
   bool	leave(const char* func, bool ret);
 };
 
-#define NOT_IMPLEMENTED		\
-	std::cout << __FUNCTION__	<< " NOT IMPLEMENTED" << std::endl;	\
-      return (false);
+#define NOT_IMPLEMENTED							\
+  std::cout << __FUNCTION__	<< " NOT IMPLEMENTED" << std::endl;	\
+  return (false);
 // -----------------------REMOVE ME --------------------------
 
 #define CHAR(a)		(readChar(a))
