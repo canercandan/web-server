@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Wed Aug 13 00:04:24 2008 majdi toumi
+// Last update Wed Aug 13 01:49:38 2008 majdi toumi
 //
 
 #include <sstream>
@@ -112,6 +112,7 @@ std::string		HttpResponse::createStatusLine()
   std::string				status_code;
 
   status_code = this->findStatusCode();
+  status_code = "200";
   ss << "HTTP/"
      << this->_req->getVersionProtocol().getMajor()
      << "."
