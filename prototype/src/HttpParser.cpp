@@ -5,19 +5,18 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:54 2008 morgan armand
-// Last update Wed Aug 13 13:28:50 2008 caner candan
+// Last update Wed Aug 13 14:16:19 2008 caner candan
 //
 
 #include "HttpParser.h"
 
-HttpParser::HttpParser(HttpProducer* prod, HttpRequest* request)
+HttpParser::HttpParser(HttpProducer* prod,
+		       HttpRequest* request)
   : URIParser(prod, request)
-{
-}
+{}
 
 HttpParser::~HttpParser()
-{
-}
+{}
 
 bool	HttpParser::readCHAR()
 {
@@ -28,12 +27,6 @@ bool	HttpParser::peekCTL()
 {
   return (this->peekRange(0, 31) ||
 	  this->peekChar(127));
-}
-
-bool	HttpParser::readCTL()
-{
-  return (this->readRange(0, 31) ||
-	  this->readChar(127));
 }
 
 bool	HttpParser::peekSeparators()
@@ -50,20 +43,6 @@ bool	HttpParser::peekSeparators()
 	  this->peekChar('\t'));
 }
 
-bool	HttpParser::readSeparators()
-{
-  return (this->readChar('(') || this->readChar(')') ||
-	  this->readChar('<') || this->readChar('>') ||
-	  this->readChar('@') || this->readChar(',') ||
-	  this->readChar(';') || this->readChar(':') ||
-	  this->readChar('\\') || this->readChar('"') ||
-	  this->readChar('/') || this->readChar('[') ||
-	  this->readChar(']') || this->readChar('?') ||
-	  this->readChar('=') || this->readChar('{') ||
-	  this->readChar('}') || this->readChar(' ') ||
-	  this->readChar('\t'));
-}
-
 bool	HttpParser::readToken()
 {
   int	i;
@@ -75,7 +54,6 @@ bool	HttpParser::readToken()
       this->readCHAR();
       i++;
     }
-
   return (i > 0);
 }
 
@@ -213,31 +191,44 @@ bool	HttpParser::readCacheResponseDirective()
 {
   return (TEXT("public") ||
 	  (TEXT("private") &&
-	   (CHAR('=') && CHAR('"') && readFieldName() && CHAR('"'))) ||
+	   (CHAR('=') && CHAR('"') && this->readFieldName() && CHAR('"'))) ||
 	  (TEXT("no-cache") &&
-	   (CHAR('=') && CHAR('"') && readFieldName() && CHAR('"'))) ||
+	   (CHAR('=') && CHAR('"') && this->readFieldName() && CHAR('"'))) ||
 	  TEXT("no-store") ||
 	  TEXT("no-transform") ||
 	  TEXT("must-revalidate") ||
 	  TEXT("proxy-revalidate") ||
-	  (TEXT("max-age") && CHAR('=') && readDeltaSeconds()) ||
-	  (TEXT("s-maxage") && CHAR('=') && readDeltaSeconds()) ||
-	  readCacheExtension()); 
+	  (TEXT("max-age") && CHAR('=') && this->readDeltaSeconds()) ||
+	  (TEXT("s-maxage") && CHAR('=') && this->readDeltaSeconds()) ||
+	  this->readCacheExtension());
 }
 
 bool	HttpParser::readCacheExtension()
 {
-  NOT_IMPLEMENTED;
+  return (this->readToken() &&
+	  (this->readToken() || // todo: backtracking
+	   this->readQuotedString()));
 }
 
 bool	HttpParser::readDeltaSeconds()
 {
-  NOT_IMPLEMENTED;
+  int	i;
+
+  for (i = 0; DIGIT; i++);
+  return (i > 0);
 }
 
 bool	HttpParser::readFieldName()
 {
-  NOT_IMPLEMENTED;
+  if (!this->readFieldNameSharp())
+    return (false);
+  SHARP(this->readFieldNameSharp());
+  return (true);
+}
+
+bool	HttpParser::readFieldNameSharp()
+{
+  return (this->readToken());
 }
 
 bool	HttpParser::readConnection()
@@ -450,6 +441,11 @@ bool	HttpParser::readCommentOpt()
 }
 
 bool	HttpParser::readCtext()
+{
+  NOT_IMPLEMENTED;
+}
+
+bool	HttpParser::readQuotedString()
 {
   NOT_IMPLEMENTED;
 }

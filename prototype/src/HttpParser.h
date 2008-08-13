@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:46 2008 morgan armand
-// Last update Wed Aug 13 13:29:01 2008 caner candan
+// Last update Wed Aug 13 13:56:21 2008 caner candan
 //
 
 #ifndef __HTTP_PARSER_H__
@@ -23,11 +23,7 @@ public:
   bool	readCHAR();
 
   bool	peekCTL();
-  bool	readCTL();
-
   bool	peekSeparators();
-  bool	readSeparators();
-
   bool	readToken();
 
   bool	readRequest();
@@ -50,6 +46,7 @@ public:
   bool	readCacheExtension();
   bool	readDeltaSeconds();
   bool	readFieldName();
+  bool	readFieldNameSharp();
 
   bool	readCacheRequestDirective();
   bool	readCacheResponseDirective();
@@ -95,6 +92,7 @@ public:
   bool	readCommentOpt();
 
   bool	readCtext();
+  bool	readQuotedString();
   bool	readQuotedPair();
 
   bool	readEntityHeader();
