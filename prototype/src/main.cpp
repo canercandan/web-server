@@ -30,7 +30,6 @@ int			main(void)
   conf = ZiaConfiguration::getInstance();
   conf->setParserXml(new ParserXml(SERVER_XML));
   conf->loadConfig();
-  conf->ziaDumpConfig();
 
   std::istringstream	iss(conf->getValue("port"));
   iss >> port;

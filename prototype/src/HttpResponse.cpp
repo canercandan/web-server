@@ -224,7 +224,7 @@ std::string		HttpResponse::createEntityHeader()
 {
   std::stringstream	ss;
 
-  ss << "Content-Lenght:" << this->_currentFile->getSize() << "\r\n";
+  ss << "Content-Length:" << this->_currentFile->getSize() << "\r\n";
   return (ss.str());
 }
 

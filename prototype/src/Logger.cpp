@@ -20,6 +20,7 @@ void		Logger::log(const Logger::Level level, const std::string& msg)
   time(&tm);
 
   // Get rid of \n
+  // #ifdef WIN32 ctime_s()	  
   stm = ctime(&tm);
   stm[24] = 0;
 
