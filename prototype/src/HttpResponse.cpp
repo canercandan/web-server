@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Tue Aug 12 10:44:20 2008 florent hochwelker
+// Last update Tue Aug 12 11:09:31 2008 florent hochwelker
 //
 
 #include <sstream>
@@ -95,6 +95,7 @@ std::string	HttpResponse::generateResponse()
 {
   std::string	status_line;
   std::string	content;
+  std::cout << "OUVERTURE DE " << this->_conf->getValue("document_root") + this->_req->getPath() << std::endl;
   this->_currentFile = new InfoFile(this->_conf->getValue("document_root") + this->_req->getPath());
 
   status_line = this->createStatusLine();
