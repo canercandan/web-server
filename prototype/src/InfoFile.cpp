@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Mon Aug 11 22:36:09 2008 florent hochwelker
-// Last update Tue Aug 12 09:39:35 2008 florent hochwelker
+// Last update Thu Aug 14 11:13:46 2008 caner candan
 // Last update Wed Aug 13 22:10:02 2008 caner candan
 //
 
@@ -92,6 +92,15 @@ std::list<std::string>		*InfoFile::getListDir()
 int				InfoFile::getSize()
 {
   if (this->_good)
-    return this->_sb.st_size;
-  return -1;
+    {
+#ifdef WIN32
+      ::WIN32_FIND_DATA	FindFileData;
+
+      ::FindFirstFile((LPCWSTR)this->_file.c_str(), &FindFileData);
+      return ((FindFileData.nFileSizeHigh * (MAXDWORD + 1)) + FindFileData.nFileSizeLow);
+#else
+      return (this->_sb.st_size);
+#endif
+    }
+  return (-1);
 }
