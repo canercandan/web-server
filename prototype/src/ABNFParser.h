@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:26 2008 morgan armand
-// Last update Wed Aug 13 22:10:59 2008 caner candan
+// Last update Thu Aug 14 11:03:29 2008 caner candan
 //
 
 #ifndef __ABNF_PARSER_H__
@@ -41,17 +41,17 @@ namespace	Debug
 #define RANGE_R(a, b, c)	(readRange((a), (b), (c)))
 #define TEXT_R(a, b)		(readText((a), (b)))
 
-#define	ALPHA		(RANGE('A', 'Z') || RANGE('a', 'z'))
+#define	ALPHA		(readAlpha())
 
-#define CR		(CHAR('\r'))
-#define LF		(CHAR('\n'))
-#define CRLF		(CR && LF)
+#define CR		(readCR())
+#define LF		(readLF())
+#define CRLF		(readCRLF())
 
-#define DIGIT		(RANGE('0', '9'))
-#define HEXDIG		(DIGIT || RANGE('A', 'F'))
+#define DIGIT		(readDigit())
+#define HEXDIG		(readHexdig())
 #define IDENTIFIER	(readIdentifier())
 #define INTEGER		(readInteger())
-#define SP		(CHAR(' '))
+#define SP		(readSP())
 #define LWS		(SP)
 
 class	ABNFParser : public HttpConsumer
@@ -60,6 +60,16 @@ public:
 
   ABNFParser(HttpProducer* prod);
   ~ABNFParser();
+
+  bool	readCR();
+  bool	readLF();
+  bool	readCRLF();
+
+  bool	readAlpha();
+  bool	readDigit();
+  bool	readHexdig();
+
+  bool	readSP();
 };
 
 #endif // !__ABNF_PARSER_H__
