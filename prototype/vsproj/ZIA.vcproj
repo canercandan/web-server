@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;E:\{Epitech. 42}\2.cursus\3.tek3s\semestre_tek3\b6.c++ - httpd\b.project\1.zia\programs\zia\prototype\lib\iconv-1.9.2.win32\include&quot;;&quot;E:\{Epitech. 42}\2.cursus\3.tek3s\semestre_tek3\b6.c++ - httpd\b.project\1.zia\programs\zia\prototype\lib\libxml2-2.6.32+.win32\include&quot;"
+				AdditionalIncludeDirectories="&quot;..\lib\iconv-1.9.2.win32\include&quot;;&quot;..\lib\libxml2-2.6.32+.win32\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -117,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\iit\Bureau\zia\prototype\lib\libxml2-2.6.32+.win32\include&quot;;&quot;C:\Documents and Settings\iit\Bureau\zia\prototype\lib\iconv-1.9.2.win32\include&quot;"
+				AdditionalIncludeDirectories="&quot;..\lib\libxml2-2.6.32+.win32\include&quot;;&quot;..\lib\iconv-1.9.2.win32\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
