@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Tue Aug 12 09:38:56 2008 florent hochwelker
+// Last update Tue Aug 12 10:16:56 2008 florent hochwelker
 //
 
 #include <sstream>
@@ -30,9 +30,16 @@ void		HttpResponse::sendResponse(Socket* sck)
 
   this->generateMapResponse();
   response = this->generateResponse();
-  std::cout << "response => [\n" << response << "]" << std::endl;
-  sck->send(response);
-  sendMessageBody(sck);
+  if (this->_req->getMethod() == "HEAD")
+    {
+      response += "\r\n";
+      sck->send(response);
+    }
+  else
+    {
+      sck->send(response);
+      sendMessageBody(sck);
+    }
 }
 
 void		HttpResponse::generateMapResponse()
@@ -222,9 +229,10 @@ void		HttpResponse::sendListingDirectoryHTML(Socket* sck)
 
 std::string		HttpResponse::createEntityHeader()
 {
-  std::stringstream	ss;
+  std::stringstream	ss("");
 
-  ss << "Content-Length:" << this->_currentFile->getSize() << "\r\n";
+  if (this->_currentFile->getSize() > 0 && this->_req->getMethod() != "HEAD")
+    ss << "Content-Length:" << this->_currentFile->getSize() << "\r\n";
   return (ss.str());
 }
 
