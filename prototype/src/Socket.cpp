@@ -115,12 +115,14 @@ Socket*	Socket::accept()
       return (NULL);
     }
 
+#ifndef WIN32
   if (::setsockopt(sck, SOL_SOCKET, SO_NOSIGPIPE, &opt, sizeof(opt)) == SOCKET_ERROR)
     {
       std::cerr << "accept() failed" << std::endl;
-      ::close(sck);
+      this->close();
       return (NULL);
     }
+#endif
 
   return (new Socket(sck, sin));
 }

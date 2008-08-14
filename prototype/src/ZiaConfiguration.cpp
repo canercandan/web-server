@@ -66,7 +66,7 @@ void	ZiaConfiguration::loadConfig()
 {
   if (this->_parserXml)
     {
-      int		time = ::time(NULL);
+      time_t time = ::time(NULL);
       std::stringstream	ss;
 
       ss << time;
