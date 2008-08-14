@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Tue Aug 12 11:09:31 2008 florent hochwelker
+// Last update Tue Aug 12 11:15:58 2008 florent hochwelker
 //
 
 #include <sstream>
@@ -207,7 +207,7 @@ void		HttpResponse::sendListingDirectoryHTML(Socket* sck)
   std::string				slashDir;
   for (it = listDir->begin(); it != end; ++it)
     {
-      InfoFile checkDir = InfoFile(this->_conf->getValue("document_root") + "/" + this->_req->getPath() + *it);
+      InfoFile checkDir = InfoFile(this->_conf->getValue("document_root") + SLASH + this->_req->getPath() + *it);
       if (checkDir.isGood() == true && checkDir.getType() == InfoFile::DIR)
 	slashDir = "/";
       else

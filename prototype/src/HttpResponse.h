@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Jul 29 14:56:59 2008 morgan armand
-// Last update Tue Aug 12 08:36:16 2008 florent hochwelker
+// Last update Tue Aug 12 11:18:17 2008 florent hochwelker
 //
 
 #ifndef __HTTP_RESPONSE_H__
@@ -19,6 +19,12 @@
 #include "HttpRequest.h"
 #include "ZiaConfiguration.h"
 #include "InfoFile.h"
+
+#ifdef WIN32
+#define SLASH	"\\"
+#else
+#define SLASH	"/"
+#endif
 
 class				HttpResponse
 {
