@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Tue Aug 12 10:16:56 2008 florent hochwelker
+// Last update Tue Aug 12 10:18:50 2008 florent hochwelker
 //
 
 #include <sstream>
@@ -231,7 +231,9 @@ std::string		HttpResponse::createEntityHeader()
 {
   std::stringstream	ss("");
 
-  if (this->_currentFile->getSize() > 0 && this->_req->getMethod() != "HEAD")
+  if (this->_currentFile->getSize() > 0 &&
+      this->_req->getMethod() != "HEAD" &&
+      this->_currentFile->getType() != InfoFile::DIR)
     ss << "Content-Length:" << this->_currentFile->getSize() << "\r\n";
   return (ss.str());
 }
