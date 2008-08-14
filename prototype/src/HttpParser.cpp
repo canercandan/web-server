@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:01:54 2008 morgan armand
-// Last update Wed Aug 13 19:30:28 2008 morgan armand
+// Last update Thu Aug 14 10:52:30 2008 morgan armand
 //
 
 #include "HttpParser.h"
@@ -132,6 +132,9 @@ bool	HttpParser::readRequestURI()
 
 bool	HttpParser::readPathAbsoluteQuery()
 {
+  DEBUG_ENTER;
+
+  
   if (CHAR('?'))
     this->readQuery();
 

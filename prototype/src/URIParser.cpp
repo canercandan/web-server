@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:12 2008 morgan armand
-// Last update Wed Aug 13 12:55:50 2008 caner candan
+// Last update Thu Aug 14 11:10:08 2008 morgan armand
 //
 
 #include <sstream>
@@ -14,7 +14,6 @@
 URIParser::URIParser(HttpProducer* prod, HttpRequest* request)
   : ABNFParser(prod), _request(request)
 {
-  std::cout << _request << std::endl;
 }
 
 URIParser::~URIParser()
@@ -376,9 +375,11 @@ bool	URIParser::readPchar()
 bool	URIParser::readQuery()
 {
   DEBUG_ENTER;
+  this->prepare();
   while (this->readPchar() ||
 	 CHAR('/') ||
 	 CHAR('?'));
+  this->_request->getHttpUrl().setQuery(this->extract());
   DEBUG_RETURN (true);
 }
 

@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Fri Aug  8 16:02:26 2008 morgan armand
-// Last update Thu Aug 14 11:03:29 2008 caner candan
+// Last update Thu Aug 14 11:13:31 2008 morgan armand
 //
 
 #ifndef __ABNF_PARSER_H__
@@ -15,7 +15,7 @@
 #include "HttpConsumer.h"
 
 // -----------------------REMOVE ME --------------------------
-#define DEBUG_ACTIVE		1
+#define DEBUG_ACTIVE		0
 #define DEBUG_ENTER		(Debug::enter(__FUNCTION__, this->getBuf()))
 #define DEBUG_RETURN(ret)	return (Debug::leave(__FUNCTION__, ret))
 
@@ -26,8 +26,9 @@ namespace	Debug
 };
 
 #define NOT_IMPLEMENTED							\
-  std::cout << __FUNCTION__	<< " NOT IMPLEMENTED" << std::endl;	\
+  std::cout << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;		\
   return (false);
+
 // -----------------------REMOVE ME --------------------------
 
 #define CHAR(a)		(readChar(a))

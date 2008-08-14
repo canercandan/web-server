@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Wed Aug 13 18:48:08 2008 majdi toumi
+// Last update Thu Aug 14 11:08:16 2008 morgan armand
 //
 
 #include <iostream>
@@ -31,11 +31,6 @@ void	Client::run()
 
   if (parser->readRequest())
     {
-      std::cout << "Valid request" << std::endl;
-      std::cout << "METHOD: " << request->getMethod() << std::endl;
-      std::cout << "HOST: " << request->getHttpUrl().getHost().getHostname() << std::endl;
-      std::cout << "PORT: " << request->getHttpUrl().getHost().getPort() << std::endl;
-      std::cout << "PATH: " << request->getPath() << std::endl;
       HttpResponse	response(request);
       response.sendResponse(this->_sck);
     }
