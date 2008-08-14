@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Mon Aug 11 22:36:09 2008 florent hochwelker
-// Last update Thu Aug 14 11:13:46 2008 caner candan
+// Last update Thu Aug 14 11:41:00 2008 caner candan
 // Last update Wed Aug 13 22:10:02 2008 caner candan
 //
 
@@ -68,6 +68,7 @@ std::list<std::string>		*InfoFile::getListDir()
 #ifdef WIN32
   WIN32_FIND_DATA	FindFileData;
   HANDLE		hFind;
+  const std::string&	file = (this->getType() == DIR) ? this->_file + "/*" : this->_file;
 
   if ((hFind = ::FindFirstFile((LPCWSTR)this->_file.c_str(), &FindFileData)) != INVALID_HANDLE_VALUE)
     {
