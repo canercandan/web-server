@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Sat Aug  2 21:39:53 2008 morgan armand
-// Last update Thu Aug 14 11:08:16 2008 morgan armand
+// Last update Mon Aug 25 14:07:55 2008 caner candan
 //
 
 #include <iostream>
@@ -27,7 +27,9 @@ void	Client::run()
 
   producer = new HttpProducer(this->_sck);
   request = new HttpRequest();
+  request->pre();
   parser = new HttpParser(producer, request);
+  request->post();
 
   if (parser->readRequest())
     {
