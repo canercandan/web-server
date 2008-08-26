@@ -9,6 +9,7 @@ class IRequest
 public:
   virtual ~IRequest(){}
 
+  //! undef
   virtual void	accept(IModule* module) = 0;
 };
 

@@ -9,6 +9,7 @@ class Config : public IConfig,
 	       public Singleton<Config>
 {
 public:
+  //! undef
   Config();
 };
 

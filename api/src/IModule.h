@@ -10,7 +10,9 @@ class IModule
 public:
   virtual ~IModule(){}
 
+  //! undef
   virtual void	affect(IRequest* request) = 0;
+  //! undef
   virtual void	affect(IResponse* response) = 0;
 };
 

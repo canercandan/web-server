@@ -8,6 +8,7 @@
 class HttpParser : public IParser
 {
 public:
+  //! undef
   //! \param consumer a Consumer pointer
   HttpParser(Consumer* consumer);
 
@@ -23,8 +24,6 @@ public:
   bool	readRequest();
   //! request rule option
   bool	readRequestOpt();
-  //! request rule option part 2
-  bool	readRequestOptPart2();
   //! read a request line
   bool	readRequestLine();
   //! read a method
@@ -43,16 +42,12 @@ public:
   bool	readCacheControl();
   //! read a cache directive
   bool	readCacheDirective();
-  //! read a cache directive - sharp part
-  bool	readCacheDirectiveSharp();
   //! read a cache extension
   bool	readCacheExtension();
   //! read a delta seconds
   bool	readDeltaSeconds();
   //! read a field name
   bool	readFieldName();
-  //! read a field name - sharp part
-  bool	readFieldNameSharp();
   //! read a cache request directive
   bool	readCacheRequestDirective();
   //! read a cache response directive
@@ -109,18 +104,12 @@ public:
   bool	readTE();
   //! read user agent
   bool	readUserAgent();
-  //! read user agent - part2
-  bool	readUserAgentPart2();
   //! read product
   bool	readProduct();
-  //! read product - option
-  bool	readProductOpt();
   //! read product - version
   bool	readProductVersion();
   //! read comment
   bool	readComment();
-  //! read comment - option
-  bool	readCommentOpt();
   //! read ctext
   bool	readCtext();
   //! read quoted string
@@ -129,6 +118,13 @@ public:
   bool	readQuotedPair();
   //! read entity header
   bool	readEntityHeader();
+private:
+  bool	_readRequestOptPart2();
+  bool	_readCacheDirectiveSharp();
+  bool	_readFieldNameSharp();
+  bool	_readUserAgentPart2();
+  bool	_readProductOpt();
+  bool	_readCommentOpt();
 };
 
 #endif // !__HTTPPARSER_H__

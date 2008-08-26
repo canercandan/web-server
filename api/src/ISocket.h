@@ -7,8 +7,11 @@ class ISocket
 public:
   virtual ~ISocket();
 
+  //! undef
   virtual bool		create() = 0;
+  //! undef
   virtual ISocket*	accept() = 0;
+  //! undef
   virtual void		close() = 0;
 };
 

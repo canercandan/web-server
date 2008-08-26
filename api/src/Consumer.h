@@ -8,6 +8,7 @@
 class Consumer : public IServer
 {
 public:
+  //! undef
   //! \param flux a IFlux pointer
   Consumer(IFlux* flux);
 

@@ -8,8 +8,10 @@
 class	Request : public IRequest
 {
 public:
+  //! undef
   Request();
 
+  //! undef
   virtual void	accept(IModule* module);
 };
 

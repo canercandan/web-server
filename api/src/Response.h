@@ -9,9 +9,12 @@
 class	Response : public IResponse
 {
 public:
+  //! undef
   Response(IRequest* request);
 
+  //! undef
   virtual void accept(IModule* module);
+  //! undef
   virtual void sendResponse(ISocket* sck);
 };
 

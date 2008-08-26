@@ -8,6 +8,7 @@
 class FluxClient : IFlux
 {
 public:
+  //! undef
   //! \param sck an ISocket pointer
   FluxClient(ISocket* sck);
 

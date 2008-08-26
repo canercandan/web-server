@@ -7,10 +7,14 @@
 class	ServerSocket : public ISocket
 {
 public:
+  //! undef
   ServerSocket();
 
+  //! undef
   bool		create();
+  //! undef
   ISocket*	accept();
+  //! undef
   void		close();
 private:
   ISocket*	_sck;

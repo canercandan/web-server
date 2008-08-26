@@ -9,6 +9,7 @@ class IRunnable : public IServer
 public:
   virtual ~IRunnable(){};
 
+  //! undef
   virtual void run() = 0;
 };
 

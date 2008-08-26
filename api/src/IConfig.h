@@ -1,10 +1,10 @@
 #ifndef __CONFIG_H__
 # define __CONFIG_H__
 
-# include "IParser.h"
+# include "IServer.h"
 
 //! IConfig
-class IConfig : public IParser
+class IConfig : public IServer
 {
 public:
   virtual ~IConfig(){}

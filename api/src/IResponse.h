@@ -10,7 +10,9 @@ class IResponse
 public:
   virtual ~IResponse(){}
 
+  //! undef
   virtual void	accept(IModule* module) = 0;
+  //! undef
   virtual void	sendResponse(ISocket* sck) = 0;
 };
 

@@ -1,11 +1,15 @@
-/**
- * @file XmlParser.h
- * @brief 
- * @note 
- */
+#ifndef __XMLPARSER_H__
+# define __XMLPARSER_H__
+
+//! XmlParser
 class XmlParser 
 {
 public:
+  //! undef
   XmlParser();
-  std::string getValue (const std::string& path);
+
+  //! undef
+  std::string	getValue(const std::string& path);
 };
+
+#endif // !__XMLPARSER_H__
