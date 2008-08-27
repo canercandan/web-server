@@ -8,6 +8,7 @@
 class	ILogger : public IRoot
 {
 public:
+  //! Level
   enum	Level
     {
       DEBUG,
