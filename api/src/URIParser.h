@@ -1,6 +1,7 @@
 #ifndef __URIPARSER_H__
 # define __URIPARSER_H__
 
+# include <string>
 # include "IParser.h"
 # include "Consumer.h"
 
