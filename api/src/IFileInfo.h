@@ -4,7 +4,7 @@
 # include "IServer.h"
 
 //! IFileInfo
-class IFileInfo : IServer
+class IFileInfo : public IServer
 {
 public:
   //! a list of string

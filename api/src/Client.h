@@ -2,6 +2,7 @@
 # define __CLIENT_H__
 
 # include "IRunnable.h"
+# include "ISocket.h"
 
 //! Client class
 class Client : public IRunnable

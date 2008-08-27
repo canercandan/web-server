@@ -1,6 +1,7 @@
 #ifndef __IFLUX_H__
 # define __IFLUX_H__
 
+# include <string>
 # include "IServer.h"
 
 //! IFlux

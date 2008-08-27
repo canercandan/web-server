@@ -5,7 +5,7 @@
 # include "ISocket.h"
 
 //! FluxClient
-class FluxClient : IFlux
+class FluxClient : public IFlux
 {
 public:
   //! undef
@@ -14,7 +14,7 @@ public:
 
   //! get the next string
   //! \return std::string
-  std::string	nextString();
+  virtual std::string	nextString();
 private:
   ISocket*	_sck;
 };

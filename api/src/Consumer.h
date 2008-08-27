@@ -1,6 +1,7 @@
 #ifndef __CONSUMER_H__
 # define __CONSUMER_H__
 
+# include <string>
 # include "IServer.h"
 # include "IFlux.h"
 
