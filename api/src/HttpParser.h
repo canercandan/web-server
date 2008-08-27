@@ -11,6 +11,7 @@ namespace	ZapII
   public:
     //! undef
     //! \param consumer a Consumer pointer
+    //! \param request a IRequest pointer
     HttpParser(Consumer* consumer, IRequest* request);
 
     //! read a http char

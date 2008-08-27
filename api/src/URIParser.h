@@ -12,6 +12,7 @@ namespace	ZapII
   public:
     //! undef
     //! \param consumer a Consumer pointer
+    //! \param request a IRequest pointer
     URIParser(Consumer* consumer, IRequest* request);
 
     //! undef

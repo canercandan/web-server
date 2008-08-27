@@ -51,7 +51,8 @@ namespace	ZapII
   class	ABNFParser : public IParser
   {
   public:
-    //! \param consumer
+    //! \param consumer a Consumer pointer
+    //! \param request a IRequest pointer
     ABNFParser(Consumer* consumer, IRequest* request);
 
     //! read a CR character

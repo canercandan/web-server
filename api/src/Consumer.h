@@ -5,9 +5,9 @@
 # include "IRoot.h"
 # include "IFlux.h"
 
-//! Consumer
 namespace	ZapII
 {
+  //! Consumer
   class	Consumer : public IRoot
   {
   public:
