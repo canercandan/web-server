@@ -4,16 +4,19 @@
 # include "IRunnable.h"
 # include "ISocket.h"
 
-//! Client class
-class	Client : public IRunnable
+namespace	ZapII
 {
-public:
-  //! \param sck a ISocket pointer
-  Client(ISocket* sck);
-  //! run method
-  void	run();
-private:
-  ISocket*	_sck;
+  //! Client class
+  class	Client : public IRunnable
+  {
+  public:
+    //! \param sck a ISocket pointer
+    Client(ISocket* sck);
+    //! run method
+    void	run();
+  private:
+    ISocket*	_sck;
+  };
 };
 
 #endif // !__CLIENT_H__

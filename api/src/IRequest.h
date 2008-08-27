@@ -4,14 +4,17 @@
 # include "IRoot.h"
 # include "IModule.h"
 
-//! IRequest
-class	IRequest : public IRoot
+namespace	ZapII
 {
-public:
-  virtual ~IRequest(){}
+  //! IRequest
+  class	IRequest : public IRoot
+  {
+  public:
+    virtual ~IRequest(){}
 
-  //! undef
-  virtual void	accept(IModule* module) = 0;
+    //! undef
+    virtual void	accept(IModule* module) = 0;
+  };
 };
 
 #endif // !__IREQUEST_H__

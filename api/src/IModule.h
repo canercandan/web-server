@@ -5,16 +5,19 @@
 # include "IRequest.h"
 # include "IResponse.h"
 
-//! IModule
-class	IModule : public IRoot
+namespace	ZapII
 {
-public:
-  virtual ~IModule(){}
+  //! IModule
+  class	IModule : public IRoot
+  {
+  public:
+    virtual ~IModule(){}
 
-  //! undef
-  virtual void	affect(IRequest* request) = 0;
-  //! undef
-  virtual void	affect(IResponse* response) = 0;
+    //! undef
+    virtual void	affect(IRequest* request) = 0;
+    //! undef
+    virtual void	affect(IResponse* response) = 0;
+  };
 };
 
 #endif // !__IMODULE_H__

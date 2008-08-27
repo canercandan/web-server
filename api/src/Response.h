@@ -5,17 +5,20 @@
 # include "IRequest.h"
 # include "ISocket.h"
 
-//! Response
-class	Response : public IResponse
+namespace	ZapII
 {
-public:
-  //! undef
-  Response(IRequest* request);
+  //! Response
+  class	Response : public IResponse
+  {
+  public:
+    //! undef
+    Response(IRequest* request);
 
-  //! undef
-  virtual void accept(IModule* module);
-  //! undef
-  virtual void sendResponse(ISocket* sck);
+    //! undef
+    virtual void	accept(IModule* module);
+    //! undef
+    virtual void	sendResponse(ISocket* sck);
+  };
 };
 
 #endif // !__RESPONSE_H__

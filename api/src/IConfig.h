@@ -4,16 +4,19 @@
 # include <string>
 # include "IRoot.h"
 
-//! IConfig
-class	IConfig : public IRoot
+namespace	ZapII
 {
-public:
-  virtual ~IConfig(){}
+  //! IConfig
+  class	IConfig : public IRoot
+  {
+  public:
+    virtual ~IConfig(){}
 
-  //! undef
-  virtual const std::string&	getPath() = 0;
-  //! undef
-  virtual void			setPath(const std::string&) = 0;
+    //! undef
+    virtual const std::string&	getPath() = 0;
+    //! undef
+    virtual void		setPath(const std::string&) = 0;
+  };
 };
 
 #endif // !__CONFIG_H__

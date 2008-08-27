@@ -23,31 +23,34 @@ typedef int	socklen_t;
 # include <string>
 # include "ISocket.h"
 
-//! Socket
-class Socket : public ISocket
+namespace	ZapII
 {
-public:
-  //! undef
-  Socket();
+  //! Socket
+  class Socket : public ISocket
+  {
+  public:
+    //! undef
+    Socket();
 
-  //! undef
-  virtual bool		create();
-  //! undef
-  bool			bind();
-  //! undef
-  bool			listen();
-  //! undef
-  virtual ISocket*	accept();
-  //! undef
-  virtual void		close();
-  //! undef
-  int			recv();
-  //! undef
-  int			send();
-  //! undef
-  bool			isValid();
-private:
-  struct sockaddr_in	sin;
+    //! undef
+    virtual bool	create();
+    //! undef
+    bool		bind();
+    //! undef
+    bool		listen();
+    //! undef
+    virtual ISocket*	accept();
+    //! undef
+    virtual void	close();
+    //! undef
+    int			recv();
+    //! undef
+    int			send();
+    //! undef
+    bool		isValid();
+  private:
+    struct sockaddr_in	sin;
+  };
 };
 
 #endif // !__SOCKET_H__

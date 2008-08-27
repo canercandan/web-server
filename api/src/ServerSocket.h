@@ -3,21 +3,24 @@
 
 # include "ISocket.h"
 
-//! ServerSocket
-class	ServerSocket : public ISocket
+namespace	ZapII
 {
-public:
-  //! undef
-  ServerSocket();
+  //! ServerSocket
+  class	ServerSocket : public ISocket
+  {
+  public:
+    //! undef
+    ServerSocket();
 
-  //! undef
-  bool		create();
-  //! undef
-  ISocket*	accept();
-  //! undef
-  void		close();
-private:
-  ISocket*	_sck;
+    //! undef
+    bool		create();
+    //! undef
+    ISocket*	accept();
+    //! undef
+    void		close();
+  private:
+    ISocket*	_sck;
+  };
 };
 
 #endif // !__SERVERSOCKET_H__

@@ -5,13 +5,16 @@
 # include "Consumer.h"
 # include "IRequest.h"
 
-//! IParser
-class	IParser : public IRoot
+namespace	ZapII
 {
-public:
-  //! undef
-  virtual IParser(Consumer* consumer, IRequest* request){}
-  virtual ~IParser(){}
+  //! IParser
+  class	IParser : public IRoot
+  {
+  public:
+    //! undef
+    virtual IParser(Consumer* consumer, IRequest* request){}
+    virtual ~IParser(){}
+  };
 };
 
 #endif //! __IPARSER_H__

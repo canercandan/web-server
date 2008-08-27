@@ -4,15 +4,18 @@
 # include "IRequest.h"
 # include "IModule.h"
 
-//! Request
-class	Request : public IRequest
+namespace	ZapII
 {
-public:
-  //! undef
-  Request();
+  //! Request
+  class	Request : public IRequest
+  {
+  public:
+    //! undef
+    Request();
 
-  //! undef
-  virtual void	accept(IModule* module);
+    //! undef
+    virtual void	accept(IModule* module);
+  };
 };
 
 #endif // !__REQUEST_H__

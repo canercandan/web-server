@@ -5,16 +5,19 @@
 # include "IModule.h"
 # include "ISocket.h"
 
-//! IResponse
-class	IResponse : public IRoot
+namespace	ZapII
 {
-public:
-  virtual ~IResponse(){}
+  //! IResponse
+  class	IResponse : public IRoot
+  {
+  public:
+    virtual ~IResponse(){}
 
-  //! undef
-  virtual void	accept(IModule* module) = 0;
-  //! undef
-  virtual void	sendResponse(ISocket* sck) = 0;
+    //! undef
+    virtual void	accept(IModule* module) = 0;
+    //! undef
+    virtual void	sendResponse(ISocket* sck) = 0;
+  };
 };
 
 #endif // !__IRESPONSE_H__

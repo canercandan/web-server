@@ -4,15 +4,18 @@
 # include <string>
 # include "IRoot.h"
 
-//! IFlux
-class	IFlux : public IRoot
+namespace	ZapII
 {
-public:
-  virtual ~IFlux(){}
+  //! IFlux
+  class	IFlux : public IRoot
+  {
+  public:
+    virtual ~IFlux(){}
 
-  //! get next string
-  //! \return std::string
-  virtual std::string	nextString() = 0;
+    //! get next string
+    //! \return std::string
+    virtual std::string	nextString() = 0;
+  };
 };
 
 #endif // !__IFLUX_H__

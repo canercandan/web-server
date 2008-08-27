@@ -11,24 +11,27 @@
 # include "IRoot.h"
 # include "IRunnable.h"
 
-//! Thread
-class Thread : public IRoot
+namespace	ZapII
 {
-public:
-  //! undef
-  //! \param run a IRunnable pointer
-  Thread(IRunnable* run);
+  //! Thread
+  class Thread : public IRoot
+  {
+  public:
+    //! undef
+    //! \param run a IRunnable pointer
+    Thread(IRunnable* run);
 
-  //! undef
-  void	start();
-private:
+    //! undef
+    void	start();
+  private:
 # ifdef WIN32
-  static DWORD WINAPI	_threadProc(LPVOID arg);
+    static DWORD WINAPI	_threadProc(LPVOID arg);
 # else
-  static void*		_threadProc(void* arg);
+    static void*		_threadProc(void* arg);
 # endif
-private:
-  pthread_t	pthread;
+  private:
+    pthread_t	pthread;
+  };
 };
 
 #endif // !__THREAD_H__

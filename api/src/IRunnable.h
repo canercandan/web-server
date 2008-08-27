@@ -3,14 +3,17 @@
 
 # include "IServer.h"
 
-//! IRunnable
-class IRunnable : public IServer
+namespace	ZapII
 {
-public:
-  virtual ~IRunnable(){};
+  //! IRunnable
+  class IRunnable : public IServer
+  {
+  public:
+    virtual ~IRunnable(){};
 
-  //! undef
-  virtual void run() = 0;
+    //! undef
+    virtual void run() = 0;
+  };
 };
 
 #endif // !__IRUNNABLE_H__

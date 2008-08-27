@@ -8,22 +8,25 @@
 
 # define  SERVER_XML	"../server.xml"
 
-//! XmlParser
-//! This class has the main xml parser methods.
-class	XmlParser : public IRoot
+namespace	ZapII
 {
-public:
-  //! Constructor
-  XmlParser(const char* filename);
-  //! Copy constructor
-  XmlParser(const XmlParser& parser);
-  //! Copy constructor with operator '=' overload
-  XmlParser&	operator=(const XmlParser& parser);
-  //! Destructor
-  ~XmlParser();
+  //! XmlParser
+  //! This class has the main xml parser methods.
+  class	XmlParser : public IRoot
+  {
+  public:
+    //! Constructor
+    XmlParser(const char* filename);
+    //! Copy constructor
+    XmlParser(const XmlParser& parser);
+    //! Copy constructor with operator '=' overload
+    XmlParser&	operator=(const XmlParser& parser);
+    //! Destructor
+    ~XmlParser();
 
-  //! undef
-  std::string	getValue(const std::string& path);
+    //! undef
+    std::string	getValue(const std::string& path);
+  };
 };
 
 #endif /* !__XMLPARSER_H__ */
