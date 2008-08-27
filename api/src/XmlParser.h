@@ -1,13 +1,3 @@
-//
-// XmlParser.h for **zia** in /home/toumi_m/zia/api/src
-// 
-// Made by majdi toumi
-// Login   <toumi_m@epitech.net>
-// 
-// Started on  Wed Aug 27 16:41:34 2008 majdi toumi
-// Last update Wed Aug 27 16:41:34 2008 majdi toumi
-//
-
 #ifndef __XMLPARSER_H__
 # define __XMLPARSER_H__
 

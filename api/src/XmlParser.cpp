@@ -1,19 +1,6 @@
-//
-// XmlParser.cpp for **zia** in /home/toumi_m/zia/api/src
-// 
-// Made by majdi toumi
-// Login   <toumi_m@epitech.net>
-// 
-// Started on  Wed Aug 27 15:04:11 2008 majdi toumi
-// Last update Wed Aug 27 18:27:55 2008 majdi toumi
-//
-
 #include <string>
 #include "XmlParser.h"
 
-//! @file XmlParser.cpp
-
-//! @fn XmlParser(const char* filename)
 //! Xml parser constructor
 XmlParser::XmlParser(const char *filename)
   : _filename(filename)
@@ -42,14 +29,12 @@ XmlParser::XmlParser(const char *filename)
     }
 }
 
-//! @fn XmlParser(const XmlParser& parser)
 //! Xml parser copy constructor
 XmlParser::XmlParser(const XmlParser& parser)
 {
   *this = parser;
 }
 
-//! @fn operator=(const XmlParser& parser)
 // Xml parser copy constructor with '=' overload
 XmlParser&      XmlParser::operator=(const XmlParser& parser)
 {
@@ -61,7 +46,6 @@ XmlParser&      XmlParser::operator=(const XmlParser& parser)
   return (*this);
 }
 
-//! @fn ~XmlParser()
 //! Xml parser destructor
 XmlParser::~XmlParser()
 {
@@ -69,7 +53,6 @@ XmlParser::~XmlParser()
   xmlXPathFreeContext(this->_ctxt);
 }
 
-//! @fn xmlGetValue(const char* attribut)
 //! Xml parser copy constructor with '=' overload
 std::string             XmlParser::xmlGetValue(const char* attribut)
 {
