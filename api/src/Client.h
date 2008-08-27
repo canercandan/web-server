@@ -5,7 +5,7 @@
 # include "ISocket.h"
 
 //! Client class
-class Client : public IRunnable
+class	Client : public IRunnable
 {
 public:
   //! \param sck a ISocket pointer

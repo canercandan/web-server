@@ -1,10 +1,12 @@
 #ifndef __IFILEINFO_H__
 # define __IFILEINFO_H__
 
-# include "IServer.h"
+# include <list>
+# include <string>
+# include "IRoot.h"
 
 //! IFileInfo
-class IFileInfo : public IServer
+class	IFileInfo : public IRoot
 {
 public:
   //! a list of string

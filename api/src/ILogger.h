@@ -1,12 +1,21 @@
 #ifndef __ILOGGER_H__
 # define __ILOGGER_H__
 
-# include "IServer.h"
+# include <string>
+# include "IRoot.h"
 
 //! ILogger
-class ILogger : public IServer
+class	ILogger : public IRoot
 {
 public:
+  enum	Level
+    {
+      DEBUG,
+      INFO,
+      WARN,
+      ERROR
+    };
+
   virtual ~ILogger(){}
 
   //! log

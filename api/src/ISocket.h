@@ -1,8 +1,10 @@
 #ifndef __ISOCKET_H__
 # define __ISOCKET_H__
 
+# include "IRoot.h"
+
 //! ISocket
-class ISocket 
+class	ISocket : public IRoot
 {
 public:
   virtual ~ISocket();

@@ -5,7 +5,7 @@
 # include "Consumer.h"
 
 //! HttpParser
-class HttpParser : public IParser
+class	HttpParser : public IParser
 {
 public:
   //! undef

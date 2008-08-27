@@ -1,11 +1,18 @@
 #ifndef __THREAD_H__
 # define __THREAD_H__
 
-# include "IServer.h"
+# ifdef WIN32
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+# else
+#  include <pthread.h>
+# endif
+
+# include "IRoot.h"
 # include "IRunnable.h"
 
 //! Thread
-class Thread : public IServer
+class Thread : public IRoot
 {
 public:
   //! undef

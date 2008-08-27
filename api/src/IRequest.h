@@ -1,10 +1,11 @@
 #ifndef __IREQUEST_H__
 # define __IREQUEST_H__
 
+# include "IRoot.h"
 # include "IModule.h"
 
 //! IRequest
-class IRequest 
+class	IRequest : public IRoot
 {
 public:
   virtual ~IRequest(){}

@@ -5,7 +5,7 @@
 # include "ISocket.h"
 
 //! FluxClient
-class FluxClient : public IFlux
+class	FluxClient : public IFlux
 {
 public:
   //! undef

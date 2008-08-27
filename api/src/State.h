@@ -1,14 +1,17 @@
 #ifndef __STATE_H__
 # define __STATE_H__
 
-# include "IServer.h"
+# include "IRoot.h"
 # include "Singleton.hpp"
 
 //! State
-class	State : public IServer,
+class	State : public IRoot,
 		public Singleton<State>
 {
 public:
+  //! Status
+  enum	Status {PRE, POST, END, ERROR};
+
   //! undef
   const Status&	getState();
   //! undef

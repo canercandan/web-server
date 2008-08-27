@@ -2,10 +2,10 @@
 # define __CONFIG_H__
 
 # include <string>
-# include "IServer.h"
+# include "IRoot.h"
 
 //! IConfig
-class IConfig : public IServer
+class	IConfig : public IRoot
 {
 public:
   virtual ~IConfig(){}

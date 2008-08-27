@@ -2,10 +2,10 @@
 # define __IFLUX_H__
 
 # include <string>
-# include "IServer.h"
+# include "IRoot.h"
 
 //! IFlux
-class IFlux : public IServer
+class	IFlux : public IRoot
 {
 public:
   virtual ~IFlux(){}

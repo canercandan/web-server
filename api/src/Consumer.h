@@ -2,11 +2,11 @@
 # define __CONSUMER_H__
 
 # include <string>
-# include "IServer.h"
+# include "IRoot.h"
 # include "IFlux.h"
 
 //! Consumer
-class Consumer : public IServer
+class	Consumer : public IRoot
 {
 public:
   //! undef

@@ -5,8 +5,8 @@
 # include "Singleton.hpp"
 
 //! Config
-class Config : public IConfig,
-	       public Singleton<Config>
+class	Config : public IConfig,
+		 public Singleton<Config>
 {
 public:
   //! undef
