@@ -10,12 +10,11 @@ class	Config : public IConfig,
 {
 public:
   //! undef
-  Config();
-
-  //! undef
   virtual const std::string&	getPath();
   //! undef
   virtual void			setPath(const std::string&);
+private:
+  Config();
 private:
   std::string	_path;
 };
