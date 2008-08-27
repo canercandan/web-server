@@ -5,23 +5,16 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Aug 27 15:04:11 2008 majdi toumi
-// Last update Wed Aug 27 15:24:24 2008 majdi toumi
+// Last update Wed Aug 27 18:27:55 2008 majdi toumi
 //
 
 #include <string>
 #include "XmlParser.h"
 
-/**
- * @file XmlParser.cpp
- * @note
- * @brief
- */
+//! @file XmlParser.cpp
 
-/*
- * @fn XmlParser(const char* filename)
- * @brief Xml parser constructor
- * @param filename: server configuration name
- */
+//! @fn XmlParser(const char* filename)
+//! Xml parser constructor
 XmlParser::XmlParser(const char *filename)
   : _filename(filename)
 {
@@ -49,21 +42,15 @@ XmlParser::XmlParser(const char *filename)
     }
 }
 
-/*
- * @fn XmlParser(const XmlParser& parser)
- * @brief Xml parser copy constructor
- * @param parser: XmlParser object
- */
+//! @fn XmlParser(const XmlParser& parser)
+//! Xml parser copy constructor
 XmlParser::XmlParser(const XmlParser& parser)
 {
   *this = parser;
 }
 
-/*
- * @fn operator=(const XmlParser& parser)
- * @brief Xml parser copy constructor with '=' overload
- * @param parser: XmlParser object
- */
+//! @fn operator=(const XmlParser& parser)
+// Xml parser copy constructor with '=' overload
 XmlParser&      XmlParser::operator=(const XmlParser& parser)
 {
   if (this != &parser)
@@ -74,21 +61,16 @@ XmlParser&      XmlParser::operator=(const XmlParser& parser)
   return (*this);
 }
 
-/*
- * @fn ~XmlParser()
- * @brief Xml parser destructor
- */
+//! @fn ~XmlParser()
+//! Xml parser destructor
 XmlParser::~XmlParser()
 {
   xmlFreeDoc(this->_doc);
   xmlXPathFreeContext(this->_ctxt);
 }
 
-/*
- * @fn xmlGetValue(const char* attribut)
- * @brief Xml parser copy constructor with '=' overload
- * @param attribut: node path configuration file
- */
+//! @fn xmlGetValue(const char* attribut)
+//! Xml parser copy constructor with '=' overload
 std::string             XmlParser::xmlGetValue(const char* attribut)
 {
   xmlXPathObjectPtr     xpath;
@@ -101,11 +83,13 @@ std::string             XmlParser::xmlGetValue(const char* attribut)
       exit(-1);
     }
   if (xpath->type == XPATH_NODESET)
-    for (int i = 0; i < xpath->nodesetval->nodeNr; i++)
-      {
-        node = xpath->nodesetval->nodeTab[i];
-        return ((char*)node->properties->children->content);
-      }
+    {
+      for (int i = 0; i < xpath->nodesetval->nodeNr; i++)
+	{
+	  node = xpath->nodesetval->nodeTab[i];
+	  return ((char*)node->properties->children->content);
+	}
+    }
   std::cerr << "error: can't find [" << attribut << "] content" << std::endl;
   exit(-1);
 }
