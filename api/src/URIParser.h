@@ -2,12 +2,12 @@
 # define __URIPARSER_H__
 
 # include <string>
-# include "IParser.h"
+# include "Parser.h"
 
 namespace	ZapII
 {
   //! URIParser
-  class	URIParser : public IParser
+  class	URIParser : public Parser
   {
   public:
     //! undef

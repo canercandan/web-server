@@ -36,8 +36,8 @@ namespace	Debug
 };
 // -----------------------REMOVE ME --------------------------
 
-ABNFParser::ABNFParser(HttpProducer* prod)
-  : HttpConsumer(prod)
+ABNFParser::ABNFParser(Consumer* consumer, IRequest* request)
+  : Parser(consumer, request)
 {}
 
 bool	ABNFParser::readCR()

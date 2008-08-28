@@ -2,7 +2,7 @@
 # define __ABNFPARSER_H__
 
 # include <string>
-# include "IParser.h"
+# include "Parser.h"
 
 // -----------------------REMOVE ME --------------------------
 #define DEBUG_ACTIVE		0
@@ -48,7 +48,7 @@ namespace	Debug
 namespace	ZapII
 {
   //! ABNFParser
-  class	ABNFParser : public IParser
+  class	ABNFParser : public Parser
   {
   public:
     //! \param consumer a Consumer pointer

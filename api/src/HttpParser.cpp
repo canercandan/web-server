@@ -2,8 +2,8 @@
 
 using namespace ZapII;
 
-HttpParser::HttpParser(Consumer* consumer,
-		       IRequest* request)
+HttpParser::HttpParser(Consumer* consumer, IRequest* request)
+  : Parser(consumer, request)
 {}
 
 bool	HttpParser::readChar()

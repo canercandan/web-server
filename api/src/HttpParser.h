@@ -1,12 +1,12 @@
 #ifndef __HTTPPARSER_H__
 # define __HTTPPARSER_H__
 
-# include "IParser.h"
+# include "Parser.h"
 
 namespace	ZapII
 {
   //! HttpParser
-  class	HttpParser : public IParser
+  class	HttpParser : public Parser
   {
   public:
     //! undef

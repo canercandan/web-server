@@ -2,8 +2,6 @@
 # define __IPARSER_H__
 
 # include "IRoot.h"
-# include "Consumer.h"
-# include "IRequest.h"
 
 namespace	ZapII
 {

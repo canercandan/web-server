@@ -4,7 +4,7 @@
 using namespace	ZapII;
 
 URIParser::URIParser(Consumer* consumer, IRequest* request)
-  : _consumer(consumer), _request(request)
+  : Parser(consumer, request)
 {}
 
 bool	URIParser::readHierPart()

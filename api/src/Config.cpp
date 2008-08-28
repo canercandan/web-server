@@ -9,7 +9,7 @@ using namespace	ZapII;
 Config::Config()
   : _xmlParser(new XmlParser("server.xml"))
 {
-  _mapConfig["port"] = "80";
+  setValue("port", "80");
 }
 
 Config::~Config()
@@ -25,8 +25,7 @@ void	Config::setValue(const std::string& key,
 
 void	Config::setXmlValue(const std::string& key,
 			    const std::string& path)
-{
-  this->_mapConfig[key] = this->_xmlParser->xmlGetValue(value);
+  this->setValue(key, this->_xmlParser->xmlGetValue(value));
 }
 
 const std::string&	Config::getValue(const std::string& key)
