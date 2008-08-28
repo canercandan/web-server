@@ -17,15 +17,18 @@ namespace	ZapII
   public:
     //! Constructor
     XmlParser(const char* filename);
-    //! Copy constructor
-    XmlParser(const XmlParser& parser);
-    //! Copy constructor with operator '=' overload
-    XmlParser&	operator=(const XmlParser& parser);
     //! Destructor
     ~XmlParser();
 
     //! undef
+    void	refresh();
+    //! undef
     std::string	getValue(const std::string& path);
+  private:
+    std::string		_filename;
+    xmlDocPtr		_doc;
+    xmlNodePtr		_root;
+    xmlXPathContextPtr	_ctxt;
   };
 };
 

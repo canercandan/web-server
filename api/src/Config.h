@@ -3,6 +3,7 @@
 
 # include "IConfig.h"
 # include "Singleton.hpp"
+# include "XmlParser.h"
 
 namespace	ZapII
 {
@@ -11,14 +12,24 @@ namespace	ZapII
 		 public Singleton<Config>
   {
   public:
+    //! mapConfig
+    typedef std::map<std::string, std::string>	mapConfig;
+
     //! undef
     virtual const std::string&	getPath();
     //! undef
-    virtual void			setPath(const std::string&);
+    virtual void		setPath(const std::string&);
+
+    //! undef
+    void	loadConfig();
+    //! undef
+    void	ziaDumpConfig();
   private:
     Config();
   private:
     std::string	_path;
+    mapConfig	_mapConfig;
+    XmlParser*	_xmlParser;
   };
 };
 

@@ -31,6 +31,7 @@ namespace	ZapII
   public:
     //! undef
     Socket();
+    ~Socket();
 
     //! undef
     virtual bool	create();
