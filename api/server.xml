@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    server.xml for ** Zia ** ->> server configuration file
+  -->
+<server name="myZia-papy42">
+  <config>
+    <port value="4242" />
+    <shutdown value="shutdown42"/>
+    <debug value="true" />
+    <respect_rfc value="strict" />
+    <document_root value="/tmp" />
+    <cgi_script value="/tmp/cgi-bin" />
+    <timeout value="30" />
+    <!-- <timeout value="-1" /> : disable -->
+    <contentType>
+      <html value="text/html" />
+    </contentType>
+  </config>
+</server>
