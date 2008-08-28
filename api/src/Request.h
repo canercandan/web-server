@@ -2,7 +2,6 @@
 # define __REQUEST_H__
 
 # include "IRequest.h"
-# include "IModule.h"
 
 namespace	ZapII
 {
@@ -14,7 +13,8 @@ namespace	ZapII
     Request();
 
     //! undef
-    virtual void	accept(IModule* module);
+    virtual IModule::State	accept(const IModule::Event& event,
+				       IModule* module);
   };
 };
 

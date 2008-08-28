@@ -5,18 +5,28 @@
 # include "IRequest.h"
 # include "IResponse.h"
 
+# ifdef WIN32
+#  define EXPORT	__declspec(dllexport)
+# endif
+
 namespace	ZapII
 {
+  class	IRequest;
+  class	IResponse;
+
   //! IModule
   class	IModule : public IRoot
   {
   public:
+    enum	State	{CONTINUE, BREAK, STOP, ERROR};
+    enum	Event	{PRE, POST, END, ERROR};
+
     virtual ~IModule(){}
 
     //! undef
-    virtual void	affect(IRequest* request) = 0;
+    virtual State	affect(const Event&, IRequest* request) = 0;
     //! undef
-    virtual void	affect(IResponse* response) = 0;
+    virtual State	affect(const Event&, IResponse* response) = 0;
   };
 };
 

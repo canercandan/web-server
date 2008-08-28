@@ -6,6 +6,8 @@
 
 namespace	ZapII
 {
+  class	IModule;
+
   //! IRequest
   class	IRequest : public IRoot
   {
@@ -13,7 +15,8 @@ namespace	ZapII
     virtual ~IRequest(){}
 
     //! undef
-    virtual void	accept(IModule* module) = 0;
+    virtual IModule::State	accept(const IModule::Event& event,
+				       IModule* module) = 0;
   };
 };
 

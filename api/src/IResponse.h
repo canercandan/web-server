@@ -7,6 +7,8 @@
 
 namespace	ZapII
 {
+  class	IModule;
+
   //! IResponse
   class	IResponse : public IRoot
   {
@@ -14,7 +16,8 @@ namespace	ZapII
     virtual ~IResponse(){}
 
     //! undef
-    virtual void	accept(IModule* module) = 0;
+    virtual IModule::State	accept(const IModule::Event&,
+				       IModule* module) = 0;
     //! undef
     virtual void	sendResponse(ISocket* sck) = 0;
   };

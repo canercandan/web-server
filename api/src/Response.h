@@ -3,7 +3,6 @@
 
 # include "IResponse.h"
 # include "IRequest.h"
-# include "ISocket.h"
 
 namespace	ZapII
 {
@@ -15,7 +14,8 @@ namespace	ZapII
     Response(IRequest* request);
 
     //! undef
-    virtual void	accept(IModule* module);
+    virtual IModule::State	accept(const IModule::Event&,
+				       IModule* module);
     //! undef
     virtual void	sendResponse(ISocket* sck);
   };
