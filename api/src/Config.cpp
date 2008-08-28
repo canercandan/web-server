@@ -5,55 +5,61 @@
 #include "Config.h"
 
 Config::Config()
-  : _xmlParser(new XmlParser)
+  : _xml_parser(new XmlParser)
 {
-  _mapConfig["port"] = "80";
+  _map_config["port"] = "80";
 }
 
 void	Config::setXmlParser(XmlParser* xmlParser)
 {
-  this->_xmlParser = xmlParser;
+  this->_xml_parser = xmlParser;
 }
 
 XmlParser*	Config::getXmlParser()
 {
-  return (this->_xmlParser);
+  return (this->_xml_parser);
 }
 
 void	Config::setValue(const std::string& key,
 			 const std::string& val)
 {
-  this->_mapConfig[key] = val;
+  this->_map_config[key] = val;
 }
 
 const std::string&	Config::getValue(const std::string& key)
 {
-  return (this->_mapConfig[key]);
+  return (this->_map_config[key]);
 }
 
-void	Config::_loadConfig()
+void	Config::loadConfig()
 {
-  if (this->_xmlParser)
+  if (this->_xml_parser)
     {
       const time_t& time = ::time(NULL);
       std::stringstream	ss;
 
       ss << time;
-      this->setValue("name", this->_xmlParser->xmlGetValue("/server[@name]"));
-      this->setValue("port", this->_xmlParser->xmlGetValue("/server/config/port[@value]"));
-      this->setValue("shutdown", this->_xmlParser->xmlGetValue("/server/config/shutdown[@value]"));
-      this->setValue("debug", this->_xmlParser->xmlGetValue("/server/config/debug[@value]"));
-      this->setValue("respect_rfc", this->_xmlParser->xmlGetValue("/server/config/respect_rfc[@value]"));
-      this->setValue("document_root", this->_xmlParser->xmlGetValue("/server/config/document_root[@value]"));
+      this->setValue("name", this->_xml_parser->xmlGetValue("/server[@name]"));
+      this->setValue("port", this->_xml_parser->xmlGetValue("/server/config/port[@value]"));
+      this->setValue("shutdown", this->_xml_parser->xmlGetValue("/server/config/shutdown[@value]"));
+      this->setValue("debug", this->_xml_parser->xmlGetValue("/server/config/debug[@value]"));
+      this->setValue("respect_rfc", this->_xml_parser->xmlGetValue("/server/config/respect_rfc[@value]"));
+      this->setValue("document_root", this->_xml_parser->xmlGetValue("/server/config/document_root[@value]"));
+      this->setValue("module_directory", this->_xml_parser->xmlGetValue("/server/config/module_directory[@value]"));
       this->setValue("timestart", ss.str());
+      this->getListModule();
     }
+}
+
+void	Config::getListModule()
+{
 }
 
 void	Config::ziaDumpConfig()
 {
   mapConfig::const_iterator	it;
-  mapConfig::const_iterator	end = this->_mapConfig.end();
+  mapConfig::const_iterator	end = this->_map_config.end();
 
-  for (it = this->_mapConfig.begin(); it != end; ++it)
+  for (it = this->_map_config.begin(); it != end; ++it)
     std::cout << it->first << std::endl;
 }

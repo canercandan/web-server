@@ -24,6 +24,7 @@ namespace	ZapII
     void	refresh();
     //! undef
     std::string	getValue(const std::string& path);
+
   private:
     std::string		_filename;
     xmlDocPtr		_doc;

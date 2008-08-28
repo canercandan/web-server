@@ -53,6 +53,7 @@ std::string	XmlParser::getValue(const std::string& path)
 					 this->_ctxt)))
     {
       std::cerr << "error - can't evaluate xpath expression"
+
 		<< std::endl;
       exit(-1);
     }
