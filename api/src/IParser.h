@@ -12,7 +12,6 @@ namespace	ZapII
   {
   public:
     //! undef
-    virtual IParser(Consumer* consumer, IRequest* request){}
     virtual ~IParser(){}
   };
 };

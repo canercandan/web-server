@@ -4,6 +4,8 @@
 #include <string>
 #include "Config.h"
 
+using namespace	ZapII;
+
 Config::Config()
   : _xml_parser(new XmlParser)
 {

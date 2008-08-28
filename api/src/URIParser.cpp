@@ -1,8 +1,10 @@
 #include <sstream>
 #include "URIParser.h"
 
-URIParser::URIParser(HttpProducer* prod, HttpRequest* request)
-  : ABNFParser(prod), _request(request)
+using namespace	ZapII;
+
+URIParser::URIParser(Consumer* consumer, IRequest* request)
+  : _consumer(consumer), _request(request)
 {}
 
 bool	URIParser::readHierPart()

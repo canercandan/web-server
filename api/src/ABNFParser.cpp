@@ -1,5 +1,7 @@
 #include "ABNFParser.h"
 
+using namespace	ZapII;
+
 // -----------------------REMOVE ME --------------------------
 namespace	Debug
 {
