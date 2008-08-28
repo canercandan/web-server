@@ -14,28 +14,29 @@ namespace	ZapII
   public:
     //! mapConfig
     typedef std::map<std::string, std::string>	mapConfig;
-    typedef std::list<std::string>		listConfig;
+    typedef std::list<std::string>		listModule;
 
     //! undef
-    virtual const std::string&	getPath();
+    virtual void	setValue(const std::string& key,
+				 const std::string& value);
     //! undef
-    virtual void		setPath(const std::string&);
+    virtual void	setXmlValue(const std::string& key,
+				    const std::string& path);
+    //! undef
+    virtual const std::string&	getValue(const std::string& key);
 
     //! undef
-    void	loadConfig();
-    //! undef
-    void	getListeModule();
+    const listModule&	getListModule();
     //! undef
     void	ziaDumpConfig();
-
   private:
     Config();
 
+    void	_loadConfig();
   private:
-    std::string	_path;
-    mapConfig	_map_config;
-    listConfig	_list_module;
-    XmlParser*	_xml_parser;
+    mapConfig	_mapConfig;
+    listModule	_listModule;
+    XmlParser*	_xmlParser;
   };
 };
 

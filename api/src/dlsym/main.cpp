@@ -1,8 +1,14 @@
 #include <dlfcn.h>
 #include <iostream>
-#include "Test.h"
+#include "ITest.h"
 
-typedef Test*	(*fct)();
+typedef ITest*	(*fct)();
+
+static void	error()
+{
+  std::cout << "err: " << ::dlerror() << std::endl;
+  exit(-1);
+}
 
 int		main(void)
 {
@@ -10,16 +16,10 @@ int		main(void)
   fct		func;
   ITest*	test;
 
-  if (!(handle = ::dlopen("./Test.so", RTLD_LAZY)))
-    {
-      std::cout << "err: " << ::dlerror() << std::endl;
-      return (-1);
-    }
+  if (!(handle = ::dlopen("./test.so", RTLD_LAZY)))
+    error();
   if (!(func = (fct)::dlsym(handle, "call")))
-    {
-      std::cout << "err: " << ::dlerror() << std::endl;
-      return (-1);
-    }
+    error();
   test = func();
   std::cout << "a: " << test->getA() << std::endl;
   std::cout << "b: " << test->getB() << std::endl;

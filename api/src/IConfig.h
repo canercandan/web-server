@@ -13,9 +13,13 @@ namespace	ZapII
     virtual ~IConfig(){}
 
     //! undef
-    virtual const std::string&	getPath() = 0;
+    virtual void	setValue(const std::string& key,
+				 const std::string& value) = 0;
     //! undef
-    virtual void		setPath(const std::string&) = 0;
+    virtual void	setXmlValue(const std::string& key,
+				    const std::string& path) = 0;
+    //! undef
+    virtual const std::string&	getValue(const std::string& key);
   };
 };
 
