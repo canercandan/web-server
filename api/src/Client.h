@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:48:06 2008 florent hochwelker
-// Last update Thu Aug 28 20:28:02 2008 florent hochwelker
+// Last update Fri Aug 29 05:46:38 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -26,7 +26,7 @@
 #  define RTLD_GLOBAL -1
 # endif
 
-namespace	ZapII
+namespace	ziApi
 {
   //! Client class
   class Client : public IRunnable

@@ -1,7 +1,7 @@
 #include <sstream>
 #include "URIParser.h"
 
-using namespace	ZapII;
+using namespace	ziApi;
 
 URIParser::URIParser(Consumer* consumer, IRequest* request)
   : Parser(consumer, request)

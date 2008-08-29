@@ -7,6 +7,8 @@
 #include "FluxClient.h"
 #include "Config.h"
 
+using namespace ziApi;
+
 FluxClient::FluxClient(ISocket* sck)
   : _sck(sck)
 {}

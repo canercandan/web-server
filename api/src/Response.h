@@ -4,7 +4,7 @@
 # include "IResponse.h"
 # include "IRequest.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! Response
   class	Response : public IResponse

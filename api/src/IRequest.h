@@ -4,7 +4,7 @@
 # include "IRoot.h"
 # include "IModule.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   class	IModule;
 

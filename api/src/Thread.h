@@ -11,7 +11,7 @@
 # include "IRoot.h"
 # include "IRunnable.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! Thread
   class Thread : public IRoot

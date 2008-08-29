@@ -5,7 +5,7 @@
 # include <string>
 # include "IRoot.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! IFileInfo
   class	IFileInfo : public IRoot

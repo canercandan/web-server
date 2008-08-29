@@ -3,7 +3,7 @@
 
 # include "IServer.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! IRunnable
   class IRunnable : public IServer

@@ -23,7 +23,7 @@ typedef int	socklen_t;
 # include <string>
 # include "ISocket.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! Socket
   class Socket : public ISocket

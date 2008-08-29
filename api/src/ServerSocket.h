@@ -3,7 +3,7 @@
 
 # include "ISocket.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! ServerSocket
   class	ServerSocket : public ISocket

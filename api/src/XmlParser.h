@@ -8,7 +8,7 @@
 
 # define  SERVER_XML	"../server.xml"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! XmlParser
   //! This class has the main xml parser methods.

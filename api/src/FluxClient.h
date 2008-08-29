@@ -4,7 +4,7 @@
 # include "IFlux.h"
 # include "ISocket.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! FluxClient
   class	FluxClient : public IFlux

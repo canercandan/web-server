@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Socket.h"
 
-using namespace ZapII;
+using namespace ziApi;
 
 Socket::Socket()
   : _sck(INVALID_SOCKET), _sin()

@@ -3,7 +3,7 @@
 
 # include "IRoot.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! IParser
   class	IParser : public IRoot

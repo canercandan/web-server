@@ -1,7 +1,8 @@
 #include <string>
 #include "XmlParser.h"
 
-//! Xml parser constructor
+using namespace ziApi;
+
 XmlParser::XmlParser(const std::string& filename)
   : _filename(filename)
 {

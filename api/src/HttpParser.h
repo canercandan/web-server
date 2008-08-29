@@ -3,7 +3,7 @@
 
 # include "Parser.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! HttpParser
   class	HttpParser : public Parser

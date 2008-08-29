@@ -3,7 +3,7 @@
 
 # include "ILogger.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! Logger
   class	Logger : public ILogger

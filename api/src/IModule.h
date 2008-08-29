@@ -9,7 +9,7 @@
 #  define EXPORT	;
 # endif
 
-namespace	ZapII
+namespace	ziApi
 {
   class	IRequest;
   class	IResponse;

@@ -1,6 +1,6 @@
 #include "Request.h"
 
-using namespace ZapII;
+using namespace ziApi;
 
 Request::Request()
 {}

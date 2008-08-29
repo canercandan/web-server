@@ -4,7 +4,7 @@
 # include <string>
 # include "Parser.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! URIParser
   class	URIParser : public Parser

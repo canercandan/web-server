@@ -4,7 +4,7 @@
 #include <string>
 #include "Config.h"
 
-using namespace	ZapII;
+using namespace	ziApi;
 
 Config::Config()
   : _xmlParser(new XmlParser("server.xml"))

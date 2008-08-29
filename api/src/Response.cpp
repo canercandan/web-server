@@ -1,6 +1,6 @@
 #include "Response.h"
 
-using namespace ZapII;
+using namespace ziApi;
 
 Response::Response()
 {}

@@ -5,12 +5,12 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:43:05 2008 florent hochwelker
-// Last update Thu Aug 28 20:23:53 2008 florent hochwelker
+// Last update Fri Aug 29 05:46:04 2008 caner candan
 //
 
 #include <Client.h>
 
-using namespace ZapII;
+using namespace ziApi;
 
 Client::Client(ISocket &sck)
   : _sck(sck)

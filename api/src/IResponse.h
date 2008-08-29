@@ -5,7 +5,7 @@
 # include "IModule.h"
 # include "ISocket.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   class	IModule;
 

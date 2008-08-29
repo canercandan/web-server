@@ -5,7 +5,7 @@
 # include "Singleton.hpp"
 # include "XmlParser.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! Config
   class	Config : public IConfig,

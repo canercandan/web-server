@@ -1,6 +1,6 @@
 #include "HttpParser.h"
 
-using namespace ZapII;
+using namespace ziApi;
 
 HttpParser::HttpParser(Consumer* consumer, IRequest* request)
   : Parser(consumer, request)

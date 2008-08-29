@@ -5,7 +5,7 @@
 # include "Consumer.h"
 # include "IRequest.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! Parser
   class	Parser : public IParser

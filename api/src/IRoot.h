@@ -1,7 +1,7 @@
 #ifndef __IROOT_H__
 # define __IROOT_H__
 
-namespace	ZapII
+namespace	ziApi
 {
   //! IRoot
   class IRoot 

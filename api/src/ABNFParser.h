@@ -45,7 +45,7 @@ namespace	Debug
 # define SP		readSP()
 # define LWS		SP
 
-namespace	ZapII
+namespace	ziApi
 {
   //! ABNFParser
   class	ABNFParser : public Parser

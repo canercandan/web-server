@@ -3,7 +3,7 @@
 
 # include "IRequest.h"
 
-namespace	ZapII
+namespace	ziApi
 {
   //! Request
   class	Request : public IRequest

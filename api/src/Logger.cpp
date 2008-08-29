@@ -2,6 +2,8 @@
 #include <iostream>
 #include "Logger.h"
 
+using namespace	ziApi;
+
 void	Logger::log(const Logger::Level level,
 		    const std::string& msg)
 {

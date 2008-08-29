@@ -3,7 +3,7 @@
 
 # include <cstdlib>
 
-namespace	ZapII
+namespace	ziApi
 {
   //! Singleton
   template <typename T>
