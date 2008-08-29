@@ -22,18 +22,12 @@ AutoIndex::State	AutoIndex::affect(const Event& event, IResponse*)
 
 extern "C"
 {
-#ifdef WIN32
-  EXPORT
-#endif
-  IModule*	call()
+  EXPORT IModule*	call()
   {
     return (new AutoIndex);
   }
 
-#ifdef WIN32
-  EXPORT
-#endif
-  void	kill(AutoIndex* module)
+  EXPORT void	kill(AutoIndex* module)
   {
     delete module;
   }
