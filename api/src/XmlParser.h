@@ -12,7 +12,7 @@ namespace	ziApi
 {
   //! XmlParser
   //! This class has the main xml parser methods.
-  class	XmlParser : public IRoot
+  class	XmlParser : public IXmlParser
   {
   public:
     //! Constructor
@@ -24,7 +24,6 @@ namespace	ziApi
     void	refresh();
     //! undef
     std::string	getValue(const std::string& path);
-
   private:
     std::string		_filename;
     xmlDocPtr		_doc;
