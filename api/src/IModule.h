@@ -2,8 +2,6 @@
 # define __IMODULE_H__
 
 # include "IRoot.h"
-# include "IRequest.h"
-# include "IResponse.h"
 
 # ifdef WIN32
 #  define EXPORT	__declspec(dllexport)
@@ -18,8 +16,8 @@ namespace	ZapII
   class	IModule : public IRoot
   {
   public:
-    enum	State	{CONTINUE, BREAK, STOP, ERROR};
-    enum	Event	{PRE, POST, END, ERROR};
+    enum	State	{CONTINUE, BREAK, STOP, S_ERROR};
+    enum	Event	{PRE, POST, END, E_ERROR};
 
     virtual ~IModule(){}
 

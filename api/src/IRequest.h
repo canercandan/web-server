@@ -15,8 +15,8 @@ namespace	ZapII
     virtual ~IRequest(){}
 
     //! undef
-    virtual IModule::State	accept(const IModule::Event& event,
-				       IModule* module) = 0;
+    virtual IModule::State	accept(const IModule::Event&,
+				       IModule*) = 0;
   };
 };
 
