@@ -31,6 +31,7 @@ namespace	ziApi
   public:
     //! undef
     Socket();
+    Socket(const SOCKET sck, const struct sockaddr_in& sin);
     ~Socket();
 
     //! undef
