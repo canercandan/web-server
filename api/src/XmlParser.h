@@ -2,7 +2,7 @@
 # define __XMLPARSER_H__
 
 # include <libxml/parser.h>
-# include <libmxl/xpath.h>
+# include <libxml/xpath.h>
 # include <string>
 # include "IRoot.h"
 
