@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:43:05 2008 florent hochwelker
-// Last update Fri Aug 29 16:27:34 2008 florent hochwelker
+// Last update Fri Aug 29 16:56:02 2008 florent hochwelker
 //
 
 #include <Client.h>
@@ -18,12 +18,16 @@ Client::Client(ISocket &sck)
 
 Client::run()
 {
+  Request	req;
   FluxClient	flux(this->_sck);
-  
+  Consumer	consumer(flux);
+  Parser	parser(consumer, req);
+
+  parser.readRequest();
   if (openModule("/tmp/test.so"))
     {
-      Request	req;
       req.accept(IModule::PRE, this->_module);
+      req.accept(IModule::POST, this->module);
       
     }
 }

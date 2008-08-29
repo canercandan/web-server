@@ -13,10 +13,11 @@ namespace	ziApi
   public:
     //! \param consumer a Consumer pointer
     //! \param request a IRequest pointer
-    Parser(Consumer* consumer, IRequest* request);
+    Parser(Consumer& consumer, IRequest& request);
+
   protected:
-    Consumer*	_consumer;
-    IRequest*	_request;
+    Consumer&	_consumer;
+    IRequest&	_request;
   };
 };
 

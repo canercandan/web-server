@@ -3,7 +3,7 @@
 
 using namespace ziApi;
 
-Consumer::Consumer(IFlux* prod)
+Consumer::Consumer(IFlux& prod)
   : _flux(flux), _ext_pos(0), _cur_pos(0), _old_pos(0)
 {}
 

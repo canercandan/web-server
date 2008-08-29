@@ -13,7 +13,7 @@ namespace	ziApi
   public:
     //! undef
     //! \param flux a IFlux pointer
-    Consumer(IFlux* flux);
+    Consumer(IFlux& flux);
 
     //! get buffer
     //! \return std::string
@@ -25,7 +25,7 @@ namespace	ziApi
     void	prepare();
 
     //! extract string in the param s_r
-    void		extract(std::string& s_r);
+    void	extract(std::string& s_r);
     //! extract string in the return
     //! \return std::string
     std::string	extract();
