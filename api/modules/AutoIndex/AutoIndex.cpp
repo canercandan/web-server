@@ -7,12 +7,12 @@ AutoIndex::AutoIndex()
     _name("AutoIndex")
 {}
 
-AutoIndex::State	AutoIndex::affect(const Event&, IRequest*)
+AutoIndex::State	AutoIndex::affect(const Event, IRequest*)
 {
   return (CONTINUE);
 }
 
-AutoIndex::State	AutoIndex::affect(const Event& event, IResponse*)
+AutoIndex::State	AutoIndex::affect(const Event event, IResponse*)
 {
   if (event != PRE)
     return (CONTINUE);

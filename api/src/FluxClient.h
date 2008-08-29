@@ -12,7 +12,7 @@ namespace	ziApi
   public:
     //! undef
     //! \param sck an ISocket pointer
-    FluxClient(ISocket* sck);
+    FluxClient(const ISocket &sck);
 
     //! get the next string
     //! \return std::string

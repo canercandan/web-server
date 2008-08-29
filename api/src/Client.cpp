@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:43:05 2008 florent hochwelker
-// Last update Fri Aug 29 05:46:04 2008 caner candan
+// Last update Fri Aug 29 16:27:34 2008 florent hochwelker
 //
 
 #include <Client.h>
@@ -18,10 +18,17 @@ Client::Client(ISocket &sck)
 
 Client::run()
 {
-  openModule("/tmp/test.so");
+  FluxClient	flux(this->_sck);
+  
+  if (openModule("/tmp/test.so"))
+    {
+      Request	req;
+      req.accept(IModule::PRE, this->_module);
+      
+    }
 }
 
-Client::openModule(const std::string& moduleName)
+bool	Client::openModule(const std::string& moduleName)
 {
   if ((_handler = dlopen(moduleName.str_c(), RTLD_NOW)) == NULL)
     {
@@ -34,5 +41,7 @@ Client::openModule(const std::string& moduleName)
   else
     {
       this->_module = this->_call();
+      return true;
     }
+  return false;
 }

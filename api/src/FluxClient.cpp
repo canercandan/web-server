@@ -9,7 +9,7 @@
 
 using namespace ziApi;
 
-FluxClient::FluxClient(ISocket* sck)
+FluxClient::FluxClient(const ISocket& sck)
   : _sck(sck)
 {}
 
