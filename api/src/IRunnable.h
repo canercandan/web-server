@@ -1,12 +1,12 @@
 #ifndef __IRUNNABLE_H__
 # define __IRUNNABLE_H__
 
-# include "IServer.h"
+# include "IRoot.h"
 
 namespace	ziApi
 {
   //! IRunnable
-  class IRunnable : public IServer
+  class IRunnable : public IRoot
   {
   public:
     virtual ~IRunnable(){};
