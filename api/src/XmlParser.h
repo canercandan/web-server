@@ -5,6 +5,7 @@
 # include <libxml/xpath.h>
 # include <string>
 # include "IRoot.h"
+# include "IXmlParser.h"
 
 # define  SERVER_XML	"../server.xml"
 
