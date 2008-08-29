@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:43:05 2008 florent hochwelker
-// Last update Thu Aug 28 18:25:06 2008 florent hochwelker
+// Last update Thu Aug 28 20:23:53 2008 florent hochwelker
 //
 
 #include <Client.h>
@@ -14,8 +14,7 @@ using namespace ZapII;
 
 Client::Client(ISocket &sck)
   : _sck(sck)
-{
-}
+{}
 
 Client::run()
 {

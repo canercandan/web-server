@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:48:06 2008 florent hochwelker
-// Last update Thu Aug 28 18:20:23 2008 florent hochwelker
+// Last update Thu Aug 28 20:28:02 2008 florent hochwelker
 //
 
 #ifndef __CLIENT_H__
