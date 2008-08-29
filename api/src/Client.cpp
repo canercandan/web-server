@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:43:05 2008 florent hochwelker
-// Last update Fri Aug 29 18:21:09 2008 florent hochwelker
+// Last update Fri Aug 29 18:30:25 2008 florent hochwelker
 //
 
 #include <Client.h>
@@ -24,14 +24,16 @@ Client::run()
   Consumer	consumer(flux);
   HttpParser	parser(consumer, req);
 
-  if (openModule("/tmp/test.so"))
+  openModule("/tmp/test.so");
+  if (this->_module != NULL)
     {
       req.accept(IModule::PRE, this->_module);
       req.accept(IModule::POST, this->module);
       response.accept(IModule::PRE, this->response);
     }
   response.sendResponse(this->_sck);
-  response.accept(IModule::POST, this->response);
+  if (this->_module != NULL)
+    response.accept(IModule::POST, this->response);
 }
   
 bool	Client::openModule(const std::string& moduleName)
