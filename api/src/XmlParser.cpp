@@ -9,6 +9,12 @@ XmlParser::XmlParser(const std::string& filename)
   refresh();
 }
 
+XmlParser::~XmlParser()
+{
+  ::xmlFreeDoc(this->_doc);
+  ::xmlXPathFreeContext(this->_ctxt);
+}
+
 void	XmlParser::refresh()
 {
   // todo: loadXml uniquement si date de fichier change
@@ -36,15 +42,7 @@ void	XmlParser::refresh()
     }
 }
 
-//! Xml parser destructor
-XmlParser::~XmlParser()
-{
-  ::xmlFreeDoc(this->_doc);
-  ::xmlXPathFreeContext(this->_ctxt);
-}
-
-//! Xml parser copy constructor with '=' overload
-std::string	XmlParser::getValue(const std::string& path)
+std::string	XmlParser::xmlGetValue(const std::string& path)
 {
   xmlXPathObjectPtr	xpath;
   xmlNodePtr		node;
