@@ -50,6 +50,7 @@ void	Config::_loadConfig()
   this->setXmlValue("module_directory",
 		    "/server/config/module_directory[@value]");
   this->setValue("timestart", ss.str());
+  this->setXmlValue("timeout", "/server/config/timeout[@value]");
 }
 
 void	Config::getListModule()
