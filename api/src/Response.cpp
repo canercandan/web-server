@@ -2,14 +2,15 @@
 
 using namespace ziApi;
 
-Response::Response()
+IModule::Response(const IRequest& request)
+  : _request(request)
 {}
 
 IModule::State	Response::accept(const IModule::Event& event,
-				 IModule* module)
+				 const IModule& module)
 {
   return (module->affect(event, this));
 }
 
-void	Response::sendResponse(ISocket* sck)
+void	Response::sendResponse(const ISocket& sck)
 {}

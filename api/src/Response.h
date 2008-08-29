@@ -11,13 +11,16 @@ namespace	ziApi
   {
   public:
     //! undef
-    Response(IRequest* request);
+    Response(const IRequest& request);
 
     //! undef
     virtual IModule::State	accept(const IModule::Event&,
-				       IModule* module);
+				       const IModule& module);
     //! undef
-    virtual void	sendResponse(ISocket* sck);
+    virtual void	sendResponse(const ISocket& sck);
+
+  private:
+    const IRequest&	_request;
   };
 };
 
