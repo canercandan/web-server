@@ -1,7 +1,7 @@
 #ifndef __SERVERSOCKET_H__
 # define __SERVERSOCKET_H__
 
-# include "ISocket.h"
+# include "Socket.h"
 
 namespace	ziApi
 {

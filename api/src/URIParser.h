@@ -13,7 +13,8 @@ namespace	ziApi
     //! undef
     //! \param consumer a Consumer pointer
     //! \param request a IRequest pointer
-    URIParser(Consumer* consumer, IRequest* request);
+    URIParser(const Consumer& consumer,
+	      const IRequest& request);
 
     //! undef
     bool	readHierPart();

@@ -1,3 +1,5 @@
+#include <string>
+#include <iostream>
 #include "ABNFParser.h"
 
 using namespace	ziApi;
@@ -9,11 +11,12 @@ namespace	Debug
 
   void	enter(const char* func, const std::string& buf)
   {
+    int	i;
+
     if (DEBUG_ACTIVE)
       {
-	for (int i = 0; i < indent; i++)
+	for (i = 0; i < indent; i++)
 	  std::cout << ' ';
-
 	std::cout << '[' << func << "] ["
 		  << buf << ']' << std::endl;
       }
@@ -22,11 +25,12 @@ namespace	Debug
 
   bool	leave(const char* func, bool ret)
   {
+    int	i;
+
     if (DEBUG_ACTIVE)
       {
-	for (int i = 0; i < indent; i++)
+	for (i = 0; i < indent; i++)
 	  std::cout << ' ';
-
 	std::cout << '[' << func << " -> "
 		  << ret << ']' << std::endl;
       }
@@ -36,7 +40,8 @@ namespace	Debug
 };
 // -----------------------REMOVE ME --------------------------
 
-ABNFParser::ABNFParser(Consumer* consumer, IRequest* request)
+ABNFParser::ABNFParser(const Consumer& consumer,
+		       const IRequest& request)
   : Parser(consumer, request)
 {}
 

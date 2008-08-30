@@ -12,7 +12,8 @@ namespace	ziApi
     //! undef
     //! \param consumer a Consumer pointer
     //! \param request a IRequest pointer
-    HttpParser(Consumer& consumer, IRequest& request);
+    HttpParser(const Consumer& consumer,
+	       const IRequest& request);
 
     //! read a http char
     bool	readChar();

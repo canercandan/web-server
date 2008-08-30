@@ -21,28 +21,28 @@ namespace	Debug
 
 // -----------------------REMOVE ME --------------------------
 
-# define CHAR(a)	(readChar(a))
-# define RANGE(a, b)	(readRange((a), (b)))
+# define CHAR(a)	(this->_consumer.readChar(a))
+# define RANGE(a, b)	(this->_consumer.readRange((a), (b)))
 # define SHARP(a)	while (LWS && CHAR(',') && LWS && (a))
-# define TEXT_(a)	(readText(a))
+# define TEXT_(a)	(this->_consumer.readText(a))
 
-# define CHAR_R(a)		(readChar(a))
-# define INTEGER_R(a)		(readInteger(a))
-# define IDENTIFIER_R(a)	(readIdentifier(a))
-# define RANGE_R(a, b, c)	(readRange((a), (b), (c)))
-# define TEXT_R(a, b)		(readText((a), (b)))
+# define CHAR_R(a)		(this->_consumer.readChar(a))
+# define INTEGER_R(a)		(this->_consumer.readInteger(a))
+# define IDENTIFIER_R(a)	(this->_consumer.readIdentifier(a))
+# define RANGE_R(a, b, c)	(this->_consumer.readRange((a), (b), (c)))
+# define TEXT_R(a, b)		(this->_consumer.readText((a), (b)))
 
-# define ALPHA		readAlpha()
+# define ALPHA		this->readAlpha()
 
-# define CR		readCR()
-# define LF		readLF()
-# define CRLF		readCRLF()
+# define CR		this->readCR()
+# define LF		this->readLF()
+# define CRLF		this->readCRLF()
 
-# define DIGIT		readDigit()
-# define HEXDIG		readHexdig()
-# define IDENTIFIER	readIdentifier()
-# define INTEGER	readInteger()
-# define SP		readSP()
+# define DIGIT		this->readDigit()
+# define HEXDIG		this->readHexdig()
+# define IDENTIFIER	this->readIdentifier()
+# define INTEGER	this->readInteger()
+# define SP		this->readSP()
 # define LWS		SP
 
 namespace	ziApi
@@ -53,7 +53,8 @@ namespace	ziApi
   public:
     //! \param consumer a Consumer pointer
     //! \param request a IRequest pointer
-    ABNFParser(Consumer* consumer, IRequest* request);
+    ABNFParser(const Consumer& consumer,
+	       const IRequest& request);
 
     //! read a CR character
     bool	readCR();
