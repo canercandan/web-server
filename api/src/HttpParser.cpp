@@ -3,6 +3,8 @@
 
 using namespace ziApi;
 
+// -----------------------REMOVE ME --------------------------
+
 namespace	Debug
 {
   static int	indent = 0;
@@ -36,6 +38,8 @@ namespace	Debug
     return (ret);
   }
 };
+
+// -----------------------REMOVE ME --------------------------
 
 HttpParser::HttpParser(Consumer* consumer,
 		       IRequest* request,

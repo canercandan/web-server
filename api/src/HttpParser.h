@@ -141,4 +141,22 @@ namespace	ziApi
   };
 };
 
+// -----------------------REMOVE ME --------------------------
+
+#define DEBUG_ACTIVE		0
+#define DEBUG_ENTER		Debug::enter(__FUNCTION__, this->_consumer->getBuf())
+#define DEBUG_RETURN(ret)	return (Debug::leave(__FUNCTION__, ret))
+
+#define NOT_IMPLEMENTED							\
+  std::cout << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;		\
+  return (false);
+
+namespace	Debug
+{
+  void	enter(const char* func, const std::string& buf);
+  bool	leave(const char* func, bool ret);
+};
+
+// -----------------------REMOVE ME --------------------------
+
 #endif // !__HTTPPARSER_H__
