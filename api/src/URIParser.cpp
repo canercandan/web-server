@@ -121,8 +121,8 @@ bool	URIParser::readHost(std::string& extract)
        this->readIPv4address() ||
        this->readRegName())
     {
-      this->consumer->extract(extract);
-      this->consume();
+      this->_consumer->extract(extract);
+      this->_consumer->consume();
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
@@ -131,10 +131,10 @@ bool	URIParser::readHost(std::string& extract)
 bool	URIParser::readPort(std::string& extract)
 {
   DEBUG_ENTER;
-  this->prepare();
+  this->_consumer->prepare();
   while (DIGIT);
-  this->extract(extract);
-  this->consume();
+  this->_consumer->extract(extract);
+  this->_consumer->consume();
   DEBUG_RETURN (true);
 }
 
