@@ -24,9 +24,11 @@ namespace	ziApi
     virtual ~IModule(){}
 
     //! undef
-    virtual State	affect(const Event, IRequest& request) = 0;
+    virtual State	affect(const Event&,
+			       const IRequest& request) = 0;
     //! undef
-    virtual State	affect(const Event, IResponse& response) = 0;
+    virtual State	affect(const Event&,
+			       const IResponse& response) = 0;
   };
 };
 

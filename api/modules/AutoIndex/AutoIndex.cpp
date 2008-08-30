@@ -1,18 +1,20 @@
 #include "AutoIndex.h"
 
-using namespace ZapII;
+using namespace ziApi;
 
 AutoIndex::AutoIndex()
   : _version(0.1),
     _name("AutoIndex")
 {}
 
-AutoIndex::State	AutoIndex::affect(const Event, IRequest*)
+AutoIndex::State	AutoIndex::affect(const Event&,
+					  const IRequest&)
 {
   return (CONTINUE);
 }
 
-AutoIndex::State	AutoIndex::affect(const Event event, IResponse*)
+AutoIndex::State	AutoIndex::affect(const Event& event,
+					  const IResponse&)
 {
   if (event != PRE)
     return (CONTINUE);
