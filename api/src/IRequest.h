@@ -1,6 +1,7 @@
 #ifndef __IREQUEST_H__
 # define __IREQUEST_H__
 
+# include <string>
 # include "IRoot.h"
 # include "IModule.h"
 
@@ -34,7 +35,7 @@ namespace	ziApi
     virtual void		setUrlHost(const std::string& url) = 0;
 
     //! undef
-    virtual int			getUrlPort() const = 0;
+    virtual const std::string&	getUrlPort() const = 0;
     //! undef
     virtual void		setUrlPort(const std::string& port) = 0;
 

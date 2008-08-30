@@ -32,7 +32,7 @@ void			Request::setProtocol(const std::string& protocol)
   this->_protocol = protocol;
 }
 
-std::string&		Request::getUrlHost() const
+const std::string&	Request::getUrlHost() const
 {
   return (this->_host);
 }
@@ -42,7 +42,7 @@ void			Request::setUrlHost(const std::string& host)
   this->_host = host;
 }
 
-std::string&		Request::getUrlPort() const
+const std::string&	Request::getUrlPort() const
 {
   return (this->_port);
 }
@@ -52,12 +52,12 @@ void			Request::setUrlPort(const std::string& port)
   this->_port = port;
 }
 
-std::string&		Request::getUrlPath() const
+const std::string&	Request::getUrlPath() const
 {
   return (this->_path);
 }
 
-void			Request::setUrlHost(const std::string& path)
+void			Request::setUrlPath(const std::string& path)
 {
   this->_path = path;
 }

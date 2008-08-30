@@ -32,7 +32,7 @@ namespace	ziApi
     void		setUrlHost(const std::string& url);
 
     //! undef
-    int			getUrlPort() const;
+    const std::string&	getUrlPort() const;
     //! undef
     void		setUrlPort(const std::string& port);
 
@@ -54,7 +54,9 @@ namespace	ziApi
   private:
     std::string		_method;
     std::string		_protocol;
+    std::string		_host;
     std::string		_port;
+    std::string		_path;
     std::string		_query;
     std::string		_version;
   };
