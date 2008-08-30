@@ -100,7 +100,7 @@ namespace	ziApi
     //! read an accept encoding
     bool	readAcceptEncoding();
     //! read an accept langage
-    bool	readAcceptLangage();
+    bool	readAcceptLanguage();
     //! read an authorization
     bool	readAuthorization();
     //! read an except

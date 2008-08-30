@@ -58,6 +58,8 @@ namespace	ziApi
     bool	readInteger();
     //! read an integer and save one in i_r
     bool	readInteger(int& i_r);
+    //! read an integer and save one in a string
+    bool	readInteger(std::string& s_r);
 
     //! read an identifier and consumer the buffer
     bool	readIdentifier();

@@ -147,6 +147,18 @@ bool	Consumer::readInteger(int& i_r)
   return (true);
 }
 
+bool	Consumer::readInteger(std::string& s_r)
+{
+  size_t		pos;
+  std::stringstream	ss;
+
+  pos = this->_cur_pos;
+  if (!this->readInteger())
+    return (false);
+  ss.str(this->_buf.substr(pos, this->_cur_pos - pos));
+  ss >> s_r;
+  return (true);
+}
 
 bool	Consumer::readIdentifier()
 {

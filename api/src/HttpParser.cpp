@@ -154,8 +154,8 @@ bool	HttpParser::readRequestURI()
 bool	HttpParser::readHttpVersion()
 {
   std::string	name;
-  int		major;
-  int		minor;
+  std::string	major;
+  std::string	minor;
 
   DEBUG_ENTER;
   if (TEXT_R("HTTP", name) &&
@@ -164,9 +164,8 @@ bool	HttpParser::readHttpVersion()
       CHAR('.') &&
       INTEGER_R(minor))
     {
-      this->_request->getVersionProtocol().setName(name);
-      this->_request->getVersionProtocol().setMajor(major);
-      this->_request->getVersionProtocol().setMinor(minor);
+      this->_request->setProtocol(name);
+      this->_request->setVersionProtocol(major + '.' + minor);
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
@@ -319,7 +318,7 @@ bool	HttpParser::readRequestHeader()
 		this->readAcceptEncoding() ||
 		this->readAcceptLanguage() ||
 		this->readAuthorization() ||
-		this->readExpect() ||
+		this->readExcept() ||
 		this->readFrom() ||
 		//	  this->readHost() ||
 		this->readIfMatch() ||
@@ -360,7 +359,7 @@ bool	HttpParser::readAuthorization()
   NOT_IMPLEMENTED;
 }
 
-bool	HttpParser::readExpect()
+bool	HttpParser::readExcept()
 {
   NOT_IMPLEMENTED;
 }
