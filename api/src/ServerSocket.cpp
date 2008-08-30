@@ -1,8 +1,9 @@
 #include <iostream>
 #include "ServerSocket.h"
 
+using namespace ziApi;
+
 ServerSocket::ServerSocket()
-  : _sck()
 {}
 
 bool		ServerSocket::create(const int& port)
