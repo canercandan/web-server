@@ -3,21 +3,32 @@
 
 using namespace	ziApi;
 
-URIParser::URIParser(Consumer* consumer, IRequest* request)
-  : Parser(consumer, request)
+URIParser::URIParser(Consumer* consumer,
+		     IRequest* request,
+		     IParser* parent /*= NULL*/)
+  : _consumer(consumer), _request(request),
+    _parent(parent)
 {}
+
+bool	URIParser::run()
+{
+  DEBUG_ENTER;
+  DEBUG_RETURN (CHAR('*') ||
+		this->readAbsoluteURI() ||
+		(this->readPathAbsolute() &&
+		 this->readPathAbsoluteQuery()) ||
+		this->readAuthority());
+}
 
 bool	URIParser::readHierPart()
 {
   DEBUG_ENTER;
-  if ((TEXT_("//") &&
-       this->readAuthority() &&
-       this->readPathAbempty()) ||
-      this->readPathAbsolute() ||
-      this->readPathRootless() ||
-      this->readPathEmpty())
-    DEBUG_RETURN (true);
-  DEBUG_RETURN (false);
+  DEBUG_RETURN ((TEXT_("//") &&
+		 this->readAuthority() &&
+		 this->readPathAbempty()) ||
+		this->readPathAbsolute() ||
+		this->readPathRootless() ||
+		this->readPathEmpty());
 }
 
 bool	URIParser::readAbsoluteURI()
@@ -236,6 +247,14 @@ bool	URIParser::readPathAbsolute()
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
+}
+
+bool	URIParser::readPathAbsoluteQuery()
+{
+  DEBUG_ENTER;
+  if (CHAR('?'))
+    this->readQuery();
+  DEBUG_RETURN (true);
 }
 
 bool	URIParser::readPathAbsoluteOpt()

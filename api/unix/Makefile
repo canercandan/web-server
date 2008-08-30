@@ -9,7 +9,6 @@ SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/FluxClient.cpp		\
 			$(PATH_SRC)/HttpParser.cpp		\
 			$(PATH_SRC)/Logger.cpp			\
-			$(PATH_SRC)/Parser.cpp			\
 			$(PATH_SRC)/Request.cpp			\
 			$(PATH_SRC)/Response.cpp		\
 			$(PATH_SRC)/ServerSocket.cpp		\

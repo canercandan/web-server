@@ -1,20 +1,40 @@
 #ifndef __HTTPPARSER_H__
 # define __HTTPPARSER_H__
 
-# include "Parser.h"
+# include "IParser.h"
+# include "Consumer.h"
+# include "IRequest.h"
 
 namespace	ziApi
 {
   //! HttpParser
-  class	HttpParser : public Parser
+  class	HttpParser : public IParser
   {
   public:
     //! undef
     //! \param consumer a Consumer pointer
     //! \param request a IRequest pointer
+    //! \param parent a IParser pointer
     HttpParser(Consumer* consumer,
-	       IRequest* request);
+	       IRequest* request,
+	       IParser* parent = NULL);
 
+    //! first method called
+    bool	run();
+    //! read a CR character
+    bool	readCR();
+    //! read a LF character
+    bool	readLF();
+    //! read CRLF characters
+    bool	readCRLF();
+    //! read a char between a - z
+    bool	readAlpha();
+    //! read a char between 0 - 9
+    bool	readDigit();
+    //! read a char between 0 - 9 and a - f
+    bool	readHexdig();
+    //! read a space
+    bool	readSP();
     //! read a http char
     bool	readChar();
     //! check if exist a ctl
@@ -128,6 +148,10 @@ namespace	ziApi
     bool	_readUserAgentPart2();
     bool	_readProductOpt();
     bool	_readCommentOpt();
+  private:
+    Consumer*	_consumer;
+    IRequest*	_request;
+    IParser*	_parent;
   };
 };
 

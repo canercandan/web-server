@@ -2,20 +2,26 @@
 # define __URIPARSER_H__
 
 # include <string>
-# include "Parser.h"
+# include "IParser.h"
+# include "Consumer.h"
+# include "IRequest.h"
 
 namespace	ziApi
 {
   //! URIParser
-  class	URIParser : public Parser
+  class	URIParser : public IParser
   {
   public:
     //! undef
     //! \param consumer a Consumer pointer
     //! \param request a IRequest pointer
-    URIParser(const Consumer& consumer,
-	      const IRequest& request);
+    //! \param parent a IParser pointer
+    URIParser(Consumer* consumer,
+	      IRequest* request,
+	      IParser* parent = NULL);
 
+    //! first method called
+    bool	run();
     //! undef
     bool	readHierPart();
     //! undef
@@ -50,6 +56,8 @@ namespace	ziApi
     bool	readPathAbempty();
     //! undef
     bool	readPathAbsolute();
+    //! undef
+    bool	readPathAbsoluteQuery();
     //! undef
     bool	readPathNoScheme();
     //! undef
@@ -92,6 +100,10 @@ namespace	ziApi
     bool	_readPathNoSchemePart2();
 
     bool	_readPathRootlessPart2();
+  private:
+    Consumer*	_consumer;
+    IRequest*	_request;
+    IParser*	_parent;
   };
 };
 
