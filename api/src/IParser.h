@@ -58,36 +58,8 @@ namespace	ziApi
 
 namespace	Debug
 {
-  static int	indent = 0;
-
-  void	enter(const char* func, const std::string& buf)
-  {
-    int	i;
-
-    if (DEBUG_ACTIVE)
-      {
-	for (i = 0; i < indent; i++)
-	  std::cout << ' ';
-	std::cout << '[' << func << "] ["
-		  << buf << ']' << std::endl;
-      }
-    indent++;
-  }
-
-  bool	leave(const char* func, bool ret)
-  {
-    int	i;
-
-    if (DEBUG_ACTIVE)
-      {
-	for (i = 0; i < indent; i++)
-	  std::cout << ' ';
-	std::cout << '[' << func << " -> "
-		  << ret << ']' << std::endl;
-      }
-    indent--;
-    return (ret);
-  }
+  void	enter(const char* func, const std::string& buf);
+  bool	leave(const char* func, bool ret);
 };
 
 // -----------------------REMOVE ME --------------------------
