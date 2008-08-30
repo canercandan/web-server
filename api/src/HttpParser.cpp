@@ -69,8 +69,7 @@ bool	HttpParser::_readRequestOptPart2()
   this->_consumer->save();
   if ((this->readGeneralHeader() ||
        this->readRequestHeader() ||
-       this->readEntityHeader()) &&
-      this->readCRLF())
+       this->readEntityHeader()) && CRLF)
     DEBUG_RETURN (true);
   this->_consumer->back();
   DEBUG_RETURN (false);
