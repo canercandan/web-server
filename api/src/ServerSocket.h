@@ -15,7 +15,7 @@ namespace	ziApi
     //! undef
     bool	create(const int& port);
     //! undef
-    virtual ISocket*	accept();
+    virtual Socket*	accept();
     //! undef
     virtual void	close();
   private:

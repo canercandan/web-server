@@ -41,7 +41,7 @@ namespace	ziApi
     //! undef
     bool		listen();
     //! undef
-    virtual ISocket*	accept();
+    virtual Socket*	accept();
     //! undef
     virtual void	close();
     //! undef

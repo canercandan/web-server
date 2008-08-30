@@ -14,7 +14,7 @@ int			main(void)
   Config*		conf = Config::getInstance();
   Logger		logger;
   ServerSocket		server;
-  ISocket*		socket;
+  Socket*		socket;
   Client*		client;
   Thread*		thread;
   unsigned int		port;

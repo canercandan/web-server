@@ -25,10 +25,10 @@ namespace	ziApi
 
     //! undef
     virtual State	affect(const Event&,
-			       const IRequest& request) = 0;
+			       IRequest* request) = 0;
     //! undef
     virtual State	affect(const Event&,
-			       const IResponse& response) = 0;
+			       IResponse* response) = 0;
   };
 };
 

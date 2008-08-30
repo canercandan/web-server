@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:43:05 2008 florent hochwelker
-// Last update Fri Aug 29 15:06:46 2008 caner candan
+// Last update Fri Aug 29 15:30:40 2008 caner candan
 //
 
 #include "Client.h"
@@ -17,7 +17,7 @@
 
 using namespace ziApi;
 
-Client::Client(ISocket* sck)
+Client::Client(Socket* sck)
   : _sck(sck), _module(0)
 {}
 
