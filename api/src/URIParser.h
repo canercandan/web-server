@@ -5,6 +5,16 @@
 # include "IParser.h"
 # include "Consumer.h"
 # include "IRequest.h"
+# include "HttpParser.h"
+
+# define ALPHA	static_cast<HttpParser*>(this->_parent)->readAlpha()
+# define CR	static_cast<HttpParser*>(this->_parent)->readCR()
+# define LF	static_cast<HttpParser*>(this->_parent)->readLF()
+# define CRLF	static_cast<HttpParser*>(this->_parent)->readCRLF()
+# define DIGIT	static_cast<HttpParser*>(this->_parent)->readDigit()
+# define HEXDIG	static_cast<HttpParser*>(this->_parent)->readHexdig()
+# define SP	static_cast<HttpParser*>(this->_parent)->readSP()
+# define LWS	SP
 
 namespace	ziApi
 {

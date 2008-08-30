@@ -19,19 +19,10 @@
 # define RANGE_R(a, b, c)	(this->_consumer->readRange((a), (b), (c)))
 # define TEXT_R(a, b)		(this->_consumer->readText((a), (b)))
 
-# define IDENTIFIER	this->readIdentifier()
-# define INTEGER	this->readInteger()
+# define IDENTIFIER	this->_consumer->readIdentifier()
+# define INTEGER	this->_consumer->readInteger()
 
 # define SHARP(a)	while (LWS && CHAR(',') && LWS && (a))
-
-# define ALPHA	this->readAlpha()
-# define CR	this->readCR()
-# define LF	this->readLF()
-# define CRLF	this->readCRLF()
-# define DIGIT	this->readDigit()
-# define HEXDIG	this->readHexdig()
-# define SP	this->readSP()
-# define LWS	SP
 
 namespace	ziApi
 {
