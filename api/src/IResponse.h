@@ -18,8 +18,11 @@ namespace	ziApi
     //! undef
     virtual IModule::State	accept(const IModule::Event&,
 				       IModule* module) = 0;
+
     //! undef
-    virtual void	sendResponse(ISocket* sck) = 0;
+    virtual IRequest*		getRequest() const = 0;
+    //! undef
+    virtual void		sendResponse(ISocket* sck) = 0;
   };
 };
 

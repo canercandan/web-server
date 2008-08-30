@@ -13,8 +13,15 @@ namespace	ziApi
     Request();
 
     //! undef
-    virtual IModule::State	accept(const IModule::Event& event,
-				       IModule* module);
+    IModule::State	accept(const IModule::Event& event,
+			       IModule* module);
+
+  private:
+    std::string		_method;
+    std::string		_protocol;
+    std::string		_port;
+    std::string		_query;
+    std::string		_version;
   };
 };
 

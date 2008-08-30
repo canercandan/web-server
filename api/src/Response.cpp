@@ -12,5 +12,11 @@ IModule::State	Response::accept(const IModule::Event& event,
   return (module->affect(event, this));
 }
 
-void	Response::sendResponse(const ISocket& sck)
-{}
+IRequest*	Response::getRequest() const
+{
+  return (this->_request);
+}
+
+void		Response::sendResponse(const ISocket& sck)
+{
+}
