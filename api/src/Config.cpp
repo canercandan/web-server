@@ -7,9 +7,11 @@
 using namespace	ziApi;
 
 Config::Config()
-  : _xmlParser(new XmlParser("../server.xml"))
+  : _xmlParser(new XmlParser(FILE_CONFIG))
 {
   setValue("port", "80");
+  _loadConfig();
+  std::cout << getValue("port") << std::endl;
 }
 
 Config::~Config()
@@ -41,17 +43,14 @@ void	Config::_loadConfig()
 
   ss << time;
   this->setXmlValue("name", "/server[@name]");
-  this->setXmlValue("port",	"/server/config/port[@value]");
+  this->setXmlValue("port", "/server/config/port[@value]");
   this->setXmlValue("shutdown", "/server/config/shutdown[@value]");
   this->setXmlValue("debug", "/server/config/debug[@value]");
-  this->setXmlValue("respect_rfc",
-		    "/server/config/respect_rfc[@value]");
-  this->setXmlValue("document_root",
-		    "/server/config/document_root[@value]");
-  this->setXmlValue("module_directory",
-		    "/server/config/module_directory[@value]");
-  this->setValue("timestart", ss.str());
+  this->setXmlValue("respect_rfc", "/server/config/respect_rfc[@value]");
+  this->setXmlValue("document_root", "/server/config/document_root[@value]");
+  this->setXmlValue("module_directory", "/server/config/module_directory[@value]");
   this->setXmlValue("timeout", "/server/config/timeout[@value]");
+  this->setValue("timestart", ss.str());
 }
 
 const Config::listModule&	Config::getListModule()

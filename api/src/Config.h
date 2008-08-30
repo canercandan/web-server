@@ -8,11 +8,13 @@
 # include "Singleton.hpp"
 # include "XmlParser.h"
 
+# define FILE_CONFIG	"../server.xml"
+
 namespace	ziApi
 {
   //! Config
-  class	Config : public Singleton<Config>//,
-  //public IConfig
+  class	Config : //public IConfig,
+    public Singleton<Config>
   {
     friend class	Singleton<Config>;
   public:
