@@ -37,17 +37,17 @@ namespace	ziApi
     //! undef
     bool		create();
     //! undef
-    bool		bind();
+    bool		bind(const int port);
     //! undef
-    bool		listen();
+    bool		listen(const int backlog);
     //! undef
     virtual Socket*	accept();
     //! undef
     virtual void	close();
     //! undef
-    int			recv();
+    int			recv(char* buf, int len);
     //! undef
-    int			send();
+    int			send(std::string& buf);
     //! undef
     bool		isValid();
   private:

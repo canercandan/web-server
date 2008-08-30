@@ -3,7 +3,6 @@ NAME		=	zia
 PATH_SRC	=	../src
 
 SRCS		=	$(PATH_SRC)/main.cpp			\
-			$(PATH_SRC)/ABNFParser.cpp		\
 			$(PATH_SRC)/Client.cpp			\
 			$(PATH_SRC)/Config.cpp			\
 			$(PATH_SRC)/Consumer.cpp		\

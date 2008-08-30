@@ -1,13 +1,3 @@
-//
-// Client.cpp for zia in /home/hochwe_f/zia/prototype/src
-// 
-// Made by florent hochwelker
-// Login   <hochwe_f@epitech.net>
-// 
-// Started on  Wed Aug 27 16:43:05 2008 florent hochwelker
-// Last update Fri Aug 29 15:30:40 2008 caner candan
-//
-
 #include "Client.h"
 #include "Request.h"
 #include "Response.h"
