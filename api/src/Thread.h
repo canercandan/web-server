@@ -30,7 +30,12 @@ namespace	ziApi
     static void*	_threadProc(void* arg);
 # endif
   private:
-    pthread_t	pthread;
+    IRunnable*	_obj;
+#ifdef WIN32
+    HANDLE	_thread;
+#else
+    pthread_t	_thread;
+#endif
   };
 };
 
