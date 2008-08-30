@@ -19,7 +19,7 @@ namespace	ziApi
     //! Constructor
     XmlParser(const std::string& filename);
     //! Destructor
-    ~XmlParser();
+    virtual ~XmlParser();
 
     //! undef
     virtual void	refresh();

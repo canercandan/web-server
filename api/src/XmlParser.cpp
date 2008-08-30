@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "XmlParser.h"
 
 using namespace ziApi;
@@ -67,4 +68,5 @@ std::string	XmlParser::xmlGetValue(const std::string& path)
       node = xpath->nodesetval->nodeTab[i];
       return ((char*)node->properties->children->content);
     }
+  return ("");
 }
