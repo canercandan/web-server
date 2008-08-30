@@ -206,11 +206,11 @@ bool	URIParser::readPathAbempty()
   std::string	path;
 
   DEBUG_ENTER;
-  this->prepare();
+  this->_consumer->prepare();
   while (this->_readPathAbemptyPart2());
-  this->extract(path);
-  this->consume();
-  this->_request->setPath(path);
+  this->_consumer->extract(path);
+  this->_consumer->consume();
+  this->_request->setUrlPath(path);
   DEBUG_RETURN (true);
 }
 
@@ -232,14 +232,14 @@ bool	URIParser::readPathAbsolute()
   std::string	path;
 
   DEBUG_ENTER;
-  this->prepare();
+  this->_consumer->prepare();
 
   if (CHAR('/') &&
-      this->readPathAbsoluteOpt())
+      this->_readPathAbsoluteOpt())
     {
-      this->extract(path);
-      this->consume();
-      this->_request->setPath(path);
+      this->_consumer->extract(path);
+      this->_consumer->consume();
+      this->_request->setUrlPath(path);
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
@@ -253,15 +253,15 @@ bool	URIParser::readPathAbsoluteQuery()
   DEBUG_RETURN (true);
 }
 
-bool	URIParser::readPathAbsoluteOpt()
+bool	URIParser::_readPathAbsoluteOpt()
 {
   DEBUG_ENTER;
   if (this->readSegmentNz())
-    while(this->readPathAbsolutePart2());
+    while(this->_readPathAbsolutePart2());
   DEBUG_RETURN (true);
 }
 
-bool	URIParser::readPathAbsolutePart2()
+bool	URIParser::_readPathAbsolutePart2()
 {
   DEBUG_ENTER;
   this->_consumer->save();
@@ -279,13 +279,13 @@ bool	URIParser::readPathNoScheme()
   DEBUG_ENTER;
   if (this->readSegmentNzNc())
     {
-      while (this->readPathNoSchemePart2());
+      while (this->_readPathNoSchemePart2());
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
 }
 
-bool	URIParser::readPathNoSchemePart2()
+bool	URIParser::_readPathNoSchemePart2()
 {
   DEBUG_ENTER;
   this->_consumer->save();
@@ -303,20 +303,20 @@ bool	URIParser::readPathRootless()
   std::string	path;
 
   DEBUG_ENTER;
-  this->prepare();
+  this->_consumer->prepare();
 
   if (this->readSegmentNz())
     {
-      while (this->readPathRootlessPart2());
-      this->extract(path);
-      this->consume();
-      this->_request->setPath(path);
+      while (this->_readPathRootlessPart2());
+      this->_consumer->extract(path);
+      this->_consumer->consume();
+      this->_request->setUrlPath(path);
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
 }
 
-bool	URIParser::readPathRootlessPart2()
+bool	URIParser::_readPathRootlessPart2()
 {
   DEBUG_ENTER;
   this->_consumer->save();
@@ -377,11 +377,11 @@ bool	URIParser::readPchar()
 bool	URIParser::readQuery()
 {
   DEBUG_ENTER;
-  this->prepare();
+  this->_consumer->prepare();
   while (this->readPchar() ||
 	 CHAR('/') ||
 	 CHAR('?'));
-  this->_request->getHttpUrl().setQuery(this->extract());
+  this->_request->setUrlQuery(this->_consumer->extract());
   DEBUG_RETURN (true);
 }
 
