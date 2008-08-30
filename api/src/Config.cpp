@@ -11,7 +11,6 @@ Config::Config()
 {
   setValue("port", "80");
   _loadConfig();
-  std::cout << getValue("port") << std::endl;
 }
 
 Config::~Config()
