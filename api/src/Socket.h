@@ -51,7 +51,8 @@ namespace	ziApi
     //! undef
     bool		isValid();
   private:
-    struct sockaddr_in	sin;
+    SOCKET		_sck;
+    struct sockaddr_in	_sin;
   };
 };
 
