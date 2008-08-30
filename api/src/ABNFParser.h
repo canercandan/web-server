@@ -21,16 +21,16 @@ namespace	Debug
 
 // -----------------------REMOVE ME --------------------------
 
-# define CHAR(a)	(this->_consumer.readChar(a))
-# define RANGE(a, b)	(this->_consumer.readRange((a), (b)))
+# define CHAR(a)	(this->_consumer->readChar(a))
+# define RANGE(a, b)	(this->_consumer->readRange((a), (b)))
 # define SHARP(a)	while (LWS && CHAR(',') && LWS && (a))
-# define TEXT_(a)	(this->_consumer.readText(a))
+# define TEXT_(a)	(this->_consumer->readText(a))
 
-# define CHAR_R(a)		(this->_consumer.readChar(a))
-# define INTEGER_R(a)		(this->_consumer.readInteger(a))
-# define IDENTIFIER_R(a)	(this->_consumer.readIdentifier(a))
-# define RANGE_R(a, b, c)	(this->_consumer.readRange((a), (b), (c)))
-# define TEXT_R(a, b)		(this->_consumer.readText((a), (b)))
+# define CHAR_R(a)		(this->_consumer->readChar(a))
+# define INTEGER_R(a)		(this->_consumer->readInteger(a))
+# define IDENTIFIER_R(a)	(this->_consumer->readIdentifier(a))
+# define RANGE_R(a, b, c)	(this->_consumer->readRange((a), (b), (c)))
+# define TEXT_R(a, b)		(this->_consumer->readText((a), (b)))
 
 # define ALPHA		this->readAlpha()
 
@@ -53,8 +53,8 @@ namespace	ziApi
   public:
     //! \param consumer a Consumer pointer
     //! \param request a IRequest pointer
-    ABNFParser(const Consumer& consumer,
-	       const IRequest& request);
+    ABNFParser(Consumer* consumer,
+	       IRequest* request);
 
     //! read a CR character
     bool	readCR();

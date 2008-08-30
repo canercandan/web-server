@@ -40,8 +40,8 @@ namespace	Debug
 };
 // -----------------------REMOVE ME --------------------------
 
-ABNFParser::ABNFParser(const Consumer& consumer,
-		       const IRequest& request)
+ABNFParser::ABNFParser(Consumer* consumer,
+		       IRequest* request)
   : Parser(consumer, request)
 {}
 

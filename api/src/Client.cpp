@@ -5,10 +5,13 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:43:05 2008 florent hochwelker
-// Last update Fri Aug 29 12:54:36 2008 caner candan
+// Last update Fri Aug 29 14:15:27 2008 caner candan
 //
 
-#include <Client.h>
+#include "Client.h"
+#include "Request.h"
+#include "Response.h"
+#include "FluxClient.h"
 
 using namespace ziApi;
 
@@ -16,24 +19,27 @@ Client::Client(ISocket* sck)
   : _sck(sck), _module(0)
 {}
 
-Client::run()
+void	Client::run()
 {
-  Request	req;
-  Response	response(req);
-  FluxClient	flux(this->_sck);
-  Consumer	consumer(flux);
+  IRequest	*req;
+  IResponse	*response;
+  IFlux		*flux;
+  Consumer	*consumer;
   HttpParser	parser(consumer, req);
 
+  flux = new FluxClient(this->_sck);
+  request = new Request;
+  response = new Response(req);
   openModule("/tmp/test.so");
   if (this->_module != NULL)
     {
-      req.accept(IModule::PRE, this->_module);
-      req.accept(IModule::POST, this->module);
-      response.accept(IModule::PRE, this->response);
+      req->accept(IModule::PRE, this->_module);
+      req->accept(IModule::POST, this->module);
+      response->accept(IModule::PRE, this->response);
     }
-  response.sendResponse(this->_sck);
+  response->sendResponse(this->_sck);
   if (this->_module != NULL)
-    response.accept(IModule::POST, this->response);
+    response->accept(IModule::POST, this->response);
 }
   
 bool	Client::openModule(const std::string& moduleName)

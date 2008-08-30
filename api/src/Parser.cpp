@@ -2,7 +2,7 @@
 
 using namespace ziApi;
 
-Parser::Parser(const Consumer& consumer,
-	       const IRequest& request)
+Parser::Parser(Consumer& consumer,
+	       IRequest& request)
   : _consumer(consumer), _request(request)
 {}
