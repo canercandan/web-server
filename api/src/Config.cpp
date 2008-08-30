@@ -7,7 +7,7 @@
 using namespace	ziApi;
 
 Config::Config()
-  : _xmlParser(new XmlParser("server.xml"))
+  : _xmlParser(new XmlParser("../server.xml"))
 {
   setValue("port", "80");
 }
