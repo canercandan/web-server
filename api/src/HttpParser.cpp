@@ -16,41 +16,6 @@ bool	HttpParser::run()
   DEBUG_RETURN (this->readRequest());
 }
 
-bool	HttpParser::readCR()
-{
-  return (CHAR('\r'));
-}
-
-bool	HttpParser::readLF()
-{
-  return (CHAR('\n'));
-}
-
-bool	HttpParser::readCRLF()
-{
-  return (CR && LF);
-}
-
-bool	HttpParser::readAlpha()
-{
-  return (RANGE('A', 'Z') || RANGE('a', 'z'));
-}
-
-bool	HttpParser::readDigit()
-{
-  return (RANGE('0', '9'));
-}
-
-bool	HttpParser::readHexdig()
-{
-  return (DIGIT || RANGE('A', 'F'));
-}
-
-bool	HttpParser::readSP()
-{
-  return (CHAR(' '));
-}
-
 bool	HttpParser::readChar()
 {
   return (RANGE(0, 127));
@@ -104,7 +69,8 @@ bool	HttpParser::_readRequestOptPart2()
   this->_consumer->save();
   if ((this->readGeneralHeader() ||
        this->readRequestHeader() ||
-       this->readEntityHeader()) && CRLF)
+       this->readEntityHeader()) &&
+      this->readCRLF())
     DEBUG_RETURN (true);
   this->_consumer->back();
   DEBUG_RETURN (false);
@@ -436,11 +402,9 @@ bool	HttpParser::_readUserAgentPart2()
   int	i;
 
   DEBUG_ENTER;
-  i = 0;
-  while (this->readProduct() ||
-	 this->readComment())
-    i++;
-
+  for (i = 0;
+       this->readProduct() || this->readComment();
+       i++);
   DEBUG_RETURN (i > 0);
 }
 
@@ -463,11 +427,9 @@ bool	HttpParser::_readProductOpt()
 {
   DEBUG_ENTER;
   this->_consumer->save();
-
   if (CHAR('/') &&
       this->readProductVersion())
     DEBUG_RETURN (true);
-
   this->_consumer->back();
   DEBUG_RETURN (false);
 }

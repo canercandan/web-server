@@ -22,6 +22,15 @@
 # define IDENTIFIER	this->_consumer->readIdentifier()
 # define INTEGER	this->_consumer->readInteger()
 
+# define ALPHA		(RANGE('A', 'Z') || RANGE('a', 'z')
+# define CR		CHAR('\r')
+# define LF		CHAR('\n')
+# define CRLF		(CR && LF)
+# define DIGIT		RANGE('0', '9')
+# define HEXDIG		(DIGIT || RANGE('A', 'F'))
+# define SP		CHAR(' ')
+# define LWS		SP
+
 # define SHARP(a)	while (LWS && CHAR(',') && LWS && (a))
 
 namespace	ziApi
