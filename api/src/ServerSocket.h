@@ -13,13 +13,13 @@ namespace	ziApi
     ServerSocket();
 
     //! undef
-    bool		create();
+    bool	create(const int& port);
     //! undef
-    ISocket*	accept();
+    virtual ISocket*	accept();
     //! undef
-    void		close();
+    virtual void	close();
   private:
-    ISocket*	_sck;
+    Socket	_sck;
   };
 };
 

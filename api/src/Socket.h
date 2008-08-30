@@ -35,7 +35,7 @@ namespace	ziApi
     ~Socket();
 
     //! undef
-    virtual bool	create();
+    bool		create();
     //! undef
     bool		bind();
     //! undef

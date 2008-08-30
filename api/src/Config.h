@@ -1,6 +1,9 @@
 #ifndef __CONFIG_H__
 # define __CONFIG_H__
 
+# include <map>
+# include <list>
+# include <string>
 # include "IConfig.h"
 # include "Singleton.hpp"
 # include "XmlParser.h"
@@ -8,9 +11,10 @@
 namespace	ziApi
 {
   //! Config
-  class	Config : public IConfig,
-		 public Singleton<Config>
+  class	Config : public Singleton<Config>//,
+		 //public IConfig
   {
+    friend class	Singleton<Config>;
   public:
     //! mapConfig
     typedef std::map<std::string, std::string>	mapConfig;
@@ -31,6 +35,7 @@ namespace	ziApi
     void	ziaDumpConfig();
   private:
     Config();
+    virtual ~Config(){}
 
     void	_loadConfig();
   private:

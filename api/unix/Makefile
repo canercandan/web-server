@@ -13,6 +13,7 @@ SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/Parser.cpp			\
 			$(PATH_SRC)/Request.cpp			\
 			$(PATH_SRC)/Response.cpp		\
+			$(PATH_SRC)/ServerSocket.cpp		\
 			$(PATH_SRC)/Socket.cpp			\
 			$(PATH_SRC)/Thread.cpp			\
 			$(PATH_SRC)/URIParser.cpp		\

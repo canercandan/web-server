@@ -9,9 +9,6 @@ namespace	ziApi
   class	Logger : public ILogger
   {
   public:
-    //! Logger
-    Logger();
-
     //! undef
     virtual void	log(const Level level,
 			    const std::string& msg);
