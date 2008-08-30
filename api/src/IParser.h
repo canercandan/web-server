@@ -22,7 +22,7 @@
 # define IDENTIFIER	this->_consumer->readIdentifier()
 # define INTEGER	this->_consumer->readInteger()
 
-# define ALPHA		(RANGE('A', 'Z') || RANGE('a', 'z')
+# define ALPHA		(RANGE('A', 'Z') || RANGE('a', 'z'))
 # define CR		CHAR('\r')
 # define LF		CHAR('\n')
 # define CRLF		(CR && LF)
