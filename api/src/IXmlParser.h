@@ -8,7 +8,7 @@ namespace	ziApi
   class	IXmlParser : public IRoot
   {
   public:
-    virtual ~IXmlParser();
+    virtual ~IXmlParser() {};
 
     virtual void	refresh() = 0;
     virtual std::string	xmlGetValue(const std::string& path) = 0;

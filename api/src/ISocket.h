@@ -9,7 +9,7 @@ namespace	ziApi
   class	ISocket : public IRoot
   {
   public:
-    virtual ~ISocket();
+    virtual ~ISocket() {};
 
     //! undef
     virtual ISocket*	accept() = 0;
