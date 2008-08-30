@@ -25,7 +25,8 @@ void	Config::setValue(const std::string& key,
 
 void	Config::setXmlValue(const std::string& key,
 			    const std::string& path)
-  this->setValue(key, this->_xmlParser->xmlGetValue(value));
+{
+  this->setValue(key, this->_xmlParser->xmlGetValue(path));
 }
 
 const std::string&	Config::getValue(const std::string& key)
@@ -53,9 +54,10 @@ void	Config::_loadConfig()
   this->setXmlValue("timeout", "/server/config/timeout[@value]");
 }
 
-void	Config::getListModule()
+const Config::listModule&	Config::getListModule()
 {
   this->_xmlParser->refresh();
+  return (this->_listModule);
 }
 
 void	Config::ziaDumpConfig()

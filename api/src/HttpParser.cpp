@@ -2,8 +2,8 @@
 
 using namespace ziApi;
 
-HttpParser::HttpParser(const Consumer& consumer,
-		       const IRequest& request)
+HttpParser::HttpParser(Consumer* consumer,
+		       IRequest* request)
   : Parser(consumer, request)
 {}
 

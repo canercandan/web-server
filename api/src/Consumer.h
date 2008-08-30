@@ -13,7 +13,7 @@ namespace	ziApi
   public:
     //! undef
     //! \param flux a IFlux pointer
-    Consumer(IFlux& flux);
+    Consumer(IFlux* flux);
 
     //! get buffer
     //! \return std::string
@@ -66,7 +66,7 @@ namespace	ziApi
   private:
     void	_appendBuf(size_t size);
   private:
-    IFlux*	_prod;
+    IFlux*	_flux;
     std::string	_buf;
     size_t	_ext_pos;
     size_t	_cur_pos;

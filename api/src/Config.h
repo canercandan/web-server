@@ -12,7 +12,7 @@ namespace	ziApi
 {
   //! Config
   class	Config : public Singleton<Config>//,
-		 //public IConfig
+  //public IConfig
   {
     friend class	Singleton<Config>;
   public:
@@ -35,7 +35,7 @@ namespace	ziApi
     void	ziaDumpConfig();
   private:
     Config();
-    virtual ~Config(){}
+    virtual ~Config();
 
     void	_loadConfig();
   private:

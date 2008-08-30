@@ -2,7 +2,7 @@
 
 using namespace ziApi;
 
-IModule::Response(const IRequest& request)
+IModule::Response(IRequest* request)
   : _request(request)
 {}
 

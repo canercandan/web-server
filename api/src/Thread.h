@@ -27,7 +27,7 @@ namespace	ziApi
 # ifdef WIN32
     static DWORD WINAPI	_threadProc(LPVOID arg);
 # else
-    static void*		_threadProc(void* arg);
+    static void*	_threadProc(void* arg);
 # endif
   private:
     pthread_t	pthread;
