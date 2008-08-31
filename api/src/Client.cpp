@@ -49,10 +49,10 @@ void	Client::run()
 void	Client::_listModule(const IModule::Event& event,
 			    ITransition* transition)
 {
-  const Config::listModule&		list
+  std::list<std::string>		list
     = Config::getInstance()->getListModule();
-  Config::listModule::const_iterator	it;
-  Config::listModule::const_iterator	end;
+  std::list<std::string>::const_iterator	it;
+  std::list<std::string>::const_iterator	end;
   IModule*				module;
 
   for (it = list.begin(), end = list.end(); it != end; ++it)

@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Thu Jul 31 22:32:19 2008 majdi toumi
-// Last update Wed Aug 13 20:03:09 2008 caner candan
+// Last update Fri Aug 29 13:38:27 2008 majdi toumi
 //
 
 #include <libxml/parser.h>
@@ -97,6 +97,7 @@ std::string		ParserXml::xmlGetValue(const char* attribut)
 // {
 //   xmlNodePtr	n;
 //   xmlChar*	content = NULL;
+
 
 //   for (n = node; n != NULL; n = n->next)
 //     {

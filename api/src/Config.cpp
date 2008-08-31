@@ -1,3 +1,6 @@
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
 #include <ctime>
 #include <iostream>
 #include <sstream>
@@ -50,15 +53,49 @@ void	Config::_loadConfig()
   this->setXmlValue("module_directory", "/server/config/module_directory[@value]");
   this->setXmlValue("timeout", "/server/config/timeout[@value]");
   this->setValue("timestart", ss.str());
+  this->getListModule();
+  this->getListModule();
 }
 
-const Config::listModule&	Config::getListModule()
+const std::list<std::string>&	Config::getListModule()
 {
-  this->_xmlParser->refresh();
-  this->_listModule.clear();
-  this->_listModule.push_back("../modules/mod_autoindex.so");
-  this->_listModule.push_back("../modules/mod_perl.so");
+  struct stat	st;
+  char		*time;
+
+  if (lstat(this->_mapConfig["module_directory"].c_str(), &st) == -1)
+    std::cerr << "Can't access module directory stat" << std::endl;
+  else
+    {
+      time = ctime(&st.st_ctime);
+      if ((this->_last_update == "") || strcmp(time, this->_last_update.c_str()))
+	{
+	  this->refresh();
+	  this->_last_update = time;
+	}
+    }
   return (this->_listModule);
+}
+
+void	Config::refresh()
+{
+  DIR		*dir;
+  struct dirent	*sd;
+  int		found;
+
+  this->_listModule.clear();
+  dir = opendir(this->_mapConfig["module_directory"].c_str());
+  if (dir == NULL)
+    std::cerr << "Can't find module directory" << std::endl;
+  else
+    {
+      while ((sd = readdir(dir)) != NULL)
+	{
+	  std::string file(sd->d_name);
+	  found = file.find_last_of(".");
+	  if ((file != ".") && (file != "..") && (file.substr(found + 1) == "so"))
+	    this->_listModule.push_back(this->_mapConfig["module_directory"] + file);
+	}
+    }
 }
 
 void	Config::ziaDumpConfig()
@@ -68,4 +105,12 @@ void	Config::ziaDumpConfig()
 
   for (it = this->_mapConfig.begin(); it != end; ++it)
     std::cout << it->first << std::endl;
+
+  std::list<std::string>::const_iterator	itb;
+  std::list<std::string>::const_iterator	ite = this->_listModule.end();
+
+  std::cout << "liste module" << std::endl;
+  for (itb = this->_listModule.begin(); itb != ite; itb++)
+    std::cout << *itb << std::endl;
+  std::cout << std::endl;
 }

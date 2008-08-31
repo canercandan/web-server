@@ -7,18 +7,6 @@ using namespace ziApi;
 XmlParser::XmlParser(const std::string& filename)
   : _filename(filename)
 {
-  refresh();
-}
-
-XmlParser::~XmlParser()
-{
-  ::xmlFreeDoc(this->_doc);
-  ::xmlXPathFreeContext(this->_ctxt);
-}
-
-void	XmlParser::refresh()
-{
-  // todo: loadXml uniquement si date de fichier change
   ::xmlInitParser();
   this->_doc = ::xmlParseFile(this->_filename.c_str());
   if (!this->_doc)
@@ -43,6 +31,12 @@ void	XmlParser::refresh()
     }
 }
 
+XmlParser::~XmlParser()
+{
+  ::xmlFreeDoc(this->_doc);
+  ::xmlXPathFreeContext(this->_ctxt);
+}
+
 std::string	XmlParser::xmlGetValue(const std::string& path)
 {
   xmlXPathObjectPtr	xpath;
@@ -53,7 +47,6 @@ std::string	XmlParser::xmlGetValue(const std::string& path)
 					 this->_ctxt)))
     {
       std::cerr << "error - can't evaluate xpath expression"
-
 		<< std::endl;
       exit(-1);
     }

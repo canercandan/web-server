@@ -12,8 +12,6 @@ namespace	ziApi
     virtual ~IXmlParser() {};
 
     //! undef
-    virtual void	refresh() = 0;
-    //! undef
     virtual std::string	xmlGetValue(const std::string& path) = 0;
   };
 };

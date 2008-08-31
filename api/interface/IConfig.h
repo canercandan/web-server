@@ -20,6 +20,9 @@ namespace	ziApi
 				    const std::string& path) = 0;
     //! undef
     virtual const std::string&	getValue(const std::string& key) = 0;
+
+    //! undef
+    virtual void	refresh() = 0;
   };
 };
 

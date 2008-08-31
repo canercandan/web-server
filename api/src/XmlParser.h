@@ -22,9 +22,8 @@ namespace	ziApi
     virtual ~XmlParser();
 
     //! undef
-    virtual void	refresh();
-    //! undef
     virtual std::string	xmlGetValue(const std::string& path);
+
   private:
     std::string		_filename;
     xmlDocPtr		_doc;
