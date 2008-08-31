@@ -18,6 +18,20 @@ void	Client::run()
   IFlux*	flux = new FluxClient(this->_sck);
   Consumer*	consumer = new Consumer(flux);
   HttpParser	parser(consumer, request);
+  IModule*	module;
+
+  const Config::listModule&	list
+    = Config::getInstance()->getListModule();
+  Config::listModule::const_iterator	it;
+  Config::listModule::const_iterator	end;
+
+  for (it = list.begin(), end = list.end(); it != end; ++it)
+    {
+      if (!(module = this->_openModule(*list)))
+	{
+	  
+	}
+    }
 
   this->_openModule("/tmp/test.so");
   if (this->_module != NULL)
@@ -31,16 +45,19 @@ void	Client::run()
     response->accept(IModule::POST, this->_module);
 }
   
-bool	Client::_openModule(const std::string& moduleName)
+IModule*	Client::_openModule(const std::string& name)
 {
+  fct		call;
+
   if (!(this->_handler = dlopen(moduleName.c_str(), RTLD_NOW)))
-    this->_logger.error("Module Error: " + std::string(dlerror()));
-  else if (!(this->_call = (fct)dlsym(this->_handler, "call")))
-    this->_logger.error("Module Error: " + std::string(dlerror()));
-  else
     {
-      this->_module = this->_call();
-      return true;
+      this->_logger.error("Module Error: " + std::string(dlerror()));
+      return (false);
     }
-  return false;
+  if (!(call = (fct)dlsym(this->_handler, "call")))
+    {
+      this->_logger.error("Module Error: " + std::string(dlerror()));
+      return (false);
+    }
+  return (call());
 }

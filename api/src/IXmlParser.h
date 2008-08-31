@@ -5,12 +5,15 @@
 
 namespace	ziApi
 {
+  //! IXmlParser
   class	IXmlParser : public IRoot
   {
   public:
     virtual ~IXmlParser() {};
 
+    //! undef
     virtual void	refresh() = 0;
+    //! undef
     virtual std::string	xmlGetValue(const std::string& path) = 0;
   };
 };

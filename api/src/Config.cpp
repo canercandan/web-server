@@ -55,6 +55,9 @@ void	Config::_loadConfig()
 const Config::listModule&	Config::getListModule()
 {
   this->_xmlParser->refresh();
+  this->_listModule.clear();
+  this->_listModule.push_back("../modules/mod_autoindex.so");
+  this->_listModule.push_back("../modules/mod_perl.so");
   return (this->_listModule);
 }
 
