@@ -16,9 +16,5 @@
       <html value="text/html" />
     </content_type>
     <module_directory value="../modules/" />
-    <list_module>
-      <module name="42.so" enabled="true" />
-      <module name="test.so" enabled="false" />
-    </list_module>
   </config>
 </server>

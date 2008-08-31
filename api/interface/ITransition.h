@@ -6,11 +6,13 @@
 
 namespace	ziApi
 {
+  //! ITransition
   class	ITransition : public IRoot
   {
   public:
     virtual ~ITransition(){}
 
+    //! undef
     virtual IModule::State	accept(const IModule::Event&,
 				       IModule*) = 0;
   };
