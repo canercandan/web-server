@@ -1,6 +1,7 @@
 NAME		=	zia
 
 PATH_SRC	=	../src
+PATH_INTERFACE	=	../interface
 
 SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/Client.cpp			\
@@ -22,7 +23,7 @@ OBJS		=	$(SRCS:.cpp=.o)
 INCLUDES_XML	=	`xml2-config --cflags`
 LIBRARY_XML	=	`xml2-config --libs`
 
-INCLUDES	+=	-I$(PATH_SRC) $(INCLUDES_XML)
+INCLUDES	+=	-I$(PATH_SRC) -I$(PATH_INTERFACE) $(INCLUDES_XML)
 LIBRARIES	+=	-lpthread $(LIBRARY_XML)
 
 CXX		=	g++

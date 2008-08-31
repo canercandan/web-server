@@ -1,6 +1,10 @@
 NAME		=	../mod_perl.so
 
-SRCS		=	Perl.cpp
+PATH_SRCS	=	.
+PATH_INTERFACE	=	../../interface
+
+SRCS		=	$(PATH_SRCS)/Perl.cpp
+
 OBJS		=	$(SRCS:.cpp=.o)
 
 CXX		=	g++
@@ -8,9 +12,11 @@ RM		=	rm -f
 
 WARNING		+=	-W -Wall -Werror
 
-INCLUDES	+=	-I. -I../../src
+INCLUDES	+=	-I$(PATH_SRCS) -I$(PATH_INTERFACE)
 
 CFLAGS		+=	$(WARNING) $(INCLUDES)
+
+.SUFFIXES	:	.cpp.o
 
 $(NAME)		:	$(OBJS)
 			$(CXX) -o $@ -shared $(OBJS)
@@ -26,3 +32,6 @@ fclean		:	clean
 re		:	fclean all
 
 .PHONY		:	all clean fclean re
+
+.cpp.o		:
+			$(CXX) $(CFLAGS) -c $< -o $@
