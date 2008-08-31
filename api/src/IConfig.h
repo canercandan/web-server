@@ -1,5 +1,5 @@
-#ifndef __CONFIG_H__
-# define __CONFIG_H__
+#ifndef __ICONFIG_H__
+# define __ICONFIG_H__
 
 # include <string>
 # include "IRoot.h"
@@ -23,4 +23,4 @@ namespace	ziApi
   };
 };
 
-#endif // !__CONFIG_H__
+#endif // !__ICONFIG_H__
