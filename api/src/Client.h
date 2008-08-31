@@ -13,7 +13,7 @@
 
 # include <dlfcn.h>
 
-# ifdef HAVE_WINDOWS_H
+# ifdef WIN32
 #  include <windows.h>
 
 #  define dlclose(ptr)		FreeLibrary((HINSTANCE)ptr)

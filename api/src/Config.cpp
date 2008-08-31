@@ -1,6 +1,9 @@
+#ifndef WIN32
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
+# else
+#endif
 #include <ctime>
 #include <iostream>
 #include <sstream>
@@ -54,11 +57,11 @@ void	Config::_loadConfig()
   this->setXmlValue("timeout", "/server/config/timeout[@value]");
   this->setValue("timestart", ss.str());
   this->getListModule();
-  this->getListModule();
 }
 
 const std::list<std::string>&	Config::getListModule()
 {
+#ifndef WIN32
   struct stat	st;
   char		*time;
 
@@ -73,11 +76,14 @@ const std::list<std::string>&	Config::getListModule()
 	  this->_last_update = time;
 	}
     }
+# else
+#endif
   return (this->_listModule);
 }
 
 void	Config::refresh()
 {
+#ifndef WIN32
   DIR		*dir;
   struct dirent	*sd;
   int		found;
@@ -96,6 +102,8 @@ void	Config::refresh()
 	    this->_listModule.push_back(this->_mapConfig["module_directory"] + file);
 	}
     }
+# else
+#endif
 }
 
 void	Config::ziaDumpConfig()

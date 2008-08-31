@@ -20,7 +20,6 @@ int			main(void)
   int			port;
   std::stringstream	ss(conf->getValue("port"));
 
-  conf->ziaDumpConfig();
   ss >> port;
   logger.info("starting zia server");
   if (!server.create(port))
