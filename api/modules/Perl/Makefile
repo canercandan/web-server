@@ -1,4 +1,4 @@
-NAME		=	mod_perl.so
+NAME		=	../mod_perl.so
 
 SRCS		=	Perl.cpp
 OBJS		=	$(SRCS:.cpp=.o)
@@ -8,10 +8,7 @@ RM		=	rm -f
 
 WARNING		+=	-W -Wall -Werror
 
-INCLUDES_XML	=	`xml2-config --cflags`
-LIBRARY_XML	=	`xml2-config --libs`
-
-INCLUDES	+=	-I. -I../../src $(INCLUDES_XML)
+INCLUDES	+=	-I. -I../../src
 
 CFLAGS		+=	$(WARNING) $(INCLUDES)
 

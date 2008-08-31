@@ -6,7 +6,7 @@
 #endif
 
 #include "Perl.h"
-#include "Config.h"
+#include "IConfig.h"
 #include "IRequest.h"
 #include "IResponse.h"
 
@@ -29,7 +29,7 @@ Perl::State	Perl::affect(const Event& event,
 {
   IRequest*	request = response->getRequest();
   const std::string&	path = request->getUrlPath();
-  std::string		app;
+  //std::string		app;
   std::string		ext;
 
   if (event != PRE || path.empty())
@@ -40,7 +40,7 @@ Perl::State	Perl::affect(const Event& event,
   if (ext.compare("pl"))
     return (CONTINUE);
 
-  app = Config::getInstance()->getValue("document_root") + path;
+  //app = Config::getInstance()->getValue("document_root") + path;
 
 #ifdef WIN32
   std::cout << "Not yet implemented."<< std::endl;
@@ -53,7 +53,8 @@ Perl::State	Perl::affect(const Event& event,
     }
 
   if (pid == 0)
-    execl("/usr/bin/perl", "perl", app.c_str(), (char *)0);
+    {}
+    //execl("/usr/bin/perl", "perl", app.c_str(), (char *)0);
   else
     wait(NULL);
 #endif
