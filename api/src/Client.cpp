@@ -27,12 +27,14 @@ void	Client::run()
   std::auto_ptr<IFlux>		flux(new FluxClient(this->_sck));
   std::auto_ptr<Consumer>	consumer(new Consumer(flux.get()));
   std::auto_ptr<URIParser>	uri(new URIParser(consumer.get(), request.get()));
-  std::auto_ptr<HttpParser>	http(new HttpParser(consumer.get(), request.get(), uri.get()));
+  std::auto_ptr<HttpParser>	http(new HttpParser(consumer.get(),
+						    request.get(), uri.get()));
 
   this->_listModule(IModule::PRE, request.get());
   http->run();
   this->_listModule(IModule::POST, request.get());
   this->_listModule(IModule::PRE, response.get());
+  response->buildResponse();
   this->_listModule(IModule::POST, response.get());
   response->sendResponse(this->_sck);
   //   if (this->_module != NULL)
@@ -46,18 +48,23 @@ void	Client::run()
   //     response->accept(IModule::POST, this->_module);
 }
 
-void	Client::_listModule(const IModule::Event& event,
-			    ITransition* transition)
+IModule::State	Client::_listModule(const IModule::Event& event,
+				    ITransition* transition)
 {
-  std::list<std::string>		list
+  const Config::listModule&	list
     = Config::getInstance()->getListModule();
-  std::list<std::string>::const_iterator	it;
-  std::list<std::string>::const_iterator	end;
+  Config::listModule::const_iterator	it;
+  Config::listModule::const_iterator	end;
   IModule*				module;
 
-  for (it = list.begin(), end = list.end(); it != end; ++it)
+  for (it = list.begin(), end = list.end();
+       it != end; ++it)
     if ((module = this->_openModule(*it)))
-      transition->accept(event, module);
+      {
+	if (transition->accept(event, module) == IModule::BREAK)
+	  return (IModule::BREAK);
+      }
+  return (IModule::CONTINUE);
 }
 
 IModule*	Client::_openModule(const std::string& name)

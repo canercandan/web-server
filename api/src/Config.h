@@ -12,8 +12,6 @@
 
 namespace	ziApi
 {
-  typedef std::map<std::string, std::string>	mapConfig;
-
   //! Config
   class	Config : public IConfig,
 		 public Singleton<Config>
@@ -21,24 +19,25 @@ namespace	ziApi
     friend class	Singleton<Config>;
   public:
     //! mapConfig
-
+    typedef std::map<std::string, std::string>	mapConfig;
+    typedef std::list<std::string>		listModule;
     //! undef
     void	setValue(const std::string& key,
-				 const std::string& value);
+			 const std::string& value);
     //! undef
     void	setXmlValue(const std::string& key,
-				    const std::string& path);
+			    const std::string& path);
     //! undef
     const std::string&	getValue(const std::string& key);
     //! undef
-    const std::list<std::string>&	getListModule();
+    const listModule&	getListModule();
     //! undef
     virtual void	refresh();
     //! undef
     void	ziaDumpConfig();
   private:
     Config();
-    virtual ~Config();
+    ~Config();
 
     void	_loadConfig();
   private:

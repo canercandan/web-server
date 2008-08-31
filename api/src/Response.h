@@ -16,10 +16,10 @@ namespace	ziApi
     //! undef
     IModule::State	accept(const IModule::Event&,
 			       IModule* module);
-
     //! undef
     IRequest*		getRequest() const;
-
+    //! undef
+    void		buildResponse();
     //! undef
     void		sendResponse(ISocket* sck);
 

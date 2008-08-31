@@ -21,6 +21,8 @@ namespace	ziApi
     //! undef
     virtual IRequest*		getRequest() const = 0;
     //! undef
+    virtual void		buildResponse() = 0;
+    //! undef
     virtual void		sendResponse(ISocket* sck) = 0;
   };
 };

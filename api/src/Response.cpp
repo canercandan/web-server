@@ -17,6 +17,10 @@ IRequest*	Response::getRequest() const
   return (this->_request);
 }
 
+void		Response::buildResponse()
+{
+}
+
 void		Response::sendResponse(ISocket*)
 {
 }

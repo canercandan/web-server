@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:48:06 2008 florent hochwelker
-// Last update Sun Aug 31 16:42:39 2008 caner candan
+// Last update Sun Aug 31 21:43:28 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -46,8 +46,8 @@ namespace	ziApi
     //! run method
     void	run();
   private:
-    void	_listModule(const IModule::Event&,
-			    ITransition*);
+    IModule::State	_listModule(const IModule::Event&,
+				    ITransition*);
     IModule*	_openModule(const std::string& name);
   private:
     Socket*	_sck;

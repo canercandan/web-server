@@ -18,7 +18,8 @@ namespace	ziApi
   class	IModule : public IRoot
   {
   public:
-    enum	State	{CONTINUE, BREAK, STOP, S_ERROR};
+    enum	State	{CONTINUE, NOPROCESS,
+			 BREAK, STOP, S_ERROR};
     enum	Event	{PRE, POST, END, E_ERROR};
 
     virtual ~IModule(){}
