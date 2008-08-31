@@ -12,9 +12,10 @@
 
 using namespace ziApi;
 
-Perl::Perl()
+Perl::Perl(IConfig* conf)
   : _version(0.1),
-    _name("Perl")
+    _name("Perl"),
+    _conf(conf)
 {
 }
 
@@ -41,6 +42,7 @@ Perl::State	Perl::affect(const Event& event,
     return (CONTINUE);
 
   //app = Config::getInstance()->getValue("document_root") + path;
+  app = this->_conf()->getValue("document_root") + path;
 
 #ifdef WIN32
   std::cout << "Not yet implemented."<< std::endl;

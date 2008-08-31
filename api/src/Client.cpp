@@ -30,15 +30,20 @@ void	Client::run()
   std::auto_ptr<HttpParser>	http(new HttpParser(consumer.get(), request.get(), uri.get()));
 
   this->_listModule(IModule::PRE, request.get());
-//   if (this->_module != NULL)
-//     {
-//       request->accept(IModule::PRE, this->_module);
-//       request->accept(IModule::POST, this->_module);
-//       response->accept(IModule::PRE, this->_module);
-//     }
-//   response->sendResponse(this->_sck);
-//   if (this->_module != NULL)
-//     response->accept(IModule::POST, this->_module);
+  http->run();
+  this->_listModule(IModule::POST, request.get());
+  this->_listModule(IModule::PRE, response.get());
+  this->_listModule(IModule::POST, response.get());
+  response->sendResponse(this->_sck);
+  //   if (this->_module != NULL)
+  //     {
+  //       request->accept(IModule::PRE, this->_module);
+  //       request->accept(IModule::POST, this->_module);
+  //       response->accept(IModule::PRE, this->_module);
+  //     }
+  //   response->sendResponse(this->_sck);
+  //   if (this->_module != NULL)
+  //     response->accept(IModule::POST, this->_module);
 }
 
 void	Client::_listModule(const IModule::Event& event,
@@ -54,7 +59,7 @@ void	Client::_listModule(const IModule::Event& event,
     if (!(module = this->_openModule(*it)))
       transition->accept(event, module);
 }
-  
+
 IModule*	Client::_openModule(const std::string& name)
 {
   fct		call;

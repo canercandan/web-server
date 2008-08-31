@@ -9,13 +9,14 @@ namespace	ziApi
   class Perl : public IModule
   {
   public:
-    Perl();
+    Perl(IConfig* conf);
 
     virtual State	affect(const Event& event, IRequest* request);
     virtual State	affect(const Event& event, IResponse* response);
   private:
     const double&	_version;
     const std::string&	_name;
+    Iconfig*		_conf;
   };
 }
 
