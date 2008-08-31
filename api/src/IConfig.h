@@ -19,7 +19,7 @@ namespace	ziApi
     virtual void	setXmlValue(const std::string& key,
 				    const std::string& path) = 0;
     //! undef
-    virtual const std::string&	getValue(const std::string& key);
+    virtual const std::string&	getValue(const std::string& key) = 0;
   };
 };
 

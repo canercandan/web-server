@@ -17,11 +17,10 @@ int			main(void)
   Socket*		socket;
   Client*		client;
   Thread*		thread;
-  unsigned int		port;
-  std::istringstream	iss;
+  int			port;
+  std::stringstream	ss(conf->getValue("port"));
 
-  iss.str(Config::getInstance()->getValue("port"));
-  iss >> port;
+  ss >> port;
   logger.info("starting zia server");
   if (!server.create(port))
     {

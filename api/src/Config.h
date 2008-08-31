@@ -13,8 +13,8 @@
 namespace	ziApi
 {
   //! Config
-  class	Config : //public IConfig,
-    public Singleton<Config>
+  class	Config : public IConfig,
+		 public Singleton<Config>
   {
     friend class	Singleton<Config>;
   public:
@@ -23,14 +23,13 @@ namespace	ziApi
     typedef std::list<std::string>		listModule;
 
     //! undef
-    virtual void	setValue(const std::string& key,
+    void	setValue(const std::string& key,
 				 const std::string& value);
     //! undef
-    virtual void	setXmlValue(const std::string& key,
+    void	setXmlValue(const std::string& key,
 				    const std::string& path);
     //! undef
-    virtual const std::string&	getValue(const std::string& key);
-
+    const std::string&	getValue(const std::string& key);
     //! undef
     const listModule&	getListModule();
     //! undef
