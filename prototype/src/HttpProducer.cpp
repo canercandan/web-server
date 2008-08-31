@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Wed Jul 30 16:13:12 2008 morgan armand
-// Last update Wed Aug 13 20:38:05 2008 caner candan
+// Last update Sun Aug 31 15:54:04 2008 caner candan
 //
 
 #ifdef WIN32
@@ -25,7 +25,10 @@ HttpProducer::HttpProducer(Socket* sck)
 HttpProducer::~HttpProducer()
 {
   if (_sck)
-    _sck->close();
+    {
+      _sck->close();
+      
+    }
 }
 
 std::string		HttpProducer::nextString(void)

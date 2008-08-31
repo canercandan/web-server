@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:48:06 2008 florent hochwelker
-// Last update Sun Aug 31 15:35:10 2008 caner candan
+// Last update Sun Aug 31 16:39:10 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -31,6 +31,7 @@
 # include "Socket.h"
 # include "Logger.h"
 # include "IConfig.h"
+# include "ITransition.h"
 
 namespace	ziApi
 {
@@ -42,10 +43,13 @@ namespace	ziApi
 
     //! \param sck a ISocket pointer
     Client(Socket* sck);
+    ~Client();
     //! run method
     void	run();
   private:
     IModule*	_openModule(const std::string& name);
+    void	_listModule(const IModule::Event&,
+			    ITransition*);
   private:
     Socket*	_sck;
     Logger	_logger;

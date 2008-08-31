@@ -1,8 +1,7 @@
 #ifndef __IRESPONSE_H__
 # define __IRESPONSE_H__
 
-# include "IRoot.h"
-# include "IModule.h"
+# include "ITransition.h"
 # include "ISocket.h"
 
 namespace	ziApi
@@ -10,7 +9,7 @@ namespace	ziApi
   class	IModule;
 
   //! IResponse
-  class	IResponse : public IRoot
+  class	IResponse : public ITransition
   {
   public:
     virtual ~IResponse(){}

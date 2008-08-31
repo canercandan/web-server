@@ -2,15 +2,14 @@
 # define __IREQUEST_H__
 
 # include <string>
-# include "IRoot.h"
-# include "IModule.h"
+# include "ITransition.h"
 
 namespace	ziApi
 {
   class	IModule;
 
   //! IRequest
-  class	IRequest : public IRoot
+  class	IRequest : public ITransition
   {
   public:
     virtual ~IRequest(){}
