@@ -1,4 +1,4 @@
-NAME		=	mod_autoindex.so
+NAME		=	../mod_autoindex.so
 
 SRCS		=	AutoIndex.cpp
 OBJS		=	$(SRCS:.cpp=.o)

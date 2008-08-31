@@ -11,10 +11,8 @@ namespace	ziApi
   public:
     AutoIndex();
 
-    virtual State	affect(const Event&,
-			       const IRequest&);
-    virtual State	affect(const Event&,
-			       const IResponse&);
+    virtual State	affect(const Event&, IRequest*);
+    virtual State	affect(const Event&, IResponse*);
   private:
     const double&	_version;
     const std::string&	_name;
