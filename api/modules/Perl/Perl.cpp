@@ -5,6 +5,7 @@
 # include <unistd.h>
 #endif
 
+#include <iostream>
 #include "Perl.h"
 #include "IConfig.h"
 #include "IRequest.h"
@@ -30,19 +31,24 @@ Perl::State	Perl::affect(const Event& event,
 {
   IRequest*	request = response->getRequest();
   const std::string&	path = request->getUrlPath();
-  //std::string		app;
+  std::string		app;
   std::string		ext;
+  size_t		pos;
 
   if (event != PRE || path.empty())
     return (CONTINUE);
 
-  ext = path.substr(path.find_last_of('.'));
-
-  if (ext.compare("pl"))
+  if ((pos = path.find_last_of('.')) == std::string::npos)
     return (CONTINUE);
 
-  //app = Config::getInstance()->getValue("document_root") + path;
-  app = this->_conf()->getValue("document_root") + path;
+  ext = path.substr(pos);
+
+  if (ext.compare(".pl"))
+    return (CONTINUE);
+
+  app = this->_conf->getValue("document_root") + path;
+
+  std::cout << "[mod_perl] executing " << app << std::endl;
 
 #ifdef WIN32
   std::cout << "Not yet implemented."<< std::endl;
@@ -55,8 +61,7 @@ Perl::State	Perl::affect(const Event& event,
     }
 
   if (pid == 0)
-    {}
-    //execl("/usr/bin/perl", "perl", app.c_str(), (char *)0);
+    execl("/usr/bin/perl", "perl", app.c_str(), (char *)0);
   else
     wait(NULL);
 #endif
@@ -66,9 +71,9 @@ Perl::State	Perl::affect(const Event& event,
 
 extern	"C"
 {
-  EXPORT IModule*	call()
+  EXPORT IModule*	call(IConfig* conf)
   {
-    return (new Perl());
+    return (new Perl(conf));
   }
 
   EXPORT void		kill(Perl* module)

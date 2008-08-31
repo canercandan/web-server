@@ -2,6 +2,7 @@
 # define __PERL_H__
 
 #include <string>
+#include "IConfig.h"
 #include "IModule.h"
 
 namespace	ziApi
@@ -16,7 +17,7 @@ namespace	ziApi
   private:
     const double&	_version;
     const std::string&	_name;
-    Iconfig*		_conf;
+    IConfig*		_conf;
   };
 }
 
