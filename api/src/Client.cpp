@@ -33,19 +33,11 @@ void	Client::run()
   this->_listModule(IModule::PRE, request.get());
   http->run();
   this->_listModule(IModule::POST, request.get());
-  this->_listModule(IModule::PRE, response.get());
-  response->buildResponse();
+  if (this->_listModule(IModule::PRE, response.get())
+      == IModule::CONTINUE)
+    response->buildResponse();
   this->_listModule(IModule::POST, response.get());
   response->sendResponse(this->_sck);
-  //   if (this->_module != NULL)
-  //     {
-  //       request->accept(IModule::PRE, this->_module);
-  //       request->accept(IModule::POST, this->_module);
-  //       response->accept(IModule::PRE, this->_module);
-  //     }
-  //   response->sendResponse(this->_sck);
-  //   if (this->_module != NULL)
-  //     response->accept(IModule::POST, this->_module);
 }
 
 IModule::State	Client::_listModule(const IModule::Event& event,
@@ -56,14 +48,14 @@ IModule::State	Client::_listModule(const IModule::Event& event,
   Config::listModule::const_iterator	it;
   Config::listModule::const_iterator	end;
   IModule*				module;
+  IModule::State			state;
 
   for (it = list.begin(), end = list.end();
        it != end; ++it)
     if ((module = this->_openModule(*it)))
-      {
-	if (transition->accept(event, module) == IModule::BREAK)
-	  return (IModule::BREAK);
-      }
+      if ((state = transition->accept(event, module))
+	  != IModule::CONTINUE)
+	return (state);
   return (IModule::CONTINUE);
 }
 
