@@ -108,16 +108,16 @@ void	Config::refresh()
 
 void	Config::ziaDumpConfig()
 {
-  mapConfig::const_iterator	it;
-  mapConfig::const_iterator	end = this->_mapConfig.end();
+//   mapConfig::const_iterator	it;
+//   mapConfig::const_iterator	end = this->_mapConfig.end();
 
-  for (it = this->_mapConfig.begin(); it != end; ++it)
-    std::cout << it->first << std::endl;
+//   for (it = this->_mapConfig.begin(); it != end; ++it)
+//     std::cout << it->first << std::endl;
 
   std::list<std::string>::const_iterator	itb;
   std::list<std::string>::const_iterator	ite = this->_listModule.end();
 
-  std::cout << "liste module" << std::endl;
+  std::cout << "liste module: " << std::endl;
   for (itb = this->_listModule.begin(); itb != ite; itb++)
     std::cout << *itb << std::endl;
   std::cout << std::endl;
