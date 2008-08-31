@@ -56,7 +56,7 @@ void	Client::_listModule(const IModule::Event& event,
   IModule*				module;
 
   for (it = list.begin(), end = list.end(); it != end; ++it)
-    if ((module = this->_openModule(*it)) != NULL)
+    if ((module = this->_openModule(*it)))
       transition->accept(event, module);
 }
 
