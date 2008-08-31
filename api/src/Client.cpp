@@ -55,5 +55,5 @@ IModule*	Client::_openModule(const std::string& name)
       this->_logger.error("Module Error: " + std::string(dlerror()));
       return (false);
     }
-  return (call());
+  return (call(Config::getInstance()));
 }

@@ -5,7 +5,7 @@
 // Login   <hochwe_f@epitech.net>
 // 
 // Started on  Wed Aug 27 16:48:06 2008 florent hochwelker
-// Last update Sun Aug 31 14:11:06 2008 caner candan
+// Last update Sun Aug 31 15:35:10 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -30,6 +30,7 @@
 # include "IModule.h"
 # include "Socket.h"
 # include "Logger.h"
+# include "IConfig.h"
 
 namespace	ziApi
 {
@@ -37,7 +38,7 @@ namespace	ziApi
   class Client : public IRunnable
   {
   public:
-    typedef IModule*	(*fct)();
+    typedef IModule*	(*fct)(IConfig*);
 
     //! \param sck a ISocket pointer
     Client(Socket* sck);
