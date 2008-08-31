@@ -21,7 +21,6 @@ void			Request::setMethod(const std::string& method)
   this->_method = method;
 }
 
-
 const std::string&	Request::getProtocol() const
 {
   return (this->_protocol);
