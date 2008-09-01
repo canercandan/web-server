@@ -34,7 +34,7 @@ void	Client::run()
   http->run();
   this->_listModule(IModule::POST, request.get());
   if (this->_listModule(IModule::PRE, response.get())
-      == IModule::CONTINUE)
+      != IModule::NOPROCESS)
     response->buildResponse();
   this->_listModule(IModule::POST, response.get());
   response->sendResponse(this->_sck);

@@ -55,18 +55,18 @@ Perl::State	Perl::affect(const Event& event,
 #else
   pid_t		pid;
 
-  if ((pid = fork()) < 0)
+  if ((pid = ::fork()) < 0)
     {
       // what should be done ?
     }
 
   if (pid == 0)
-    execl("/usr/bin/perl", "perl", app.c_str(), (char *)0);
+    ::execl("/usr/bin/perl", "perl", app.c_str(), (char *)0);
   else
-    wait(NULL);
+    ::wait(NULL);
 #endif
 
-  return (STOP);
+  return (NOPROCESS);
 }
 
 extern	"C"
