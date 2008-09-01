@@ -61,11 +61,12 @@ void	Config::_loadConfig()
 
 const std::list<std::string>&	Config::getListModule()
 {
+  std::string dir = this->_mapConfig["module_directory"];
 #ifndef WIN32
   struct stat	st;
   char		*time;
 
-  if (lstat(this->_mapConfig["module_directory"].c_str(), &st) == -1)
+  if (lstat(dir.c_str(), &st) == -1)
     std::cerr << "Can't access module directory stat" << std::endl;
   else
     {
@@ -77,6 +78,14 @@ const std::list<std::string>&	Config::getListModule()
 	}
     }
 # else
+  ::WIN32_FIND_DATA	FindFileData;
+
+  if (::FindFirstFile((LPCWSTR)dir.c_str(), &FindFileData) ==  INVALID_HANDLE_VALUE)
+    std::cerr << "Can't access module directory stat" << std::endl;
+  else
+    {
+      
+    }
 #endif
   return (this->_listModule);
 }

@@ -43,7 +43,11 @@ namespace	ziApi
   private:
     mapConfig			_mapConfig;
     std::list<std::string>	_listModule;
+    #ifndef WIN32
     std::string			_last_update;
+    # else
+    FILETIME			_last_update;
+    #endif
     XmlParser*			_xmlParser;
   };
 };
