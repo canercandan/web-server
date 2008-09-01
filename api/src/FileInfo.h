@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Sun Aug 31 18:03:55 2008 majdi toumi
-// Last update Mon Sep  1 12:18:19 2008 caner candan
+// Last update Mon Sep  1 19:15:16 2008 florent hochwelker
 //
 
 #ifndef __FILEINFO_H__
@@ -24,6 +24,7 @@ namespace	ziApi
   public:
     //! undef
     FileInfo(const std::string& path);
+    ~FileInfo();
 
     //! undef
     bool		isGood();
@@ -40,6 +41,8 @@ namespace	ziApi
   private:
     void	_setGood();
     void	_setType();
+    void	_setSize();
+    void	_setLastTimeAccess();
     void	_setListDir();
   private:
     std::string	_path;

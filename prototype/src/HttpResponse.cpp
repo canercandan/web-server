@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Tue Aug 12 11:28:13 2008 florent hochwelker
+// Last update Mon Sep  1 11:59:16 2008 florent hochwelker
 //
 
 #include <sstream>

@@ -36,7 +36,7 @@ void	FileInfo::_setGood()
 #endif
 }
 
-void	File::_setType()
+void	FileInfo::_setType()
 {
   if (!isGood())
     return;
@@ -101,7 +101,7 @@ void	FileInfo::_setListDir()
   if ((dirp = opendir(this->_path.c_str())))
     {
       while ((dp = readdir(dirp)))
-	this->_listDir->push_back(dp->d_name);
+	this->_listDir.push_back(dp->d_name);
       closedir(dirp);
     }
 #endif

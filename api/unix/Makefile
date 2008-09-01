@@ -7,6 +7,7 @@ SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/Client.cpp			\
 			$(PATH_SRC)/Config.cpp			\
 			$(PATH_SRC)/Consumer.cpp		\
+			$(PATH_SRC)/FileInfo.cpp		\
 			$(PATH_SRC)/FluxClient.cpp		\
 			$(PATH_SRC)/HttpParser.cpp		\
 			$(PATH_SRC)/Logger.cpp			\

@@ -4,6 +4,11 @@
 # include <string>
 # include "IResponse.h"
 # include "IRequest.h"
+# include "Socket.h"
+# include "FileInfo.h"
+# include "Config.h"
+
+# define SLASH	"/"
 
 namespace	ziApi
 {
@@ -28,8 +33,12 @@ namespace	ziApi
     //! undef
     void	prependBuf(const std::string&);
   private:
-    IRequest*	_request;
-    std::string	_buf;
+    IRequest*		_request;
+    FileInfo*		_currentFile;
+    std::string		_buffer;
+
+    //! undef
+    void		_generateListingDirectoryHTML(ISocket* sck);
   };
 };
 
