@@ -10,7 +10,7 @@
 
 using namespace ziApi;
 
-Client::Client(Socket* sck)
+Client::Client(ISocket* sck)
   : _sck(sck)
 {}
 

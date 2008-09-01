@@ -85,7 +85,7 @@ bool	Socket::listen(const int backlog)
   return (true);
 }
 
-Socket*	Socket::accept()
+ISocket*	Socket::accept()
 {
   int			opt;
   SOCKET		sck;

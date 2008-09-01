@@ -41,7 +41,7 @@ namespace	ziApi
     //! undef
     bool	listen(const int backlog);
     //! undef
-    Socket*	accept();
+    ISocket*	accept();
     //! undef
     void	close();
     //! undef

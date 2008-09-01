@@ -6,7 +6,7 @@
 namespace	ziApi
 {
   //! ServerSocket
-  class	ServerSocket : public ISocket
+  class	ServerSocket
   {
   public:
     //! undef
@@ -15,9 +15,9 @@ namespace	ziApi
     //! undef
     bool	create(const int& port);
     //! undef
-    virtual Socket*	accept();
+    ISocket*	accept();
     //! undef
-    virtual void	close();
+    void	close();
   private:
     Socket	_sck;
   };

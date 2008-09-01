@@ -1,6 +1,7 @@
 #ifndef __ISOCKET_H__
 # define __ISOCKET_H__
 
+# include <string>
 # include "IRoot.h"
 
 namespace	ziApi

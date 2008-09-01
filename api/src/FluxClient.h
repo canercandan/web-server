@@ -2,7 +2,7 @@
 # define __FLUXCLIENT_H__
 
 # include "IFlux.h"
-# include "Socket.h"
+# include "ISocket.h"
 
 namespace	ziApi
 {
@@ -12,14 +12,14 @@ namespace	ziApi
   public:
     //! undef
     //! \param sck an ISocket pointer
-    FluxClient(Socket* sck);
+    FluxClient(ISocket* sck);
     ~FluxClient();
 
     //! get the next string
     //! \return std::string
     virtual std::string	nextString();
   private:
-    Socket*	_sck;
+    ISocket*	_sck;
   };
 };
 

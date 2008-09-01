@@ -17,7 +17,7 @@ bool		ServerSocket::create(const int& port)
   return (true);
 }
 
-Socket*		ServerSocket::accept()
+ISocket*	ServerSocket::accept()
 {
   return (this->_sck.accept());
 }
