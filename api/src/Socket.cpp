@@ -7,7 +7,8 @@ Socket::Socket()
   : _sck(INVALID_SOCKET), _sin()
 {}
 
-Socket::Socket(const SOCKET sck, const struct sockaddr_in& sin)
+Socket::Socket(const SOCKET sck,
+	       const struct sockaddr_in& sin)
   : _sck(sck), _sin(sin)
 {}
 

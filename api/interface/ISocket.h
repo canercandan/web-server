@@ -13,21 +13,21 @@ namespace	ziApi
     virtual ~ISocket() {};
 
     //! undef
-    virtual bool	create();
+    virtual bool	create() = 0;
     //! undef
-    virtual bool	bind(const int port);
+    virtual bool	bind(const int port) = 0;
     //! undef
-    virtual bool	listen(const int backlog);
+    virtual bool	listen(const int backlog) = 0;
     //! undef
-    virtual ISocket*	accept();
+    virtual ISocket*	accept() = 0;
     //! undef
-    virtual void	close();
+    virtual void	close() = 0;
     //! undef
-    virtual int		recv(char* buf, int len);
+    virtual int		recv(char* buf, int len) = 0;
     //! undef
-    virtual int		send(std::string& buf);
+    virtual int		send(std::string& buf) = 0;
     //! undef
-    virtual bool	isValid();
+    virtual bool	isValid() = 0;
   };
 };
 
