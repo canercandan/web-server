@@ -31,6 +31,9 @@ namespace	ziApi
     //! get size of the path
     //! \return const int&
     virtual const int&		getSize() = 0;
+    //! get time of the last file access
+    //! \return std::string&
+    virtual const int&		getLastTimeAccess() = 0;
   };
 };
 

@@ -9,6 +9,7 @@
 #include <sstream>
 #include <string>
 #include "Config.h"
+#include "FileInfo.h"
 
 using namespace	ziApi;
 
@@ -61,32 +62,31 @@ void	Config::_loadConfig()
 
 const std::list<std::string>&	Config::getListModule()
 {
-  std::string dir = this->_mapConfig["module_directory"];
-#ifndef WIN32
-  struct stat	st;
-  char		*time;
+  InfoFile	info(this->_mapConfig["module_directory"]);
 
-  if (lstat(dir.c_str(), &st) == -1)
-    std::cerr << "Can't access module directory stat" << std::endl;
-  else
+  if ((this->_last_update == "") || (this->_last_update != info->getLastTimeAccess()))
     {
-      time = ctime(&st.st_ctime);
-      if ((this->_last_update == "") || strcmp(time, this->_last_update.c_str()))
-	{
-	  this->refresh();
-	  this->_last_update = time;
-	}
+      this->refresh();
+      this->_last_update = time;
     }
-# else
-  ::WIN32_FIND_DATA	FindFileData;
+//   std::string dir = this->_mapConfig["module_directory"];
+// #ifndef WIN32
+//   struct stat	st;
+//   char		*time;
 
-  if (::FindFirstFile((LPCWSTR)dir.c_str(), &FindFileData) ==  INVALID_HANDLE_VALUE)
-    std::cerr << "Can't access module directory stat" << std::endl;
-  else
-    {
-      
-    }
-#endif
+//   if (lstat(dir.c_str(), &st) == -1)
+//     std::cerr << "Can't access module directory stat" << std::endl;
+//   else
+//     {
+//       time = ctime(&st.st_ctime);
+//       if ((this->_last_update == "") || strcmp(time, this->_last_update.c_str()))
+// 	{
+// 	  this->refresh();
+// 	  this->_last_update = time;
+// 	}
+//     }
+// #endif
+//  this->_listModule.push_back(this->_mapConfig["module_directory"] + file);
   return (this->_listModule);
 }
 
