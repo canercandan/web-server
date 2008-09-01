@@ -17,13 +17,16 @@ namespace	ziApi
     //! undef
     virtual IModule::State	accept(const IModule::Event&,
 				       IModule* module) = 0;
-
     //! undef
-    virtual IRequest*		getRequest() const = 0;
+    virtual IRequest*	getRequest() const = 0;
     //! undef
-    virtual void		buildResponse() = 0;
+    virtual void	buildResponse() = 0;
     //! undef
-    virtual void		sendResponse(ISocket* sck) = 0;
+    virtual void	sendResponse(ISocket* sck) = 0;
+    //! undef
+    virtual void	appendBuf(const std::string&) = 0;
+    //! undef
+    virtual void	prependBuf(const std::string&) = 0;
   };
 };
 

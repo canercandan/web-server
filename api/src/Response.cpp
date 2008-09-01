@@ -17,10 +17,18 @@ IRequest*	Response::getRequest() const
   return (this->_request);
 }
 
-void		Response::buildResponse()
+void	Response::buildResponse()
+{}
+
+void	Response::sendResponse(ISocket*)
+{}
+
+void	Response::appendBuf(const std::string& s)
 {
+  this->_buf.append(s);
 }
 
-void		Response::sendResponse(ISocket*)
+void	Response::prependBuf(const std::string& s)
 {
+  this->_buf = s + this->_buf;
 }

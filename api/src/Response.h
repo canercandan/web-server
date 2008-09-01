@@ -1,6 +1,7 @@
 #ifndef __RESPONSE_H__
 # define __RESPONSE_H__
 
+# include <string>
 # include "IResponse.h"
 # include "IRequest.h"
 
@@ -17,14 +18,18 @@ namespace	ziApi
     IModule::State	accept(const IModule::Event&,
 			       IModule* module);
     //! undef
-    IRequest*		getRequest() const;
+    IRequest*	getRequest() const;
     //! undef
-    void		buildResponse();
+    void	buildResponse();
     //! undef
-    void		sendResponse(ISocket* sck);
-
+    void	sendResponse(ISocket* sck);
+    //! undef
+    void	appendBuf(const std::string&);
+    //! undef
+    void	prependBuf(const std::string&);
   private:
     IRequest*	_request;
+    std::string	_buf;
   };
 };
 
