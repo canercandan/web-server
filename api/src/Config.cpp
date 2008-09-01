@@ -62,31 +62,30 @@ void	Config::_loadConfig()
 
 const std::list<std::string>&	Config::getListModule()
 {
-  InfoFile	info(this->_mapConfig["module_directory"]);
+//   InfoFile	info(this->_mapConfig["module_directory"]);
 
-  if ((this->_last_update == "") || (this->_last_update != info->getLastTimeAccess()))
-    {
-      this->refresh();
-      this->_last_update = time;
-    }
-//   std::string dir = this->_mapConfig["module_directory"];
-// #ifndef WIN32
-//   struct stat	st;
-//   char		*time;
-
-//   if (lstat(dir.c_str(), &st) == -1)
-//     std::cerr << "Can't access module directory stat" << std::endl;
-//   else
+//   if ((this->_last_update == "") || (this->_last_update != info->getLastTimeAccess()))
 //     {
-//       time = ctime(&st.st_ctime);
-//       if ((this->_last_update == "") || strcmp(time, this->_last_update.c_str()))
-// 	{
-// 	  this->refresh();
-// 	  this->_last_update = time;
-// 	}
+//       this->refresh();
+//       this->_last_update = time;
 //     }
-// #endif
-//  this->_listModule.push_back(this->_mapConfig["module_directory"] + file);
+  std::string dir = this->_mapConfig["module_directory"];
+#ifndef WIN32
+  struct stat	st;
+  char		*time;
+
+  if (lstat(dir.c_str(), &st) == -1)
+    std::cerr << "Can't access module directory stat" << std::endl;
+  else
+    {
+      time = ctime(&st.st_ctime);
+      if ((this->_last_update == "") || strcmp(time, this->_last_update.c_str()))
+	{
+	  this->refresh();
+	  this->_last_update = time;
+	}
+    }
+#endif
   return (this->_listModule);
 }
 
