@@ -35,21 +35,21 @@ namespace	ziApi
     ~Socket();
 
     //! undef
-    bool		create();
+    bool	create();
     //! undef
-    bool		bind(const int port);
+    bool	bind(const int port);
     //! undef
-    bool		listen(const int backlog);
+    bool	listen(const int backlog);
     //! undef
-    virtual Socket*	accept();
+    Socket*	accept();
     //! undef
-    virtual void	close();
+    void	close();
     //! undef
-    int			recv(char* buf, int len);
+    int		recv(char* buf, int len);
     //! undef
-    int			send(std::string& buf);
+    int		send(std::string& buf);
     //! undef
-    bool		isValid();
+    bool	isValid();
   private:
     SOCKET		_sck;
     struct sockaddr_in	_sin;
