@@ -1,6 +1,7 @@
 #ifndef __CONFIG_H__
 # define __CONFIG_H__
 
+# include <memory>
 # include <map>
 # include <list>
 # include <string>
@@ -37,18 +38,17 @@ namespace	ziApi
     void	ziaDumpConfig();
   private:
     Config();
-    ~Config();
 
     void	_loadConfig();
   private:
     mapConfig			_mapConfig;
     std::list<std::string>	_listModule;
-    #ifndef WIN32
+# ifndef WIN32
     std::string			_last_update;
-    # else
+#  else
     FILETIME			_last_update;
-    #endif
-    XmlParser*			_xmlParser;
+# endif
+    std::auto_ptr<XmlParser>	_xmlParser;
   };
 };
 

@@ -20,11 +20,6 @@ Config::Config()
   _loadConfig();
 }
 
-Config::~Config()
-{
-  delete _xmlParser;
-}
-
 void	Config::setValue(const std::string& key,
 			 const std::string& value)
 {
@@ -62,8 +57,7 @@ void	Config::_loadConfig()
 
 const std::list<std::string>&	Config::getListModule()
 {
-//   InfoFile	info(this->_mapConfig["module_directory"]);
-
+//   FileInfo	info(this->_mapConfig["module_directory"]);
 //   if ((this->_last_update == "") || (this->_last_update != info->getLastTimeAccess()))
 //     {
 //       this->refresh();

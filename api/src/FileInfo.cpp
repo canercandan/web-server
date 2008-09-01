@@ -1,123 +1,138 @@
-//
-// InfoFile.cpp for zia in /home/hochwe_f/zia/prototype/src
-// 
-// Made by florent hochwelker
-// Login   <hochwe_f@epitech.net>
-// 
-// Started on  Mon Aug 11 22:36:09 2008 florent hochwelker
-// Last update Mon Sep  1 09:13:50 2008 majdi toumi
-// Last update Wed Aug 13 22:10:02 2008 caner candan
-//
-
 #include <sys/types.h>
 #ifdef WIN32
-#include <windows.h>
+# include <windows.h>
 #else
-#include <dirent.h>
+# include <dirent.h>
 #endif
-#include "InfoFile.h"
+#include "FileInfo.h"
 
-InfoFile::InfoFile(const std::string& file)
-  : _file(file)
+using namespace ziApi;
+
+FileInfo::FileInfo(const std::string& path)
+  : _path(path), _type(OTHER)
+{
+  _setGood();
+  _setType();
+  _setSize();
+  _setLastTimeAccess();
+  _setListDir();
+}
+
+FileInfo::~FileInfo()
 {
 #ifdef WIN32
-  ::WIN32_FIND_DATA	FindFileData;
-
-  _good = (::FindFirstFile((LPCWSTR)file.c_str(), &FindFileData) != INVALID_HANDLE_VALUE);
-#else
-  _good = (lstat(file.c_str(), &_sb) == 0);
+  ::FindClose(this->_hFind);
 #endif
 }
 
-bool	InfoFile::isGood()
+void	FileInfo::_setGood()
+{
+#ifdef WIN32
+  this->_good = (_hFind = ::FindFirstFile((LPCWSTR)this->_path.c_str(),
+					  &this->_findFileData)
+		 != INVALID_HANDLE_VALUE);
+#else
+  this->_good = (!lstat(this->_path.c_str(), &this->_sb));
+#endif
+}
+
+void	File::_setType()
+{
+  if (!isGood())
+    return;
+#ifdef WIN32
+  if (_findFileData.dwFileAttributes &= FILE_ATTRIBUTE_DIRECTORY)
+    this->_type = DIR;
+  else
+    this->_type = FILE;
+#else
+  if (S_ISDIR(this->_sb.st_mode))
+    this->_type = DIR;
+  else if (S_ISREG(this->_sb.st_mode))
+    this->_type = FILE;
+#endif
+}
+
+void	FileInfo::_setSize()
+{
+  if (!this->isGood())
+    {
+      this->_size = -1;
+      return;
+    }
+#ifdef WIN32
+  this->_size = (this->_findFileData.nFileSizeHigh * (MAXDWORD + 1))
+    + this->_findFileData.nFileSizeLow;
+#else
+  this->_size = this->_sb.st_size;
+#endif
+}
+
+void	FileInfo::_setLastTimeAccess()
+{
+  if (!this->isGood())
+    {
+      this->_lastTimeAccess = -1;
+      return;
+    }
+#ifdef WIN32
+  this->_lastTimeAccess = (this->_findFileData.nFileSizeHigh * (MAXDWORD + 1))
+    + this->_findFileData.nFileSizeLow;
+#else
+  this->_lastTimeAccess = this->_sb.st_ctime;
+#endif
+}
+
+void	FileInfo::_setListDir()
+{
+  if (this->getType() != DIR)
+    return;
+#ifdef WIN32
+  const std::string&	file
+    = (this->getType() == DIR) ? this->_path + "\\*" : this->_path;
+
+  if (this->_hFind)
+    while (::FindNextFile(this->_hFind, &this->_findFileData))
+      this->_listDir->push_back((char*)this->_findFileData.cFileName);
+#else
+  struct dirent	*dp;
+  ::DIR		*dirp;
+
+  if ((dirp = opendir(this->_path.c_str())))
+    {
+      while ((dp = readdir(dirp)))
+	this->_listDir->push_back(dp->d_name);
+      closedir(dirp);
+    }
+#endif
+}
+
+bool	FileInfo::isGood()
 {
   return (this->_good);
 }
 
-const std::string&		InfoFile::getPath()
+const std::string&	FileInfo::getPath() const
 {
-  return this->_file;
+  return (this->_path);
 }
 
-InfoFile::Type	InfoFile::getType()
+const FileInfo::Type&	FileInfo::getType() const
 {
-  if (_good == true)
-    {
-#ifdef WIN32
-      ::WIN32_FIND_DATA	FindFileData;
-
-      ::FindFirstFile((LPCWSTR)this->_file.c_str(), &FindFileData);
-      if (FindFileData.dwFileAttributes &= FILE_ATTRIBUTE_DIRECTORY)
-	return (DIR);
-      else
-	return (FILE);
-#else
-      if (S_ISDIR(this->_sb.st_mode))
-	return (DIR);
-      if (S_ISREG(this->_sb.st_mode))
-	return (FILE);
-#endif
-    }
-  return (OTHER);
+  return (this->_type);
 }
 
-std::list<std::string>		*InfoFile::getListDir()
+const int&	FileInfo::getSize() const
 {
-  std::list<std::string>	*listDir = new std::list<std::string>;
-
-#ifdef WIN32
-  WIN32_FIND_DATA	FindFileData;
-  HANDLE		hFind;
-  const std::string&	file = (this->getType() == DIR) ? this->_file + "\\*" : this->_file;
-
-  if ((hFind = ::FindFirstFile((LPCWSTR)this->_file.c_str(), &FindFileData)) != INVALID_HANDLE_VALUE)
-    {
-      while (::FindNextFile(hFind, &FindFileData))
-	listDir->push_back((char*)FindFileData.cFileName);
-      ::FindClose(hFind);
-    }
-#else
-  struct dirent	*dp; 
-  ::DIR		*dirp;
-
-  if ((dirp = opendir(this->_file.c_str())) != NULL)
-    {
-      while ((dp = readdir(dirp)) != NULL)
-	listDir->push_back(dp->d_name);
-      closedir(dirp);
-    }
-#endif
-  return (listDir);
+  return (this->_size);
 }
 
-int				InfoFile::getSize()
+const int&	FileInfo::getLastTimeAccess() const
 {
-  if (this->_good)
-    {
-#ifdef WIN32
-      ::WIN32_FIND_DATA	FindFileData;
-
-      ::FindFirstFile((LPCWSTR)this->_file.c_str(), &FindFileData);
-      return ((FindFileData.nFileSizeHigh * (MAXDWORD + 1)) + FindFileData.nFileSizeLow);
-#else
-      return (this->_sb.st_size);
-#endif
-    }
-  return (-1);
+  return (this->_lastTimeAccess);
 }
 
-int				InfoFile::getlastTimeAccess()
+const FileInfo::listDir&	FileInfo::getListDir()
 {
-  if (this->_good)
-    {
-#ifdef WIN32
-      ::WIN32_FIND_DATA	FindFileData;
-
-      ::FindFirstFile((LPCWSTR)this->_file.c_str(), &FindFileData);
-      return ((FindFileData.nFileSizeHigh * (MAXDWORD + 1)) + FindFileData.nFileSizeLow);
-#else
-      return (this->_sb.st_ctime);
-#endif
-    }
-  return (-1);
+  return (this->_listDir);
 }
