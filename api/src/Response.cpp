@@ -74,6 +74,7 @@ void	Response::sendResponse(ISocket* sck)
 	  sck->send(this->_buffer);
 	}
     }
+  sck->send(this->_buffer);
 }
 
 void	Response::appendBuf(const std::string& s)
