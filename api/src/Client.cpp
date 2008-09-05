@@ -52,10 +52,12 @@ IModule::State	Client::_listModule(const IModule::Event& event,
 
   for (it = list.begin(), end = list.end();
        it != end; ++it)
-    if ((module = this->_openModule(*it)))
-      if ((state = transition->accept(event, module))
-	  != IModule::CONTINUE)
-	return (state);
+    {
+      if ((module = this->_openModule(*it)))
+	if ((state = transition->accept(event, module))
+	    != IModule::CONTINUE)
+	  return (state);
+    }
   return (IModule::CONTINUE);
 }
 

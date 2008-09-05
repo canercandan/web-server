@@ -20,7 +20,7 @@ namespace	ziApi
   public:
     enum	State	{CONTINUE, NOPROCESS,
 			 BREAK, STOP, S_ERROR};
-    enum	Event	{PRE, POST, END, E_ERROR};
+    enum	Event	{PRE = 1, POST, END, E_ERROR};
 
     virtual ~IModule(){}
 
