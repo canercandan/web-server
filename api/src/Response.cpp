@@ -5,7 +5,9 @@ using namespace ziApi;
 
 Response::Response(IRequest* request)
   : _request(request)
-{}
+{
+  sendBuff = false;
+}
 
 IModule::State	Response::accept(const IModule::Event& event,
 				 IModule* module)
@@ -23,47 +25,54 @@ void	Response::buildResponse()
 
 void	Response::sendResponse(ISocket* sck)
 {
-  this->_currentFile = new FileInfo(Config::getInstance()->getValue("document_root") + this->_request->getUrlPath());
-  std::ifstream infile;
-  if (this->_currentFile->isGood())
+  if (this->sendBuff == true)
     {
-      switch (this->_currentFile->getType())
-	{
-	case FileInfo::FILE:
-	  {
-	    std::string	bufString;
-	    infile.open(this->_currentFile->getPath().c_str());
-	    if (infile.is_open())
-	      {
-		std::string	c;
-		while (infile.good())
-		  {
-		    c = infile.get();
-		    if (infile.good())
-		      if (sck->send(c) <= 0)
-			{
-			  sck->close();
-			  break;
-			}
-		  }
-		infile.close();
-	      }
-	    break;
-	  }
-	case FileInfo::DIR:
-	  {
-	    _generateListingDirectoryHTML(sck);
-	    break;
-	  }
-	default:
-	  this->_buffer = "<h1>File not found</h1>";
-	  sck->send(this->_buffer);
-	}
+      sck->send(this->_buffer);
     }
   else
     {
-      this->_buffer = "<h1>File not found</h1>";
-      sck->send(this->_buffer);
+      this->_currentFile = new FileInfo(Config::getInstance()->getValue("document_root") + this->_request->getUrlPath());
+      std::ifstream infile;
+      if (this->_currentFile->isGood())
+	{
+	  switch (this->_currentFile->getType())
+	    {
+	    case FileInfo::FILE:
+	      {
+		std::string	bufString;
+		infile.open(this->_currentFile->getPath().c_str());
+		if (infile.is_open())
+		  {
+		    std::string	c;
+		    while (infile.good())
+		      {
+			c = infile.get();
+			if (infile.good())
+			  if (sck->send(c) <= 0)
+			    {
+			      sck->close();
+			      break;
+			    }
+		      }
+		    infile.close();
+		  }
+		break;
+	      }
+	    case FileInfo::DIR:
+	      {
+		_generateListingDirectoryHTML(sck);
+		break;
+	      }
+	    default:
+	      this->_buffer = "<h1>File not found</h1>";
+	      sck->send(this->_buffer);
+	    }
+	}
+      else
+	{
+	  this->_buffer = "<h1>File not found</h1>";
+	  sck->send(this->_buffer);
+	}
     }
 }
 

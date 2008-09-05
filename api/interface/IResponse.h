@@ -27,6 +27,9 @@ namespace	ziApi
     virtual void	appendBuf(const std::string&) = 0;
     //! undef
     virtual void	prependBuf(const std::string&) = 0;
+
+    bool		sendBuff;
+
   };
 };
 

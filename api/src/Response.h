@@ -32,6 +32,7 @@ namespace	ziApi
     void	appendBuf(const std::string&);
     //! undef
     void	prependBuf(const std::string&);
+
   private:
     IRequest*		_request;
     FileInfo*		_currentFile;

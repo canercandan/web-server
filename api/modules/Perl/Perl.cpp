@@ -54,16 +54,34 @@ Perl::State	Perl::affect(const Event& event,
   std::cout << "Not yet implemented."<< std::endl;
 #else
   pid_t		pid;
+  int		pip[2];
+  char		buff[8193];
+  int		count;
 
+  pipe(pip);
   if ((pid = ::fork()) < 0)
     {
-      // what should be done ?
+      std::cout << "fork failed, mamamia !"<< std::endl;
     }
 
   if (pid == 0)
-    ::execl("/usr/bin/perl", "perl", app.c_str(), (char *)0);
+    {
+      close(pip[0]);
+      dup2(pip[1], 1);
+      ::execl("/usr/bin/perl", "perl", app.c_str(), (char *)0);
+      close(pip[1]);
+    }
   else
-    ::wait(NULL);
+    {
+      close(pip[1]);
+      ::wait(NULL);
+      while((count = read(pip[0], buff, 8192)) > 0)
+	{
+	  buff[count] = 0;
+	  //	  printf("DTC => [%s]\n", buff);
+	  response->appendBuf(buff);
+	}
+    }
 #endif
 
   return (NOPROCESS);

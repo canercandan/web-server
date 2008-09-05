@@ -36,6 +36,8 @@ void	Client::run()
   if (this->_listModule(IModule::PRE, response.get())
       != IModule::NOPROCESS)
     response->buildResponse();
+  else
+    response->sendBuff = true;
   this->_listModule(IModule::POST, response.get());
   response->sendResponse(this->_sck);
 }
