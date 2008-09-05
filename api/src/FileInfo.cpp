@@ -98,7 +98,7 @@ void	FileInfo::_setListDir()
   struct dirent	*dp;
   ::DIR		*dirp;
 
-  if ((dirp = opendir(this->_path.c_str())))
+  if ((dirp = opendir(this->_path.c_str())) != NULL)
     {
       while ((dp = readdir(dirp)))
 	this->_listDir.push_back(dp->d_name);

@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Tue Aug  5 16:33:37 2008 morgan armand
-// Last update Mon Sep  1 11:59:16 2008 florent hochwelker
+// Last update Mon Sep  1 20:20:12 2008 florent hochwelker
 //
 
 #include <sstream>
@@ -200,8 +200,8 @@ void		HttpResponse::sendListingDirectoryHTML(Socket* sck)
   buf = "<h1>Index of ";
   buf += this->_req->getPath();
   buf += "</h1><ul>";
-  if (sck->send(buf) <= 0)
-    return;
+  //  if (sck->send(buf) <= 0)
+  //    return;
   std::list<std::string>::iterator	it;
   std::list<std::string>::iterator	end = listDir->end();
   std::string				slashDir;

@@ -53,7 +53,6 @@ void	Response::sendResponse(ISocket* sck)
 	case FileInfo::DIR:
 	  {
 	    _generateListingDirectoryHTML(sck);
-	    sck->send(this->_buffer);
 	    break;
 	  }
 	default:
