@@ -16,9 +16,12 @@ Footer::State	Footer::affect(const Event&, IRequest*)
   return (CONTINUE);
 }
 
-Footer::State	Footer::affect(const Event&, IResponse* response)
+Footer::State	Footer::affect(const Event& event, IResponse* response)
 {
-  response->appendBuf("<p>(c) All right reserved.</p>");
+  if (event == POST)
+    {
+      response->appendBuf("\nFooter Module (c) All right reserved.");
+    }
   return (CONTINUE);
 }
 
