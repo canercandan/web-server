@@ -32,7 +32,7 @@ namespace	ziApi
     virtual const int&		getSize() const = 0;
     //! get time of the last file access
     //! \return std::string&
-    virtual const int&		getLastTimeAccess() const = 0;
+    virtual const std::string&		getLastTimeAccess() = 0;
     //! get the list of the directory,
     //! only use if the path is a directory
     //! \return const listDir&

@@ -1,9 +1,9 @@
 NAME		=	../mod_php.so
 
-PATH_SRCS	=	.
+PATH_SRCS	=	../../src
 PATH_INTERFACE	=	../../interface
 
-SRCS		=	$(PATH_SRCS)/Php.cpp
+SRCS		=	Php.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
@@ -12,7 +12,7 @@ RM		=	rm -f
 
 WARNING		+=	-W -Wall -Werror
 
-INCLUDES	+=	-I$(PATH_SRCS) -I$(PATH_INTERFACE)
+INCLUDES	+=	-I. -I$(PATH_SRCS) -I$(PATH_INTERFACE)
 
 CFLAGS		+=	$(WARNING) $(INCLUDES)
 

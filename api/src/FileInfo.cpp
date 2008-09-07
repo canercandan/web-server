@@ -70,14 +70,11 @@ void	FileInfo::_setSize()
 
 void	FileInfo::_setLastTimeAccess()
 {
+  this->_setGood();
   if (!this->isGood())
-    {
-      this->_lastTimeAccess = -1;
-      return;
-    }
+    return;
 #ifdef WIN32
-  this->_lastTimeAccess = (this->_findFileData.nFileSizeHigh * (MAXDWORD + 1))
-    + this->_findFileData.nFileSizeLow;
+  FileTimeToSystemTime(&this->_findFileData.ftLastAccessTime, &this->_lastTimeAccess);
 #else
   this->_lastTimeAccess = this->_sb.st_ctime;
 #endif
@@ -127,9 +124,18 @@ const int&	FileInfo::getSize() const
   return (this->_size);
 }
 
-const int&	FileInfo::getLastTimeAccess() const
+const std::string&	FileInfo::getLastTimeAccess()
 {
+#ifdef WIN32
+  return (this->_lastTimeAccess.wYear
+	  + this->_lastTimeAccess.wMonth
+	  + this->_lastTimeAccess.wDay
+	  + this->_lastTimeAccess.wHour
+	  + this->_lastTimeAccess.wMinute
+	  + this->_lastTimeAccess.wSecond);
+#else
   return (this->_lastTimeAccess);
+#endif
 }
 
 const FileInfo::listDir&	FileInfo::getListDir()

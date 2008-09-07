@@ -57,55 +57,36 @@ void	Config::_loadConfig()
 
 const std::list<std::string>&	Config::getListModule()
 {
-//   FileInfo	info(this->_mapConfig["module_directory"]);
-//   if ((this->_last_update == "") || (this->_last_update != info->getLastTimeAccess()))
-//     {
-//       this->refresh();
-//       this->_last_update = time;
-//     }
-  std::string dir = this->_mapConfig["module_directory"];
-#ifndef WIN32
-  struct stat	st;
-  char		*time;
+  FileInfo	info(this->_mapConfig["module_directory"]);
+  std::string	time;
 
-  if (lstat(dir.c_str(), &st) == -1)
-    std::cerr << "Can't access module directory stat" << std::endl;
-  else
+  time = info.getLastTimeAccess();
+  if ((this->_last_access == "") || (this->_last_access != time))
     {
-      time = ctime(&st.st_ctime);
-      if ((this->_last_update == "") || strcmp(time, this->_last_update.c_str()))
-	{
-	  this->refresh();
-	  this->_last_update = time;
-	}
+      this->refresh(info);
+      this->_last_access = time;
     }
-#endif
   return (this->_listModule);
 }
 
-void	Config::refresh()
+void	Config::refresh(FileInfo& info)
 {
-#ifndef WIN32
-  DIR		*dir;
-  struct dirent	*sd;
-  int		found;
+  IFileInfo::listDir	dir = info.getListDir();
+  IFileInfo::listDir::const_iterator	itb;
+  IFileInfo::listDir::const_iterator	ite = dir.end();
+  int			found;
 
   this->_listModule.clear();
-  dir = opendir(this->_mapConfig["module_directory"].c_str());
-  if (dir == NULL)
-    std::cerr << "Can't find module directory" << std::endl;
-  else
+  for (itb = dir.begin(); itb != ite; itb++)
     {
-      while ((sd = readdir(dir)) != NULL)
-	{
-	  std::string file(sd->d_name);
-	  found = file.find_last_of(".");
-	  if ((file != ".") && (file != "..") && (file.substr(found + 1) == "so"))
-	    this->_listModule.push_back(this->_mapConfig["module_directory"] + file);
-	}
-    }
-# else
+      found = itb->find_last_of(".");
+#ifdef WIN32
+      if (itb->substr(found + 1) == "dll")
+#else
+	if (itb->substr(found + 1) == "so")
 #endif
+	  this->_listModule.push_back(this->_mapConfig["module_directory"] + *itb);
+    }
 }
 
 void	Config::ziaDumpConfig()

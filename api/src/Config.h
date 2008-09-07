@@ -8,6 +8,7 @@
 # include "IConfig.h"
 # include "Singleton.hpp"
 # include "XmlParser.h"
+# include "FileInfo.h"
 
 # define FILE_CONFIG	"../server.xml"
 
@@ -33,7 +34,7 @@ namespace	ziApi
     //! undef
     const listModule&	getListModule();
     //! undef
-    virtual void	refresh();
+    virtual void	refresh(FileInfo& info);
     //! undef
     void	ziaDumpConfig();
   private:
@@ -42,12 +43,8 @@ namespace	ziApi
     void	_loadConfig();
   private:
     mapConfig			_mapConfig;
-    std::list<std::string>	_listModule;
-# ifndef WIN32
-    std::string			_last_update;
-#  else
-    FILETIME			_last_update;
-# endif
+    listModule			_listModule;
+    std::string			_last_access;
     std::auto_ptr<XmlParser>	_xmlParser;
   };
 };

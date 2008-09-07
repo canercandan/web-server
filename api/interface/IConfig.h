@@ -2,7 +2,9 @@
 # define __ICONFIG_H__
 
 # include <string>
+# include <list>
 # include "IRoot.h"
+# include "FileInfo.h"
 
 namespace	ziApi
 {
@@ -10,6 +12,9 @@ namespace	ziApi
   class	IConfig : public IRoot
   {
   public:
+    //! a list of string
+    typedef std::list<std::string>	listModule;
+
     virtual ~IConfig(){}
 
     //! undef
@@ -22,7 +27,7 @@ namespace	ziApi
     virtual const std::string&	getValue(const std::string& key) = 0;
 
     //! undef
-    virtual void	refresh() = 0;
+    virtual void	refresh(FileInfo& info) = 0;
   };
 };
 

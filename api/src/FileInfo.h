@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Sun Aug 31 18:03:55 2008 majdi toumi
-// Last update Mon Sep  1 19:15:16 2008 florent hochwelker
+// Last update Mon Sep  1 20:10:57 2008 majdi toumi
 //
 
 #ifndef __FILEINFO_H__
@@ -35,7 +35,7 @@ namespace	ziApi
     //! undef
     const int&		getSize() const;
     //! undef
-    const int&		getLastTimeAccess() const;
+    const std::string&	getLastTimeAccess();
     //! undef
     const listDir&	getListDir();
   private:
@@ -49,8 +49,13 @@ namespace	ziApi
     Type	_type;
     listDir	_listDir;
     int		_size;
-    int		_lastTimeAccess;
+#ifdef WIN32
+    SYSTEMTIME	_lastTimeAccess;
+#else
+    std::string	_lastTimeAccess;
+#endif
     bool	_good;
+
 # ifdef WIN32
     WIN32_FIND_DATA	_findFileData;
     HANDLE		_hFind;
