@@ -1,10 +1,11 @@
-#ifndef __REQUEST_HPP__
-# define __REQUEST_HPP__
+#ifndef __REQUEST_H__
+# define __REQUEST_H__
 
+# include <map>
 # include <string>
 # include "IRequest.hpp"
 
-namespace	ZenZiaAPI
+namespace	ZenZiAPI
 {
   class		Request : public IRequest
   {
@@ -35,11 +36,11 @@ namespace	ZenZiaAPI
     std::string					_version;
     std::string					_method;
     std::string					_uri;
-    std::map<std::map<std::string, std::string> >	_headers;
+    std::map<std::string, std::map<std::string, std::string> >	_headers;
     std::string					_body;
     bool						_isChunked;
 
   };
 }
 
-#endif // __REQUEST_HPP__
+#endif // __REQUEST_H__

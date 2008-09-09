@@ -1,6 +1,6 @@
-#include "Request.hpp"
+#include "Request.h"
 
-using namespace ZenZiaAPI;
+using namespace ZenZiAPI;
 
 const std::string&		Request::HTTPVersion()
 {
