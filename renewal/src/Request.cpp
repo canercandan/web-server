@@ -34,7 +34,7 @@ void				Request::uri(std::string& field)
 
 const std::map<std::string, std::string>&	Request::getHeaders(const std::string& field)
 {
-  return (this->_headers);
+  return (this->_headers[field]);
 }
 
 void				Request::setHeaders(const std::string& field,
@@ -56,12 +56,12 @@ void				Request::setHeader(const std::string& field, const std::string& key,
 
 const std::string&		Request::getHeader(const std::string& header)
 {
-  return (this->_headers[header]);
+  return (this->_header[header]);
 }
 
 void				Request::setHeader(const std::string& field, const std::string& value)
 {
-  this->_headers[field] = value;
+  this->_header[field] = value;
 }
 
 const std::string&		Request::body()
@@ -79,7 +79,7 @@ void				Request::bodyAppend(const std::string& body)
   this->_body += body;
 }
 
-void				Request::bodyAppend(char* body, unsigned int size = 0)
+void				Request::bodyAppend(char* body, unsigned int size)
 {
   if (size > 0)
     for (int i = 0; i < size; ++i)
@@ -90,7 +90,7 @@ void				Request::bodyAppend(char* body, unsigned int size = 0)
 
 bool				Request::chunked() const
 {
-  return (isChunked);
+  return (this->_isChunked);
 }
 
 void				Request::chunked(bool isChunked)

@@ -37,8 +37,9 @@ namespace	ZenZiAPI
     std::string					_method;
     std::string					_uri;
     std::map<std::string, std::map<std::string, std::string> >	_headers;
+    std::map<std::string, std::string>				_header;
     std::string					_body;
-    bool						_isChunked;
+    bool					_isChunked;
 
   };
 }
