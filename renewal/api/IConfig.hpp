@@ -17,6 +17,8 @@ namespace ZenZiAPI
       {
 	LINUX,
 	WINDOWS,
+	MAC_OS,
+	BSD,
 	OTHER
       };
     

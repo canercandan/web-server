@@ -1,8 +1,10 @@
 #ifndef _DEFINES_H_
 # define _DEFINES_H_
 
-#if (defined(__linux) and not defined(SOCKET))
+#ifdef __linux
+#ifndef SOCKET
 typedef int SOCKET;
+#endif
 #endif
 
 namespace ZenZiAPI

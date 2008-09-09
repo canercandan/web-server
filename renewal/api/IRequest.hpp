@@ -1,8 +1,8 @@
 #ifndef _IREQUEST_H_
 # define _IREQUEST_H_
 
-#include <iostream>
-#include <map>
+# include <iostream>
+# include <map>
 
 namespace ZenZiAPI
 {
@@ -38,6 +38,12 @@ namespace ZenZiAPI
     virtual const std::string&	method() = 0;
 
     /** 
+     * @brief method setter
+     * @param http_method :  the http method
+     */
+    virtual void		method(const std::string & http_method) = 0;
+
+    /** 
      * @brief uri getter
      * @return the uri
      */
@@ -45,9 +51,9 @@ namespace ZenZiAPI
 
     /** 
      * @brief uri setter
-     * @param field : the uri to set
+     * @param http_uri : the uri to set
      */
-    virtual void		uri(std::string&  field) = 0;
+    virtual void		uri(const std::string&  http_uri) = 0;
 
     /** 
      * @brief get a multidimensional header, like 'accept'
