@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\interface&quot;;&quot;..\..\lib\iconv-1.9.2.win32\include&quot;;&quot;..\..\lib\libxml2-2.6.32+.win32\include&quot;"
+				AdditionalIncludeDirectories="&quot;..\api&quot;;&quot;..\..\lib\iconv-1.9.2.win32\include&quot;;&quot;..\..\lib\libxml2-2.6.32+.win32\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -236,10 +236,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<Filter
-				Name="Interface"
+				Name="Api"
 				>
 				<File
-					RelativePath="..\interface\IConfig.h"
+					RelativePath="..\api\IConfig.h"
 					>
 				</File>
 				<File
@@ -251,7 +251,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\interface\IHeader.h"
+					RelativePath="..\api\IHeader.h"
 					>
 				</File>
 				<File
@@ -259,7 +259,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\interface\IModule.h"
+					RelativePath="..\api\IModule.h"
 					>
 				</File>
 				<File
@@ -267,15 +267,15 @@
 					>
 				</File>
 				<File
-					RelativePath="..\interface\IRequest.h"
+					RelativePath="..\api\IRequest.h"
 					>
 				</File>
 				<File
-					RelativePath="..\interface\IResponse.h"
+					RelativePath="..\api\IResponse.h"
 					>
 				</File>
 				<File
-					RelativePath="..\interface\IRoot.h"
+					RelativePath="..\api\IRoot.h"
 					>
 				</File>
 				<File
@@ -283,11 +283,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\interface\ISocket.h"
+					RelativePath="..\api\ISocket.h"
 					>
 				</File>
 				<File
-					RelativePath="..\interface\ITransition.h"
+					RelativePath="..\api\ITransition.h"
 					>
 				</File>
 				<File

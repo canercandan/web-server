@@ -1,7 +1,7 @@
 NAME		=	zia
 
 PATH_SRC	=	../src
-PATH_INTERFACE	=	../interface
+PATH_INTERFACE	=	../api
 
 SRCS		=	$(PATH_SRC)/main.cpp			\
 #			$(PATH_SRC)/Client.cpp			\
