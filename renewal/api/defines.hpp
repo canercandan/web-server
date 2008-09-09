@@ -5,6 +5,8 @@
 #ifndef SOCKET
 typedef int SOCKET;
 #endif
+#else
+#include <Winsock2.h>
 #endif
 
 namespace ZenZiAPI

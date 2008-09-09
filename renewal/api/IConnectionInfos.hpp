@@ -1,8 +1,12 @@
 #ifndef __ICONNECTIONINFOS_H_
 # define __ICONNECTIONINFOS_H_
 
-#if (defined(__linux) and not defined(SOCKET))
+#ifdef __linux
+#ifndef SOCKET
 typedef int SOCKET;
+#endif
+#else
+#include <Winsock2.h>
 #endif
 
 namespace ZenZiAPI
