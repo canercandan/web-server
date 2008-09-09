@@ -1,5 +1,7 @@
 #include "Request.hpp"
 
+using namespace ZenZiaAPI;
+
 const std::string&		Request::HTTPVersion()
 {
   return (this->_version);
