@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:12 2008 caner candan
-// Last update Wed Sep 10 10:02:48 2008 caner candan
+// Last update Wed Sep 10 12:20:50 2008 majdi toumi
 //
 
 #include <sys/types.h>
@@ -100,7 +100,7 @@ void	FileInfo::_setListDir()
 
   if (this->_hFind)
     while (::FindNextFile(this->_hFind, &this->_findFileData))
-      this->_listDir->push_back((char*)this->_findFileData.cFileName);
+      this->_list_dir->push_back((char*)this->_findFileData.cFileName);
 #else
   struct dirent	*dp;
   ::DIR		*dirp;
@@ -108,7 +108,7 @@ void	FileInfo::_setListDir()
   if ((dirp = opendir(this->_path.c_str())) != NULL)
     {
       while ((dp = readdir(dirp)))
-	this->_listDir.push_back(dp->d_name);
+	this->_list_dir.push_back(dp->d_name);
       closedir(dirp);
     }
 #endif
@@ -148,7 +148,7 @@ const std::string&	FileInfo::getLastTimeAccess()
 #endif
 }
 
-const FileInfo::listDir&	FileInfo::getListDir()
+const FileInfo::ListDir_t&	FileInfo::getListDir()
 {
-  return (this->_listDir);
+  return (this->_list_dir);
 }

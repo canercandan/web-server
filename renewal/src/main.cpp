@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Wed Sep 10 12:05:13 2008 majdi toumi
+// Last update Wed Sep 10 12:27:14 2008 majdi toumi
 //
 
 #include <iostream>
@@ -14,11 +14,13 @@
 
 using namespace ZenZiAPI;
 
-int		main()
-{
-  Config*	conf = Config::getInstance();
+# define CONFIG_FILENAME	"../serveur.xml"
 
-  conf->ziaDumpConfig();
+int			main()
+{
+  Config::Config	conf;// = Config::getInstance();
+
+  //  conf->ziaDumpConfig();
 
   //   Logger		logger;
 //   ServerSocket		server;

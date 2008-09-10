@@ -5,7 +5,7 @@
 ## Login   <toumi_m@epitech.net>
 ## 
 ## Started on  Tue Sep  9 16:01:11 2008 majdi toumi
-## Last update Tue Sep  9 20:47:34 2008 majdi toumi
+## Last update Wed Sep 10 12:06:22 2008 majdi toumi
 ##
 
 NAME		=	tuniZIA
@@ -16,14 +16,13 @@ PATH_INTERFACE	=	../api
 SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/Config.cpp			\
 			$(PATH_SRC)/XmlParser.cpp		\
-			$(PATH_SRC)/FileInfo.cpp
+			$(PATH_SRC)/FileInfo.cpp		\
+			$(PATH_SRC)/Logger.cpp
 
 #			$(PATH_SRC)/Consumer.cpp		\
-#			$(PATH_SRC)/FileInfo.cpp		\
 #			$(PATH_SRC)/FluxClient.cpp		\
 #			$(PATH_SRC)/HookManager.cpp		\
 #			$(PATH_SRC)/HttpParser.cpp		\
-#			$(PATH_SRC)/Logger.cpp			\
 #			$(PATH_SRC)/Message.cpp			\
 #			$(PATH_SRC)/Request.cpp			\
 #			$(PATH_SRC)/Response.cpp		\

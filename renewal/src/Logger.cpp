@@ -1,8 +1,16 @@
+//
+// Logger.cpp for **zia** in /home/toumi_m/zia/renewal/src
+// 
+// Made by majdi toumi
+// Login   <toumi_m@epitech.net>
+// 
+// Started on  Wed Sep 10 12:23:59 2008 majdi toumi
+// Last update Wed Sep 10 12:25:01 2008 majdi toumi
+//
+
 #include <time.h>
 #include <iostream>
 #include "Logger.h"
-
-using namespace	ziApi;
 
 void	Logger::log(const Logger::Level level,
 		    const std::string& msg)
@@ -12,8 +20,6 @@ void	Logger::log(const Logger::Level level,
 
   time(&tm);
 
-  // Get rid of \n
-  // #ifdef WIN32 ctime_s()	  
   stm = ctime(&tm);
   stm[24] = 0;
 
