@@ -8,35 +8,27 @@
 #  include <pthread.h>
 # endif
 
-# include "IRoot.h"
 # include "IRunnable.h"
 
-namespace	ziApi
+class Thread : public IRunnable
 {
-  //! Thread
-  class Thread : public IRoot
-  {
-  public:
-    //! undef
-    //! \param run a IRunnable pointer
-    Thread(IRunnable* run);
+public:
+  Thread(IRunnable* run);
 
-    //! undef
-    void	start();
-  private:
+  void	start();
+private:
 # ifdef WIN32
-    static DWORD WINAPI	_threadProc(LPVOID arg);
+  static DWORD WINAPI	_threadProc(LPVOID arg);
 # else
-    static void*	_threadProc(void* arg);
+  static void*	_threadProc(void* arg);
 # endif
-  private:
-    IRunnable*	_obj;
+private:
+  IRunnable*	_obj;
 #ifdef WIN32
-    HANDLE	_thread;
+  HANDLE	_thread;
 #else
-    pthread_t	_thread;
+  pthread_t	_thread;
 #endif
-  };
 };
 
 #endif // !__THREAD_H__

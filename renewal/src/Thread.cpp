@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Thread.h"
 
-using namespace ziApi;
-
 Thread::Thread(IRunnable* obj)
   : _obj(obj)
 {}
