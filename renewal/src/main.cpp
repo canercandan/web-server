@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Wed Sep 10 15:54:26 2008 caner candan
+// Last update Wed Sep 10 16:17:06 2008 caner candan
 //
 
 #include <iostream>
@@ -42,8 +42,8 @@ int		main()
   while (42) //todo: singleton State to check error
     if ((socket = server.accept()))
       {
-	// 	logger.info("accept new connection from a client");
-	// 	client = new Client(socket);
+	logger.info("accept new connection from a client");
+	//client = new Client(socket);
 	// 	thread = new Thread(client);
 	// 	thread->start();
 	// 	delete thread;
