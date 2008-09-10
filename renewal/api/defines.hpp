@@ -1,7 +1,7 @@
 #ifndef _DEFINES_H_
 # define _DEFINES_H_
 
-#ifdef __linux || __FreeBSD__
+#if defined(__linux) || defined(__FreeBSD__)
 #ifndef SOCKET
 typedef int SOCKET;
 #endif
