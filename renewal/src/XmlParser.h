@@ -1,28 +1,35 @@
+//
+// XmlParser.h for **zia** in /home/toumi_m/zia/renewal/api
+// 
+// Made by majdi toumi
+// Login   <toumi_m@epitech.net>
+// 
+// Started on  Tue Sep  9 13:00:15 2008 majdi toumi
+// Last update Tue Sep  9 16:02:40 2008 majdi toumi
+//
+
 #ifndef __XMLPARSER_H__
 # define __XMLPARSER_H__
 
+# include <string>
 # include <libxml/parser.h>
 # include <libxml/xpath.h>
-# include <string>
-# include "IRoot.h"
-# include "IXmlParser.h"
 
-# define  SERVER_XML	"../server.xml"
-
-namespace	ziApi
+namespace	ZenZiAPI
 {
-  //! XmlParser
-  //! This class has the main xml parser methods.
-  class	XmlParser : public IXmlParser
+  /*
+   * @class XmlParser
+   * @brief This class has the main xml parser methods.
+   */
+  class	XmlParser
   {
   public:
-    //! Constructor
-    XmlParser(const std::string& filename);
-    //! Destructor
-    virtual ~XmlParser();
-
     //! undef
-    virtual std::string	xmlGetValue(const std::string& path);
+    XmlParser(const std::string& filename);
+    //! undef
+    ~XmlParser();
+    //! undef
+    std::string	xmlGetParam(const std::string& path);
 
   private:
     std::string		_filename;

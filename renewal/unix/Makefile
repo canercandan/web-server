@@ -1,23 +1,37 @@
-NAME		=	zia
+##
+## Makefile for **zia** in /home/toumi_m/zia/renewal/src
+## 
+## Made by majdi toumi
+## Login   <toumi_m@epitech.net>
+## 
+## Started on  Tue Sep  9 16:01:11 2008 majdi toumi
+## Last update Tue Sep  9 20:20:06 2008 majdi toumi
+##
+
+NAME		=	tuniZIA
 
 PATH_SRC	=	../src
 PATH_INTERFACE	=	../api
 
 SRCS		=	$(PATH_SRC)/main.cpp			\
-#			$(PATH_SRC)/Client.cpp			\
-#			$(PATH_SRC)/Config.cpp			\
+			$(PATH_SRC)/Config.cpp			\
+			$(PATH_SRC)/XmlParser.cpp
+
 #			$(PATH_SRC)/Consumer.cpp		\
 #			$(PATH_SRC)/FileInfo.cpp		\
 #			$(PATH_SRC)/FluxClient.cpp		\
+#			$(PATH_SRC)/HookManager.cpp		\
 #			$(PATH_SRC)/HttpParser.cpp		\
 #			$(PATH_SRC)/Logger.cpp			\
+#			$(PATH_SRC)/Message.cpp			\
 #			$(PATH_SRC)/Request.cpp			\
 #			$(PATH_SRC)/Response.cpp		\
+#			$(PATH_SRC)/RessourcesManager.cpp	\
 #			$(PATH_SRC)/ServerSocket.cpp		\
 #			$(PATH_SRC)/Socket.cpp			\
 #			$(PATH_SRC)/Thread.cpp			\
+#			$(PATH_SRC)/Tools.cpp			\
 #			$(PATH_SRC)/URIParser.cpp		\
-#			$(PATH_SRC)/XmlParser.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
