@@ -5,23 +5,25 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Wed Sep 10 12:39:27 2008 majdi toumi
+// Last update Wed Sep 10 12:40:51 2008 majdi toumi
 //
 
 #include <iostream>
 #include <sstream>
 #include "Config.h"
+#include "Logger.h"
 
 using namespace ZenZiAPI;
 
 int		main()
 {
   Config*	conf = Config::getInstance();
+  Logger	logger;
+  //ServerSocket		server;
 
   conf->ziaDumpConfig();
+  logger.info("starting zia server");
 
-  //   Logger		logger;
-  //   ServerSocket		server;
 //   ISocket*		socket;
 //   Client*		client;
 //   Thread*		thread;
@@ -30,7 +32,7 @@ int		main()
 
 //   conf->ziaDumpConfig();
 //   ss >> port;
-//   logger.info("starting zia server");
+
 //   if (!server.create(port))
 //     {
 //       logger.error("an error occured while starting the server");
