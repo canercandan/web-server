@@ -6,7 +6,7 @@
 typedef int SOCKET;
 # endif
 #else
-# ifdef __BSD_VISIBLE
+# ifdef __FreeBSD__
 #  ifndef SOCKET
 typedef int SOCKET;
 #  endif
