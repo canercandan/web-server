@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Wed Sep 10 17:20:29 2008 florent hochwelker
+// Last update Wed Sep 10 18:07:42 2008 caner candan
 //
 
 #include <iostream>
@@ -14,8 +14,6 @@
 #include "Logger.h"
 #include "ServerSocket.h"
 #include "Thread.h"
-
-using namespace ZenZiAPI;
 
 int		main()
 {
@@ -28,12 +26,8 @@ int		main()
 
   Socket*		socket;
   //   Client*		client;
-  //  Thread*		thread;
-  //   int			port;
-  //   std::stringstream	ss(conf->getValue("port"));
-
+  //Thread*		thread;
   //   conf->ziaDumpConfig();
-  //   ss >> port;
 
   if (!server.create(conf->getParamInt("port")))
     {

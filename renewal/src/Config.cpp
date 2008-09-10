@@ -1,18 +1,16 @@
 //
-// Config.cpp for **zia** in /home/toumi_m/zia/renewal
+// Config.cpp for zia in /home/toumi_m/zia/renewal
 // 
 // Made by majdi toumi
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 11:30:03 2008 majdi toumi
-// Last update Wed Sep 10 12:36:27 2008 majdi toumi
+// Last update Wed Sep 10 17:53:48 2008 caner candan
 //
 
 #include <iostream>
 #include <sstream>
 #include "Config.h"
-
-using namespace ZenZiAPI;
 
 Config::Config()
   : _xmlParser(new XmlParser(CONFIG_FILENAME))
@@ -35,7 +33,7 @@ int		Config::getParamInt(const std::string& param)
   return (res);
 }
 
-IConfig::OS	Config::getOS()
+Config::OS	Config::getOS()
 {
 #ifdef WIN32
   return (IConfig::WINDOWS);
@@ -50,22 +48,21 @@ IConfig::OS	Config::getOS()
 #endif
 }
 
-void		Config::_loadConfig()
+void	Config::_loadConfig()
 {
-  const time_t& time = ::time(NULL);
+  const time_t&		time = ::time(NULL);
   std::stringstream	ss;
 
+  this->_setXmlParam("name", "/server[@name]");
+  this->_setXmlParam("port", "/server/config/port[@value]");
+  this->_setXmlParam("shutdown", "/server/config/shutdown[@value]");
+  this->_setXmlParam("debug", "/server/config/debug[@value]");
+  this->_setXmlParam("respect_rfc", "/server/config/respect_rfc[@value]");
+  this->_setXmlParam("document_root", "/server/config/document_root[@value]");
+  this->_setXmlParam("module_directory", "/server/config/module_directory[@value]");
+  this->_setXmlParam("timeout", "/server/config/timeout[@value]");
   ss << time;
-  this->setXmlParam("name", "/server[@name]");
-  this->setXmlParam("port", "/server/config/port[@value]");
-  this->setXmlParam("shutdown", "/server/config/shutdown[@value]");
-  this->setXmlParam("debug", "/server/config/debug[@value]");
-  this->setXmlParam("respect_rfc", "/server/config/respect_rfc[@value]");
-  this->setXmlParam("document_root", "/server/config/document_root[@value]");
-  this->setXmlParam("module_directory", "/server/config/module_directory[@value]");
-  this->setXmlParam("timeout", "/server/config/timeout[@value]");
-  this->setParam("timestart", ss.str());
-  this->getListModule();
+  this->_setParam("timestart", ss.str());
 }
 
 void		Config::setParam(const std::string& key,

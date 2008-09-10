@@ -1,11 +1,11 @@
 //
-// Config.h for **zia** in /home/toumi_m/zia/renewal
+// Config.h for zia in /home/toumi_m/zia/renewal
 // 
 // Made by majdi toumi
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Mon Sep  8 13:45:46 2008 majdi toumi
-// Last update Wed Sep 10 12:34:37 2008 majdi toumi
+// Last update Wed Sep 10 18:04:27 2008 caner candan
 //
 
 #ifndef __CONFIG_H__
@@ -13,7 +13,6 @@
 
 #include <string>
 #include <map>
-#include <list>
 #include "IConfig.hpp"
 #include "XmlParser.h"
 #include "FileInfo.h"
@@ -21,42 +20,32 @@
 
 # define CONFIG_FILENAME	"../server.xml"
 
-namespace ZenZiAPI
+class	Config : public ZenZiAPI::IConfig, public Singleton<Config>
 {
-  /*
-   * @class Config
-   * @brief Configuration manager
-   */
-  class	Config : public IConfig, public Singleton<Config>
-  {
-  public:
-    typedef std::map<std::string, std::string>	MapConfig_t;
-    typedef std::list<std::string>		ListModule_t;
+public:
+  typedef std::map<std::string, std::string>	mapConfig;
+public:
+  Config();
 
-    Config();
-    std::string&	getParam(const std::string& param);
-    int			getParamInt(const std::string& param);
-    IConfig::OS		getOS();
+  std::string&	getParam(const std::string& param);
+  int		getParamInt(const std::string& param);
 
-    //! undef
-    ListModule_t&	getListModule();
-    //! undef
-    void		refresh(FileInfo& info);
-    //! undef
-    void		ziaDumpConfig();
+  OS		getOS();
 
-  private:
-    //! undef
-    void		_loadConfig();
-    //! undef
-    void		setParam(const std::string& key, const std::string& value);
-    //! undef
-    void		setXmlParam(const std::string& key, const std::string& path);
+  //listModule&	getListModule();
+  void		refresh(FileInfo& info);
+  void		ziaDumpConfig();
+private:
+  void	_loadConfig();
+  void	_setParam(const std::string& key,
+		  const std::string& value);
+  void	_setXmlParam(const std::string& key,
+		     const std::string& path);
+private:
+  mapConfig			_map_config;
+  listModule			_list_module;
+  std::string			_last_access;
+  std::auto_ptr<XmlParser>	_xmlParser;
+};
 
-    MapConfig_t			_map_config;
-    ListModule_t		_list_module;
-    std::string			_last_access;
-    std::auto_ptr<XmlParser>	_xmlParser;
-  };
-}
 #endif /*! __CONFIG_H__ */

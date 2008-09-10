@@ -1,22 +1,24 @@
+//
+// ServerSocket.h for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Wed Sep 10 18:10:10 2008 caner candan
+// Last update Wed Sep 10 18:10:10 2008 caner candan
+//
+
 #ifndef __SERVERSOCKET_H__
 # define __SERVERSOCKET_H__
 
 # include "Socket.h"
 
-  //! ServerSocket
 class	ServerSocket
 {
 public:
-  //! undef
-  ServerSocket();
-
-  //! undef
   bool		create(const int& port);
-  //! undef
   Socket*	accept();
-  //! undef
   void		close();
-
 private:
   Socket	_sck;
 };
