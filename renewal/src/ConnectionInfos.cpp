@@ -1,32 +1,23 @@
-//
-// ConnectionInfos.cpp for zia in /home/candan_c/cu/rendu/zia/renewal/src
-// 
-// Made by caner candan
-// Login   <candan_c@epitech.net>
-// 
-// Started on  Wed Sep 10 12:52:22 2008 caner candan
-// Last update Wed Sep 10 15:21:45 2008 caner candan
-//
-
 #include "ConnectionInfos.h"
 
-ConnectionInfos::ConnectionInfos()
-{}
+using namespace ZenZiAPI;
 
-const SOCKET	ConnectionInfos::socket()
+const SOCKET		ConnectionInfos::socket()
 {
-  return (this->_sck);
+  // ...
 }
 
-const ConnectionInfos::connectionType	ConnectionInfos::connectionType()
+const connectionType	ConnectionInfos::connectType(void)
 {
-  return (this->_type);
+  return (this->_connectionType);
 }
 
-ConnectionInfos::Extension*	ConnectionInfos::extension()
+Extension*		ConnectionInfos::extension(void)
 {
-  return ((void*)0);
+  return (this->_extension);
 }
 
-void	ConnectionInfos::extension(void*)
-{}
+void			ConnectionInfos::extension(void *ptr)
+{
+  this->_extension = ptr;
+}
