@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Sun Aug 31 18:03:55 2008 majdi toumi
-// Last update Mon Sep  1 20:10:57 2008 majdi toumi
+// Last update Tue Sep  9 20:42:16 2008 majdi toumi
 //
 
 #ifndef __FILEINFO_H__
@@ -16,7 +16,7 @@
 #include <sys/stat.h>
 #include "IFileInfo.h"
 
-namespace	ziApi
+namespace	ZenZiAPI
 {
   //! FileInfo
   class	FileInfo : public IFileInfo

@@ -6,7 +6,7 @@
 #endif
 #include "FileInfo.h"
 
-using namespace ziApi;
+using namespace ZenZiAPI;
 
 FileInfo::FileInfo(const std::string& path)
   : _path(path), _type(OTHER)

@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Tue Sep  9 20:22:39 2008 majdi toumi
+// Last update Tue Sep  9 20:49:15 2008 majdi toumi
 //
 
 #include <iostream>
@@ -18,7 +18,8 @@ int		main()
 {
   Config	conf;
 
-  std::cout << conf.getParamInt("port") << std:endl
+  conf.ziaDumpConfig();
+
 //   Config*		conf = Config::getInstance();
 //   Logger		logger;
 //   ServerSocket		server;

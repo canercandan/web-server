@@ -3,12 +3,11 @@
 
 # include <list>
 # include <string>
-# include "IRoot.h"
 
-namespace	ziApi
+namespace	ZenZiAPI
 {
   //! IFileInfo
-  class	IFileInfo : public IRoot
+  class	IFileInfo
   {
   public:
     //! a list of string
