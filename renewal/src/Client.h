@@ -1,11 +1,11 @@
 //
-// Client.h for zia in /home/hochwe_f/zia/prototype/src
+// Client.h for zia in /home/candan_c/cu/rendu/zia/renewal/src
 // 
-// Made by florent hochwelker
-// Login   <hochwe_f@epitech.net>
+// Made by caner candan
+// Login   <candan_c@epitech.net>
 // 
-// Started on  Wed Aug 27 16:48:06 2008 florent hochwelker
-// Last update Mon Sep  1 17:41:52 2008 caner candan
+// Started on  Tue Sep  9 17:47:45 2008 caner candan
+// Last update Tue Sep  9 17:47:45 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -32,27 +32,23 @@
 # include "IConfig.h"
 # include "ITransition.h"
 
-namespace	ziApi
+class Client : public IRunnable
 {
-  //! Client class
-  class Client : public IRunnable
-  {
-  public:
-    typedef IModule*	(*fct)(IConfig*);
+public:
+  typedef IModule*	(*fct)(IConfig*);
 
-    //! \param sck a ISocket pointer
-    Client(ISocket* sck);
-    ~Client();
-    //! run method
-    void	run();
-  private:
-    IModule::State	_listModule(const IModule::Event&,
+  Client(ISocket* sck);
+  ~Client();
+
+  void	run();
+private:
+  IModule::State	_listModule(const IModule::Event&,
 				    ITransition*);
-    IModule*	_openModule(const std::string& name);
-  private:
-    ISocket*	_sck;
-    Logger	_logger;
-    void*	_handler;
-  };
-}
+  IModule*	_openModule(const std::string& name);
+private:
+  ISocket*	_sck;
+  Logger	_logger;
+  void*	_handler;
+};
+
 #endif // !__CLIENT_H__

@@ -1,7 +1,15 @@
+//
+// Consumer.cpp for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Tue Sep  9 17:47:40 2008 caner candan
+// Last update Tue Sep  9 17:47:40 2008 caner candan
+//
+
 #include <sstream>
 #include "Consumer.h"
-
-using namespace ziApi;
 
 Consumer::Consumer(IFlux* flux)
   : _flux(flux), _ext_pos(0), _cur_pos(0), _old_pos(0)

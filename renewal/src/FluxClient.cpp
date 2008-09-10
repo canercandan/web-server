@@ -1,13 +1,22 @@
+//
+// FluxClient.cpp for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Tue Sep  9 17:50:39 2008 caner candan
+// Last update Tue Sep  9 17:50:44 2008 caner candan
+//
+
 #ifdef WIN32
 # include <time.h>
 #else
 # include <ctime>
 #endif
+
 #include <sstream>
 #include "FluxClient.h"
 #include "Config.h"
-
-using namespace ziApi;
 
 FluxClient::FluxClient(ISocket* sck)
   : _sck(sck)

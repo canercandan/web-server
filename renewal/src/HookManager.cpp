@@ -1,6 +1,14 @@
-#include "HookManager.h"
+//
+// HookManager.cpp for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Tue Sep  9 17:52:47 2008 caner candan
+// Last update Tue Sep  9 17:52:49 2008 caner candan
+//
 
-using namespace	ZenZiAPI;
+#include "HookManager.h"
 
 bool	HookManager::addModule(std::pair<IModule::p_callback, hookPosition> callbacks[hookPointsNumber], IModule* module)
 {

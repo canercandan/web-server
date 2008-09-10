@@ -1,3 +1,13 @@
+//
+// Client.cpp for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Tue Sep  9 17:47:43 2008 caner candan
+// Last update Tue Sep  9 17:47:43 2008 caner candan
+//
+
 #include <memory>
 #include "Client.h"
 #include "Request.h"
@@ -7,8 +17,6 @@
 #include "HttpParser.h"
 #include "URIParser.h"
 #include "Config.h"
-
-using namespace ziApi;
 
 Client::Client(ISocket* sck)
   : _sck(sck)

@@ -1,12 +1,22 @@
+//
+// FileInfo.cpp for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Tue Sep  9 17:50:12 2008 caner candan
+// Last update Wed Sep 10 10:02:48 2008 caner candan
+//
+
 #include <sys/types.h>
+
 #ifdef WIN32
 # include <windows.h>
 #else
 # include <dirent.h>
 #endif
-#include "FileInfo.h"
 
-using namespace ZenZiAPI;
+#include "FileInfo.h"
 
 FileInfo::FileInfo(const std::string& path)
   : _path(path), _type(OTHER)
