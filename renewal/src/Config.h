@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Mon Sep  8 13:45:46 2008 majdi toumi
-// Last update Tue Sep  9 20:47:17 2008 majdi toumi
+// Last update Wed Sep 10 12:04:11 2008 majdi toumi
 //
 
 #include <string>
@@ -14,6 +14,7 @@
 #include "IConfig.hpp"
 #include "XmlParser.h"
 #include "FileInfo.h"
+#include "Singleton.hpp"
 
 # define CONFIG_FILE	"../server.xml"
 
@@ -23,7 +24,7 @@ namespace ZenZiAPI
    * @class Config
    * @brief Configuration manager
    */
-  class	Config
+  class	Config : public IConfig, public Singleton<Config>
   {
   public:
     typedef std::map<std::string, std::string>	MapConfig_t;
