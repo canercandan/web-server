@@ -5,7 +5,7 @@
 ## Login   <toumi_m@epitech.net>
 ## 
 ## Started on  Tue Sep  9 16:01:11 2008 majdi toumi
-## Last update Wed Sep 10 16:46:19 2008 caner candan
+## Last update Wed Sep 10 16:50:36 2008 morgan armand
 ##
 
 NAME		=	zia
@@ -39,7 +39,7 @@ OBJS		=	$(SRCS:.cpp=.o)
 INCLUDES_XML	=	`xml2-config --cflags`
 LIBRARY_XML	=	`xml2-config --libs`
 
-INCLUDES	+=	-I$(PATH_SRC) -I$(PATH_INTERFACE) $(INCLUDES_XML)
+INCLUDES	+=	-I$(PATH_SRC) -I$(PATH_INTERFACE) $(INCLUDES_XML) -D__BSD_VISIBLE
 LIBRARIES	+=	-lpthread $(LIBRARY_XML)
 
 CXX		=	g++
