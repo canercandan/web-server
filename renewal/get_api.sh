@@ -12,6 +12,10 @@ echo "
 " && \
     cd $DESTINATION && \
     echo "
+#### Empty directory ####
+" && \
+    rm -rfv * && \
+    echo "
 #### Download API ####
 " && \
     wget $TARBALL && \
