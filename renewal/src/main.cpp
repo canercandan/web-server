@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Wed Sep 10 14:55:32 2008 morgan armand
+// Last update Wed Sep 10 15:54:26 2008 caner candan
 //
 
 #include <iostream>
@@ -25,7 +25,7 @@ int		main()
   //conf->ziaDumpConfig();
   logger.info("starting zia server");
 
-  //   ISocket*		socket;
+  Socket*		socket;
   //   Client*		client;
   //   Thread*		thread;
   //   int			port;
@@ -40,14 +40,14 @@ int		main()
       return (1);
     }
   while (42) //todo: singleton State to check error
-    //     if (socket = server.accept())
-    {
-      // 	logger.info("accept new connection from a client");
-      // 	client = new Client(socket);
-      // 	thread = new Thread(client);
-      // 	thread->start();
-      // 	delete thread;
-    }
+    if ((socket = server.accept()))
+      {
+	// 	logger.info("accept new connection from a client");
+	// 	client = new Client(socket);
+	// 	thread = new Thread(client);
+	// 	thread->start();
+	// 	delete thread;
+      }
   server.close();
   //   conf->kill();
   logger.info("stopping zia server");
