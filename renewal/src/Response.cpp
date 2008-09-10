@@ -1,11 +1,11 @@
 #include "Response.h"
 
-void		Response::statusCode(int code)
+void		Response::setStatusCode(int code)
 {
   this->_code = code;
 }
 
-std::string&	Response::statusCode()
+std::string&	Response::getStatusCode()
 {
   std::sstream	ss;
 
@@ -13,12 +13,12 @@ std::string&	Response::statusCode()
   return (ss.str());
 }
 
-void		Response::statusMessage(const std::string& message)
+void		Response::setStatusMessage(const std::string& message)
 {
   this->_status = message;
 }
 
-std::string	Response::statusMessage()
+std::string	Response::getStatusMessage()
 {
   return (this->_status);
 }

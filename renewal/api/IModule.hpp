@@ -4,6 +4,7 @@
 #include <iostream>
 #include <openssl/ssl.h>
 
+#include "IRessourcesManager.hpp"
 #include "defines.hpp"
 #include "ITools.hpp"
 
@@ -15,7 +16,7 @@ namespace ZenZiAPI
    * @brief Interface describing a module
    */
 
-  class IModule
+  class IModule : public virtual IRessourcesManager
   {
   public:
     typedef bool (IModule::*p_callback)(ITools&); /**< callbacks typedef */

@@ -24,25 +24,25 @@ namespace ZenZiAPI
      * @brief statusCode setter
      * @param code : the code to set
      */
-    virtual void		statusCode(int code) = 0;
+    virtual void		setStatusCode(int code) = 0;
 
     /** 
      * @brief statusCode getter
      * @return current statusCode
      */
-    virtual const std::string&	statusCode() = 0;
+    virtual const std::string&	getStatusCode() = 0;
 
     /** 
      * @brief statusMessage setter
      * @param message : the message to set
      */
-    virtual void		statusMessage(const std::string& message) = 0;
+    virtual void		setStatusMessage(const std::string& message) = 0;
 
     /** 
      * @brief statusMessage getter
      * @return current statusMessage
      */
-    virtual const std::string&	statusMessage() = 0;
+    virtual const std::string&	getStatusMessage() = 0;
 
     /** 
      * @brief build the entire response

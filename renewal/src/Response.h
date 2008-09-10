@@ -1,18 +1,19 @@
 #ifndef _RESPONSE_H_
 # define _RESPONSE_H_
 
-#include "IResponse.h"
+# include "IResponse.hpp"
+# include "Request.h"
 
 namespace	ZenZiAPI
 {
   class		Response : public IResponse, public Request
   {
   public:
-    void			statusCode(int code);
-    std::string&		statusCode();
+    void			setStatusCode(int code);
+    std::string&		getStatusCode();
 
-    void			statusMessage(const std::string& message);
-    const std::string&		statusMessage();
+    void			setStatusMessage(const std::string& message);
+    const std::string&		getStatusMessage();
 
     std::string			buildResponse();
     void			resetHeaders();
@@ -22,4 +23,4 @@ namespace	ZenZiAPI
   };
 }
 
-#endif // _RESPONSE_H_
+#endif // !_RESPONSE_H_
