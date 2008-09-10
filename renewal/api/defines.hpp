@@ -1,18 +1,12 @@
 #ifndef _DEFINES_H_
 # define _DEFINES_H_
 
-#ifdef __linux 
+#ifndef WIN32
 # ifndef SOCKET
-typedef int SOCKET;
+typedef int	SOCKET;
 # endif
 #else
-# ifdef __FreeBSD__
-#  ifndef SOCKET
-typedef int SOCKET;
-#  endif
-# else
-#  include <Winsock2.h>
-# endif
+# include <Winsock2.h>
 #endif
 
 namespace ZenZiAPI
