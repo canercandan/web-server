@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 11:30:03 2008 majdi toumi
-// Last update Tue Sep  9 20:46:39 2008 majdi toumi
+// Last update Wed Sep 10 11:02:21 2008 majdi toumi
 //
 
 #include <iostream>
@@ -82,8 +82,8 @@ void		Config::setXmlParam(const std::string& key,
 
 Config::ListModule_t&	Config::getListModule()
 {
-  FileInfo	info(this->_map_config["module_directory"]);
-  std::string	time;
+  FileInfo::FileInfo	info(this->_map_config["module_directory"]);
+  std::string		time;
 
   time = info.getLastTimeAccess();
   if ((this->_last_access == "") || (this->_last_access != time))
