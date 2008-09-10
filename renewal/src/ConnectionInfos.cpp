@@ -2,17 +2,22 @@
 
 using namespace ZenZiAPI;
 
-const SOCKET		ConnectionInfos::socket()
+ConnectionInfos::ConnectionInfos(SOCKET sck)
+  : _sck(sck)
 {
-  // ...
 }
 
-const connectionType	ConnectionInfos::connectType(void)
+const SOCKET		ConnectionInfos::socket()
+{
+  return (this->_sck);
+}
+
+const ConnectionInfos::connectionType	ConnectionInfos::connectType(void)
 {
   return (this->_connectionType);
 }
 
-Extension*		ConnectionInfos::extension(void)
+ConnectionInfos::Extension*		ConnectionInfos::extension(void)
 {
   return (this->_extension);
 }
