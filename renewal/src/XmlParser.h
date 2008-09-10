@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 13:00:15 2008 majdi toumi
-// Last update Wed Sep 10 12:10:24 2008 majdi toumi
+// Last update Wed Sep 10 12:38:21 2008 majdi toumi
 //
 
 #ifndef __XMLPARSER_H__

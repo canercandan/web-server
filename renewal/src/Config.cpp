@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 11:30:03 2008 majdi toumi
-// Last update Wed Sep 10 11:02:21 2008 majdi toumi
+// Last update Wed Sep 10 12:36:27 2008 majdi toumi
 //
 
 #include <iostream>
@@ -15,7 +15,7 @@
 using namespace ZenZiAPI;
 
 Config::Config()
-  : _xmlParser(new XmlParser(CONFIG_FILE))
+  : _xmlParser(new XmlParser(CONFIG_FILENAME))
 {
   setParam("port", "80");
   _loadConfig();
@@ -96,10 +96,10 @@ Config::ListModule_t&	Config::getListModule()
 
 void	Config::refresh(FileInfo& info)
 {
-  IFileInfo::listDir	dir = info.getListDir();
-  IFileInfo::listDir::const_iterator	itb;
-  IFileInfo::listDir::const_iterator	ite = dir.end();
-  int			found;
+  FileInfo::ListDir_t			dir = info.getListDir();
+  FileInfo::ListDir_t::const_iterator	itb;
+  FileInfo::ListDir_t::const_iterator	ite = dir.end();
+  int					found;
 
   this->_list_module.clear();
   for (itb = dir.begin(); itb != ite; itb++)

@@ -5,14 +5,12 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 13:09:45 2008 majdi toumi
-// Last update Tue Sep  9 20:06:45 2008 majdi toumi
+// Last update Wed Sep 10 12:38:49 2008 majdi toumi
 //
 
 #include <string>
 #include <iostream>
 #include "XmlParser.h"
-
-using namespace ZenZiAPI;
 
 XmlParser::XmlParser(const std::string& filename)
   : _filename(filename)
