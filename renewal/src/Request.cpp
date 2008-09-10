@@ -5,12 +5,10 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 16:19:10 2008 caner candan
-// Last update Wed Sep 10 16:24:49 2008 caner candan
+// Last update Wed Sep 10 16:27:21 2008 caner candan
 //
 
 #include "Request.h"
-
-using namespace ZenZiAPI;
 
 const std::string&	Request::getHTTPVersion()
 {
