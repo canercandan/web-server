@@ -1,16 +1,16 @@
 #include <iostream>
 #include "Socket.h"
 
-using namespace ziApi;
-
 Socket::Socket()
   : _sck(INVALID_SOCKET), _sin()
-{}
+{
+}
 
 Socket::Socket(const SOCKET sck,
 	       const struct sockaddr_in& sin)
   : _sck(sck), _sin(sin)
-{}
+{
+}
 
 Socket::~Socket()
 {
@@ -86,7 +86,7 @@ bool	Socket::listen(const int backlog)
   return (true);
 }
 
-ISocket*	Socket::accept()
+Socket*		Socket::accept()
 {
   int			opt;
   SOCKET		sck;
@@ -150,4 +150,9 @@ int	Socket::send(std::string& buf)
 bool	Socket::isValid()
 {
   return (this->_sck != INVALID_SOCKET);
+}
+
+SOCKET	Socket::getSocket()
+{
+  return (this->_sck);
 }

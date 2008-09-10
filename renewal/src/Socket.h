@@ -21,39 +21,38 @@ typedef int	socklen_t;
 # endif
 
 # include <string>
-# include "ISocket.h"
 
-namespace	ziApi
-{
   //! Socket
-  class Socket : public ISocket
-  {
-  public:
-    //! undef
-    Socket();
-    Socket(const SOCKET sck, const struct sockaddr_in& sin);
-    ~Socket();
+class Socket
+{
+public:
+  //! undef
+  Socket();
+  Socket(const SOCKET sck, const struct sockaddr_in& sin);
+  ~Socket();
 
-    //! undef
-    bool	create();
-    //! undef
-    bool	bind(const int port);
-    //! undef
-    bool	listen(const int backlog);
-    //! undef
-    ISocket*	accept();
-    //! undef
-    void	close();
-    //! undef
-    int		recv(char* buf, int len);
-    //! undef
-    int		send(std::string& buf);
-    //! undef
-    bool	isValid();
-  private:
-    SOCKET		_sck;
-    struct sockaddr_in	_sin;
-  };
+  //! undef
+  bool		create();
+  //! undef
+  bool		bind(const int port);
+  //! undef
+  bool		listen(const int backlog);
+  //! undef
+  Socket*	accept();
+  //! undef
+  void		close();
+  //! undef
+  int		recv(char* buf, int len);
+  //! undef
+  int		send(std::string& buf);
+  //! undef
+  bool		isValid();
+  //! undef
+  SOCKET	getSocket();
+
+private:
+  SOCKET		_sck;
+  struct sockaddr_in	_sin;
 };
 
 #endif // !__SOCKET_H__

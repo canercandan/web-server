@@ -1,10 +1,9 @@
 #include <iostream>
 #include "ServerSocket.h"
 
-using namespace ziApi;
-
 ServerSocket::ServerSocket()
-{}
+{
+}
 
 bool		ServerSocket::create(const int& port)
 {
@@ -17,7 +16,7 @@ bool		ServerSocket::create(const int& port)
   return (true);
 }
 
-ISocket*	ServerSocket::accept()
+Socket*		ServerSocket::accept()
 {
   return (this->_sck.accept());
 }

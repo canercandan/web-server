@@ -3,24 +3,22 @@
 
 # include "Socket.h"
 
-namespace	ziApi
-{
   //! ServerSocket
-  class	ServerSocket
-  {
-  public:
-    //! undef
-    ServerSocket();
+class	ServerSocket
+{
+public:
+  //! undef
+  ServerSocket();
 
-    //! undef
-    bool	create(const int& port);
-    //! undef
-    ISocket*	accept();
-    //! undef
-    void	close();
-  private:
-    Socket	_sck;
-  };
+  //! undef
+  bool		create(const int& port);
+  //! undef
+  Socket*	accept();
+  //! undef
+  void		close();
+
+private:
+  Socket	_sck;
 };
 
 #endif // !__SERVERSOCKET_H__
