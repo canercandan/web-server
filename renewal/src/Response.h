@@ -10,7 +10,7 @@ namespace	ZenZiAPI
   {
   public:
     void			setStatusCode(int code);
-    std::string&		getStatusCode();
+    const std::string&		getStatusCode();
 
     void			setStatusMessage(const std::string& message);
     const std::string&		getStatusMessage();
@@ -19,7 +19,8 @@ namespace	ZenZiAPI
     void			resetHeaders();
 
   private:
-    int				_code;
+    std::string			_code;
+    std::string			_message;
   };
 }
 

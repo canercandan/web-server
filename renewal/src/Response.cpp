@@ -1,26 +1,30 @@
+#include <sstream>
 #include "Response.h"
+
+using namespace	ZenZiAPI;
 
 void		Response::setStatusCode(int code)
 {
-  this->_code = code;
+  std::stringstream	ss;
+
+  ss << code;
+
+  this->_code = ss.str();
 }
 
-std::string&	Response::getStatusCode()
+const std::string&	Response::getStatusCode()
 {
-  std::sstream	ss;
-
-  ss << this->_code;
-  return (ss.str());
+  return (this->_code);
 }
 
 void		Response::setStatusMessage(const std::string& message)
 {
-  this->_status = message;
+  this->_message = message;
 }
 
-std::string	Response::getStatusMessage()
+const std::string&	Response::getStatusMessage()
 {
-  return (this->_status);
+  return (this->_message);
 }
 
 std::string	Response::buildResponse()
