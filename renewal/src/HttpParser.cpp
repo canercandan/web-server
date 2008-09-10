@@ -1,8 +1,6 @@
 #include <string>
 #include "HttpParser.h"
 
-using namespace ziApi;
-
 // -----------------------REMOVE ME --------------------------
 
 namespace	Debug

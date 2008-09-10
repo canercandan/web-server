@@ -2,20 +2,13 @@
 # define __IFLUX_H__
 
 # include <string>
-# include "IRoot.h"
 
-namespace	ziApi
+class	IFlux
 {
-  //! IFlux
-  class	IFlux : public IRoot
-  {
-  public:
-    virtual ~IFlux(){}
+public:
+  virtual ~IFlux(){}
 
-    //! get next string
-    //! \return std::string
-    virtual std::string	nextString() = 0;
-  };
+  virtual std::string	nextString() = 0;
 };
 
 #endif // !__IFLUX_H__

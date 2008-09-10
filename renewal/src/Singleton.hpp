@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 11:14:31 2008 majdi toumi
-// Last update Wed Sep 10 12:04:33 2008 majdi toumi
+// Last update Wed Sep 10 12:11:09 2008 caner candan
 //
 
 #ifndef __SINGLETON_HPP__
@@ -13,21 +13,18 @@
 
 # include <cstdlib>
 
-//! Singleton
 template <typename T>
 
 class	Singleton
 {
 public:
-  //! get an instance
-  //! \return T pointer
   static T*	getInstance()
   {
     if (!_singleton)
       _singleton = new T;
     return (static_cast<T*>(_singleton));
   }
-  //! kill an instance
+
   static void	kill()
   {
     if (_singleton)
@@ -36,7 +33,7 @@ public:
 	_singleton = NULL;
       }
   }
-  //! return true if instance exist
+
   static bool	exist()
   {
     return (_singleton != NULL);

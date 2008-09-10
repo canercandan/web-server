@@ -3,7 +3,6 @@
 
 # include <string>
 # include <iostream>
-# include "IRoot.h"
 
 # define PCHAR(a)	(this->_consumer->peekChar(a))
 # define CHAR(a)	(this->_consumer->readChar(a))
@@ -33,17 +32,12 @@
 
 # define SHARP(a)	while (LWS && CHAR(',') && LWS && (a))
 
-namespace	ziApi
+class	IParser
 {
-  //! IParser
-  class	IParser : public IRoot
-  {
-  public:
-    //! undef
-    virtual ~IParser(){}
+public:
+  virtual ~IParser(){}
 
-    virtual bool	run() = 0;
-  };
+  virtual bool	run() = 0;
 };
 
 #endif //! __IPARSER_H__
