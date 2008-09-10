@@ -5,10 +5,10 @@
 ## Login   <toumi_m@epitech.net>
 ## 
 ## Started on  Tue Sep  9 16:01:11 2008 majdi toumi
-## Last update Wed Sep 10 12:06:22 2008 majdi toumi
+## Last update Wed Sep 10 14:04:29 2008 morgan armand
 ##
 
-NAME		=	tuniZIA
+NAME		=	zia
 
 PATH_SRC	=	../src
 PATH_INTERFACE	=	../api
