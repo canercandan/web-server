@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Wed Sep 10 16:17:06 2008 caner candan
+// Last update Wed Sep 10 17:20:29 2008 florent hochwelker
 //
 
 #include <iostream>
@@ -13,6 +13,7 @@
 #include "Config.h"
 #include "Logger.h"
 #include "ServerSocket.h"
+#include "Thread.h"
 
 using namespace ZenZiAPI;
 
@@ -27,7 +28,7 @@ int		main()
 
   Socket*		socket;
   //   Client*		client;
-  //   Thread*		thread;
+  //  Thread*		thread;
   //   int			port;
   //   std::stringstream	ss(conf->getValue("port"));
 
