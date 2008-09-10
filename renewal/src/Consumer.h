@@ -5,14 +5,13 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:48 2008 caner candan
-// Last update Tue Sep  9 17:50:07 2008 caner candan
+// Last update Wed Sep 10 16:48:40 2008 caner candan
 //
 
 #ifndef __CONSUMER_H__
 # define __CONSUMER_H__
 
 # include <string>
-# include "IRoot.h"
 # include "IFlux.h"
 
 class	Consumer
