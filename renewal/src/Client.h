@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:45 2008 caner candan
-// Last update Thu Sep 11 09:53:54 2008 morgan armand
+// Last update Thu Sep 11 10:03:31 2008 florent hochwelker
 //
 
 #ifndef __CLIENT_H__
@@ -50,7 +50,7 @@ private:
 private:
   Socket*					_sck;
   HookManager					_hook;
-  std::list< std::pair<IModule*, destroy_t> >	_mods;
+  std::list<std::pair<IModule*, destroy_t> >	_mods;
 };
 
 #endif // !__CLIENT_H__
