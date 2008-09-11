@@ -5,44 +5,45 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Sep 11 14:16:25 2008 caner candan
-// Last update Thu Sep 11 15:36:14 2008 caner candan
+// Last update Thu Sep 11 15:38:53 2008 caner candan
 //
 
-#include "AutoIndex.h"
+#include <iostream>
+#include "MyModule.h"
 
-bool	AutoIndex::onLoad()
+bool	MyModule::onLoad()
 {
   std::cout << "LOADING..." << std::endl;
   return (true);
 }
 
-void	AutoIndex::onUnLoad()
+void	MyModule::onUnLoad()
 {
   std::cout << "UNLOADING..." << std::endl;
 }
 
-const std::vector<std::pair<AutoIndex::p_callback, ZenZiAPI::hookPosition> >&	AutoIndex::getCallbacks()
+const std::vector<std::pair<MyModule::p_callback, ZenZiAPI::hookPosition> >&	MyModule::getCallbacks()
 {
 //   this->p_int[ZenZiAPI::PARSED].first =
-//     static_cast<IModule::p_callback>(&AutoIndex::run);
+//     static_cast<IModule::p_callback>(&MyModule::run);
 //   this->p_int[ZenZiAPI::PARSED].seconde = ZenZiAPI::LAST;
   return (this->p_int);
 }
 
-void	AutoIndex::run(ZenZiAPI::ITools&)
+void	MyModule::run(ZenZiAPI::ITools&)
 {
   std::cout << "TEST MODULE IS RUNNING" << std::endl;
 }
 
 extern "C"
 {
-  AutoIndex*	create()
+  MyModule*	create()
   {
-    return (new AutoIndex);
+    return (new MyModule);
   }
 
   void		destroy(void* p)
   {
-    delete static_cast<AutoIndex*>(p);
+    delete static_cast<MyModule*>(p);
   }
 }
