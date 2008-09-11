@@ -5,39 +5,41 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Wed Sep 10 18:10:20 2008 caner candan
+// Last update Thu Sep 11 11:49:23 2008 caner candan
 //
 
 #include "Server.h"
 #include "Socket.h"
-
-Server::Server(int port)
-{
-  _refreshListModule();
-}
-
-void	Server::_refreshListModule()
-{}
+#include "Client.h"
+#include "Thread.h"
+#include "Config.h"
+#include "ServerState.h"
 
 void	Server::start()
 {
   this->_logger.info("starting zia server");
-  if (!this->_server.create(conf->getParamInt("port")))
-    {
-      this->_logger.error("an error occured while starting the server");
-      return (1);
-    }
+  if (!this->_server.create(Config::getInstance()->getParamInt("port")))
+    this->_logger.error("an error occured while starting the server");
+  else
+    ServerState::getInstance()->setState(ServerState::PROCESS);
 }
 
 void	Server::loop()
 {
   Socket*	socket;
+  Client*	client;
+  //Thread*	thread;
 
-  while (42) //todo: singleton State to check error
+  while (ServerState::getInstance()->getState()
+	 == ServerState::PROCESS)
     {
       if ((socket = this->_server.accept()))
 	{
 	  this->_logger.info("accept new connection from a client");
+	  client = new Client(socket);
+	  //thread = new Thread(client);
+	  //thread->start();
+	  //delete thread;
 	}
     }
 }
@@ -45,4 +47,5 @@ void	Server::loop()
 void	Server::stop()
 {
   this->_server.close();
+  this->_logger.info("stopping zia server");
 }

@@ -5,43 +5,18 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Wed Sep 10 16:57:51 2008 majdi toumi
+// Last update Thu Sep 11 11:49:04 2008 caner candan
 //
 
-#include <iostream>
-#include <sstream>
+#include "Server.h"
 #include "Config.h"
-#include "Logger.h"
-#include "ServerSocket.h"
-#include "Thread.h"
-#include "Client.h"
 
 int		main()
 {
-  Config*	conf = Config::getInstance();
-  Logger	logger;
-  ServerSocket	server;
-  Socket*	socket;
-  Client*	client;
-  //Thread*	thread;
+  Server	server;
 
-  logger.info("starting zia server");
-  if (!server.create(conf->getParamInt("port")))
-    {
-      logger.error("an error occured while starting the server");
-      return (1);
-    }
-  while (42) //todo: singleton State to check error
-    if ((socket = server.accept()))
-      {
-	logger.info("accept new connection from a client");
-	client = new Client(socket);
-	//thread = new Thread(client);
-	// 	thread->start();
-	// 	delete thread;
-      }
-  server.close();
-  //   conf->kill();
-  logger.info("stopping zia server");
-  return (0);
+  server.start();
+  server.loop();
+  server.stop();
+  Config::kill();
 }
