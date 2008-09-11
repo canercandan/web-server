@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Thu Sep 11 10:04:20 2008 morgan armand
+// Last update Thu Sep 11 10:20:20 2008 caner candan
 //
 
 #include <iostream>
@@ -23,7 +23,7 @@ int		main()
   ServerSocket	server;
   Socket*	socket;
   Client*	client;
-  //  Thread*	thread;
+  //Thread*	thread;
 
   logger.info("starting zia server");
   //   conf->ziaDumpConfig();
