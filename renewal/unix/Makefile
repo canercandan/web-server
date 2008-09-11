@@ -5,7 +5,7 @@
 ## Login   <toumi_m@epitech.net>
 ## 
 ## Started on  Tue Sep  9 16:01:11 2008 majdi toumi
-## Last update Wed Sep 10 15:53:03 2008 majdi toumi
+## Last update Thu Sep 11 10:05:05 2008 morgan armand
 ##
 
 NAME		=	zia
@@ -23,7 +23,9 @@ SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/Socket.cpp			\
 			$(PATH_SRC)/Request.cpp			\
 			$(PATH_SRC)/Thread.cpp			\
-			$(PATH_SRC)/Consumer.cpp
+			$(PATH_SRC)/Consumer.cpp		\
+			$(PATH_SRC)/Client.cpp			\
+			$(PATH_SRC)/HookManager.cpp
 
 #			$(PATH_SRC)/FluxClient.cpp		\
 #			$(PATH_SRC)/HookManager.cpp		\

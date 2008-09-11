@@ -31,6 +31,8 @@ bool	HookManager::manageHookPoint(hookPoint point, ITools& tools)
     return (false);
   if (!this->_manageHookPoint(point, VERY_LAST, tools))
     return (false);
+
+  return (true);
 }
 
 
@@ -44,19 +46,17 @@ bool	HookManager::_manageHookPoint(hookPoint point, hookPosition position, ITool
 
   for (; itb != ite; ++itb)
     {
-      IModule*				mod;
-      Callbacks_t::const_iterator	ctb;
-      Callbacks_t::const_iterator	cte;
+      IModule*		mod;
+      Callbacks_t	cb;
 
       mod = (*itb).first;
-      ctb = (*itb).second.begin();
-      cte = (*itb).second.end();
+      cb = (*itb).second;
 
-      for (; ctb != cte; ++ctb)
+      if ((size_t)point <= cb.size())
 	{
-	  IModule::p_callback	handler = (*ctb).first;
+	  IModule::p_callback&	handler = cb.at(point).first;
 
-	  if ((*ctb).second == position)
+	  if (cb.at(point).second == position)
 	    {
 	      if ((mod->*handler)(tools) == false)
 		return (false);
