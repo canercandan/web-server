@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:25:17 2008 caner candan
-// Last update Wed Sep 10 18:07:21 2008 caner candan
+// Last update Thu Sep 11 10:34:42 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -19,19 +19,14 @@
 class	Server
 {
 public:
-  typedef std::list<std::string>	listModule;
-public:
   Server(int port);
 
   void	start();
   void	loop();
   void	stop();
 private:
-  void	_refreshListModule();
-private:
   Logger	_logger;
   ServerSocket	_server;
-  listModule	_listModule;
 };
 
 #endif //! __SERVER_H__
