@@ -10,10 +10,10 @@ namespace	ZenZiAPI
   public:
     ConnectionInfos(SOCKET sck);
 
-    const SOCKET		socket();
-    const connectionType	connectType(void);
-    Extension*			extension(void);
-    void			extension(void *ptr);
+    const SOCKET		getSocket() const;
+    const connectionType	getConnectType(void) const;
+    Extension*			getExtension(void) const;
+    void			setExtension(void *ptr);
 
   private:
     connectionType	_connectionType;

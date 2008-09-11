@@ -1,21 +1,22 @@
 #ifndef _MESSAGE_H_
 # define _MESSAGE_H_
 
-# include "IMessage.h"
+# include "IMessage.hpp"
+
+# include "Request.h"
+# include "Response.h"
 
 namespace	ZenZiAPI
 {
   class		Message : public IMessage
   {
   public:
-    Message(IRequest& request, IResponse& response);
-
     IRequest&	request();
     IResponse&	response();
 
   private:
-    IRequest&	_request;
-    IResponse&	_response;
+    Request	_request;
+    Response	_response;
   };
 }
 

@@ -7,22 +7,22 @@ ConnectionInfos::ConnectionInfos(SOCKET sck)
 {
 }
 
-const SOCKET		ConnectionInfos::socket()
+const SOCKET		ConnectionInfos::getSocket() const
 {
   return (this->_sck);
 }
 
-const ConnectionInfos::connectionType	ConnectionInfos::connectType(void)
+const ConnectionInfos::connectionType	ConnectionInfos::getConnectType(void) const
 {
   return (this->_connectionType);
 }
 
-ConnectionInfos::Extension*		ConnectionInfos::extension(void)
+ConnectionInfos::Extension*		ConnectionInfos::getExtension(void) const
 {
   return (this->_extension);
 }
 
-void			ConnectionInfos::extension(void *ptr)
+void			ConnectionInfos::setExtension(void *ptr)
 {
   this->_extension = ptr;
 }

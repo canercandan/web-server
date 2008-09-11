@@ -1,9 +1,6 @@
 #include "Message.h"
 
-Message::Message(IRequest& request, IResponse& response)
-  : _request(request), _response(response)
-{
-}
+using namespace ZenZiAPI;
 
 IRequest&	Message::request()
 {

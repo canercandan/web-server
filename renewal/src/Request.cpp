@@ -5,10 +5,12 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 16:19:10 2008 caner candan
-// Last update Wed Sep 10 16:27:21 2008 caner candan
+// Last update Thu Sep 11 11:20:55 2008 morgan armand
 //
 
 #include "Request.h"
+
+using namespace	ZenZiAPI;
 
 const std::string&	Request::getHTTPVersion()
 {
@@ -35,9 +37,9 @@ const std::string&	Request::getUri()
   return (this->_uri);
 }
 
-void	Request::setUri(std::string& field)
+void	Request::setUri(const std::string& http_uri)
 {
-  this->_uri = field;
+  this->_uri = http_uri;
 }
 
 const std::map<std::string, std::string>&	Request::getHeaders(const std::string& field)
@@ -100,12 +102,12 @@ void	Request::bodyAppend(char* body,
     this->_body += body;
 }
 
-bool	Request::isChunked() const
+bool	Request::isChunk() const
 {
   return (this->_isChunked);
 }
 
-void	Request::setChunked(bool isChunked)
+void	Request::setChunk(bool isChunked)
 {
   this->_isChunked = isChunked;
 }

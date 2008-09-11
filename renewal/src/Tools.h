@@ -1,14 +1,18 @@
 #ifndef _TOOLS_H_
 # define _TOOLS_H_
 
-# include "ITools.h"
+# include "ITools.hpp"
+
+# include "Config.h"
+# include "Message.h"
+# include "ConnectionInfos.h"
 
 namespace	ZenZiAPI
 {
   class		Tools : public ITools
   {
   public:
-    Tools(IMessage& message, IConfig& config, IConnectionInfos& infos);
+    Tools(SOCKET sck);
 
     IMessage&		message();
     IConfig&		config();
@@ -17,9 +21,9 @@ namespace	ZenZiAPI
     void		data(std::string* str);
 
   private:
-    IMessage&		_message;
-    IConfig&		_config;
-    IConnectionInfos&	_cinfos;
+    Message		_message;
+    Config		_config;
+    ConnectionInfos	_cinfos;
     std::string*	_data;
   };
 }

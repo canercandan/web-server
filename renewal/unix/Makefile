@@ -5,7 +5,7 @@
 ## Login   <toumi_m@epitech.net>
 ## 
 ## Started on  Tue Sep  9 16:01:11 2008 majdi toumi
-## Last update Thu Sep 11 10:43:14 2008 caner candan
+## Last update Thu Sep 11 10:46:50 2008 morgan armand
 ##
 
 NAME		=	zia
@@ -26,15 +26,12 @@ SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/Consumer.cpp		\
 			$(PATH_SRC)/Client.cpp			\
 			$(PATH_SRC)/HookManager.cpp		\
-			$(PATH_SRC)/ServerState.cpp
+			$(PATH_SRC)/Message.cpp			\
+			$(PATH_SRC)/Response.cpp		\
+			$(PATH_SRC)/Tools.cpp
 
 #			$(PATH_SRC)/FluxClient.cpp		\
-#			$(PATH_SRC)/HookManager.cpp		\
 #			$(PATH_SRC)/HttpParser.cpp		\
-#			$(PATH_SRC)/Message.cpp			\
-#			$(PATH_SRC)/Response.cpp		\
-#			$(PATH_SRC)/RessourcesManager.cpp	\
-#			$(PATH_SRC)/Tools.cpp			\
 #			$(PATH_SRC)/URIParser.cpp		\
 
 OBJS		=	$(SRCS:.cpp=.o)

@@ -1,7 +1,9 @@
 #include "Tools.h"
 
-Tools::Tools(IMessage& message, IConfig& config, IConnectionInfos& infos)
-  : _message(message), _config(config), _cinfos(cinfos)
+using namespace	ZenZiAPI;
+
+Tools::Tools(SOCKET sck)
+  : _cinfos(sck)
 {
 }
 

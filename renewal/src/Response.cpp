@@ -40,6 +40,7 @@ const std::string&	Response::getStatusMessage()
 
 std::string	Response::buildResponse()
 {
+  return ("pouet.net");
 }
 
 void		Response::resetHeaders()
