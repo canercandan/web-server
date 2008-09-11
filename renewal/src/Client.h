@@ -5,13 +5,11 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:45 2008 caner candan
-// Last update Tue Sep  9 17:47:45 2008 caner candan
+// Last update Wed Sep 10 18:57:00 2008 morgan armand
 //
 
 #ifndef __CLIENT_H__
 # define __CLIENT_H__
-
-# include <dlfcn.h>
 
 # ifdef WIN32
 #  include <windows.h>
@@ -24,31 +22,30 @@
 #  define RTLD_LAZY	-1
 #  define RTLD_NOW	-1
 #  define RTLD_GLOBAL	-1
+#else
+# include <dlfcn.h>
 # endif
 
 # include "IRunnable.h"
-# include "ISocket.h"
-# include "Logger.h"
-# include "IConfig.h"
-# include "ITransition.h"
+# include "Socket.h"
+# include "HookManager.h"
 
 class Client : public IRunnable
 {
 public:
-  typedef IModule*	(*fct)(IConfig*);
-
-  Client(ISocket* sck);
+  Client(Socket* sck);
   ~Client();
 
   void	run();
+
 private:
-  IModule::State	_listModule(const IModule::Event&,
-				    ITransition*);
-  IModule*	_openModule(const std::string& name);
+  void	_loadModules();
+  void	_unloadModules();
+
 private:
-  ISocket*	_sck;
-  Logger	_logger;
-  void*	_handler;
+  Socket*					_sck;
+  HookManager					_hook;
+  std::list< std::pair<IModule*, void*> >	_mods;
 };
 
 #endif // !__CLIENT_H__
