@@ -16,10 +16,10 @@ private:
 public:
   bool	addModule(IModule* module);
   void	delModule(IModule* module);
-  bool	hookPoint(hookPoint point, ITools& tools);
+  bool	manageHookPoint(hookPoint point, ITools& tools);
 
 private:
-  bool	_hookPoint(hookPoint point, hookPosition position, ITools& tools);
+  bool	_manageHookPoint(hookPoint point, hookPosition position, ITools& tools);
 
 private:
   std::map<IModule*, Callbacks_t>	_modules;

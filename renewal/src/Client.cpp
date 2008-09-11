@@ -5,20 +5,21 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Thu Sep 11 09:26:50 2008 morgan armand
+// Last update Thu Sep 11 09:54:40 2008 morgan armand
 //
 
-#include <memory>
+//#include <memory>
+#include <iostream>
 #include "Client.h"
-#include "Request.h"
-#include "Response.h"
-#include "FluxClient.h"
-#include "Consumer.h"
-#include "HttpParser.h"
-#include "URIParser.h"
-#include "Config.h"
+//#include "Request.h"
+//#include "Response.h"
+//#include "FluxClient.h"
+//#include "Consumer.h"
+//#include "HttpParser.h"
+//#include "URIParser.h"
+//#include "Config.h"
 
-Client::Client(ISocket* sck)
+Client::Client(Socket* sck)
   : _sck(sck)
 {}
 
@@ -37,8 +38,8 @@ void	Client::run()
 void	Client::_loadModules()
 {
   void*						handle;
-  void*						create;
-  void*						destroy;
+  create_t					create;
+  destroy_t					destroy;
   IModule*					mod;
   std::list<std::string>			mods;
   std::list<std::string>::const_iterator	itb;
@@ -54,13 +55,13 @@ void	Client::_loadModules()
 
   for (; itb != ite; ++itb)
     {
-      if (!(handle = dlopen(*itb, RTLD_NOW)))
+      if (!(handle = dlopen((*itb).c_str(), RTLD_NOW)))
 	{
-	  std::err << *itb << "not found" << std::endl;
+	  std::cerr << (*itb) << "not found" << std::endl;
 	  continue;
 	}
-      if (!(create = dlsym(handle, "create")) ||
-	  !(destroy = dlsym(handle, "destroy")))
+      if (!(create = (create_t)dlsym(handle, "create")) ||
+	  !(destroy = (destroy_t)dlsym(handle, "destroy")))
 	{
 	  dlclose(handle);
 	  continue;
@@ -69,7 +70,7 @@ void	Client::_loadModules()
       if ((mod = create()))
 	{
 	  this->_hook.addModule(mod);
-	  this->_mods.push_back(pair(mod, destroy));
+	  this->_mods.push_back(std::pair<IModule*, destroy_t>(mod, destroy));
 	}
 
       dlclose(handle);
@@ -78,8 +79,8 @@ void	Client::_loadModules()
 
 void	Client::_unloadModules()
 {
-  std::list< std::pair<IModule*, void*> >::const_iterator	itb;
-  std::list< std::pair<IModule*, void*> >::const_iterator	ite;
+  std::list< std::pair<IModule*, destroy_t> >::const_iterator	itb;
+  std::list< std::pair<IModule*, destroy_t> >::const_iterator	ite;
 
   itb = this->_mods.begin();
   ite = this->_mods.end();
@@ -87,7 +88,7 @@ void	Client::_unloadModules()
   for (; itb != ite; ++itb)
     {
       IModule*	mod;
-      void*	destroy;
+      destroy_t	destroy;
 
       mod = (*itb).first;
       destroy = (*itb).second;

@@ -19,21 +19,22 @@ void	HookManager::delModule(IModule* module)
     this->_modules.erase(module);
 }
 
-bool	HookManager::hookPoint(hookPoint point, ITools& tools)
+bool	HookManager::manageHookPoint(hookPoint point, ITools& tools)
 {
-  if (!this->_hookPoint(point, tools, VERY_FIRST))
+  if (!this->_manageHookPoint(point, VERY_FIRST, tools))
     return (false);
-  if (!this->_hookPoint(point, tools, FIRST))
+  if (!this->_manageHookPoint(point, FIRST, tools))
     return (false);
-  if (!this->_hookPoint(point, tools, MIDDLE))
+  if (!this->_manageHookPoint(point, MIDDLE, tools))
     return (false);
-  if (!this->_hookPoint(point, tools, LAST))
+  if (!this->_manageHookPoint(point, LAST, tools))
     return (false);
-  if (!this->_hookPoint(point, tools, VERY_LAST))
+  if (!this->_manageHookPoint(point, VERY_LAST, tools))
     return (false);
 }
 
-bool	HookManager::_hookPoint(hookPoint point, hookPosition position, ITools& tools)
+
+bool	HookManager::_manageHookPoint(hookPoint point, hookPosition position, ITools& tools)
 {
   std::map<IModule*, Callbacks_t>::const_iterator	itb;
   std::map<IModule*, Callbacks_t>::const_iterator	ite;
@@ -53,7 +54,7 @@ bool	HookManager::_hookPoint(hookPoint point, hookPosition position, ITools& too
 
       for (; ctb != cte; ++ctb)
 	{
-	  p_callback	handler = (*ctb).first;
+	  IModule::p_callback	handler = (*ctb).first;
 
 	  if ((*ctb).second == position)
 	    {
