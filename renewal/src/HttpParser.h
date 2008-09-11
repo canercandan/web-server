@@ -1,16 +1,23 @@
+//
+// HttpParser.h for 102 in /home/armand_m/zia/renewal/src
+// 
+// Made by morgan armand
+// Login   <armand_m@epitech.net>
+// 
+// Started on  Thu Sep 11 14:28:09 2008 morgan armand
+// Last update Thu Sep 11 14:47:03 2008 morgan armand
+//
 #ifndef __HTTPPARSER_H__
 # define __HTTPPARSER_H__
 
 # include "IParser.h"
 # include "Consumer.h"
-# include "IRequest.h"
+# include "IRequest.hpp"
 
 class	HttpParser : public IParser
 {
 public:
-  HttpParser(Consumer* consumer,
-	     IRequest* request,
-	     IParser* parent = NULL);
+  HttpParser(Consumer& consumer, ZenZiAPI::IRequest& request);
 
   bool	run();
 
@@ -87,15 +94,15 @@ private:
   bool	_readProductOpt();
   bool	_readCommentOpt();
 private:
-  Consumer*	_consumer;
-  IRequest*	_request;
-  IParser*	_parent;
+  Consumer&		_consumer;
+  ZenZiAPI::IRequest&	_request;
 };
 
 // -----------------------REMOVE ME --------------------------
 
 #define DEBUG_ACTIVE		0
-#define DEBUG_ENTER		Debug::enter(__FUNCTION__, this->_consumer->getBuf())
+
+#define DEBUG_ENTER		Debug::enter(__FUNCTION__, this->_consumer.getBuf())
 #define DEBUG_RETURN(ret)	return (Debug::leave(__FUNCTION__, ret))
 
 #define NOT_IMPLEMENTED							\

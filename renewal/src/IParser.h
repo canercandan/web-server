@@ -4,22 +4,22 @@
 # include <string>
 # include <iostream>
 
-# define PCHAR(a)	(this->_consumer->peekChar(a))
-# define CHAR(a)	(this->_consumer->readChar(a))
+# define PCHAR(a)	(this->_consumer.peekChar(a))
+# define CHAR(a)	(this->_consumer.readChar(a))
 
-# define PRANGE(a, b)	(this->_consumer->peekRange((a), (b)))
-# define RANGE(a, b)	(this->_consumer->readRange((a), (b)))
+# define PRANGE(a, b)	(this->_consumer.peekRange((a), (b)))
+# define RANGE(a, b)	(this->_consumer.readRange((a), (b)))
 
-# define TEXT_(a)		(this->_consumer->readText(a))
+# define TEXT_(a)		(this->_consumer.readText(a))
 
-# define CHAR_R(a)		(this->_consumer->readChar(a))
-# define INTEGER_R(a)		(this->_consumer->readInteger(a))
-# define IDENTIFIER_R(a)	(this->_consumer->readIdentifier(a))
-# define RANGE_R(a, b, c)	(this->_consumer->readRange((a), (b), (c)))
-# define TEXT_R(a, b)		(this->_consumer->readText((a), (b)))
+# define CHAR_R(a)		(this->_consumer.readChar(a))
+# define INTEGER_R(a)		(this->_consumer.readInteger(a))
+# define IDENTIFIER_R(a)	(this->_consumer.readIdentifier(a))
+# define RANGE_R(a, b, c)	(this->_consumer.readRange((a), (b), (c)))
+# define TEXT_R(a, b)		(this->_consumer.readText((a), (b)))
 
-# define IDENTIFIER	this->_consumer->readIdentifier()
-# define INTEGER	this->_consumer->readInteger()
+# define IDENTIFIER	this->_consumer.readIdentifier()
+# define INTEGER	this->_consumer.readInteger()
 
 # define ALPHA		(RANGE('A', 'Z') || RANGE('a', 'z'))
 # define CR		CHAR('\r')

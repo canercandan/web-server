@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:39 2008 caner candan
-// Last update Tue Sep  9 17:50:44 2008 caner candan
+// Last update Thu Sep 11 15:04:25 2008 morgan armand
 //
 
 #ifdef WIN32
@@ -17,8 +17,9 @@
 #include <sstream>
 #include "FluxClient.h"
 #include "Config.h"
+#include "Socket.h"
 
-FluxClient::FluxClient(ISocket* sck)
+FluxClient::FluxClient(Socket* sck)
   : _sck(sck)
 {}
 
@@ -33,17 +34,14 @@ std::string		FluxClient::nextString()
   char			buf[128];
   int			cc;
   Config*		conf;
-  std::stringstream	ss;
   int			timeout;
   int			timestart;
 
   conf = Config::getInstance();
-  ss.str(conf->getValue("timeout"));
-  ss >> timeout;
-  ss.str(conf->getValue("timestart"));
-  ss >> timestart;
-  if (timeout > 0 && timestart + timeout >= ::time(NULL))
-    return ("");
+  timeout = conf->getParamInt("timeout");
+  timestart = conf->getParamInt("timestart");
+  //if (timeout > 0 && timestart + timeout >= ::time(NULL))
+  //    return ("");
   if (!(cc = this->_sck->recv(buf, sizeof(buf) - 1)))
     return ("");
   buf[cc] = 0;

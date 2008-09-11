@@ -5,15 +5,16 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Thu Sep 11 11:24:42 2008 morgan armand
+// Last update Thu Sep 11 15:02:41 2008 morgan armand
 //
 
 //#include <memory>
 #include <iostream>
 #include "Client.h"
 #include "Tools.h"
-
-//using namespace	ZenZiAPI;
+#include "Consumer.h"
+#include "FluxClient.h"
+#include "HttpParser.h"
 
 Client::Client(Socket* sck)
   : _sck(sck)
@@ -27,18 +28,25 @@ Client::~Client()
 
 void	Client::run()
 {
-  Tools	tools(this->_sck->getSocket());
+  Tools		tools(this->_sck->getSocket());
+  FluxClient	flux(this->_sck);
+  Consumer	consumer(flux);
+  HttpParser	parser(consumer, tools.message().request());
+
+  this->_loadModules();
 
   this->_hook.manageHookPoint(NEW_CLIENT, tools);
-  this->_loadModules();
+  parser.run();
+  this->_hook.manageHookPoint(DEL_CLIENT, tools);
+
+  this->_unloadModules();
+
   //  this->_hook.manageHookPoint(DATA_IN, tools);
   //  this->_hook.manageHookPoint(PARSED, tools);
   //  this->_hook.manageHookPoint(FILESYSTEM, tools);
   //  this->_hook.manageHookPoint(DATA_OUT, tools);
-  //  this->_hook.manageHookPoint(DEL_CLIENT, tools);
   //  this->_hook.manageHookPoint(READ, tools);
   //  this->_hook.manageHookPoint(WRITE, tools);
-  this->_unloadModules();
 }
 
 void	Client::_loadModules()
@@ -63,7 +71,7 @@ void	Client::_loadModules()
     {
       if (!(handle = dlopen((*itb).c_str(), RTLD_NOW)))
 	{
-	  std::cerr << (*itb) << "not found" << std::endl;
+	  std::cerr << (*itb) << " not found" << std::endl;
 	  continue;
 	}
       if (!(create = (create_t)dlsym(handle, "create")) ||

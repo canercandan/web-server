@@ -5,7 +5,7 @@
 ## Login   <toumi_m@epitech.net>
 ## 
 ## Started on  Tue Sep  9 16:01:11 2008 majdi toumi
-## Last update Thu Sep 11 11:46:32 2008 caner candan
+## Last update Thu Sep 11 15:01:42 2008 morgan armand
 ##
 
 NAME		=	zia
@@ -14,11 +14,11 @@ PATH_SRC	=	../src
 PATH_INTERFACE	=	../api
 
 SRCS		=	$(PATH_SRC)/main.cpp			\
-			$(PATH_SRC)/Config.cpp			\
-			$(PATH_SRC)/XmlParser.cpp		\
-			$(PATH_SRC)/FileInfo.cpp		\
-			$(PATH_SRC)/Logger.cpp			\
 			$(PATH_SRC)/ConnectionInfos.cpp		\
+			$(PATH_SRC)/Config.cpp			\
+			$(PATH_SRC)/FileInfo.cpp		\
+			$(PATH_SRC)/FluxClient.cpp		\
+			$(PATH_SRC)/Logger.cpp			\
 			$(PATH_SRC)/ServerSocket.cpp		\
 			$(PATH_SRC)/Socket.cpp			\
 			$(PATH_SRC)/Request.cpp			\
@@ -30,11 +30,10 @@ SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/Response.cpp		\
 			$(PATH_SRC)/Tools.cpp			\
 			$(PATH_SRC)/Server.cpp			\
-			$(PATH_SRC)/ServerState.cpp
-
-#			$(PATH_SRC)/FluxClient.cpp		\
-#			$(PATH_SRC)/HttpParser.cpp		\
-#			$(PATH_SRC)/URIParser.cpp		\
+			$(PATH_SRC)/ServerState.cpp		\
+			$(PATH_SRC)/XmlParser.cpp		\
+			$(PATH_SRC)/HttpParser.cpp		\
+			$(PATH_SRC)/URIParser.cpp		\
 
 OBJS		=	$(SRCS:.cpp=.o)
 

@@ -1,5 +1,6 @@
 #include <string>
 #include "HttpParser.h"
+#include "URIParser.h"
 
 // -----------------------REMOVE ME --------------------------
 
@@ -39,11 +40,8 @@ namespace	Debug
 
 // -----------------------REMOVE ME --------------------------
 
-HttpParser::HttpParser(Consumer* consumer,
-		       IRequest* request,
-		       IParser* parent /*= NULL*/)
-  : _consumer(consumer), _request(request),
-    _parent(parent)
+HttpParser::HttpParser(Consumer& consumer, ZenZiAPI::IRequest& request)
+  : _consumer(consumer), _request(request)
 {}
 
 bool	HttpParser::run()
@@ -102,12 +100,12 @@ bool	HttpParser::readRequestOpt()
 bool	HttpParser::_readRequestOptPart2()
 {
   DEBUG_ENTER;
-  this->_consumer->save();
+  this->_consumer.save();
   if ((this->readGeneralHeader() ||
        this->readRequestHeader() ||
        this->readEntityHeader()) && CRLF)
     DEBUG_RETURN (true);
-  this->_consumer->back();
+  this->_consumer.back();
   DEBUG_RETURN (false);
 }
 
@@ -122,7 +120,7 @@ bool	HttpParser::readRequestLine()
 bool	HttpParser::readMethod()
 {
   DEBUG_ENTER;
-  this->_consumer->prepare();
+  this->_consumer.prepare();
   if (TEXT_("OPTIONS") ||
       TEXT_("GET") ||
       TEXT_("HEAD") ||
@@ -133,8 +131,8 @@ bool	HttpParser::readMethod()
       TEXT_("CONNECT") ||
       this->readExtensionMethod())
     {
-      this->_request->setMethod(this->_consumer->extract());
-      this->_consumer->consume();
+      this->_request.setMethod(this->_consumer.extract());
+      this->_consumer.consume();
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
@@ -146,27 +144,27 @@ bool	HttpParser::readExtensionMethod()
   DEBUG_RETURN (this->readToken());
 }
 
-bool	HttpParser::readRequestURI()
+bool		HttpParser::readRequestURI()
 {
+  URIParser	up(this->_consumer, this->_request); //tien_caner_sale_n00b;
+
   DEBUG_ENTER;
-  DEBUG_RETURN (this->_parent->run());
+  DEBUG_RETURN (up.run());
 }
 
 bool	HttpParser::readHttpVersion()
 {
-  std::string	name;
-  std::string	major;
-  std::string	minor;
-
   DEBUG_ENTER;
-  if (TEXT_R("HTTP", name) &&
+
+  this->_consumer.prepare();
+
+  if (TEXT_("HTTP") &&
       CHAR('/') &&
-      INTEGER_R(major) &&
+      INTEGER &&
       CHAR('.') &&
-      INTEGER_R(minor))
+      INTEGER)
     {
-      this->_request->setProtocol(name);
-      this->_request->setVersionProtocol(major + '.' + minor);
+      this->_request.setHTTPVersion(this->_consumer.extract());
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
@@ -461,11 +459,11 @@ bool	HttpParser::readComment()
 bool	HttpParser::_readProductOpt()
 {
   DEBUG_ENTER;
-  this->_consumer->save();
+  this->_consumer.save();
   if (CHAR('/') &&
       this->readProductVersion())
     DEBUG_RETURN (true);
-  this->_consumer->back();
+  this->_consumer.back();
   DEBUG_RETURN (false);
 }
 

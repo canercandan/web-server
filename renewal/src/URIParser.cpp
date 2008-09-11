@@ -1,13 +1,8 @@
 #include <sstream>
 #include "URIParser.h"
 
-using namespace	ziApi;
-
-URIParser::URIParser(Consumer* consumer,
-		     IRequest* request,
-		     IParser* parent /*= NULL*/)
-  : _consumer(consumer), _request(request),
-    _parent(parent)
+URIParser::URIParser(Consumer& consumer, ZenZiAPI::IRequest& request)
+  : _consumer(consumer), _request(request)
 {}
 
 bool	URIParser::run()
@@ -34,23 +29,23 @@ bool	URIParser::readHierPart()
 bool	URIParser::readAbsoluteURI()
 {
   DEBUG_ENTER;
-  this->_consumer->save();
+  this->_consumer.save();
   if (this->readScheme() &&
       CHAR(':') &&
       this->readHierPart() &&
       this->_readAbsoluteURIOpt())
     DEBUG_RETURN (true);
-  this->_consumer->back();
+  this->_consumer.back();
   DEBUG_RETURN (false);
 }
 
 bool	URIParser::_readAbsoluteURIOpt()
 {
   DEBUG_ENTER;
-  this->_consumer->save();
+  this->_consumer.save();
   if (CHAR('?') && this->readQuery())
     DEBUG_RETURN (true);
-  this->_consumer->back();
+  this->_consumer.back();
   DEBUG_RETURN (true);
 }
 
@@ -66,39 +61,29 @@ bool	URIParser::readScheme()
 
 bool	URIParser::readAuthority()
 {
-  std::string	hostname;
-
   DEBUG_ENTER;
-  if (!(this->_readAuthorityOpt1() &&
-	this->readHost(hostname) &&
-	this->_readAuthorityOpt2()))
-    return (false);
-  this->_request->setUrlHost(hostname);
-  return (true);
+  DEBUG_RETURN(this->_readAuthorityOpt1() &&
+	       this->readHost() &&
+	       this->_readAuthorityOpt2());
 }
 
 bool	URIParser::_readAuthorityOpt1()
 {
   DEBUG_ENTER;
-  this->_consumer->save();
+  this->_consumer.save();
   if (this->readUserInfo() && CHAR('@'))
     DEBUG_RETURN (true);
-  this->_consumer->back();
+  this->_consumer.back();
   DEBUG_RETURN (true);
 }
 
 bool	URIParser::_readAuthorityOpt2()
 {
-  std::string	port;
-
   DEBUG_ENTER;
-  this->_consumer->save();
-  if (CHAR(':') && this->readPort(port))
-    {
-      this->_request->setUrlPort(port);
-      DEBUG_RETURN (true);
-    }
-  this->_consumer->back();
+  this->_consumer.save();
+  if (CHAR(':') && this->readPort())
+    DEBUG_RETURN (true);
+  this->_consumer.back();
   DEBUG_RETURN (true);
 }
 
@@ -112,29 +97,29 @@ bool	URIParser::readUserInfo()
   DEBUG_RETURN (true);
 }
 
-bool	URIParser::readHost(std::string& extract)
+bool	URIParser::readHost()
 {
   DEBUG_ENTER;
-  this->_consumer->prepare();
+  //this->_consumer.prepare();
 
   if  (this->readIPLiteral() ||
        this->readIPv4address() ||
        this->readRegName())
     {
-      this->_consumer->extract(extract);
-      this->_consumer->consume();
+      //this->_consumer.extract(extract);
+      //this->_consumer.consume();
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
 }
 
-bool	URIParser::readPort(std::string& extract)
+bool	URIParser::readPort()
 {
   DEBUG_ENTER;
-  this->_consumer->prepare();
+  ///this->_consumer.prepare();
   while (DIGIT);
-  this->_consumer->extract(extract);
-  this->_consumer->consume();
+  //this->_consumer.extract(extract);
+  //this->_consumer.consume();
   DEBUG_RETURN (true);
 }
 
@@ -203,27 +188,25 @@ bool	URIParser::readPath()
 
 bool	URIParser::readPathAbempty()
 {
-  std::string	path;
-
   DEBUG_ENTER;
-  this->_consumer->prepare();
+  this->_consumer.prepare();
   while (this->_readPathAbemptyPart2());
-  this->_consumer->extract(path);
-  this->_consumer->consume();
-  this->_request->setUrlPath(path);
+  //  this->_consumer.extract(path);
+  //  this->_consumer.consume();
+  //  this->_request.setUrlPath(path);
   DEBUG_RETURN (true);
 }
 
 bool	URIParser::_readPathAbemptyPart2()
 {
   DEBUG_ENTER;
-  this->_consumer->save();
+  this->_consumer.save();
 
   if (CHAR('/') &&
       this->readSegment())
     DEBUG_RETURN (true);
 
-  this->_consumer->back();
+  this->_consumer.back();
   DEBUG_RETURN (false);
 }
 
@@ -232,14 +215,14 @@ bool	URIParser::readPathAbsolute()
   std::string	path;
 
   DEBUG_ENTER;
-  this->_consumer->prepare();
+  this->_consumer.prepare();
 
   if (CHAR('/') &&
       this->_readPathAbsoluteOpt())
     {
-      this->_consumer->extract(path);
-      this->_consumer->consume();
-      this->_request->setUrlPath(path);
+      this->_consumer.extract(path);
+      this->_consumer.consume();
+      this->_request.setUri(path);
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
@@ -264,13 +247,13 @@ bool	URIParser::_readPathAbsoluteOpt()
 bool	URIParser::_readPathAbsolutePart2()
 {
   DEBUG_ENTER;
-  this->_consumer->save();
+  this->_consumer.save();
 
   if (CHAR('/') &&
       this->readSegment())
     DEBUG_RETURN (true);
 
-  this->_consumer->back();
+  this->_consumer.back();
   DEBUG_RETURN (false);
 }
 
@@ -288,13 +271,13 @@ bool	URIParser::readPathNoScheme()
 bool	URIParser::_readPathNoSchemePart2()
 {
   DEBUG_ENTER;
-  this->_consumer->save();
+  this->_consumer.save();
 
   if (CHAR('/') &&
       this->readSegment())
     DEBUG_RETURN (true);
 
-  this->_consumer->back();
+  this->_consumer.back();
   DEBUG_RETURN (false);
 }
 
@@ -303,14 +286,14 @@ bool	URIParser::readPathRootless()
   std::string	path;
 
   DEBUG_ENTER;
-  this->_consumer->prepare();
+  this->_consumer.prepare();
 
   if (this->readSegmentNz())
     {
       while (this->_readPathRootlessPart2());
-      this->_consumer->extract(path);
-      this->_consumer->consume();
-      this->_request->setUrlPath(path);
+      this->_consumer.extract(path);
+      this->_consumer.consume();
+      this->_request.setUri(path);
       DEBUG_RETURN (true);
     }
   DEBUG_RETURN (false);
@@ -319,13 +302,13 @@ bool	URIParser::readPathRootless()
 bool	URIParser::_readPathRootlessPart2()
 {
   DEBUG_ENTER;
-  this->_consumer->save();
+  this->_consumer.save();
 
   if (CHAR('/') &&
       this->readSegment())
     DEBUG_RETURN (true);
 
-  this->_consumer->back();
+  this->_consumer.back();
   DEBUG_RETURN (false);
 }
 
@@ -377,11 +360,11 @@ bool	URIParser::readPchar()
 bool	URIParser::readQuery()
 {
   DEBUG_ENTER;
-  this->_consumer->prepare();
+  this->_consumer.prepare();
   while (this->readPchar() ||
 	 CHAR('/') ||
 	 CHAR('?'));
-  this->_request->setUrlQuery(this->_consumer->extract());
+  //this->_request.setUrlQuery(this->_consumer.extract());
   DEBUG_RETURN (true);
 }
 

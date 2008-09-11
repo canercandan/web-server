@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:43:56 2008 majdi toumi
-// Last update Wed Sep 10 16:45:30 2008 majdi toumi
+// Last update Thu Sep 11 15:05:33 2008 morgan armand
 //
 
 #ifndef __RESPONSE_H__
@@ -28,8 +28,6 @@ namespace	ZenZiAPI
     std::string			buildResponse();
     void			resetHeaders();
 
-  private:
-    
   private:
     std::string			_code;
     std::string			_message;

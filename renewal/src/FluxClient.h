@@ -5,24 +5,24 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:46 2008 caner candan
-// Last update Tue Sep  9 17:50:50 2008 caner candan
+// Last update Thu Sep 11 11:48:11 2008 morgan armand
 //
 
 #ifndef __FLUXCLIENT_H__
 # define __FLUXCLIENT_H__
 
 # include "IFlux.h"
-# include "ISocket.h"
+# include "Socket.h"
 
 class	FluxClient : public IFlux
 {
 public:
-  FluxClient(ISocket* sck);
+  FluxClient(Socket* sck);
   ~FluxClient();
 
   virtual std::string	nextString();
 private:
-  ISocket*	_sck;
+  Socket*	_sck;
 };
 
 #endif // !__FLUXCLIENT_H__

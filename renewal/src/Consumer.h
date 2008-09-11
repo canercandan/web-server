@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:48 2008 caner candan
-// Last update Wed Sep 10 16:48:40 2008 caner candan
+// Last update Thu Sep 11 11:49:46 2008 morgan armand
 //
 
 #ifndef __CONSUMER_H__
@@ -17,7 +17,7 @@
 class	Consumer
 {
 public:
-  Consumer(IFlux* flux);
+  Consumer(IFlux& flux);
 
   std::string	getBuf();
 
@@ -50,7 +50,7 @@ public:
 private:
   void	_appendBuf(size_t size);
 private:
-  IFlux*	_flux;
+  IFlux&	_flux;
   std::string	_buf;
   size_t	_ext_pos;
   size_t	_cur_pos;

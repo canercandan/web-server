@@ -5,13 +5,13 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:40 2008 caner candan
-// Last update Tue Sep  9 17:47:40 2008 caner candan
+// Last update Thu Sep 11 11:50:56 2008 morgan armand
 //
 
 #include <sstream>
 #include "Consumer.h"
 
-Consumer::Consumer(IFlux* flux)
+Consumer::Consumer(IFlux& flux)
   : _flux(flux), _ext_pos(0), _cur_pos(0), _old_pos(0)
 {}
 
@@ -197,7 +197,7 @@ void	Consumer::_appendBuf(size_t size)
 
   while (this->_buf.substr(this->_cur_pos).size() < size)
     {
-      s = this->_flux->nextString();
+      s = this->_flux.nextString();
 
       if (s.empty())
 	break;
