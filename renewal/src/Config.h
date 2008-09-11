@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Mon Sep  8 13:45:46 2008 majdi toumi
-// Last update Wed Sep 10 16:03:07 2008 majdi toumi
+// Last update Wed Sep 10 16:56:54 2008 majdi toumi
 //
 
 #ifndef __CONFIG_H__
@@ -23,13 +23,16 @@
 
 class	Config : public ZenZiAPI::IConfig, public Singleton<Config>
 {
+  friend class	Singleton<Config>;
+
 public:
   typedef std::map<std::string, std::string>	MapConfig_t;
   typedef std::list<std::string>		ListModule_t;
 
-public:
+private:
   Config();
 
+public:
   std::string&	getParam(const std::string& param);
   int		getParamInt(const std::string& param);
 

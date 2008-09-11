@@ -1,5 +1,15 @@
-#ifndef _RESPONSE_H_
-# define _RESPONSE_H_
+//
+// Response.h for **zia** in /home/toumi_m/zia/renewal/src
+// 
+// Made by majdi toumi
+// Login   <toumi_m@epitech.net>
+// 
+// Started on  Wed Sep 10 16:43:56 2008 majdi toumi
+// Last update Wed Sep 10 16:45:30 2008 majdi toumi
+//
+
+#ifndef __RESPONSE_H__
+# define __RESPONSE_H__
 
 # include "IResponse.hpp"
 # include "Request.h"
@@ -19,9 +29,11 @@ namespace	ZenZiAPI
     void			resetHeaders();
 
   private:
+    
+  private:
     std::string			_code;
     std::string			_message;
   };
 }
 
-#endif // !_RESPONSE_H_
+#endif /* !__RESPONSE_H__ */
