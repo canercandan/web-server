@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Thu Sep 11 15:20:37 2008 morgan armand
+// Last update Thu Sep 11 17:48:13 2008 morgan armand
 //
 
 //#include <memory>
@@ -37,7 +37,10 @@ void	Client::run()
 
   this->_hook.manageHookPoint(NEW_CLIENT, tools);
   this->_hook.manageHookPoint(DATA_IN, tools);
+
   parser.run();
+  //  tools.message().response().buildResponse();
+
   this->_hook.manageHookPoint(PARSED, tools);
   this->_hook.manageHookPoint(DEL_CLIENT, tools);
 
@@ -81,13 +84,13 @@ void	Client::_loadModules()
 	  continue;
 	}
 
-      if ((mod = create()))
+      if ((mod = create()) && mod->onLoad())
 	{
 	  this->_hook.addModule(mod);
 	  this->_mods.push_back(std::pair<IModule*, destroy_t>(mod, destroy));
 	}
 
-      dlclose(handle);
+      //      dlclose(handle);
     }
 }
 
@@ -108,7 +111,10 @@ void	Client::_unloadModules()
       destroy = (*itb).second;
 
       if (mod)
-	this->_hook.delModule(mod);
+	{
+	  mod->onUnLoad();
+	  this->_hook.delModule(mod);
+	}
 
       if (destroy)
 	destroy(mod);

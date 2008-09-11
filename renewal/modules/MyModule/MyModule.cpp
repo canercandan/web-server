@@ -5,11 +5,15 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Sep 11 14:16:25 2008 caner candan
-// Last update Thu Sep 11 15:59:51 2008 caner candan
+// Last update Thu Sep 11 18:03:06 2008 morgan armand
 //
 
 #include <iostream>
 #include "MyModule.h"
+
+MyModule::MyModule()
+  : _p_int(ZenZiAPI::hookPointsNumber)
+{}
 
 bool	MyModule::onLoad()
 {
@@ -24,15 +28,16 @@ void	MyModule::onUnLoad()
 
 const std::vector<std::pair<MyModule::p_callback, ZenZiAPI::hookPosition> >&	MyModule::getCallbacks()
 {
-//   this->p_int[ZenZiAPI::PARSED].first =
-//     static_cast<IModule::p_callback>(&MyModule::run);
-//   this->p_int[ZenZiAPI::PARSED].seconde = ZenZiAPI::LAST;
-  return (this->p_int);
+  this->_p_int[ZenZiAPI::PARSED].first =
+    static_cast<IModule::p_callback>(&MyModule::run);
+  this->_p_int[ZenZiAPI::PARSED].second = ZenZiAPI::LAST;
+  return (this->_p_int);
 }
 
-void	MyModule::run(ZenZiAPI::ITools&)
+bool	MyModule::run(ZenZiAPI::ITools&)
 {
   std::cout << "TEST MODULE IS RUNNING" << std::endl;
+  return true;
 }
 
 extern "C"

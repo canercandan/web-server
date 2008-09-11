@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Sep 11 14:16:22 2008 caner candan
-// Last update Thu Sep 11 15:59:47 2008 caner candan
+// Last update Thu Sep 11 18:02:53 2008 morgan armand
 //
 
 #ifndef __MYMODULE_H__
@@ -18,14 +18,16 @@ class	MyModule : public ZenZiAPI::IModule
 {
   typedef std::vector<std::pair<p_callback, ZenZiAPI::hookPosition> >	listCallback;
 public:
+  MyModule();
   bool	onLoad();
   void	onUnLoad();
 
   const listCallback&	getCallbacks();
 
-  void	run(ZenZiAPI::ITools&);
+  bool	run(ZenZiAPI::ITools&);
+
 private:
-  listCallback	p_int;
+  listCallback	_p_int;
 };
 
 #endif // !__MYMODULE_H__

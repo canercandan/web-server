@@ -22,6 +22,8 @@ bool	HookManager::addModule(IModule* module)
 	return (false);
     }
 
+  this->_modules[module] = callbacks;
+
   return (true);
 }
 
@@ -66,9 +68,9 @@ bool	HookManager::_manageHookPoint(hookPoint point, hookPosition position, ITool
 
       if ((size_t)point <= cb.size())
 	{
-	  IModule::p_callback&	handler = cb.at(point).first;
+	  IModule::p_callback	handler = cb.at(point).first;
 
-	  if (cb[point].second == position)
+	  if (handler && cb[point].second == position)
 	    {
 	      if ((mod->*handler)(tools) == false)
 		return (false);
