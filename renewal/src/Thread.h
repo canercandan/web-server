@@ -10,7 +10,7 @@
 
 # include "IRunnable.h"
 
-class Thread : public IRunnable
+class Thread
 {
 public:
   Thread(IRunnable* run);

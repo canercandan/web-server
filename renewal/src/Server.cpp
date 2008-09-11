@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Thu Sep 11 11:49:23 2008 caner candan
+// Last update Thu Sep 11 11:51:18 2008 caner candan
 //
 
 #include "Server.h"
@@ -28,7 +28,7 @@ void	Server::loop()
 {
   Socket*	socket;
   Client*	client;
-  //Thread*	thread;
+  Thread*	thread;
 
   while (ServerState::getInstance()->getState()
 	 == ServerState::PROCESS)
@@ -37,9 +37,9 @@ void	Server::loop()
 	{
 	  this->_logger.info("accept new connection from a client");
 	  client = new Client(socket);
-	  //thread = new Thread(client);
-	  //thread->start();
-	  //delete thread;
+	  thread = new Thread(client);
+	  thread->start();
+	  delete thread;
 	}
     }
 }
