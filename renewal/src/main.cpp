@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Wed Sep 10 18:07:42 2008 caner candan
+// Last update Wed Sep 10 16:05:03 2008 majdi toumi
 //
 
 #include <iostream>
@@ -14,19 +14,18 @@
 #include "Logger.h"
 #include "ServerSocket.h"
 #include "Thread.h"
+#include "Client.h"
 
 int		main()
 {
   Config*	conf = Config::getInstance();
   Logger	logger;
   ServerSocket	server;
+  Socket*	socket;
+  Client*	client;
+  Thread*	thread;
 
-  //conf->ziaDumpConfig();
   logger.info("starting zia server");
-
-  Socket*		socket;
-  //   Client*		client;
-  //Thread*		thread;
   //   conf->ziaDumpConfig();
 
   if (!server.create(conf->getParamInt("port")))

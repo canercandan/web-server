@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 11:30:03 2008 majdi toumi
-// Last update Wed Sep 10 17:53:48 2008 caner candan
+// Last update Wed Sep 10 16:02:45 2008 majdi toumi
 //
 
 #include <iostream>
@@ -16,7 +16,7 @@ Config::Config()
   : _xmlParser(new XmlParser(CONFIG_FILENAME))
 {
   setParam("port", "80");
-  _loadConfig();
+  loadConfig();
 }
 
 std::string&	Config::getParam(const std::string& param)
@@ -48,21 +48,21 @@ Config::OS	Config::getOS()
 #endif
 }
 
-void	Config::_loadConfig()
+void	Config::loadConfig()
 {
   const time_t&		time = ::time(NULL);
   std::stringstream	ss;
 
-  this->_setXmlParam("name", "/server[@name]");
-  this->_setXmlParam("port", "/server/config/port[@value]");
-  this->_setXmlParam("shutdown", "/server/config/shutdown[@value]");
-  this->_setXmlParam("debug", "/server/config/debug[@value]");
-  this->_setXmlParam("respect_rfc", "/server/config/respect_rfc[@value]");
-  this->_setXmlParam("document_root", "/server/config/document_root[@value]");
-  this->_setXmlParam("module_directory", "/server/config/module_directory[@value]");
-  this->_setXmlParam("timeout", "/server/config/timeout[@value]");
+  this->setXmlParam("name", "/server[@name]");
+  this->setXmlParam("port", "/server/config/port[@value]");
+  this->setXmlParam("shutdown", "/server/config/shutdown[@value]");
+  this->setXmlParam("debug", "/server/config/debug[@value]");
+  this->setXmlParam("respect_rfc", "/server/config/respect_rfc[@value]");
+  this->setXmlParam("document_root", "/server/config/document_root[@value]");
+  this->setXmlParam("module_directory", "/server/config/module_directory[@value]");
+  this->setXmlParam("timeout", "/server/config/timeout[@value]");
   ss << time;
-  this->_setParam("timestart", ss.str());
+  this->setParam("timestart", ss.str());
 }
 
 void		Config::setParam(const std::string& key,
@@ -119,8 +119,8 @@ void		Config::ziaDumpConfig()
 //   for (it = this->_map_config.begin(); it != end; ++it)
 //     std::cout << it->first << ":" << it->second << std::endl;
 
-  std::list<std::string>::const_iterator	itb;
-  std::list<std::string>::const_iterator	ite = this->_list_module.end();
+  ListModule_t::const_iterator	itb;
+  ListModule_t::const_iterator	ite = this->_list_module.end();
 
   std::cout << "liste module: " << std::endl;
   for (itb = this->_list_module.begin(); itb != ite; itb++)
