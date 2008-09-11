@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Wed Sep 10 16:05:03 2008 majdi toumi
+// Last update Wed Sep 10 16:19:01 2008 majdi toumi
 //
 
 #include <iostream>
@@ -37,7 +37,7 @@ int		main()
     if ((socket = server.accept()))
       {
 	logger.info("accept new connection from a client");
-	//client = new Client(socket);
+	client = new Client(socket);
 	// 	thread = new Thread(client);
 	// 	thread->start();
 	// 	delete thread;
