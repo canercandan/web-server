@@ -20,7 +20,7 @@ public:
 
 private:
   bool	_manageHookPoint(hookPoint point, hookPosition position, ITools& tools);
-
+  bool	_checkHookPoint(hookPoint point, hookPosition position);
 private:
   std::map<IModule*, Callbacks_t>	_modules;
 };
