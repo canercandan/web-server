@@ -3,7 +3,7 @@
 using namespace	ZenZiAPI;
 
 Tools::Tools(SOCKET sck)
-  : _cinfos(sck)
+  : _config(*Config::getInstance()), _cinfos(sck)
 {
 }
 

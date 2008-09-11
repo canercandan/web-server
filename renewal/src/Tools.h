@@ -22,7 +22,7 @@ namespace	ZenZiAPI
 
   private:
     Message		_message;
-    Config		_config;
+    Config&		_config;
     ConnectionInfos	_cinfos;
     std::string*	_data;
   };
