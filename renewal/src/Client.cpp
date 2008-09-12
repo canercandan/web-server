@@ -5,16 +5,16 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Thu Sep 11 17:48:13 2008 morgan armand
+// Last update Fri Sep 12 11:43:37 2008 caner candan
 //
 
-//#include <memory>
 #include <iostream>
 #include "Client.h"
 #include "Tools.h"
 #include "Consumer.h"
 #include "FluxClient.h"
 #include "HttpParser.h"
+#include "FileInfo.h"
 
 Client::Client(Socket* sck)
   : _sck(sck)
@@ -54,23 +54,18 @@ void	Client::run()
 
 void	Client::_loadModules()
 {
-  void*						handle;
-  create_t					create;
-  destroy_t					destroy;
-  IModule*					mod;
-  std::list<std::string>			mods;
-  std::list<std::string>::const_iterator	itb;
-  std::list<std::string>::const_iterator	ite;
+  void*		handle;
+  create_t	create;
+  destroy_t	destroy;
+  IModule*	mod;
 
-  mods.push_back("/tmp/test.so");
-  mods.push_back("/tmp/autoindex.so");
+  this->_listModule.clear();
+  this->_getNameModules();
 
-  itb = mods.begin();
-  ite = mods.end();
-
-  this->_mods.clear();
-
-  for (; itb != ite; ++itb)
+  for (listNameModule::const_iterator
+	 itb = this->_listNameModule.begin(),
+	 ite = this->_listNameModule.end();
+       itb != ite; ++itb)
     {
       if (!(handle = dlopen((*itb).c_str(), RTLD_NOW)))
 	{
@@ -83,26 +78,59 @@ void	Client::_loadModules()
 	  dlclose(handle);
 	  continue;
 	}
-
       if ((mod = create()) && mod->onLoad())
 	{
 	  this->_hook.addModule(mod);
-	  this->_mods.push_back(std::pair<IModule*, destroy_t>(mod, destroy));
+	  this->_listModule.push_back(pairModule(mod, destroy));
 	}
+      //dlclose(handle);
+    }
+}
 
-      //      dlclose(handle);
+const Client::listNameModule&	Client::_getNameModules()
+{
+  FileInfo::FileInfo	info(Config::getInstance()->getParam("module_directory"));
+  std::string		time;
+
+  time = info.getLastTimeAccess();
+  if (this->_lastAccess == "" ||
+      this->_lastAccess != time)
+    {
+      this->_refreshListModule(info);
+      this->_lastAccess = time;
+    }
+  return (this->_listNameModule);
+}
+
+void	Client::_refreshListModule(FileInfo& info)
+{
+  const FileInfo::listDir&	dir = info.getListDir();
+  int				found;
+
+  this->_listNameModule.clear();
+
+  for (FileInfo::listDir::const_iterator
+	 itb = dir.begin(),
+	 ite = dir.end();
+       itb != ite; itb++)
+    {
+      found = itb->find_last_of(".");
+#ifdef WIN32
+      if (itb->substr(found + 1) == "dll")
+#else
+	if (itb->substr(found + 1) == "so")
+#endif
+	  this->_listNameModule.push_back
+	    (Config::getInstance()->getParam("module_directory") + *itb);
     }
 }
 
 void	Client::_unloadModules()
 {
-  std::list< std::pair<IModule*, destroy_t> >::const_iterator	itb;
-  std::list< std::pair<IModule*, destroy_t> >::const_iterator	ite;
-
-  itb = this->_mods.begin();
-  ite = this->_mods.end();
-
-  for (; itb != ite; ++itb)
+  for (listModule::const_iterator
+	 itb = this->_listModule.begin(),
+	 ite = this->_listModule.end();
+       itb != ite; ++itb)
     {
       IModule*	mod;
       destroy_t	destroy;
@@ -119,6 +147,5 @@ void	Client::_unloadModules()
       if (destroy)
 	destroy(mod);
     }
-
-  this->_mods.clear();
+  this->_listModule.clear();
 }

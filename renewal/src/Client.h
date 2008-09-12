@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:45 2008 caner candan
-// Last update Thu Sep 11 10:03:31 2008 florent hochwelker
+// Last update Fri Sep 12 11:43:33 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -27,30 +27,38 @@
 # endif
 
 # include <list>
+# include <string>
 # include "IRunnable.h"
 # include "Socket.h"
 # include "HookManager.h"
+# include "FileInfo.h"
+# include "Config.h"
 
 class Client : public IRunnable
 {
+  typedef IModule*	(*create_t)();
+  typedef void		(*destroy_t)(IModule*);
+
+  typedef std::list<std::string>		listNameModule;
+  typedef std::pair<IModule*, destroy_t>	pairModule;
+  typedef std::list<pairModule>			listModule;
 public:
   Client(Socket* sck);
   ~Client();
 
   void	run();
-
-private:
-  typedef IModule*	(*create_t)();
-  typedef void		(*destroy_t)(IModule*);
-
 private:
   void	_loadModules();
   void	_unloadModules();
 
+  const listNameModule&	_getNameModules();
+  void			_refreshListModule(FileInfo& info);
 private:
-  Socket*					_sck;
-  HookManager					_hook;
-  std::list<std::pair<IModule*, destroy_t> >	_mods;
+  Socket*		_sck;
+  HookManager		_hook;
+  listNameModule	_listNameModule;
+  listModule		_listModule;
+  std::string		_lastAccess;
 };
 
 #endif // !__CLIENT_H__

@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 11:30:03 2008 majdi toumi
-// Last update Wed Sep 10 16:02:45 2008 majdi toumi
+// Last update Thu Sep 11 18:24:07 2008 caner candan
 //
 
 #include <iostream>
@@ -15,18 +15,18 @@
 Config::Config()
   : _xmlParser(new XmlParser(CONFIG_FILENAME))
 {
-  setParam("port", "80");
-  loadConfig();
+  _setParam("port", "80");
+  _loadConfig();
 }
 
 std::string&	Config::getParam(const std::string& param)
 {
-  return (this->_map_config[param]);
+  return (this->_mapConfig[param]);
 }
 
 int		Config::getParamInt(const std::string& param)
 {
-  std::stringstream	ss(this->_map_config[param]);
+  std::stringstream	ss(this->_mapConfig[param]);
   int			res;
 
   ss >> res;
@@ -48,82 +48,31 @@ Config::OS	Config::getOS()
 #endif
 }
 
-void	Config::loadConfig()
+void	Config::_loadConfig()
 {
   const time_t&		time = ::time(NULL);
   std::stringstream	ss;
 
-  this->setXmlParam("name", "/server[@name]");
-  this->setXmlParam("port", "/server/config/port[@value]");
-  this->setXmlParam("shutdown", "/server/config/shutdown[@value]");
-  this->setXmlParam("debug", "/server/config/debug[@value]");
-  this->setXmlParam("respect_rfc", "/server/config/respect_rfc[@value]");
-  this->setXmlParam("document_root", "/server/config/document_root[@value]");
-  this->setXmlParam("module_directory", "/server/config/module_directory[@value]");
-  this->setXmlParam("timeout", "/server/config/timeout[@value]");
+  this->_setXmlParam("name", "/server[@name]");
+  this->_setXmlParam("port", "/server/config/port[@value]");
+  this->_setXmlParam("shutdown", "/server/config/shutdown[@value]");
+  this->_setXmlParam("debug", "/server/config/debug[@value]");
+  this->_setXmlParam("respect_rfc", "/server/config/respect_rfc[@value]");
+  this->_setXmlParam("document_root", "/server/config/document_root[@value]");
+  this->_setXmlParam("module_directory", "/server/config/module_directory[@value]");
+  this->_setXmlParam("timeout", "/server/config/timeout[@value]");
   ss << time;
-  this->setParam("timestart", ss.str());
+  this->_setParam("timestart", ss.str());
 }
 
-void		Config::setParam(const std::string& key,
-			 const std::string& value)
+void	Config::_setParam(const std::string& key,
+			  const std::string& value)
 {
-  this->_map_config[key] = value;
+  this->_mapConfig[key] = value;
 }
 
-void		Config::setXmlParam(const std::string& key,
-			    const std::string& path)
+void	Config::_setXmlParam(const std::string& key,
+			     const std::string& path)
 {
-  this->setParam(key, this->_xmlParser->xmlGetParam(path));
-}
-
-Config::ListModule_t&	Config::getListModule()
-{
-  FileInfo::FileInfo	info(this->_map_config["module_directory"]);
-  std::string		time;
-
-  time = info.getLastTimeAccess();
-  if ((this->_last_access == "") || (this->_last_access != time))
-    {
-      this->refresh(info);
-      this->_last_access = time;
-    }
-  return (this->_list_module);
-}
-
-void	Config::refresh(FileInfo& info)
-{
-  FileInfo::ListDir_t			dir = info.getListDir();
-  FileInfo::ListDir_t::const_iterator	itb;
-  FileInfo::ListDir_t::const_iterator	ite = dir.end();
-  int					found;
-
-  this->_list_module.clear();
-  for (itb = dir.begin(); itb != ite; itb++)
-    {
-      found = itb->find_last_of(".");
-#ifdef WIN32
-      if (itb->substr(found + 1) == "dll")
-#else
-	if (itb->substr(found + 1) == "so")
-#endif
-	  this->_list_module.push_back(this->_map_config["module_directory"] + *itb);
-    }
-}
-
-void		Config::ziaDumpConfig()
-{
-//   MapConfig_t::const_iterator	it;
-//   MapConfig_t::const_iterator	end = this->_map_config.end();
-
-//   for (it = this->_map_config.begin(); it != end; ++it)
-//     std::cout << it->first << ":" << it->second << std::endl;
-
-  ListModule_t::const_iterator	itb;
-  ListModule_t::const_iterator	ite = this->_list_module.end();
-
-  std::cout << "liste module: " << std::endl;
-  for (itb = this->_list_module.begin(); itb != ite; itb++)
-    std::cout << *itb << std::endl;
-  std::cout << std::endl;
+  this->_setParam(key, this->_xmlParser->xmlGetParam(path));
 }

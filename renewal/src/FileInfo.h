@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug 31 18:03:55 2008 majdi toumi
-// Last update Wed Sep 10 12:20:24 2008 majdi toumi
+// Last update Thu Sep 11 17:43:00 2008 caner candan
 //
 
 #ifndef __FILEINFO_H__
@@ -18,50 +18,30 @@
 class	FileInfo
 {
 public:
-  //! a list of string
-  typedef std::list<std::string>	ListDir_t;
+  typedef std::list<std::string>	listDir;
 
-  //! file's type
-  enum Type
-    {
-      FILE,
-      DIR,
-      OTHER
-    };
-
+  enum	Type {FILE, DIR, OTHER};
+public:
   FileInfo(const std::string& path);
   ~FileInfo();
 
-  //! return true if the path is good
   bool		isGood();
-  //! get the path
-  //! \return const std::string&
-  const std::string&	getPath() const;
-  //! get the type of the path
-  //! \return const Type&
-  const Type&		getType() const;
-  //! get size of the path
-  //! \return const int&
-  const int&		getSize() const;
-  //! get time of the last file access
-  //! \return std::string&
-  const std::string&	getLastTimeAccess();
-  //! get the list of the directory,
-  //! only use if the path is a directory
-  //! \return const listDir&
-  const ListDir_t&	getListDir();
 
+  const std::string&	getPath() const;
+  const Type&		getType() const;
+  const int&		getSize() const;
+  const std::string&	getLastTimeAccess();
+  const listDir&	getListDir();
 private:
   void	_setGood();
   void	_setType();
   void	_setSize();
   void	_setLastTimeAccess();
   void	_setListDir();
-
 private:
   std::string	_path;
-  Type	_type;
-  ListDir_t	_list_dir;
+  Type		_type;
+  listDir	_listDir;
   int		_size;
 # ifdef WIN32
   SYSTEMTIME	_lastTimeAccess;
@@ -69,7 +49,6 @@ private:
   std::string	_lastTimeAccess;
 # endif
   bool		_good;
-
 # ifdef WIN32
   WIN32_FIND_DATA	_findFileData;
   HANDLE		_hFind;
