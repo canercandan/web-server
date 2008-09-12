@@ -1,3 +1,13 @@
+//
+// URIParser.cpp for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Fri Sep 12 15:33:28 2008 caner candan
+// Last update Fri Sep 12 15:33:28 2008 caner candan
+//
+
 #include <sstream>
 #include "URIParser.h"
 

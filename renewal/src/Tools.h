@@ -19,7 +19,6 @@ namespace	ZenZiAPI
     IConnectionInfos&	connectInfos();
     std::string*	data();
     void		data(std::string* str);
-
   private:
     Message		_message;
     Config&		_config;

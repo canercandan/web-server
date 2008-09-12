@@ -1,3 +1,13 @@
+//
+// URIParser.h for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Fri Sep 12 15:33:26 2008 caner candan
+// Last update Fri Sep 12 15:33:27 2008 caner candan
+//
+
 #ifndef __URIPARSER_H__
 # define __URIPARSER_H__
 
@@ -7,81 +17,50 @@
 # include "HttpParser.h"
 # include "IRequest.hpp"
 
-  //! URIParser
 class	URIParser : public IParser
 {
 public:
-  //! undef
-  //! \param consumer a Consumer pointer
-  //! \param request a IRequest pointer
-  //! \param parent a IParser pointer
   URIParser(Consumer& consumer, ZenZiAPI::IRequest& request);
 
-  //! first method called
   bool	run();
-  //! undef
   bool	readHierPart();
-  //! undef
   bool	readAbsoluteURI();
-  //! undef
   bool	readScheme();
-  //! undef
   bool	readAuthority();
-  //! undef
   bool	readUserInfo();
-  //! undef
-  //! \param extract a std::string&
+
   bool	readHost();
-  //! undef
-  //! \param extract a std::string&
   bool	readPort();
-  //! undef
+
   bool	readIPLiteral();
-  //! undef
   bool	readIPvFuture();
-  //! undef
   bool	readIPv6address();
-  //! undef
   bool	readIPv4address();
-  //! undef
+
   bool	readDecOctet();
-  //! undef
   bool	readRegName();
-  //! undef
+
   bool	readPath();
-  //! undef
   bool	readPathAbempty();
-  //! undef
   bool	readPathAbsolute();
-  //! undef
   bool	readPathAbsoluteQuery();
-  //! undef
   bool	readPathNoScheme();
-  //! undef
   bool	readPathRootless();
-  //! undef
   bool	readPathEmpty();
-  //! undef
+
   bool	readSegment();
-  //! undef
   bool	readSegmentNz();
-  //! undef
   bool	readSegmentNzNc();
-  //! undef
+
   bool	readPchar();
-  //! undef
   bool	readQuery();
-  //! undef
   bool	readFragment();
-  //! undef
   bool	readPctEncoded();
-  //! undef
+
   bool	readUnreserved();
-  //! undef
   bool	readReserved();
-  //! undef
+
   bool	readGenDelims();
-  //! undef
   bool	readSubDelims();
 private:
   bool	_readAbsoluteURIOpt();
