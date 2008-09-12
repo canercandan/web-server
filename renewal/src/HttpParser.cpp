@@ -147,6 +147,10 @@ bool	HttpParser::readExtensionMethod()
 bool		HttpParser::readRequestURI()
 {
   DEBUG_ENTER;
+  this->_consumer.prepare();
+  while (!PCHAR(' '))
+    RANGE(0, 127);
+  this->_request.setUri(this->_consumer.extract());
   DEBUG_RETURN (true);
 }
 

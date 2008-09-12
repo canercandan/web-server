@@ -5,11 +5,15 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Wed Sep 10 16:45:25 2008 majdi toumi
+// Last update Fri Sep 12 23:30:36 2008 caner candan
 //
 
 #include <sstream>
+#include <iostream>
 #include "Response.h"
+#include "FluxString.h"
+#include "Consumer.h"
+#include "URIParser.h"
 
 using namespace	ZenZiAPI;
 
@@ -40,6 +44,12 @@ const std::string&	Response::getStatusMessage()
 
 std::string	Response::buildResponse()
 {
+  FluxString	flux(this->getUri());
+  Consumer	consumer(flux);
+  URIParser	uri(consumer);
+
+  uri.run();
+  std::cout << "URIPath: " << uri.getPath() << std::endl;
   return ("pouet.net");
 }
 

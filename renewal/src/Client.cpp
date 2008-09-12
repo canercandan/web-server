@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Fri Sep 12 15:10:52 2008 caner candan
+// Last update Fri Sep 12 23:32:36 2008 caner candan
 //
 
 #include <iostream>
@@ -44,7 +44,8 @@ void	Client::run()
   this->_hook.manageHookPoint(DEL_CLIENT, tools);
 
 //   if (!tools.message().request().isChunk())
-//     this->_sck->send(tools.message().response().buildResponse());
+  //this->_sck->send(tools.message().response().buildResponse());
+  tools.message().response().buildResponse();
 
   this->_unloadModules();
 

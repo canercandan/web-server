@@ -4,7 +4,7 @@
   -->
 <server name="ZapII">
   <config>
-    <port value="4242" />
+    <port value="4245" />
     <shutdown value="shutdown42"/>
     <debug value="true" />
     <respect_rfc value="strict" />
