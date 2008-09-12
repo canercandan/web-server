@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Sep 12 15:33:26 2008 caner candan
-// Last update Fri Sep 12 15:33:27 2008 caner candan
+// Last update Fri Sep 12 19:14:00 2008 caner candan
 //
 
 #ifndef __URIPARSER_H__
@@ -15,53 +15,80 @@
 # include "IParser.h"
 # include "Consumer.h"
 # include "HttpParser.h"
-# include "IRequest.hpp"
 
 class	URIParser : public IParser
 {
 public:
-  URIParser(Consumer& consumer, ZenZiAPI::IRequest& request);
+  URIParser(Consumer& consumer);
 
   bool	run();
-  bool	readHierPart();
-  bool	readAbsoluteURI();
-  bool	readScheme();
-  bool	readAuthority();
-  bool	readUserInfo();
+public:
+  const std::string&	getHost(void){return (_host);}
+private:
+  void	_setHost(const std::string& host){_host = host;}
+private:
+  std::string	_host;
 
-  bool	readHost();
-  bool	readPort();
+public:
+  const std::string&	getPort(void){return (_port);}
+private:
+  void	_setPort(const std::string& port){_port = port;}
+private:
+  std::string	_port;
 
-  bool	readIPLiteral();
-  bool	readIPvFuture();
-  bool	readIPv6address();
-  bool	readIPv4address();
+public:
+  const std::string&	getPath(void){return (_path);}
+private:
+  void	_setPath(const std::string& path){_path = path;}
+private:
+  std::string	_path;
 
-  bool	readDecOctet();
-  bool	readRegName();
+public:
+  const std::string&	getQuery(void){return (_query);}
+private:
+  void	_setQuery(const std::string& query){_query = query;}
+private:
+  std::string	_query;
+private:
+  bool	_readHierPart();
+  bool	_readAbsoluteURI();
+  bool	_readScheme();
+  bool	_readAuthority();
+  bool	_readUserInfo();
 
-  bool	readPath();
-  bool	readPathAbempty();
-  bool	readPathAbsolute();
-  bool	readPathAbsoluteQuery();
-  bool	readPathNoScheme();
-  bool	readPathRootless();
-  bool	readPathEmpty();
+  bool	_readHost();
+  bool	_readPort();
 
-  bool	readSegment();
-  bool	readSegmentNz();
-  bool	readSegmentNzNc();
+  bool	_readIPLiteral();
+  bool	_readIPvFuture();
+  bool	_readIPv6address();
+  bool	_readIPv4address();
 
-  bool	readPchar();
-  bool	readQuery();
-  bool	readFragment();
-  bool	readPctEncoded();
+  bool	_readDecOctet();
+  bool	_readRegName();
 
-  bool	readUnreserved();
-  bool	readReserved();
+  bool	_readPath();
+  bool	_readPathAbempty();
+  bool	_readPathAbsolute();
+  bool	_readPathAbsoluteQuery();
+  bool	_readPathNoScheme();
+  bool	_readPathRootless();
+  bool	_readPathEmpty();
 
-  bool	readGenDelims();
-  bool	readSubDelims();
+  bool	_readSegment();
+  bool	_readSegmentNz();
+  bool	_readSegmentNzNc();
+
+  bool	_readPchar();
+  bool	_readQuery();
+  bool	_readFragment();
+  bool	_readPctEncoded();
+
+  bool	_readUnreserved();
+  bool	_readReserved();
+
+  bool	_readGenDelims();
+  bool	_readSubDelims();
 private:
   bool	_readAbsoluteURIOpt();
 
@@ -76,10 +103,8 @@ private:
   bool	_readPathNoSchemePart2();
 
   bool	_readPathRootlessPart2();
-
 private:
-  Consumer&		_consumer;
-  ZenZiAPI::IRequest&	_request;
+  Consumer&	_consumer;
 };
 
 #endif // !__URIPARSER_H__

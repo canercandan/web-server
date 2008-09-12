@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:46 2008 caner candan
-// Last update Thu Sep 11 11:48:11 2008 morgan armand
+// Last update Fri Sep 12 18:52:04 2008 caner candan
 //
 
 #ifndef __FLUXCLIENT_H__
@@ -20,7 +20,7 @@ public:
   FluxClient(Socket* sck);
   ~FluxClient();
 
-  virtual std::string	nextString();
+  std::string	nextString();
 private:
   Socket*	_sck;
 };

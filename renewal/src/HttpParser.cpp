@@ -146,10 +146,8 @@ bool	HttpParser::readExtensionMethod()
 
 bool		HttpParser::readRequestURI()
 {
-  URIParser	up(this->_consumer, this->_request); //tien_caner_sale_n00b;
-
   DEBUG_ENTER;
-  DEBUG_RETURN (up.run());
+  DEBUG_RETURN (true);
 }
 
 bool	HttpParser::readHttpVersion()

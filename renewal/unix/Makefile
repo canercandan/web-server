@@ -5,7 +5,7 @@
 ## Login   <toumi_m@epitech.net>
 ## 
 ## Started on  Tue Sep  9 16:01:11 2008 majdi toumi
-## Last update Thu Sep 11 15:01:42 2008 morgan armand
+## Last update Fri Sep 12 19:16:26 2008 caner candan
 ##
 
 NAME		=	zia
@@ -34,6 +34,7 @@ SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/XmlParser.cpp		\
 			$(PATH_SRC)/HttpParser.cpp		\
 			$(PATH_SRC)/URIParser.cpp		\
+			$(PATH_SRC)/FluxString.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
