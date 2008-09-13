@@ -13,7 +13,7 @@
 class Thread
 {
 public:
-  Thread(IRunnable& run);
+  Thread(IRunnable* run);
 
   void	start();
 private:
@@ -23,7 +23,7 @@ private:
   static void*	_threadProc(void* arg);
 # endif
 private:
-  IRunnable&	_obj;
+  IRunnable*	_obj;
 #ifdef WIN32
   HANDLE	_thread;
 #else

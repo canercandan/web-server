@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Sat Sep 13 16:45:49 2008 caner candan
+// Last update Sat Sep 13 19:36:41 2008 caner candan
 //
 
 #include <iostream>
@@ -36,7 +36,7 @@ void	Server::loop()
     {
       if ((socket = this->_server.accept()))
 	{
-	  Client	client(socket);
+	  Client*	client = new Client(socket);
 	  Thread	thread(client);
 
 	  this->_logger.info("accept new connection from a client");
