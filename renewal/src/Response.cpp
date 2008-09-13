@@ -1,21 +1,23 @@
 //
-// Response.cpp for **zia** in /home/toumi_m/zia/renewal/src
+// Response.cpp for zia in /home/toumi_m/zia/renewal/src
 // 
 // Made by majdi toumi
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Sat Sep 13 20:17:19 2008 caner candan
+// Last update Sun Sep 14 01:16:26 2008 caner candan
 //
 
 #include <sstream>
 #include <iostream>
+#include <fstream>
 #include "Response.h"
 #include "FluxString.h"
 #include "Consumer.h"
 #include "URIParser.h"
+#include "Config.h"
 
-void		Response::setStatusCode(int code)
+void	Response::setStatusCode(int code)
 {
   std::stringstream	ss;
 
@@ -28,7 +30,7 @@ const std::string&	Response::getStatusCode()
   return (this->_code);
 }
 
-void		Response::setStatusMessage(const std::string& message)
+void	Response::setStatusMessage(const std::string& message)
 {
   this->_message = message;
 }
@@ -40,17 +42,60 @@ const std::string&	Response::getStatusMessage()
 
 std::string	Response::buildResponse()
 {
-  std::cout << "URI: " << this->getUri() << std::endl;
-
   FluxString	flux(this->getUri());
   Consumer	consumer(flux);
   URIParser	uri(consumer);
 
   uri.run();
-  std::cout << "URIPath: " << uri.getPath() << std::endl;
-  return ("pouet.net");
+
+  FileInfo	info(Config::getInstance()->getParam("document_root")
+		     + uri.getPath());
+
+  if (info.isGood() && info.getType() == FileInfo::FILE)
+    {
+      std::ifstream	in(info.getPath().c_str());
+      std::string	response;
+
+      if (in.is_open())
+	{
+	  while (in.good())
+	    response += in.get();
+	  in.close();
+	}
+      return (response);
+    }
+  if (info.isGood() && info.getType() == FileInfo::DIR)
+    return (this->_generateListingDirectoryHTML(info));
+  return ("<h1>File not found</h1>");
 }
 
-void		Response::resetHeaders()
+void	Response::resetHeaders()
+{}
+
+std::string	Response::_generateListingDirectoryHTML(FileInfo& info)
 {
+  FileInfo::listDir&	listDir = info.getListDir();
+  std::string		response;
+
+  response += "<h1>Index of ";
+  response += info.getPath();
+  response += "</h1><ul>";
+  for (FileInfo::listDir::iterator
+	 it = listDir.begin(),
+	 end = listDir.end();
+       it != end; ++it)
+    {
+      FileInfo		checkDir
+	(FileInfo(Config::getInstance()->getParam("document_root")
+		  + '/' + info.getPath() + *it));
+      std::string	slashDir;
+
+      if (checkDir.isGood() && checkDir.getType() == FileInfo::DIR)
+	slashDir = '/';
+      response +=
+	"<li><a href=\"" + *it + slashDir + "\">"
+	+ *it + slashDir + "</a></li>";
+    }
+  response += "</ul>";
+  return (response);
 }

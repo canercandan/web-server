@@ -1,11 +1,11 @@
 //
-// Logger.cpp for **zia** in /home/toumi_m/zia/renewal/src
+// Logger.cpp for zia in /home/toumi_m/zia/renewal/src
 // 
 // Made by majdi toumi
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 12:23:59 2008 majdi toumi
-// Last update Wed Sep 10 12:25:01 2008 majdi toumi
+// Last update Sat Sep 13 22:20:08 2008 caner candan
 //
 
 #include <time.h>

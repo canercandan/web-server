@@ -5,15 +5,15 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug 31 18:03:55 2008 majdi toumi
-// Last update Thu Sep 11 17:43:00 2008 caner candan
+// Last update Sun Sep 14 01:16:16 2008 caner candan
 //
 
 #ifndef __FILEINFO_H__
 # define __FILEINFO_H__
 
+# include <sys/stat.h>
 # include <list>
 # include <string>
-# include <sys/stat.h>
 
 class	FileInfo
 {
@@ -31,7 +31,7 @@ public:
   const Type&		getType() const;
   const int&		getSize() const;
   const std::string&	getLastTimeAccess();
-  const listDir&	getListDir();
+  listDir&		getListDir();
 private:
   void	_setGood();
   void	_setType();

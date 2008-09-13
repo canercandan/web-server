@@ -1,16 +1,24 @@
+//
+// Socket.cpp for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Sat Sep 13 22:22:33 2008 caner candan
+// Last update Sat Sep 13 22:22:34 2008 caner candan
+//
+
 #include <iostream>
 #include "Socket.h"
 
 Socket::Socket()
   : _sck(INVALID_SOCKET), _sin()
-{
-}
+{}
 
 Socket::Socket(const SOCKET sck,
 	       const struct sockaddr_in& sin)
   : _sck(sck), _sin(sin)
-{
-}
+{}
 
 Socket::~Socket()
 {

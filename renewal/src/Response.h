@@ -1,11 +1,11 @@
 //
-// Response.h for **zia** in /home/toumi_m/zia/renewal/src
+// Response.h for zia in /home/toumi_m/zia/renewal/src
 // 
 // Made by majdi toumi
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:43:56 2008 majdi toumi
-// Last update Sat Sep 13 20:14:36 2008 caner candan
+// Last update Sun Sep 14 01:14:00 2008 caner candan
 //
 
 #ifndef __RESPONSE_H__
@@ -13,6 +13,7 @@
 
 # include "IResponse.hpp"
 # include "Request.h"
+# include "FileInfo.h"
 
 class	Response : public ZenZiAPI::IResponse,
 		   public Request
@@ -26,6 +27,8 @@ public:
 
   std::string		buildResponse();
   void			resetHeaders();
+private:
+  std::string	_generateListingDirectoryHTML(FileInfo&);
 private:
   std::string	_code;
   std::string	_message;

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:12 2008 caner candan
-// Last update Thu Sep 11 18:24:17 2008 caner candan
+// Last update Sun Sep 14 01:16:14 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -148,7 +148,7 @@ const std::string&	FileInfo::getLastTimeAccess()
 #endif
 }
 
-const FileInfo::listDir&	FileInfo::getListDir()
+FileInfo::listDir&	FileInfo::getListDir()
 {
   return (this->_listDir);
 }

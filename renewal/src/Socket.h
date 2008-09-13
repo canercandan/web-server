@@ -1,3 +1,13 @@
+//
+// Socket.h for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Sat Sep 13 22:22:38 2008 caner candan
+// Last update Sat Sep 13 22:22:38 2008 caner candan
+//
+
 #ifndef __SOCKET_H__
 # define __SOCKET_H__
 

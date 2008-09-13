@@ -1,11 +1,11 @@
 //
-// XmlParser.cpp for **zia** in /home/toumi_m/zia/renewal/api
+// XmlParser.cpp for zia in /home/toumi_m/zia/renewal/api
 // 
 // Made by majdi toumi
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 13:09:45 2008 majdi toumi
-// Last update Wed Sep 10 12:38:49 2008 majdi toumi
+// Last update Sat Sep 13 22:24:59 2008 caner candan
 //
 
 #include <string>

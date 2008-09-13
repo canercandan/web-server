@@ -1,11 +1,11 @@
 //
-// Singleton.hpp for **zia** in /home/toumi_m/zia/renewal/src
+// Singleton.hpp for zia in /home/toumi_m/zia/renewal/src
 // 
 // Made by majdi toumi
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 11:14:31 2008 majdi toumi
-// Last update Wed Sep 10 12:11:09 2008 caner candan
+// Last update Sat Sep 13 22:22:31 2008 caner candan
 //
 
 #ifndef __SINGLETON_HPP__
