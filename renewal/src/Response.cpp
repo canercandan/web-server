@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Fri Sep 12 23:30:36 2008 caner candan
+// Last update Sat Sep 13 15:02:07 2008 caner candan
 //
 
 #include <sstream>
@@ -44,6 +44,8 @@ const std::string&	Response::getStatusMessage()
 
 std::string	Response::buildResponse()
 {
+  std::cout << "URI: " << this->getUri() << std::endl;
+
   FluxString	flux(this->getUri());
   Consumer	consumer(flux);
   URIParser	uri(consumer);

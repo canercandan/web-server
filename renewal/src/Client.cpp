@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Fri Sep 12 23:32:36 2008 caner candan
+// Last update Sat Sep 13 17:35:52 2008 caner candan
 //
 
 #include <iostream>
@@ -28,6 +28,8 @@ Client::~Client()
 
 void	Client::run()
 {
+  std::cout << "client run" << std::endl;
+
   Tools		tools(this->_sck->getSocket());
   FluxClient	flux(this->_sck);
   Consumer	consumer(flux);
@@ -45,6 +47,7 @@ void	Client::run()
 
 //   if (!tools.message().request().isChunk())
   //this->_sck->send(tools.message().response().buildResponse());
+  tools.message().response().setUri(tools.message().request().getUri());
   tools.message().response().buildResponse();
 
   this->_unloadModules();

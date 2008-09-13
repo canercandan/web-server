@@ -5,29 +5,32 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:22:40 2008 caner candan
-// Last update Wed Sep 10 17:22:41 2008 caner candan
+// Last update Sat Sep 13 17:32:42 2008 caner candan
 //
 
 #include <iostream>
 #include "Thread.h"
 
-Thread::Thread(IRunnable* obj)
+Thread::Thread(IRunnable& obj)
   : _obj(obj)
 {}
 
 void	Thread::start()
 {
+  std::cout << "start" << std::endl;
 #ifdef WIN32
   if (!(this->_thread = ::CreateThread(NULL, 0,
 				       Thread::_threadProc,
-				       this->_obj, 0, NULL)))
+				       &this->_obj, 0, NULL)))
     std::cerr << "CreateThread() failed" << std::endl;
 #else
   if (::pthread_create(&(this->_thread), NULL,
-		       Thread::_threadProc, this->_obj))
+		       Thread::_threadProc, &this->_obj))
     std::cerr << "pthread_create() failed" << std::endl;
+  std::cout << "middle" << std::endl;
   if (::pthread_detach(this->_thread))
     std::cerr << "pthread_detach() failed" << std::endl;
+  std::cout << "stop" << std::endl;
 #endif
 }
 
