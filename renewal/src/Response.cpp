@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Sat Sep 13 15:02:07 2008 caner candan
+// Last update Sat Sep 13 20:17:19 2008 caner candan
 //
 
 #include <sstream>
@@ -15,15 +15,11 @@
 #include "Consumer.h"
 #include "URIParser.h"
 
-using namespace	ZenZiAPI;
-
 void		Response::setStatusCode(int code)
 {
   std::stringstream	ss;
 
-
   ss << code;
-
   this->_code = ss.str();
 }
 

@@ -1,9 +1,17 @@
+//
+// HookManager.cpp for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Sat Sep 13 20:20:01 2008 caner candan
+// Last update Sat Sep 13 21:09:29 2008 caner candan
+//
+
 #include "HookManager.h"
 
-bool	HookManager::addModule(IModule* module)
+bool	HookManager::addModule(ZenZiAPI::IModule* module)
 {
-  size_t	i;
-  size_t	size;
   Callbacks_t	callbacks;
 
   if (!module)
@@ -13,12 +21,16 @@ bool	HookManager::addModule(IModule* module)
     return (false);
 
   callbacks = module->getCallbacks();
-  size = callbacks.size();
 
-  for (i = 0; i < size; i++)
+  for (size_t i = 0, size = callbacks.size();
+       i < size; i++)
     {
-      if ((callbacks[i].second == VERY_FIRST && this->_checkHookPoint((hookPoint)i, VERY_FIRST)) ||
-	  (callbacks[i].second == VERY_LAST && this->_checkHookPoint((hookPoint)i, VERY_LAST)))
+      if (callbacks[i].second == ZenZiAPI::VERY_FIRST &&
+	  this->_checkHookPoint(static_cast<ZenZiAPI::hookPoint>(i),
+				ZenZiAPI::VERY_FIRST) ||
+	  callbacks[i].second == ZenZiAPI::VERY_LAST &&
+	  this->_checkHookPoint(static_cast<ZenZiAPI::hookPoint>(i),
+				ZenZiAPI::VERY_LAST))
 	return (false);
     }
 
@@ -27,80 +39,74 @@ bool	HookManager::addModule(IModule* module)
   return (true);
 }
 
-void	HookManager::delModule(IModule* module)
+void	HookManager::delModule(ZenZiAPI::IModule* module)
 {
   if (module && this->_modules.count(module))
     this->_modules.erase(module);
 }
 
-bool	HookManager::manageHookPoint(hookPoint point, ITools& tools)
+bool	HookManager::manageHookPoint(ZenZiAPI::hookPoint point,
+				     ZenZiAPI::ITools& tools)
 {
-  if (!this->_manageHookPoint(point, VERY_FIRST, tools))
+  if (!this->_manageHookPoint(point, ZenZiAPI::VERY_FIRST, tools))
     return (false);
-  if (!this->_manageHookPoint(point, FIRST, tools))
+  if (!this->_manageHookPoint(point, ZenZiAPI::FIRST, tools))
     return (false);
-  if (!this->_manageHookPoint(point, MIDDLE, tools))
+  if (!this->_manageHookPoint(point, ZenZiAPI::MIDDLE, tools))
     return (false);
-  if (!this->_manageHookPoint(point, LAST, tools))
+  if (!this->_manageHookPoint(point, ZenZiAPI::LAST, tools))
     return (false);
-  if (!this->_manageHookPoint(point, VERY_LAST, tools))
+  if (!this->_manageHookPoint(point, ZenZiAPI::VERY_LAST, tools))
     return (false);
-
   return (true);
 }
 
 
-bool	HookManager::_manageHookPoint(hookPoint point, hookPosition position, ITools& tools)
+bool	HookManager::_manageHookPoint(ZenZiAPI::hookPoint point,
+				      ZenZiAPI::hookPosition position,
+				      ZenZiAPI::ITools& tools)
 {
-  std::map<IModule*, Callbacks_t>::const_iterator	itb;
-  std::map<IModule*, Callbacks_t>::const_iterator	ite;
+  std::map<ZenZiAPI::IModule*, Callbacks_t>::const_iterator	itb;
+  std::map<ZenZiAPI::IModule*, Callbacks_t>::const_iterator	ite;
 
   itb = this->_modules.begin();
   ite = this->_modules.end();
 
   for (; itb != ite; ++itb)
     {
-      IModule*		mod;
-      Callbacks_t	cb;
+      ZenZiAPI::IModule*	mod;
+      Callbacks_t		cb;
 
       mod = (*itb).first;
       cb = (*itb).second;
 
-      if ((size_t)point <= cb.size())
+      if (static_cast<size_t>(point) <= cb.size())
 	{
-	  IModule::p_callback	handler = cb.at(point).first;
+	  ZenZiAPI::IModule::p_callback	handler = cb.at(point).first;
 
 	  if (handler && cb[point].second == position)
-	    {
-	      if ((mod->*handler)(tools) == false)
-		return (false);
-	    }
+	    if ((mod->*handler)(tools) == false)
+	      return (false);
 	}
     }
-
   return (true);
 }
 
-bool	HookManager::_checkHookPoint(hookPoint point, hookPosition position)
+bool	HookManager::_checkHookPoint(ZenZiAPI::hookPoint point,
+				     ZenZiAPI::hookPosition position)
 {
-  std::map<IModule*, Callbacks_t>::const_iterator	itb;
-  std::map<IModule*, Callbacks_t>::const_iterator	ite;
-
-  itb = this->_modules.begin();
-  ite = this->_modules.end();
-
-  for (; itb != ite; ++itb)
+  for (std::map<ZenZiAPI::IModule*, Callbacks_t>::const_iterator
+	 itb = this->_modules.begin(),
+	 ite = this->_modules.end();
+       itb != ite; ++itb)
     {
       Callbacks_t	cb;
 
       cb = (*itb).second;
 
-      if ((size_t)point <= cb.size())
-	{
-	  if (cb[point].second == position)
-	    return (true);
-	}
+      if (static_cast<size_t>(point) <= cb.size())
+	if (cb[point].second == position)
+	  return (true);
     }
-
   return (false);
 }

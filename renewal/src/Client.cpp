@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Sat Sep 13 18:03:43 2008 caner candan
+// Last update Sat Sep 13 20:52:50 2008 caner candan
 //
 
 #include <iostream>
@@ -35,13 +35,13 @@ void	Client::run()
 
   this->_loadModules();
 
-  this->_hook.manageHookPoint(NEW_CLIENT, tools);
-  this->_hook.manageHookPoint(DATA_IN, tools);
+  this->_hook.manageHookPoint(ZenZiAPI::NEW_CLIENT, tools);
+  this->_hook.manageHookPoint(ZenZiAPI::DATA_IN, tools);
 
   parser.run();
 
-  this->_hook.manageHookPoint(PARSED, tools);
-  this->_hook.manageHookPoint(DEL_CLIENT, tools);
+  this->_hook.manageHookPoint(ZenZiAPI::PARSED, tools);
+  this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, tools);
 
 //   if (!tools.message().request().isChunk())
   //this->_sck->send(tools.message().response().buildResponse());
@@ -50,18 +50,18 @@ void	Client::run()
 
   this->_unloadModules();
 
-  //  this->_hook.manageHookPoint(FILESYSTEM, tools);
-  //  this->_hook.manageHookPoint(DATA_OUT, tools);
-  //  this->_hook.manageHookPoint(READ, tools);
-  //  this->_hook.manageHookPoint(WRITE, tools);
+  //  this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, tools);
+  //  this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, tools);
+  //  this->_hook.manageHookPoint(ZenZiAPI::READ, tools);
+  //  this->_hook.manageHookPoint(ZenZiAPI::WRITE, tools);
 }
 
 void	Client::_loadModules()
 {
-  void*		handle;
-  create_t	create;
-  destroy_t	destroy;
-  IModule*	mod;
+  void*			handle;
+  create_t		create;
+  destroy_t		destroy;
+  ZenZiAPI::IModule*	mod;
 
   this->_listModule.clear();
   this->_getNameModules();
@@ -136,8 +136,8 @@ void	Client::_unloadModules()
 	 ite = this->_listModule.end();
        itb != ite; ++itb)
     {
-      IModule*	mod;
-      destroy_t	destroy;
+      ZenZiAPI::IModule*	mod;
+      destroy_t			destroy;
 
       mod = (*itb).first;
       destroy = (*itb).second;

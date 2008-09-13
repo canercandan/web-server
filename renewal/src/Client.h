@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:45 2008 caner candan
-// Last update Fri Sep 12 11:43:33 2008 caner candan
+// Last update Sat Sep 13 20:27:54 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -36,12 +36,12 @@
 
 class Client : public IRunnable
 {
-  typedef IModule*	(*create_t)();
-  typedef void		(*destroy_t)(IModule*);
+  typedef ZenZiAPI::IModule*	(*create_t)();
+  typedef void			(*destroy_t)(ZenZiAPI::IModule*);
 
-  typedef std::list<std::string>		listNameModule;
-  typedef std::pair<IModule*, destroy_t>	pairModule;
-  typedef std::list<pairModule>			listModule;
+  typedef std::list<std::string>			listNameModule;
+  typedef std::pair<ZenZiAPI::IModule*, destroy_t>	pairModule;
+  typedef std::list<pairModule>				listModule;
 public:
   Client(Socket* sck);
   ~Client();
