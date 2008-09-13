@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Thu Sep 11 14:28:09 2008 morgan armand
-// Last update Thu Sep 11 14:47:03 2008 morgan armand
+// Last update Sat Sep 13 22:17:15 2008 caner candan
 //
 #ifndef __HTTPPARSER_H__
 # define __HTTPPARSER_H__
@@ -20,72 +20,72 @@ public:
   HttpParser(Consumer& consumer, ZenZiAPI::IRequest& request);
 
   bool	run();
+private:
+  bool	_readChar();
 
-  bool	readChar();
+  bool	_peekCTL();
+  bool	_peekSeparators();
 
-  bool	peekCTL();
-  bool	peekSeparators();
+  bool	_readToken();
+  bool	_readRequest();
+  bool	_readRequestOpt();
+  bool	_readRequestLine();
+  bool	_readMethod();
+  bool	_readExtensionMethod();
+  bool	_readRequestURI();
+  bool	_readPathAbsoluteQuery();
+  bool	_readHttpVersion();
+  bool	_readGeneralHeader();
+  bool	_readCacheControl();
+  bool	_readCacheDirective();
+  bool	_readCacheExtension();
+  bool	_readDeltaSeconds();
+  bool	_readFieldName();
 
-  bool	readToken();
-  bool	readRequest();
-  bool	readRequestOpt();
-  bool	readRequestLine();
-  bool	readMethod();
-  bool	readExtensionMethod();
-  bool	readRequestURI();
-  bool	readPathAbsoluteQuery();
-  bool	readHttpVersion();
-  bool	readGeneralHeader();
-  bool	readCacheControl();
-  bool	readCacheDirective();
-  bool	readCacheExtension();
-  bool	readDeltaSeconds();
-  bool	readFieldName();
+  bool	_readCacheRequestDirective();
+  bool	_readCacheResponseDirective();
 
-  bool	readCacheRequestDirective();
-  bool	readCacheResponseDirective();
+  bool	_readConnection();
+  bool	_readDate();
+  bool	_readPragma();
+  bool	_readTrailer();
+  bool	_readTransferEncoding();
+  bool	_readUpgrade();
+  bool	_readVia();
+  bool	_readWarning();
+  bool	_readRequestHeader();
 
-  bool	readConnection();
-  bool	readDate();
-  bool	readPragma();
-  bool	readTrailer();
-  bool	readTransferEncoding();
-  bool	readUpgrade();
-  bool	readVia();
-  bool	readWarning();
-  bool	readRequestHeader();
+  bool	_readAccept();
+  bool	_readAcceptCharset();
+  bool	_readAcceptEncoding();
+  bool	_readAcceptLanguage();
 
-  bool	readAccept();
-  bool	readAcceptCharset();
-  bool	readAcceptEncoding();
-  bool	readAcceptLanguage();
+  bool	_readAuthorization();
+  bool	_readExcept();
+  bool	_readFrom();
 
-  bool	readAuthorization();
-  bool	readExcept();
-  bool	readFrom();
+  bool	_readIfMatch();
+  bool	_readIfModifiedSince();
+  bool	_readIfNoneMatch();
+  bool	_readIfRange();
+  bool	_readIfUnmodifiedSince();
 
-  bool	readIfMatch();
-  bool	readIfModifiedSince();
-  bool	readIfNoneMatch();
-  bool	readIfRange();
-  bool	readIfUnmodifiedSince();
+  bool	_readMaxForwards();
+  bool	_readProxyAuthorization();
+  bool	_readReferer();
+  bool	_readTE();
+  bool	_readUserAgent();
 
-  bool	readMaxForwards();
-  bool	readProxyAuthorization();
-  bool	readReferer();
-  bool	readTE();
-  bool	readUserAgent();
+  bool	_readProduct();
+  bool	_readProductVersion();
 
-  bool	readProduct();
-  bool	readProductVersion();
+  bool	_readComment();
+  bool	_readCtext();
 
-  bool	readComment();
-  bool	readCtext();
+  bool	_readQuotedString();
+  bool	_readQuotedPair();
 
-  bool	readQuotedString();
-  bool	readQuotedPair();
-
-  bool	readEntityHeader();
+  bool	_readEntityHeader();
 private:
   bool	_readRequestOptPart2();
   bool	_readCacheDirectiveSharp();
@@ -97,24 +97,5 @@ private:
   Consumer&		_consumer;
   ZenZiAPI::IRequest&	_request;
 };
-
-// -----------------------REMOVE ME --------------------------
-
-#define DEBUG_ACTIVE		0
-
-#define DEBUG_ENTER		Debug::enter(__FUNCTION__, this->_consumer.getBuf())
-#define DEBUG_RETURN(ret)	return (Debug::leave(__FUNCTION__, ret))
-
-#define NOT_IMPLEMENTED							\
-  std::cout << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;		\
-  return (false);
-
-namespace	Debug
-{
-  void	enter(const char* func, const std::string& buf);
-  bool	leave(const char* func, bool ret);
-};
-
-// -----------------------REMOVE ME --------------------------
 
 #endif // !__HTTPPARSER_H__

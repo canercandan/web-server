@@ -1,3 +1,13 @@
+//
+// IParser.h for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Sat Sep 13 21:15:01 2008 caner candan
+// Last update Sat Sep 13 21:29:02 2008 caner candan
+//
+
 #ifndef __IPARSER_H__
 # define __IPARSER_H__
 
@@ -31,6 +41,10 @@
 # define LWS		SP
 
 # define SHARP(a)	while (LWS && CHAR(',') && LWS && (a))
+
+# define NOT_IMPLEMENTED					\
+  std::cout << __FUNCTION__ << " NOT IMPLEMENTED" << std::endl;	\
+  return (false);
 
 class	IParser
 {

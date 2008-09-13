@@ -1,3 +1,13 @@
+//
+// HookManager.h for zia in /home/candan_c/cu/rendu/zia/renewal/src
+// 
+// Made by caner candan
+// Login   <candan_c@epitech.net>
+// 
+// Started on  Sat Sep 13 21:12:35 2008 caner candan
+// Last update Sat Sep 13 21:12:35 2008 caner candan
+//
+
 #ifndef __HOOK_MANAGER_H__
 #define __HOOK_MANAGER_H__
 
