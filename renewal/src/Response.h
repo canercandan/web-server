@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:43:56 2008 majdi toumi
-// Last update Sun Sep 14 09:54:10 2008 caner candan
+// Last update Sun Sep 14 13:36:26 2008 caner candan
 //
 
 #ifndef __RESPONSE_H__
@@ -15,7 +15,9 @@
 # include "Request.h"
 # include "FileInfo.h"
 
-# pragma warning(disable : 4250)
+# ifdef WIN32
+#  pragma warning(disable : 4250)
+# endif
 
 class	Response : public Request, public ZenZiAPI::IResponse
 {
