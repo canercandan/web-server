@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Sep 12 15:33:26 2008 caner candan
-// Last update Fri Sep 12 19:14:00 2008 caner candan
+// Last update Sun Sep 14 19:58:34 2008 caner candan
 //
 
 #ifndef __URIPARSER_H__
@@ -14,7 +14,6 @@
 # include <string>
 # include "IParser.h"
 # include "Consumer.h"
-# include "HttpParser.h"
 
 class	URIParser : public IParser
 {

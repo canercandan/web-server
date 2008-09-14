@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Sun Sep 14 18:56:36 2008 caner candan
+// Last update Sun Sep 14 20:19:13 2008 caner candan
 //
 
 #include <sstream>
@@ -70,7 +70,8 @@ std::string	Response::_sendMessageBody(FileInfo& info)
   if (info.isGood() && info.getType() == FileInfo::FILE)
     return (info.getContent());
   if (info.isGood() && info.getType() == FileInfo::DIR)
-    return (this->_generateListingDirectoryHTML(info));
+    {}
+  //return (this->_generateListingDirectoryHTML(info));
 
   FileInfo	infoErr(config->getParam("document_root")
 			+ config->getParam("file_404"));
@@ -110,15 +111,31 @@ std::string	Response::_generateListingDirectoryHTML(FileInfo& info)
 
 std::string	Response::_generateResponse(FileInfo& info)
 {
-  std::string	status_line;
+  std::string	statusLine;
   std::string	content;
 
-  //status_line = this->createStatusLine();
+  statusLine = this->_createStatusLine();
   content = //this->_createGeneralHeader()
     //+ this->_createResponseHeader()
     this->_createEntityHeader(info);
-  return (//status_line +
+  return (statusLine +
 	  content + "\r\n");
+}
+
+std::string	Response::_createStatusLine()
+{
+  std::stringstream	ss;
+
+  //this->_code = this->findStatusCode();
+  this->setStatusCode(200);
+  this->setStatusMessage("coucou");
+  ss << this->getHTTPVersion()
+     << " "
+     << this->getStatusCode()
+     << " "
+     << this->getStatusMessage()
+     << "\r\n";
+  return (ss.str());
 }
 
 std::string	Response::_createGeneralHeader()

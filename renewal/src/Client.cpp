@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Sat Sep 13 20:35:49 2008 florent hochwelker
+// Last update Sun Sep 14 20:29:15 2008 caner candan
 //
 
 #include <iostream>
@@ -32,6 +32,9 @@ void	Client::run()
   FluxClient	flux(this->_sck);
   Consumer	consumer(flux);
   HttpParser	parser(consumer, tools.message().request());
+  std::string	response;
+
+  tools.data(&response);
 
   this->_loadModules();
 
@@ -42,17 +45,26 @@ void	Client::run()
 
   this->_hook.manageHookPoint(ZenZiAPI::PARSED, tools);
 
-  std::string	response = tools.message().response().buildResponse();
+  this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, tools);
+
+  if (tools.data()->empty())
+    {
+      response = tools.message().response().buildResponse();
+      tools.data(&response);
+    }
+
   std::cout << "buildResponse: " << std::endl
-	    << response
+	    << *tools.data() << std::endl
 	    << std::endl;
 
-  this->_sck->send(response);
+  this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, tools);
+
   this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, tools);
+
   this->_unloadModules();
 
-  //  this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, tools);
-  //  this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, tools);
+  this->_sck->send(*tools.data());
+
   //  this->_hook.manageHookPoint(ZenZiAPI::READ, tools);
   //  this->_hook.manageHookPoint(ZenZiAPI::WRITE, tools);
 }

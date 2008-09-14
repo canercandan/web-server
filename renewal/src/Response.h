@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:43:56 2008 majdi toumi
-// Last update Sun Sep 14 16:54:00 2008 caner candan
+// Last update Sun Sep 14 19:49:12 2008 caner candan
 //
 
 #ifndef __RESPONSE_H__
@@ -36,6 +36,7 @@ private:
   std::string	_sendMessageBody(FileInfo&);
   std::string	_generateListingDirectoryHTML(FileInfo&);
 
+  std::string	_createStatusLine();
   std::string	_createGeneralHeader();
   std::string	_createResponseHeader();
   std::string	_createEntityHeader(FileInfo&);

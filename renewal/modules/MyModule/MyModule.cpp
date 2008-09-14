@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Sep 11 14:16:25 2008 caner candan
-// Last update Sat Sep 13 20:03:06 2008 florent hochwelker
+// Last update Sun Sep 14 20:21:27 2008 caner candan
 //
 
 #include <iostream>
@@ -53,4 +53,3 @@ extern "C"
     delete static_cast<MyModule*>(p);
   }
 }
-

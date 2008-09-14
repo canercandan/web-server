@@ -5,12 +5,11 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 21:12:41 2008 caner candan
-// Last update Sat Sep 13 22:17:32 2008 caner candan
+// Last update Sun Sep 14 19:58:23 2008 caner candan
 //
 
 #include <string>
 #include "HttpParser.h"
-#include "URIParser.h"
 
 HttpParser::HttpParser(Consumer& consumer, ZenZiAPI::IRequest& request)
   : _consumer(consumer), _request(request)
