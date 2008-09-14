@@ -5,9 +5,10 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 18:10:06 2008 caner candan
-// Last update Sun Sep 14 14:06:07 2008 caner candan
+// Last update Sun Sep 14 14:28:02 2008 caner candan
 //
 
+#include <iostream>
 #include "ServerSocket.h"
 #include "Signal.h"
 
@@ -43,5 +44,6 @@ void		ServerSocket::close()
 
 void	ServerSocket::signal()
 {
+  std::cout << "serversocket close()" << std::endl;
   this->close();
 }
