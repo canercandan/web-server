@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Sep 14 10:10:56 2008 caner candan
-// Last update Sun Sep 14 13:53:02 2008 caner candan
+// Last update Sun Sep 14 19:02:12 2008 caner candan
 //
 
 #ifndef __SIGNAL_H__
@@ -20,7 +20,7 @@ class	Signal : public Singleton<Signal>
 {
   friend class	Singleton<Signal>;
 public:
-  enum	Type {INT, QUIT};
+  enum	Type {INT, TERM};
 
   typedef std::pair<ISignalManager*, ISignalManager::callback>	pairCallback;
   typedef std::list<pairCallback>				listCallback;
@@ -32,7 +32,7 @@ private:
   ~Signal();
 
   static void	_sigInt(int);
-  static void	_sigQuit(int);
+  static void	_sigTerm(int);
 
   void	_signalLoop(const Type&);
 private:

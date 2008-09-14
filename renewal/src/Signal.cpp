@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Sep 14 10:44:09 2008 caner candan
-// Last update Sun Sep 14 13:29:00 2008 caner candan
+// Last update Sun Sep 14 19:02:02 2008 caner candan
 //
 
 #include <iostream>
@@ -15,7 +15,7 @@
 Signal::Signal()
 {
   ::signal(SIGINT, _sigInt);
-  //::signal(SIGQUIT, _sigQuit);
+  ::signal(SIGTERM, _sigTerm);
 }
 
 Signal::~Signal()
@@ -33,9 +33,9 @@ void	Signal::_sigInt(int)
   Signal::getInstance()->_signalLoop(INT);
 }
 
-void	Signal::_sigQuit(int)
+void	Signal::_sigTerm(int)
 {
-  Signal::getInstance()->_signalLoop(QUIT);
+  Signal::getInstance()->_signalLoop(TERM);
 }
 
 void	Signal::_signalLoop(const Type& type)

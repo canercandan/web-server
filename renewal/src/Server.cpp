@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Sat Sep 13 19:45:12 2008 caner candan
+// Last update Sun Sep 14 19:04:26 2008 caner candan
 //
 
 #include <iostream>
@@ -15,6 +15,16 @@
 #include "Thread.h"
 #include "Config.h"
 #include "ServerState.h"
+#include "Signal.h"
+
+Server::Server()
+{
+  Signal*	signal = Signal::getInstance();
+
+  signal->addCallback(Signal::INT, this,
+		      static_cast<ISignalManager::callback>
+		      (&Server::signal));
+}
 
 void	Server::start()
 {
@@ -52,4 +62,10 @@ void	Server::stop()
   Config::kill();
   ServerState::kill();
   this->_logger.info("stopping zia server");
+}
+
+void	Server::signal()
+{
+  std::cout << "server stop" << std::endl;
+  this->stop();
 }

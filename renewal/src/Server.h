@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:25:17 2008 caner candan
-// Last update Sat Sep 13 16:04:17 2008 caner candan
+// Last update Sun Sep 14 18:59:43 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -15,13 +15,18 @@
 # include <string>
 # include "Logger.h"
 # include "ServerSocket.h"
+# include "ISignalManager.h"
 
-class	Server
+class	Server : public ISignalManager
 {
 public:
+  Server();
+
   void	start();
   void	loop();
   void	stop();
+
+  void	signal();
 private:
   Logger	_logger;
   ServerSocket	_server;

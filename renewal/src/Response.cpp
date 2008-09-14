@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Sun Sep 14 09:43:22 2008 caner candan
+// Last update Sun Sep 14 18:56:36 2008 caner candan
 //
 
 #include <sstream>
@@ -14,7 +14,6 @@
 #include "Response.h"
 #include "FluxString.h"
 #include "Consumer.h"
-#include "URIParser.h"
 #include "Config.h"
 
 void	Response::setStatusCode(int code)
@@ -45,11 +44,28 @@ std::string	Response::buildResponse()
   FluxString	flux(this->getUri());
   Consumer	consumer(flux);
   URIParser	uri(consumer);
-  Config*	config = Config::getInstance();
+  std::string	response;
 
   uri.run();
 
+  Config*	config = Config::getInstance();
   FileInfo	info(config->getParam("document_root") + uri.getPath());
+
+  response = this->_generateResponse(info);
+  if (this->getMethod() == "HEAD")
+    {
+      response += "\r\n";
+      return (response);
+    }
+  return (response + this->_sendMessageBody(info));
+}
+
+void	Response::resetHeaders()
+{}
+
+std::string	Response::_sendMessageBody(FileInfo& info)
+{
+  Config*	config = Config::getInstance();
 
   if (info.isGood() && info.getType() == FileInfo::FILE)
     return (info.getContent());
@@ -63,9 +79,6 @@ std::string	Response::buildResponse()
     return (infoErr.getContent());
   return ("<h1>File not found</h1>");
 }
-
-void	Response::resetHeaders()
-{}
 
 std::string	Response::_generateListingDirectoryHTML(FileInfo& info)
 {
@@ -93,4 +106,43 @@ std::string	Response::_generateListingDirectoryHTML(FileInfo& info)
     }
   response += "</ul>";
   return (response);
+}
+
+std::string	Response::_generateResponse(FileInfo& info)
+{
+  std::string	status_line;
+  std::string	content;
+
+  //status_line = this->createStatusLine();
+  content = //this->_createGeneralHeader()
+    //+ this->_createResponseHeader()
+    this->_createEntityHeader(info);
+  return (//status_line +
+	  content + "\r\n");
+}
+
+std::string	Response::_createGeneralHeader()
+{
+  return ("");
+}
+
+std::string	Response::_createResponseHeader()
+{
+  std::stringstream	ss;
+  Config*		config = Config::getInstance();
+
+  ss << "Location:" << config->getParam("location") << "\r\n"
+     << "Server:" << config->getParam("name") << "\r\n";
+  return (ss.str());
+}
+
+std::string	Response::_createEntityHeader(FileInfo& info)
+{
+  std::stringstream	ss("");
+
+  if (info.getSize() > 0 &&
+      this->getMethod() != "HEAD" &&
+      info.getType() != FileInfo::DIR)
+    ss << "Content-Length:" << info.getSize() << "\r\n";
+  return (ss.str());
 }
