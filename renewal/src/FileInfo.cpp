@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:12 2008 caner candan
-// Last update Sun Sep 14 09:30:26 2008 caner candan
+// Last update Sun Sep 14 09:32:41 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -159,6 +159,8 @@ std::string	FileInfo::getContent()
   std::ifstream	in(this->getPath().c_str());
   std::string	content;
 
+  if (this->getType() == FILE)
+    return (content);
   if (!in.is_open())
     return (content);
   while (in.good())
