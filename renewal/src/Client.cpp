@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Sun Sep 14 20:29:15 2008 caner candan
+// Last update Sun Sep 14 20:42:30 2008 caner candan
 //
 
 #include <iostream>
@@ -44,7 +44,6 @@ void	Client::run()
   parser.run();
 
   this->_hook.manageHookPoint(ZenZiAPI::PARSED, tools);
-
   this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, tools);
 
   if (tools.data()->empty())
@@ -58,7 +57,6 @@ void	Client::run()
 	    << std::endl;
 
   this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, tools);
-
   this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, tools);
 
   this->_unloadModules();

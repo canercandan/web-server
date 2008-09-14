@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Sun Sep 14 20:19:13 2008 caner candan
+// Last update Sun Sep 14 20:44:38 2008 caner candan
 //
 
 #include <sstream>
@@ -70,7 +70,7 @@ std::string	Response::_sendMessageBody(FileInfo& info)
   if (info.isGood() && info.getType() == FileInfo::FILE)
     return (info.getContent());
   if (info.isGood() && info.getType() == FileInfo::DIR)
-    {}
+    return ("");
   //return (this->_generateListingDirectoryHTML(info));
 
   FileInfo	infoErr(config->getParam("document_root")
