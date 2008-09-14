@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug 31 18:03:55 2008 majdi toumi
-// Last update Sun Sep 14 01:16:16 2008 caner candan
+// Last update Sun Sep 14 09:11:15 2008 caner candan
 //
 
 #ifndef __FILEINFO_H__
@@ -32,6 +32,7 @@ public:
   const int&		getSize() const;
   const std::string&	getLastTimeAccess();
   listDir&		getListDir();
+  std::string		getContent();
 private:
   void	_setGood();
   void	_setType();

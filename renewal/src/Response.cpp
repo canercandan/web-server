@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Sun Sep 14 01:16:26 2008 caner candan
+// Last update Sun Sep 14 09:14:08 2008 caner candan
 //
 
 #include <sstream>
@@ -52,18 +52,7 @@ std::string	Response::buildResponse()
 		     + uri.getPath());
 
   if (info.isGood() && info.getType() == FileInfo::FILE)
-    {
-      std::ifstream	in(info.getPath().c_str());
-      std::string	response;
-
-      if (in.is_open())
-	{
-	  while (in.good())
-	    response += in.get();
-	  in.close();
-	}
-      return (response);
-    }
+    return (info.getContent());
   if (info.isGood() && info.getType() == FileInfo::DIR)
     return (this->_generateListingDirectoryHTML(info));
   return ("<h1>File not found</h1>");

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:12 2008 caner candan
-// Last update Sun Sep 14 01:16:14 2008 caner candan
+// Last update Sun Sep 14 09:30:26 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -16,6 +16,7 @@
 # include <dirent.h>
 #endif
 
+#include <fstream>
 #include "FileInfo.h"
 
 FileInfo::FileInfo(const std::string& path)
@@ -151,4 +152,17 @@ const std::string&	FileInfo::getLastTimeAccess()
 FileInfo::listDir&	FileInfo::getListDir()
 {
   return (this->_listDir);
+}
+
+std::string	FileInfo::getContent()
+{
+  std::ifstream	in(this->getPath().c_str());
+  std::string	content;
+
+  if (!in.is_open())
+    return (content);
+  while (in.good())
+    content += in.get();
+  in.close();
+  return (content);
 }
