@@ -72,12 +72,11 @@ void	FileInfo::_setSize()
 {
   if (!this->isGood())
     {
-      this->_size = -1;
+      this->_size = 0;
       return;
     }
 #ifdef WIN32
-  this->_size = (this->_findFileData.nFileSizeHigh * (MAXDWORD + 1))
-    + this->_findFileData.nFileSizeLow;
+  this->_size = this->_findFileData.nFileSizeLow;
 #else
   this->_size = this->_sb.st_size;
 #endif
@@ -105,8 +104,17 @@ void	FileInfo::_setListDir()
     = (this->getType() == DIR) ? this->_path + "\\*" : this->_path;
 
   if (this->_hFind)
+  {
+	  char		czFilename[MAX_PATH];
+
     while (::FindNextFile(this->_hFind, &this->_findFileData))
-      this->_listDir->push_back(this->_findFileData.cFileName);
+	{	
+		WideCharToMultiByte(CP_ACP, 0, this->_findFileData.cFileName, -1,
+			czFilename, MAX_PATH, NULL, NULL);
+
+      this->_listDir.push_back(czFilename);
+	}
+  }
 #else
   struct dirent	*dp;
   ::DIR		*dirp;
@@ -135,7 +143,7 @@ const FileInfo::Type&	FileInfo::getType() const
   return (this->_type);
 }
 
-const int&	FileInfo::getSize() const
+const unsigned int	FileInfo::getSize() const
 {
   return (this->_size);
 }

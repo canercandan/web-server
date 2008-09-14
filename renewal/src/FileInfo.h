@@ -34,7 +34,7 @@ public:
 
   const std::string&	getPath() const;
   const Type&		getType() const;
-  const int&		getSize() const;
+  const unsigned int		getSize() const;
   const std::string&	getLastTimeAccess();
   listDir&		getListDir();
   std::string		getContent();
@@ -48,7 +48,7 @@ private:
   std::string	_path;
   Type		_type;
   listDir	_listDir;
-  int		_size;
+  unsigned int		_size;
 # ifdef WIN32
   SYSTEMTIME	_lastTimeAccess;
 # else
