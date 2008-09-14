@@ -14,22 +14,39 @@
 using namespace ziApi;
 
 Perl::Perl(IConfig* conf)
-  : _version(0.1),
-    _name("Perl"),
-    _conf(conf)
+  : _p_int(ZenZiAPI::hookPointsNumber)
+{}
+
+bool	Perl::onLoad()
 {
+  std::cout << "LOADING Perl modules ..." << std::endl;
+  return (true);
 }
 
-Perl::State	Perl::affect(const Event&,
-			     IRequest*)
+void	Perl::onUnLoad()
 {
-  return (CONTINUE);
+  std::cout << "UNLOADING Perl modules ..." << std::endl;
 }
+
 
 Perl::State	Perl::affect(const Event& event,
 			     IResponse* response)
 {
-  IRequest*	request = response->getRequest();
+
+}
+
+const std::vector<std::pair<MyModule::p_callback, ZenZiAPI::hookPosition> >&	MyModule::getCallbacks()
+{
+  this->_p_int[ZenZiAPI::PARSED].first =
+    static_cast<IModule::p_callback>(&MyModule::run);
+  this->_p_int[ZenZiAPI::PARSED].second = ZenZiAPI::LAST;
+  return (this->_p_int);
+}
+
+bool	Perl::run(ZenZiAPI::ITools&)
+{
+  std::cout << "TEST MODULE IS RUNNING" << std::endl;
+  IRequest*		request = response->getRequest();
   const std::string&	path = request->getUrlPath();
   std::string		app;
   std::string		ext;
@@ -83,19 +100,18 @@ Perl::State	Perl::affect(const Event& event,
 	}
     }
 #endif
-
-  return (NOPROCESS);
+  return true;
 }
 
-extern	"C"
+extern "C"
 {
-  EXPORT IModule*	call(IConfig* conf)
+  MyModule*	create()
   {
-    return (new Perl(conf));
+    return (new MyModule);
   }
 
-  EXPORT void		kill(Perl* module)
+  void		destroy(void* p)
   {
-    delete module;
+    delete static_cast<MyModule*>(p);
   }
 }

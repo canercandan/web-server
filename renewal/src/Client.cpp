@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Sun Sep 14 15:16:34 2008 caner candan
+// Last update Sat Sep 13 20:35:49 2008 florent hochwelker
 //
 
 #include <iostream>
@@ -41,16 +41,14 @@ void	Client::run()
   parser.run();
 
   this->_hook.manageHookPoint(ZenZiAPI::PARSED, tools);
-  this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, tools);
 
   std::string	response = tools.message().response().buildResponse();
-
   std::cout << "buildResponse: " << std::endl
 	    << response
 	    << std::endl;
 
   this->_sck->send(response);
-
+  this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, tools);
   this->_unloadModules();
 
   //  this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, tools);
@@ -62,7 +60,7 @@ void	Client::run()
 void	Client::_loadModules()
 {
 #ifdef WIN32
-	HMODULE		handle;
+  HMODULE		handle;
 #else
   void*			handle;
 #endif
@@ -78,27 +76,27 @@ void	Client::_loadModules()
 	 itb = this->_listNameModule.begin(),
 	 ite = this->_listNameModule.end();
        itb != ite; ++itb)
-	   {
+    {
 #ifdef WIN32
-		   WCHAR	wszModule[MAX_PATH];
+      WCHAR	wszModule[MAX_PATH];
 
-		MultiByteToWideChar(CP_ACP, 0, (*itb).c_str(), -1, wszModule, MAX_PATH);
+      MultiByteToWideChar(CP_ACP, 0, (*itb).c_str(), -1, wszModule, MAX_PATH);
 
-		if (!(handle = LoadLibrary(wszModule)))
+      if (!(handle = LoadLibrary(wszModule)))
 #else
-      if (!(handle = dlopen((*itb).c_str(), RTLD_NOW)))
+	if (!(handle = dlopen((*itb).c_str(), RTLD_NOW)))
 #endif
+	  {
+	    std::cerr << (*itb) << " not found" << std::endl;
+	    continue;
+	  }
+#ifdef WIN32
+      if (!(create = (create_t)GetProcAddress(handle, "create")) ||
+	  !(destroy = (destroy_t)GetProcAddress(handle, "destroy")))
 	{
-	  std::cerr << (*itb) << " not found" << std::endl;
+	  FreeLibrary(handle);
 	  continue;
 	}
-#ifdef WIN32
-	  if (!(create = (create_t)GetProcAddress(handle, "create")) ||
-		  !(destroy = (destroy_t)GetProcAddress(handle, "destroy")))
-	  {
-		  FreeLibrary(handle);
-		  continue;
-	  }
 #else
       if (!(create = (create_t)dlsym(handle, "create")) ||
 	  !(destroy = (destroy_t)dlsym(handle, "destroy")))

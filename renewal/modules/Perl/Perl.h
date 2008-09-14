@@ -5,20 +5,20 @@
 #include "IConfig.h"
 #include "IModule.h"
 
-namespace	ziApi
+class Perl : public IModule
 {
-  class Perl : public IModule
-  {
-  public:
-    Perl(IConfig* conf);
+  typedef std::vector<std::pair<p_callback, ZenZiAPI::hookPosition> >	listCallback;
+public:
+  Perl();
+  bool	onLoad();
+  void	onUnLoad();
 
-    virtual State	affect(const Event& event, IRequest* request);
-    virtual State	affect(const Event& event, IResponse* response);
-  private:
-    const double&	_version;
-    const std::string&	_name;
-    IConfig*		_conf;
-  };
-}
+  const listCallback&	getCallbacks();
+
+  bool	run(ZenZiAPI::ITools&);
+
+private:
+  listCallback	_p_int;
+};
 
 #endif // !__PERL_H__

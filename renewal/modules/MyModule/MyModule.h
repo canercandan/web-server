@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Sep 11 14:16:22 2008 caner candan
-// Last update Thu Sep 11 18:02:53 2008 morgan armand
+// Last update Sat Sep 13 20:03:07 2008 florent hochwelker
 //
 
 #ifndef __MYMODULE_H__

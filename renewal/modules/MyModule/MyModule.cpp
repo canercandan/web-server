@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Sep 11 14:16:25 2008 caner candan
-// Last update Thu Sep 11 18:03:06 2008 morgan armand
+// Last update Sat Sep 13 20:03:06 2008 florent hochwelker
 //
 
 #include <iostream>
@@ -32,6 +32,7 @@ const std::vector<std::pair<MyModule::p_callback, ZenZiAPI::hookPosition> >&	MyM
     static_cast<IModule::p_callback>(&MyModule::run);
   this->_p_int[ZenZiAPI::PARSED].second = ZenZiAPI::LAST;
   return (this->_p_int);
+
 }
 
 bool	MyModule::run(ZenZiAPI::ITools&)
@@ -52,3 +53,4 @@ extern "C"
     delete static_cast<MyModule*>(p);
   }
 }
+
