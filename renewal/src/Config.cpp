@@ -35,13 +35,13 @@ int		Config::getParamInt(const std::string& param)
 
 Config::OS	Config::getOS()
 {
-#ifdef WIN32
+#if defined(WIN32)
   return (IConfig::WINDOWS);
-#elifdef LINUX
+#elif defined(LINUX)
   return (IConfig::LINUX);
-#elifdef MAX_OS
+#elif defined(__APPLE__)
   return (IConfig::MAC_OS);
-#elifdef BSD
+#elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
   return (IConfig::BSD);
 #else
   return (IConfig::OTHER);

@@ -81,9 +81,10 @@ void	FileInfo::_setSize()
 
 void	FileInfo::_setLastTimeAccess()
 {
-  this->_setGood();
+  //this->_setGood();
   if (!this->isGood())
     return;
+
 #ifdef WIN32
   FileTimeToSystemTime(&this->_findFileData.ftLastAccessTime, &this->_lastTimeAccess);
 #else

@@ -182,7 +182,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\ConnectionInfos.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\Consumer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\FileInfo.cpp"
 				>
 			</File>
 			<File
@@ -190,15 +198,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\FluxString.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\HookManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\HttpParser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\Logger.cpp"
+				RelativePath="..\src\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\main.cpp"
+				RelativePath="..\src\Message.cpp"
 				>
 			</File>
 			<File
@@ -210,7 +226,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\Server.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\ServerSocket.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ServerState.cpp"
 				>
 			</File>
 			<File
@@ -219,6 +243,10 @@
 			</File>
 			<File
 				RelativePath="..\src\Thread.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Tools.cpp"
 				>
 			</File>
 			<File
@@ -235,8 +263,96 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\src\Client.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Config.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ConnectionInfos.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Consumer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\FileInfo.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\FluxClient.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\FluxString.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\HookManager.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\HttpParser.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Logger.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Message.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Request.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Response.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Server.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ServerSocket.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ServerState.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Singleton.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Socket.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Thread.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Tools.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\URIParser.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\XmlParser.h"
+				>
+			</File>
 			<Filter
-				Name="Api"
+				Name="API"
 				>
 				<File
 					RelativePath="..\api\IConfig.h"
@@ -292,58 +408,6 @@
 				</File>
 				<File
 					RelativePath="..\src\IXmlParser.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Include"
-				>
-				<File
-					RelativePath="..\src\Client.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Config.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Consumer.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\FluxClient.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\HttpParser.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Logger.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Request.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Response.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\ServerSocket.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Socket.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Thread.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\URIParser.h"
 					>
 				</File>
 			</Filter>

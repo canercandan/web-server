@@ -11,9 +11,14 @@
 #ifndef __FILEINFO_H__
 # define __FILEINFO_H__
 
-# include <sys/stat.h>
 # include <list>
 # include <string>
+
+# ifdef WIN32
+#  include <windows.h>
+# else
+#  include <sys/stat.h>
+#endif
 
 class	FileInfo
 {
