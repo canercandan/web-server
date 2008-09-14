@@ -11,9 +11,7 @@
 #ifndef __SOCKET_H__
 # define __SOCKET_H__
 
-# ifndef WIN32
-typedef int	SOCKET;
-# else
+# ifdef WIN32
 typedef int	socklen_t;
 # endif
 
@@ -22,15 +20,14 @@ typedef int	socklen_t;
 #  define SOCKET_ERROR		-1
 # endif
 
-# ifdef WIN32
-#  include <winsock2.h>
-# else
+# ifndef WIN32
 #  include <sys/types.h>
 #  include <sys/socket.h>
 #  include <netinet/in.h>
 # endif
 
 # include <string>
+# include "defines.hpp"
 
 class Socket
 {

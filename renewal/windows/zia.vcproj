@@ -355,7 +355,15 @@
 				Name="API"
 				>
 				<File
+					RelativePath="..\api\defines.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\api\IConfig.h"
+					>
+				</File>
+				<File
+					RelativePath="..\api\IConnectionInfos.hpp"
 					>
 				</File>
 				<File
