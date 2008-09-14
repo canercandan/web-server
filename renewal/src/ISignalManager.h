@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Sep 14 10:30:34 2008 caner candan
-// Last update Sun Sep 14 10:38:52 2008 caner candan
+// Last update Sun Sep 14 14:00:37 2008 caner candan
 //
 
 #ifndef __ISIGNALMANAGER_H__
@@ -17,8 +17,6 @@ public:
   typedef void	(ISignalManager::*callback)(void);
 
   virtual ~ISignalManager(){}
-
-  virtual void	signal() = 0;
 };
 
 #endif // !__ISIGNALMANAGER_H__

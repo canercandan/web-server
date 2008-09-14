@@ -5,11 +5,20 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 18:10:06 2008 caner candan
-// Last update Wed Sep 10 18:10:06 2008 caner candan
+// Last update Sun Sep 14 14:06:07 2008 caner candan
 //
 
-#include <iostream>
 #include "ServerSocket.h"
+#include "Signal.h"
+
+ServerSocket::ServerSocket()
+{
+  Signal*	signal = Signal::getInstance();
+
+  signal->addCallback(Signal::INT, this,
+		      static_cast<ISignalManager::callback>
+		      (&ServerSocket::signal));
+}
 
 bool		ServerSocket::create(const int& port)
 {
@@ -30,4 +39,9 @@ Socket*		ServerSocket::accept()
 void		ServerSocket::close()
 {
   this->_sck.close();
+}
+
+void	ServerSocket::signal()
+{
+  this->close();
 }

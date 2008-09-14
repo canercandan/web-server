@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 22:22:38 2008 caner candan
-// Last update Sat Sep 13 22:22:38 2008 caner candan
+// Last update Sun Sep 14 14:03:24 2008 caner candan
 //
 
 #ifndef __SOCKET_H__
@@ -28,8 +28,9 @@ typedef int	socklen_t;
 
 # include <string>
 # include "defines.hpp"
+# include "ISignalManager.h"
 
-class Socket
+class Socket : public ISignalManager
 {
 public:
   Socket();
@@ -45,6 +46,10 @@ public:
   int		send(std::string& buf);
   bool		isValid();
   SOCKET	getSocket();
+
+  void	signal();
+private:
+  void	_setSignal();
 private:
   SOCKET		_sck;
   struct sockaddr_in	_sin;

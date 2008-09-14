@@ -5,20 +5,25 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 22:22:33 2008 caner candan
-// Last update Sat Sep 13 22:22:34 2008 caner candan
+// Last update Sun Sep 14 14:06:10 2008 caner candan
 //
 
 #include <iostream>
 #include "Socket.h"
+#include "Signal.h"
 
 Socket::Socket()
   : _sck(INVALID_SOCKET), _sin()
-{}
+{
+  _setSignal();
+}
 
 Socket::Socket(const SOCKET sck,
 	       const struct sockaddr_in& sin)
   : _sck(sck), _sin(sin)
-{}
+{
+  _setSignal();
+}
 
 Socket::~Socket()
 {
@@ -26,6 +31,15 @@ Socket::~Socket()
 #ifdef WIN32
   WSACleanup();
 #endif
+}
+
+void	Socket::_setSignal()
+{
+  Signal*	signal = Signal::getInstance();
+
+  signal->addCallback(Signal::INT, this,
+		      static_cast<ISignalManager::callback>
+		      (&Socket::signal));
 }
 
 bool	Socket::create()
@@ -163,4 +177,9 @@ bool	Socket::isValid()
 SOCKET	Socket::getSocket()
 {
   return (this->_sck);
+}
+
+void	Socket::signal()
+{
+  this->close();
 }
