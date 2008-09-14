@@ -120,7 +120,7 @@ void	Client::_loadModules()
 
 const Client::listNameModule&	Client::_getNameModules()
 {
-  FileInfo::FileInfo	info(Config::getInstance()->getParam("module_directory"));
+  FileInfo			info(Config::getInstance()->getParam("module_directory"));
   std::string		time;
 
   time = info.getLastTimeAccess();

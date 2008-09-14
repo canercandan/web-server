@@ -39,8 +39,12 @@ FileInfo::~FileInfo()
 void	FileInfo::_setGood()
 {
 #ifdef WIN32
-  this->_good = (_hFind = ::FindFirstFile((LPCWSTR)this->_path.c_str(),
-					  &this->_findFileData)
+	WCHAR	wszPath[MAX_PATH];
+
+	this->_path = "\\\\?\\" + this->_path;
+	MultiByteToWideChar(CP_ACP, 0, this->_path.c_str(), -1, wszPath, MAX_PATH);
+
+  this->_good = ((_hFind = ::FindFirstFile(wszPath, &this->_findFileData))
 		 != INVALID_HANDLE_VALUE);
 #else
   this->_good = (!lstat(this->_path.c_str(), &this->_sb));
@@ -102,7 +106,7 @@ void	FileInfo::_setListDir()
 
   if (this->_hFind)
     while (::FindNextFile(this->_hFind, &this->_findFileData))
-      this->_listDir->push_back((char*)this->_findFileData.cFileName);
+      this->_listDir->push_back(this->_findFileData.cFileName);
 #else
   struct dirent	*dp;
   ::DIR		*dirp;

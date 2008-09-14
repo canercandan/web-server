@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <time.h>
 #include "Config.h"
 
 Config::Config()

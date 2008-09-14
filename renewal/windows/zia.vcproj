@@ -238,6 +238,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\Signal.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\Socket.cpp"
 				>
 			</File>
@@ -300,6 +304,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\ISignalManager.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\Logger.h"
 				>
 			</File>
@@ -325,6 +333,10 @@
 			</File>
 			<File
 				RelativePath="..\src\ServerState.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Signal.h"
 				>
 			</File>
 			<File

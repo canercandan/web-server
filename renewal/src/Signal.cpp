@@ -15,7 +15,7 @@
 Signal::Signal()
 {
   ::signal(SIGINT, _sigInt);
-  ::signal(SIGQUIT, _sigQuit);
+  //::signal(SIGQUIT, _sigQuit);
 }
 
 Signal::~Signal()
