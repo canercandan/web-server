@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Sun Sep 14 09:14:08 2008 caner candan
+// Last update Sun Sep 14 09:43:22 2008 caner candan
 //
 
 #include <sstream>
@@ -45,16 +45,22 @@ std::string	Response::buildResponse()
   FluxString	flux(this->getUri());
   Consumer	consumer(flux);
   URIParser	uri(consumer);
+  Config*	config = Config::getInstance();
 
   uri.run();
 
-  FileInfo	info(Config::getInstance()->getParam("document_root")
-		     + uri.getPath());
+  FileInfo	info(config->getParam("document_root") + uri.getPath());
 
   if (info.isGood() && info.getType() == FileInfo::FILE)
     return (info.getContent());
   if (info.isGood() && info.getType() == FileInfo::DIR)
     return (this->_generateListingDirectoryHTML(info));
+
+  FileInfo	infoErr(config->getParam("document_root")
+			+ config->getParam("file_404"));
+
+  if (infoErr.isGood())
+    return (infoErr.getContent());
   return ("<h1>File not found</h1>");
 }
 

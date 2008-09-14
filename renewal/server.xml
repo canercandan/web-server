@@ -16,5 +16,6 @@
       <html value="text/html" />
     </content_type>
     <module_directory value="../modules/" />
+    <file_404 value="file404.html" />
   </config>
 </server>

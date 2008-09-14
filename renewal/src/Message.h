@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 20:50:10 2008 caner candan
-// Last update Sat Sep 13 13:33:55 2008 florent hochwelker
+// Last update Sun Sep 14 11:32:01 2008 caner candan
 //
 
 #ifndef _MESSAGE_H_
@@ -21,7 +21,6 @@ public:
   ZenZiAPI::IRequest&		request();
   ZenZiAPI::IResponse&		response();
 private:
-  Request	_request;
   Response	_response;
 };
 

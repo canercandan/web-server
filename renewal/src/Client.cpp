@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Sun Sep 14 01:19:08 2008 caner candan
+// Last update Sun Sep 14 09:54:37 2008 caner candan
 //
 
 #include <iostream>
@@ -42,8 +42,6 @@ void	Client::run()
 
   this->_hook.manageHookPoint(ZenZiAPI::PARSED, tools);
   this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, tools);
-
-  tools.message().response().setUri(tools.message().request().getUri());
 
   std::string	response = tools.message().response().buildResponse();
 

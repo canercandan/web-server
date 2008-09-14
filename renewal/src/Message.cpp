@@ -5,14 +5,14 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 20:50:29 2008 caner candan
-// Last update Sat Sep 13 20:50:29 2008 caner candan
+// Last update Sun Sep 14 09:54:25 2008 caner candan
 //
 
 #include "Message.h"
 
 ZenZiAPI::IRequest&	Message::request()
 {
-  return (this->_request);
+  return (this->_response);
 }
 
 ZenZiAPI::IResponse&	Message::response()
