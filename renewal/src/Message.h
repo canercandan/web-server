@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 20:50:10 2008 caner candan
-// Last update Sat Sep 13 20:50:14 2008 caner candan
+// Last update Sat Sep 13 13:33:55 2008 florent hochwelker
 //
 
 #ifndef _MESSAGE_H_
@@ -25,4 +25,4 @@ private:
   Response	_response;
 };
 
-#endif // _MESSAGE_H_
+#endif // !_MESSAGE_H_
