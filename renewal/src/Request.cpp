@@ -10,7 +10,7 @@
 
 #include "Request.h"
 
-using namespace	ZenZiAPI;
+//using namespace	ZenZiAPI;
 
 const std::string&	Request::getHTTPVersion()
 {

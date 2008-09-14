@@ -359,7 +359,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\api\IConfig.h"
+					RelativePath="..\api\IConfig.hpp"
 					>
 				</File>
 				<File
@@ -367,55 +367,27 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\IFileInfo.h"
+					RelativePath="..\api\IException.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\IFlux.h"
+					RelativePath="..\api\IMessage.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\api\IHeader.h"
+					RelativePath="..\api\IModule.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\ILogger.h"
+					RelativePath="..\api\IRequest.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\api\IModule.h"
+					RelativePath="..\api\IResponse.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\IParser.h"
-					>
-				</File>
-				<File
-					RelativePath="..\api\IRequest.h"
-					>
-				</File>
-				<File
-					RelativePath="..\api\IResponse.h"
-					>
-				</File>
-				<File
-					RelativePath="..\api\IRoot.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\IRunnable.h"
-					>
-				</File>
-				<File
-					RelativePath="..\api\ISocket.h"
-					>
-				</File>
-				<File
-					RelativePath="..\api\ITransition.h"
-					>
-				</File>
-				<File
-					RelativePath="..\src\IXmlParser.h"
+					RelativePath="..\api\ITools.hpp"
 					>
 				</File>
 			</Filter>

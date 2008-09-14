@@ -14,15 +14,14 @@
 # ifdef WIN32
 #  define WIN32_LEAN_AND_MEAN
 #  include <windows.h>
+//#  define dlclose(ptr)		FreeLibrary((HINSTANCE)ptr)
+//#  define dlopen(name,flag)	(LoadLibrary(name))
+//#  define dlerror()		"unknown error (Windows)"
+//#  define dlsym(handle,name)	((void*)GetProcAddress(handle,name))
 
-#  define dlclose(ptr)		FreeLibrary((HINSTANCE)ptr)
-#  define dlopen(name,flag)	((void*)LoadLibrary(name))
-#  define dlerror()		"unknown error (Windows)"
-#  define dlsym(handle,name)	((void*)GetProcAddress(handle,name))
-
-#  define RTLD_LAZY	-1
-#  define RTLD_NOW	-1
-#  define RTLD_GLOBAL	-1
+//#  define RTLD_LAZY	-1
+//#  define RTLD_NOW	-1
+//#  define RTLD_GLOBAL	-1
 # else
 #  include <dlfcn.h>
 # endif

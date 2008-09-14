@@ -63,7 +63,12 @@ void	Client::run()
 
 void	Client::_loadModules()
 {
+#ifdef WIN32
+	HMODULE		handle;
+#else
   void*			handle;
+#endif
+
   create_t		create;
   destroy_t		destroy;
   ZenZiAPI::IModule*	mod;
@@ -75,18 +80,37 @@ void	Client::_loadModules()
 	 itb = this->_listNameModule.begin(),
 	 ite = this->_listNameModule.end();
        itb != ite; ++itb)
-    {
+	   {
+#ifdef WIN32
+		   WCHAR	wszModule[MAX_PATH];
+
+		MultiByteToWideChar(CP_ACP, 0, (*itb).c_str(), -1, wszModule, MAX_PATH);
+
+		if (!(handle = LoadLibrary(wszModule)))
+#else
       if (!(handle = dlopen((*itb).c_str(), RTLD_NOW)))
+#endif
 	{
 	  std::cerr << (*itb) << " not found" << std::endl;
 	  continue;
 	}
+#ifdef WIN32
+	  if (!(create = (create_t)GetProcAddress(handle, "create")) ||
+		  !(destroy = (destroy_t)GetProcAddress(handle, "destroy")))
+	  {
+		  FreeLibrary(handle);
+		  continue;
+	  }
+#else
       if (!(create = (create_t)dlsym(handle, "create")) ||
 	  !(destroy = (destroy_t)dlsym(handle, "destroy")))
 	{
+
 	  dlclose(handle);
 	  continue;
 	}
+#endif
+
       if ((mod = create()) && mod->onLoad())
 	{
 	  this->_hook.addModule(mod);

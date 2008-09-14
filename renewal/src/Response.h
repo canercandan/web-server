@@ -15,8 +15,9 @@
 # include "Request.h"
 # include "FileInfo.h"
 
-class	Response : public ZenZiAPI::IResponse,
-		   public Request
+# pragma warning(disable : 4250)
+
+class	Response : public Request, public ZenZiAPI::IResponse
 {
 public:
   void			setStatusCode(int code);

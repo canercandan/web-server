@@ -18,8 +18,8 @@
 class	Message : public ZenZiAPI::IMessage
 {
 public:
-  ZenZiAPI::IRequest&	request();
-  ZenZiAPI::IResponse&	response();
+  ZenZiAPI::IRequest&		request();
+  ZenZiAPI::IResponse&		response();
 private:
   Request	_request;
   Response	_response;
