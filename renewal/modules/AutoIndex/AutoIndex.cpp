@@ -2,7 +2,6 @@
 #include "AutoIndex.h"
 #include "FluxString.h"
 #include "Consumer.h"
-#include "URIParser.h"
 
 AutoIndex::AutoIndex()
   : _listCallback(ZenZiAPI::hookPointsNumber)
@@ -46,19 +45,20 @@ bool	AutoIndex::run(ZenZiAPI::ITools& tools)
 		     + uri.getPath());
 
   if (info.isGood() && info.getType() == FileInfo::DIR)
-    tools.data(new std::string(this->_listingDirectory(tools, info)));
+    tools.data(new std::string(this->_listingDirectory(tools, info, uri)));
   return (true);
 }
 
 std::string	AutoIndex::_listingDirectory(ZenZiAPI::ITools& tools,
-					    FileInfo& info)
+					     FileInfo& info,
+					     URIParser& uri)
 {
   ZenZiAPI::IConfig*	config = &tools.config();
   FileInfo::listDir&	listDir = info.getListDir();
   std::string		response;
 
   response += "<h1>Index of ";
-  response += info.getPath();
+  response += uri.getPath();
   response += "</h1><ul>";
   for (FileInfo::listDir::iterator
 	 it = listDir.begin(),

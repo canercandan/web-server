@@ -3,6 +3,7 @@
 
 # include "IModule.hpp"
 # include "FileInfo.h"
+# include "URIParser.h"
 
 class	AutoIndex : public ZenZiAPI::IModule
 {
@@ -19,7 +20,8 @@ public:
 
   bool	run(ZenZiAPI::ITools&);
 private:
-  std::string	_listingDirectory(ZenZiAPI::ITools&, FileInfo&);
+  std::string	_listingDirectory(ZenZiAPI::ITools&,
+				  FileInfo&, URIParser&);
 private:
   listCallback	_listCallback;
 };
