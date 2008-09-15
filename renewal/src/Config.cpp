@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 11:30:03 2008 majdi toumi
-// Last update Mon Sep 15 09:40:24 2008 caner candan
+// Last update Mon Sep 15 15:13:46 2008 majdi toumi
 //
 
 #include <iostream>
@@ -34,6 +34,11 @@ int		Config::getParamInt(const std::string& param)
   return (res);
 }
 
+XmlParser::ListParam_t	Config::getListParam(const std::string& param)
+{
+  return (this->_xmlParser->xmlGetListParam(param));
+}
+
 Config::OS	Config::getOS()
 {
 #if defined(WIN32)
@@ -55,14 +60,14 @@ void	Config::_loadConfig()
   std::stringstream	ss;
 
   this->_setXmlParam("name", "/server[@name]");
-  this->_setXmlParam("port", "/server/config/port[@value]");
-  this->_setXmlParam("shutdown", "/server/config/shutdown[@value]");
-  this->_setXmlParam("debug", "/server/config/debug[@value]");
-  this->_setXmlParam("respect_rfc", "/server/config/respect_rfc[@value]");
-  this->_setXmlParam("document_root", "/server/config/document_root[@value]");
-  this->_setXmlParam("module_directory", "/server/config/module_directory[@value]");
-  this->_setXmlParam("file_404", "/server/config/file_404[@value]");
-  this->_setXmlParam("timeout", "/server/config/timeout[@value]");
+  this->_setXmlParam("port", "/server/config/listen[@port]");
+  this->_setXmlParam("shutdown", "/server/shutdown[@value]");
+  this->_setXmlParam("debug", "/server/debug[@value]");
+  this->_setXmlParam("respect_rfc", "/server/respect_rfc[@value]");
+  this->_setXmlParam("document_root", "/server/document_root[@value]");
+  this->_setXmlParam("module_directory", "/server/module_directory[@value]");
+  this->_setXmlParam("file_404", "/server/file_404[@value]");
+  this->_setXmlParam("timeout", "/server/timeout[@value]");
   ss << time;
   this->_setParam("timestart", ss.str());
 }

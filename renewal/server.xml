@@ -4,7 +4,11 @@
   -->
 <server name="ZapII">
   <config>
-    <port value="4242" />
+    <listen port="4242" ssl="true" />
+    <listen port="4243" ssl="false" />
+    <listen port="4244" ssl="false" />
+    <listen port="4245" ssl="true" />
+  </config>
     <shutdown value="shutdown42"/>
     <debug value="true" />
     <respect_rfc value="strict" />
@@ -12,10 +16,10 @@
     <cgi_script value="/tmp/cgi-bin" />
     <timeout value="30" />
     <!-- <timeout value="-1" /> : disable -->
-    <content_type value="42" >
-      <html value="text/html" />
-    </content_type>
+    <mime_type>
+      <tools ext="html" content="text/html" />
+      <tools ext="jpeg" content="text/jpeg" />
+    </mime_type>
     <module_directory value="../modules/" />
     <file_404 value="file404.html" />
-  </config>
 </server>

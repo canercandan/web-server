@@ -5,11 +5,12 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 13:09:45 2008 majdi toumi
-// Last update Sat Sep 13 22:24:59 2008 caner candan
+// Last update Mon Sep 15 15:14:18 2008 majdi toumi
 //
 
 #include <string>
 #include <iostream>
+#include <sstream>
 #include "XmlParser.h"
 
 XmlParser::XmlParser(const std::string& filename)
@@ -71,3 +72,53 @@ std::string	XmlParser::xmlGetParam(const std::string& path)
     }
   return ("");
 }
+
+XmlParser::ListParam_t	XmlParser::xmlGetListParam(const std::string& path)
+{
+  ListParam_t				listParam;
+  std::map<std::string, std::string>	mapAttr;
+  xmlXPathObjectPtr			xpath;
+  xmlNodePtr				node;
+  xmlAttrPtr				attr;
+  std::string				key;
+  std::string				val;
+  int					i;
+
+
+  if (!(xpath = ::xmlXPathEvalExpression((xmlChar*)path.c_str(),
+					 this->_ctxt)))
+    {
+      std::cerr << "error - can't evaluate xpath expression"
+		<< std::endl;
+      exit(-1);
+    }
+  if (xpath->type != XPATH_NODESET)
+    {
+      std::cerr << "error: can't find [" << path
+		<< "] content" << std::endl;
+      exit(-1);
+    }
+  for (i = 0; i < xpath->nodesetval->nodeNr; i++)
+    {
+      node = xpath->nodesetval->nodeTab[i];
+      node = node->children;
+      while (node != NULL)
+	{
+	  if (node->type == XML_ELEMENT_NODE)
+	    {
+	      attr = node->properties;
+	      while (attr != NULL)
+		{
+		  key = (char*)attr->name;
+		  val = (char*)attr->children->content;
+		  mapAttr[key] = val;
+		  attr = attr->next;
+		}
+	      listParam.push_back(mapAttr);
+	    }
+	  node = node->next;
+	}
+    }
+  return (listParam);
+}
+

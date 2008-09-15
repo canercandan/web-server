@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:12 2008 caner candan
-// Last update Mon Sep 15 11:03:21 2008 majdi toumi
+// Last update Mon Sep 15 14:56:56 2008 majdi toumi
 //
 
 #include <sys/types.h>
@@ -108,7 +108,7 @@ void	FileInfo::_setListDir()
 	  char		czFilename[MAX_PATH];
 
     while (::FindNextFile(this->_hFind, &this->_findFileData))
-	{	
+	{
 		WideCharToMultiByte(CP_ACP, 0, this->_findFileData.cFileName, -1,
 			czFilename, MAX_PATH, NULL, NULL);
 
