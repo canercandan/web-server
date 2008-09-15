@@ -93,13 +93,20 @@ void	Client::_loadModules()
       MultiByteToWideChar(CP_ACP, 0, (*itb).c_str(), -1, wszModule, MAX_PATH);
 
       if (!(handle = LoadLibrary(wszModule)))
+	  {
+		  TCHAR	err[255];
+
+		  FormatMessage(0, NULL, GetLastError(), 0, err, 255, NULL);
+		  std::cout << err << std::endl;
+		  continue;
+	  }
 #else
 	if (!(handle = dlopen((*itb).c_str(), RTLD_NOW)))
-#endif
 	  {
 	    std::cout << dlerror() << std::endl;
 	    continue;
 	  }
+#endif
 #ifdef WIN32
       if (!(create = (create_t)GetProcAddress(handle, "create")) ||
 	  !(destroy = (destroy_t)GetProcAddress(handle, "destroy")))
