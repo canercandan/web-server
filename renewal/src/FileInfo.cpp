@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:12 2008 caner candan
-// Last update Mon Sep 15 10:47:07 2008 majdi toumi
+// Last update Mon Sep 15 11:03:21 2008 majdi toumi
 //
 
 #include <sys/types.h>
@@ -149,7 +149,7 @@ const unsigned int	FileInfo::getSize() const
 }
 
 #ifdef WIN32
-bool	FileInfo::isAccessModified(SYSTEMTIME& oldTime)
+bool	FileInfo::isAccessModified(SYSTEMTIME oldTime)
 # else
   bool	FileInfo::isAccessModified(std::string& oldTime)
 #endif
@@ -167,6 +167,15 @@ bool	FileInfo::isAccessModified(SYSTEMTIME& oldTime)
     return (true);
 #endif
   return (false);
+}
+
+#ifdef WIN32
+SYSTEMTIME	FileInfo::getLastTimeAccess()
+# else
+  std::string&	FileInfo::getLastTimeAccess()
+#endif
+{
+  return (this->_lastTimeAccess);
 }
 
 FileInfo::listDir&	FileInfo::getListDir()

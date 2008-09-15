@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Mon Sep 15 10:45:46 2008 majdi toumi
+// Last update Mon Sep 15 11:03:48 2008 majdi toumi
 //
 
 #include <iostream>
@@ -129,12 +129,11 @@ void	Client::_loadModules()
 const Client::listNameModule&	Client::_getNameModules()
 {
   FileInfo	info(Config::getInstance()->getParam("module_directory"));
-  std::string	time;
 
   if (info.isAccessModified(this->_lastAccess) == true)
     {
       this->_refreshListModule(info);
-      this->_lastAccess = time;
+      this->_lastAccess = info.getLastTimeAccess();
     }
   return (this->_listNameModule);
 }
