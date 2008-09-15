@@ -5,10 +5,9 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Sun Sep 14 19:04:26 2008 caner candan
+// Last update Mon Sep 15 15:41:40 2008 caner candan
 //
 
-#include <iostream>
 #include "Server.h"
 #include "Socket.h"
 #include "Client.h"
@@ -26,10 +25,10 @@ Server::Server()
 		      (&Server::signal));
 }
 
-void	Server::start()
+void	Server::start(int port)
 {
   this->_logger.info("starting zia server");
-  if (!this->_server.create(Config::getInstance()->getParamInt("port")))
+  if (!this->_server.create(port))
     {
       this->_logger.error("an error occured while starting the server");
       return;
@@ -66,6 +65,5 @@ void	Server::stop()
 
 void	Server::signal()
 {
-  std::cout << "server stop" << std::endl;
   this->stop();
 }

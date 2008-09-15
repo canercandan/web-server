@@ -2,10 +2,9 @@
 # define __PERL_H__
 
 #include <string>
-#include "IConfig.h"
-#include "IModule.h"
+#include "IModule.hpp"
 
-class Perl : public IModule
+class Perl : public ZenZiAPI::IModule
 {
   typedef std::vector<std::pair<p_callback, ZenZiAPI::hookPosition> >	listCallback;
 public:

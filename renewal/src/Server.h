@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:25:17 2008 caner candan
-// Last update Sun Sep 14 18:59:43 2008 caner candan
+// Last update Mon Sep 15 15:39:28 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -22,7 +22,7 @@ class	Server : public ISignalManager
 public:
   Server();
 
-  void	start();
+  void	start(int port);
   void	loop();
   void	stop();
 

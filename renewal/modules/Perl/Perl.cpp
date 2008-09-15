@@ -8,10 +8,8 @@
 #include <iostream>
 #include "Perl.h"
 #include "IConfig.hpp"
-#include "IRequest.hpp"
-#include "IResponse.hpp"
 
-Perl::Perl(IConfig* conf)
+Perl::Perl()
   : _listCallback(ZenZiAPI::hookPointsNumber)
 {}
 
@@ -35,7 +33,7 @@ const Perl::listCallback&	AutoIndex::getCallbacks()
   return (this->_listCallback);
 }
 
-bool	Perl::run(ZenZiAPI::ITools&)
+bool	Perl::run(ZenZiAPI::ITools& tools)
 {
   std::cout << "TEST PERL IS RUNNING" << std::endl;
 

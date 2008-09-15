@@ -6,7 +6,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 13:00:15 2008 majdi toumi
-// Last update Mon Sep 15 15:20:17 2008 majdi toumi
+// Last update Mon Sep 15 16:11:55 2008 caner candan
 //
 
 #ifndef __XMLPARSER_H__
@@ -18,23 +18,17 @@
 # include <list>
 # include <map>
 
-/*
- * @class XmlParser
- * @brief This class has the main xml parser methods.
- */
 class	XmlParser
 {
 public:
-  typedef std::list<std::map<std::string, std::string> >	ListParam_t;
-
-  //! undef
+  typedef std::map<std::string, std::string>	listAttribute;
+  typedef std::list<listAttribute>		listParam;
+public:
   XmlParser(const std::string& filename);
-  //! undef
   ~XmlParser();
-  //! undef
-  std::string	xmlGetParam(const std::string& path);
-  ListParam_t	xmlGetListParam(const std::string& path);
 
+  std::string	xmlGetParam(const std::string& path);
+  listParam	xmlGetListParam(const std::string& path);
 private:
   std::string		_filename;
   xmlDocPtr		_doc;
@@ -42,4 +36,4 @@ private:
   xmlXPathContextPtr	_ctxt;
 };
 
-#endif /* !__XMLPARSER_H__ */
+#endif // !__XMLPARSER_H__

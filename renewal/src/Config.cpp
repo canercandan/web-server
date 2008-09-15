@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 11:30:03 2008 majdi toumi
-// Last update Mon Sep 15 15:26:33 2008 majdi toumi
+// Last update Mon Sep 15 16:12:09 2008 caner candan
 //
 
 #include <iostream>
@@ -34,7 +34,7 @@ int		Config::getParamInt(const std::string& param)
   return (res);
 }
 
-XmlParser::ListParam_t	Config::getListParam(const std::string& param)
+XmlParser::listParam	Config::getListParam(const std::string& param)
 {
   return (this->_xmlParser->xmlGetListParam(param));
 }

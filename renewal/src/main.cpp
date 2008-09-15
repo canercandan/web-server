@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Mon Sep 15 15:19:43 2008 majdi toumi
+// Last update Mon Sep 15 16:12:00 2008 caner candan
 //
 
 #include "Server.h"
@@ -13,27 +13,32 @@
 
 int		main()
 {
-  Server	server;
   Config*	conf = Config::getInstance();
 
-  XmlParser::ListParam_t	list;
-  XmlParser::ListParam_t::const_iterator	itb;
-  XmlParser::ListParam_t::const_iterator	ite;
-  std::map<std::string, std::string>::const_iterator	mtb;
-  std::map<std::string, std::string>::const_iterator	mte;
+  XmlParser::listParam	list;
 
   std::cout << "Port = " << conf->getParamInt("port") << std::endl;
+
   list = conf->getListParam("//config");
-  ite = list.end();
-  for (itb = list.begin(); itb != ite; itb++)
+
+  for (XmlParser::listParam::const_iterator
+	 itb = list.begin(),
+	 ite = list.end();
+       itb != ite; itb++)
     {
-      mte = itb->end();
-      for (mtb = itb->begin(); mtb != mte; mtb++)
-	std::cout << "key = " << mtb->first << " and value = " << mtb->second << std::endl;
+      for (XmlParser::listAttribute::const_iterator
+	     mtb = itb->begin(),
+	     mte = ite->end();
+	   mtb != mte; mtb++)
+	std::cout << "key = " << mtb->first
+		  << " and value = " << mtb->second
+		  << std::endl;
       std::cout << std::endl;
     }
 
-  server.start();
+  Server	server;
+
+  server.start(4242);
   server.loop();
   server.stop();
 }

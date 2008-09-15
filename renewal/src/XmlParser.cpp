@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 13:09:45 2008 majdi toumi
-// Last update Mon Sep 15 15:14:18 2008 majdi toumi
+// Last update Mon Sep 15 16:06:28 2008 caner candan
 //
 
 #include <string>
@@ -73,17 +73,15 @@ std::string	XmlParser::xmlGetParam(const std::string& path)
   return ("");
 }
 
-XmlParser::ListParam_t	XmlParser::xmlGetListParam(const std::string& path)
+XmlParser::listParam	XmlParser::xmlGetListParam(const std::string& path)
 {
-  ListParam_t				listParam;
-  std::map<std::string, std::string>	mapAttr;
-  xmlXPathObjectPtr			xpath;
-  xmlNodePtr				node;
-  xmlAttrPtr				attr;
-  std::string				key;
-  std::string				val;
-  int					i;
-
+  listParam		listParam;
+  listAttribute		mapAttr;
+  xmlXPathObjectPtr	xpath;
+  xmlNodePtr		node;
+  xmlAttrPtr		attr;
+  std::string		key;
+  std::string		val;
 
   if (!(xpath = ::xmlXPathEvalExpression((xmlChar*)path.c_str(),
 					 this->_ctxt)))
@@ -98,7 +96,7 @@ XmlParser::ListParam_t	XmlParser::xmlGetListParam(const std::string& path)
 		<< "] content" << std::endl;
       exit(-1);
     }
-  for (i = 0; i < xpath->nodesetval->nodeNr; i++)
+  for (int i = 0; i < xpath->nodesetval->nodeNr; i++)
     {
       node = xpath->nodesetval->nodeTab[i];
       node = node->children;
