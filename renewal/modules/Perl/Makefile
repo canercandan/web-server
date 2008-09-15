@@ -1,33 +1,51 @@
-NAME		=	../mod_perl.so
+#
+# Zia Perl
+# a perl module
+#
 
-PATH_SRCS	=	../../src
-PATH_INTERFACE	=	../../interface
+PATH_BIN	=	..
+PATH_SRC	=	.
+PATH_INCLUDE	=	.
+PATH_LIBRARY	=	.
+PATH_API	=	../../api
 
-SRCS		=	Perl.cpp
+NAME		=	$(PATH_BIN)/mod_perl.so
+
+SRCS		=	$(PATH_SRC)/Perl.cpp			\
+			$(PATH_SRC)/../../src/FluxString.cpp	\
+			$(PATH_SRC)/../../src/Consumer.cpp	\
+			$(PATH_SRC)/../../src/URIParser.cpp	\
+			$(PATH_SRC)/../../src/FileInfo.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
 CXX		=	g++
 RM		=	rm -f
 
-WARNING		+=	-W -Wall -Werror
+INCLUDES	+=	-I$(PATH_INCLUDE) -I$(PATH_API)
+LIBRARIES	+=	-L$(PATH_LIBRARY)
 
-INCLUDES	+=	-I. -I$(PATH_SRCS) -I$(PATH_INTERFACE)
+DEBUG_42	=	-g -DDEBUG
+COMPAT		+=	-D__BSD_VISIBLE
+WARNINGS	+=	-W -Wall -Werror
 
-CFLAGS		+=	$(WARNING) $(INCLUDES)
+CFLAGS		+=	$(INCLUDES) $(DEBUG_$(DEBUG)) $(COMPAT) $(WARNINGS)
+LDFLAGS		+=	$(LIBRARIES)
 
 .SUFFIXES	:	.cpp.o
 
 $(NAME)		:	$(OBJS)
-			$(CXX) -o $@ -shared $(OBJS)
+			$(CXX) -o $@ $(OBJS) $(LDFLAGS)
 
 all		:	$(NAME)
 
 clean		:
-			$(RM) *~ *.o
+			-$(RM) $(PATH_SRC)/*~
+			-$(RM) $(PATH_SRC)/*.o
+			-$(RM) *.core
 
 fclean		:	clean
-			$(RM) $(NAME)
+			-$(RM) $(NAME)
 
 re		:	fclean all
 

@@ -7,14 +7,12 @@
 
 #include <iostream>
 #include "Perl.h"
-#include "IConfig.h"
-#include "IRequest.h"
-#include "IResponse.h"
-
-using namespace ziApi;
+#include "IConfig.hpp"
+#include "IRequest.hpp"
+#include "IResponse.hpp"
 
 Perl::Perl(IConfig* conf)
-  : _p_int(ZenZiAPI::hookPointsNumber)
+  : _listCallback(ZenZiAPI::hookPointsNumber)
 {}
 
 bool	Perl::onLoad()
@@ -29,23 +27,33 @@ void	Perl::onUnLoad()
 }
 
 
-Perl::State	Perl::affect(const Event& event,
-			     IResponse* response)
+const Perl::listCallback&	AutoIndex::getCallbacks()
 {
-
-}
-
-const std::vector<std::pair<MyModule::p_callback, ZenZiAPI::hookPosition> >&	MyModule::getCallbacks()
-{
-  this->_p_int[ZenZiAPI::PARSED].first =
-    static_cast<IModule::p_callback>(&MyModule::run);
-  this->_p_int[ZenZiAPI::PARSED].second = ZenZiAPI::LAST;
-  return (this->_p_int);
+  this->_listCallback[ZenZiAPI::FILESYSTEM].first =
+    static_cast<IModule::p_callback>(&Perl::run);
+  this->_listCallback[ZenZiAPI::FILESYSTEM].second = ZenZiAPI::VERY_FIRST;
+  return (this->_listCallback);
 }
 
 bool	Perl::run(ZenZiAPI::ITools&)
 {
-  std::cout << "TEST MODULE IS RUNNING" << std::endl;
+  std::cout << "TEST PERL IS RUNNING" << std::endl;
+
+  ZenZiAPI::IRequest*	request = &tools.message().request();
+  ZenZiAPI::IConfig*	config = &tools.config();
+  FluxString		flux(request->getUri());
+  Consumer		consumer(flux);
+  URIParser		uri(consumer);
+
+  uri.run();
+
+  FileInfo	info(config->getParam("document_root")
+		     + uri.getPath());
+
+  if (info.isGood() && info.getType() == FileInfo::DIR)
+    tools.data(new std::string(this->_listingDirectory(tools, info)));
+  return (true);
+
   IRequest*		request = response->getRequest();
   const std::string&	path = request->getUrlPath();
   std::string		app;
