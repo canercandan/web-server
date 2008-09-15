@@ -6,15 +6,15 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 13:00:15 2008 majdi toumi
-// Last update Mon Sep 15 16:11:55 2008 caner candan
+// Last update Mon Sep 15 17:44:43 2008 caner candan
 //
 
 #ifndef __XMLPARSER_H__
 # define __XMLPARSER_H__
 
-# include <string>
 # include <libxml/parser.h>
 # include <libxml/xpath.h>
+# include <string>
 # include <list>
 # include <map>
 

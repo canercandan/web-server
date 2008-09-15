@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Mon Sep 15 15:41:40 2008 caner candan
+// Last update Mon Sep 15 18:07:54 2008 caner candan
 //
 
 #include "Server.h"
@@ -16,7 +16,8 @@
 #include "ServerState.h"
 #include "Signal.h"
 
-Server::Server()
+Server::Server(int port)
+  : _port(port)
 {
   Signal*	signal = Signal::getInstance();
 
@@ -25,45 +26,53 @@ Server::Server()
 		      (&Server::signal));
 }
 
-void	Server::start(int port)
+void	Server::run()
 {
-  this->_logger.info("starting zia server");
-  if (!this->_server.create(port))
+  Logger	logger;
+
+  logger.info("starting zia server");
+  if (!this->_server.create(this->_port))
     {
-      this->_logger.error("an error occured while starting the server");
+      logger.error("an error occured while starting the server");
       return;
     }
   ServerState::getInstance()->setState(ServerState::PROCESS);
+  this->_loop();
+  this->_stop();
 }
 
-void	Server::loop()
+void	Server::_loop()
 {
-  Socket*	socket;
+  Logger	logger;
 
   while (ServerState::getInstance()->getState()
 	 == ServerState::PROCESS)
     {
+      Socket*	socket;
+
       if ((socket = this->_server.accept()))
 	{
 	  Client*	client = new Client(socket);
 	  Thread	thread(client);
 
-	  this->_logger.info("accept new connection from a client");
+	  logger.info("accept new connection from a client");
 	  thread.start();
 	}
     }
 }
 
-void	Server::stop()
+void	Server::_stop()
 {
+  Logger	logger;
+
   this->_server.close();
   ServerState::getInstance()->setState(ServerState::BREAK);
   Config::kill();
   ServerState::kill();
-  this->_logger.info("stopping zia server");
+  logger.info("stopping zia server");
 }
 
 void	Server::signal()
 {
-  this->stop();
+  this->_stop();
 }
