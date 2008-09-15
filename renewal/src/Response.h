@@ -5,12 +5,13 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:43:56 2008 majdi toumi
-// Last update Sun Sep 14 19:49:12 2008 caner candan
+// Last update Mon Sep 15 14:22:43 2008 caner candan
 //
 
 #ifndef __RESPONSE_H__
 # define __RESPONSE_H__
 
+# include <map>
 # include "IResponse.hpp"
 # include "Request.h"
 # include "FileInfo.h"
@@ -22,7 +23,10 @@
 
 class	Response : public Request, public ZenZiAPI::IResponse
 {
+  typedef std::map<int, std::string>	mapResponse;
 public:
+  Response();
+
   void			setStatusCode(int code);
   const std::string&	getStatusCode();
 
@@ -32,6 +36,8 @@ public:
   std::string		buildResponse();
   void			resetHeaders();
 private:
+  void	_generateMapResponse();
+
   std::string	_generateResponse(FileInfo&);
   std::string	_sendMessageBody(FileInfo&);
   std::string	_generateListingDirectoryHTML(FileInfo&);
@@ -41,6 +47,7 @@ private:
   std::string	_createResponseHeader();
   std::string	_createEntityHeader(FileInfo&);
 private:
+  mapResponse	_mapResponse;
   std::string	_code;
   std::string	_message;
 };
