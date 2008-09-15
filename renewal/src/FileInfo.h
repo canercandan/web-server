@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug 31 18:03:55 2008 majdi toumi
-// Last update Sun Sep 14 09:11:15 2008 caner candan
+// Last update Mon Sep 15 10:46:05 2008 majdi toumi
 //
 
 #ifndef __FILEINFO_H__
@@ -35,7 +35,11 @@ public:
   const std::string&	getPath() const;
   const Type&		getType() const;
   const unsigned int		getSize() const;
-  const std::string&	getLastTimeAccess();
+#ifdef WIN32
+  bool	FileInfo::isAccessModified(SYSTEMTIME& oldTime);
+# else
+  bool	FileInfo::isAccessModified(std::string& oldTime);
+#endif
   listDir&		getListDir();
   std::string		getContent();
 private:

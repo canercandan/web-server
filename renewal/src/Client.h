@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:45 2008 caner candan
-// Last update Sat Sep 13 20:27:54 2008 caner candan
+// Last update Mon Sep 15 10:36:03 2008 majdi toumi
 //
 
 #ifndef __CLIENT_H__
@@ -58,7 +58,11 @@ private:
   HookManager		_hook;
   listNameModule	_listNameModule;
   listModule		_listModule;
-  std::string		_lastAccess;
+#ifdef WIN32
+  SYSTEMTIME	_lastAccess;
+# else
+  std::string	_lastAccess;
+#endif
 };
 
 #endif // !__CLIENT_H__

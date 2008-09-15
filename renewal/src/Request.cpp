@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 16:19:10 2008 caner candan
-// Last update Thu Sep 11 11:20:55 2008 morgan armand
+// Last update Fri Sep 12 14:57:04 2008 majdi toumi
 //
 
 #include "Request.h"
@@ -81,6 +81,7 @@ const std::string&	Request::getBody()
 {
   return (this->_body);
 }
+
 
 void	Request::setBody(const std::string& body)
 {
