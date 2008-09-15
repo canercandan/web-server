@@ -8,6 +8,7 @@
 // Last update Mon Sep 15 14:33:14 2008 caner candan
 //
 
+#include <algorithm>
 #include <sstream>
 #include <iostream>
 #include <fstream>
@@ -103,8 +104,13 @@ std::string	Response::buildResponse()
 
   uri.run();
 
-  Config*	config = Config::getInstance();
-  FileInfo	info(config->getParam("document_root") + uri.getPath());
+  Config*		config = Config::getInstance();
+  std::string	resource = config->getParam("document_root") + uri.getPath();
+
+#ifdef WIN32
+  std::replace(resource.begin(), resource.end(), '/', '\\');
+#endif
+	FileInfo	info(resource);
 
   if (this->getMethod() == "HEAD")
     return (this->_generateResponse(info) + "\r\n");
@@ -136,6 +142,9 @@ std::string	Response::_sendMessageBody(FileInfo& info)
 
   std::string	path(config->getParam("document_root") + '/'
 		     + config->getParam("file_404"));
+#ifdef WIN32
+  std::replace(path.begin(), path.end(), '/', '\\');
+#endif
   std::cout << "debug: [" << path << ']' << std::endl;
 
   FileInfo	infoErr(path);

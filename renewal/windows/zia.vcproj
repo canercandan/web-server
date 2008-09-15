@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\api&quot;;&quot;..\..\lib\iconv-1.9.2.win32\include&quot;;&quot;..\..\lib\libxml2-2.6.32+.win32\include&quot;"
+				AdditionalIncludeDirectories="&quot;..\api&quot;;&quot;..\..\lib\iconv-1.9.2.win32\include&quot;;&quot;..\..\lib\libxml2-2.7.1.win32\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="iconv.lib libxml2.lib ws2_32.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\lib\libxml2-2.6.32+.win32&quot;;&quot;..\..\lib\iconv-1.9.2.win32&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\lib\libxml2-2.7.1.win32\lib&quot;;&quot;..\..\lib\iconv-1.9.2.win32&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
