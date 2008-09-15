@@ -36,8 +36,12 @@ public:
   const Type&		getType() const;
   const unsigned int		getSize() const;
 #ifdef WIN32
+<<<<<<< .mine
+  bool	isAccessModified(SYSTEMTIME oldTime);
+=======
   bool			isAccessModified(SYSTEMTIME oldTime);
   SYSTEMTIME		getLastTimeAccess();
+>>>>>>> .r494
 # else
   bool			isAccessModified(std::string& oldTime);
   std::string&		getLastTimeAccess();
