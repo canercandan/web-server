@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Mon Sep 15 16:12:00 2008 caner candan
+// Last update Mon Sep 15 16:33:50 2008 caner candan
 //
 
 #include "Server.h"
@@ -15,24 +15,24 @@ int		main()
 {
   Config*	conf = Config::getInstance();
 
-  XmlParser::listParam	list;
-
   std::cout << "Port = " << conf->getParamInt("port") << std::endl;
 
-  list = conf->getListParam("//config");
+  XmlParser::listParam	list(conf->getListParam("//config"));
 
   for (XmlParser::listParam::const_iterator
 	 itb = list.begin(),
 	 ite = list.end();
-       itb != ite; itb++)
+       itb != ite; ++itb)
     {
       for (XmlParser::listAttribute::const_iterator
 	     mtb = itb->begin(),
-	     mte = ite->end();
-	   mtb != mte; mtb++)
-	std::cout << "key = " << mtb->first
-		  << " and value = " << mtb->second
-		  << std::endl;
+	     mte = itb->end();
+	   mtb != mte; ++mtb)
+	{
+	  std::cout << "key = " << mtb->first
+		    << " and value = " << mtb->second
+		    << std::endl;
+	}
       std::cout << std::endl;
     }
 
