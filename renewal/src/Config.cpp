@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 11:30:03 2008 majdi toumi
-// Last update Mon Sep 15 15:13:46 2008 majdi toumi
+// Last update Mon Sep 15 15:26:33 2008 majdi toumi
 //
 
 #include <iostream>
@@ -60,7 +60,7 @@ void	Config::_loadConfig()
   std::stringstream	ss;
 
   this->_setXmlParam("name", "/server[@name]");
-  this->_setXmlParam("port", "/server/config/listen[@port]");
+  this->_setXmlParam("port", "/server/default_port[@value]");
   this->_setXmlParam("shutdown", "/server/shutdown[@value]");
   this->_setXmlParam("debug", "/server/debug[@value]");
   this->_setXmlParam("respect_rfc", "/server/respect_rfc[@value]");
