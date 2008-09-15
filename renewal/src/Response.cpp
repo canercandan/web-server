@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Sun Sep 14 20:44:38 2008 caner candan
+// Last update Sun Sep 14 20:57:42 2008 caner candan
 //
 
 #include <sstream>
@@ -70,8 +70,7 @@ std::string	Response::_sendMessageBody(FileInfo& info)
   if (info.isGood() && info.getType() == FileInfo::FILE)
     return (info.getContent());
   if (info.isGood() && info.getType() == FileInfo::DIR)
-    return ("");
-  //return (this->_generateListingDirectoryHTML(info));
+    return ("<h1>Permission denied</h1>");
 
   FileInfo	infoErr(config->getParam("document_root")
 			+ config->getParam("file_404"));
@@ -81,43 +80,15 @@ std::string	Response::_sendMessageBody(FileInfo& info)
   return ("<h1>File not found</h1>");
 }
 
-std::string	Response::_generateListingDirectoryHTML(FileInfo& info)
-{
-  FileInfo::listDir&	listDir = info.getListDir();
-  std::string		response;
-
-  response += "<h1>Index of ";
-  response += info.getPath();
-  response += "</h1><ul>";
-  for (FileInfo::listDir::iterator
-	 it = listDir.begin(),
-	 end = listDir.end();
-       it != end; ++it)
-    {
-      FileInfo		checkDir
-	(FileInfo(Config::getInstance()->getParam("document_root")
-		  + '/' + info.getPath() + *it));
-      std::string	slashDir;
-
-      if (checkDir.isGood() && checkDir.getType() == FileInfo::DIR)
-	slashDir = '/';
-      response +=
-	"<li><a href=\"" + *it + slashDir + "\">"
-	+ *it + slashDir + "</a></li>";
-    }
-  response += "</ul>";
-  return (response);
-}
-
 std::string	Response::_generateResponse(FileInfo& info)
 {
   std::string	statusLine;
   std::string	content;
 
   statusLine = this->_createStatusLine();
-  content = //this->_createGeneralHeader()
-    //+ this->_createResponseHeader()
-    this->_createEntityHeader(info);
+  content = this->_createGeneralHeader()
+    + this->_createResponseHeader()
+    + this->_createEntityHeader(info);
   return (statusLine +
 	  content + "\r\n");
 }
@@ -148,8 +119,8 @@ std::string	Response::_createResponseHeader()
   std::stringstream	ss;
   Config*		config = Config::getInstance();
 
-  ss << "Location:" << config->getParam("location") << "\r\n"
-     << "Server:" << config->getParam("name") << "\r\n";
+  ss //<< "Location:" << config->getParam("location") << "\r\n"
+    << "Server:" << config->getParam("name") << "\r\n";
   return (ss.str());
 }
 
