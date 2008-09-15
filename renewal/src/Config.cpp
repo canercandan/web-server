@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 11:30:03 2008 majdi toumi
-// Last update Thu Sep 11 18:24:07 2008 caner candan
+// Last update Mon Sep 15 09:40:24 2008 caner candan
 //
 
 #include <iostream>
@@ -61,6 +61,7 @@ void	Config::_loadConfig()
   this->_setXmlParam("respect_rfc", "/server/config/respect_rfc[@value]");
   this->_setXmlParam("document_root", "/server/config/document_root[@value]");
   this->_setXmlParam("module_directory", "/server/config/module_directory[@value]");
+  this->_setXmlParam("file_404", "/server/config/file_404[@value]");
   this->_setXmlParam("timeout", "/server/config/timeout[@value]");
   ss << time;
   this->_setParam("timestart", ss.str());

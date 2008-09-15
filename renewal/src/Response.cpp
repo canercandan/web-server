@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Sun Sep 14 20:57:42 2008 caner candan
+// Last update Sun Sep 14 21:10:42 2008 caner candan
 //
 
 #include <sstream>
@@ -72,8 +72,10 @@ std::string	Response::_sendMessageBody(FileInfo& info)
   if (info.isGood() && info.getType() == FileInfo::DIR)
     return ("<h1>Permission denied</h1>");
 
-  FileInfo	infoErr(config->getParam("document_root")
-			+ config->getParam("file_404"));
+  std::string	path(config->getParam("document_root")
+		     + config->getParam("file_404"));
+  std::cout << "debug: [" << path << ']' << std::endl;
+  FileInfo	infoErr(path);
 
   if (infoErr.isGood())
     return (infoErr.getContent());
