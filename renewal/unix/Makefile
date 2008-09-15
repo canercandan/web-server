@@ -1,58 +1,53 @@
-##
-## Makefile for zia in /home/toumi_m/zia/renewal/src
-## 
-## Made by majdi toumi
-## Login   <toumi_m@epitech.net>
-## 
-## Started on  Tue Sep  9 16:01:11 2008 majdi toumi
-## Last update Sun Sep 14 13:34:15 2008 caner candan
-##
+#
+# Zia HTTP Server
+# makefile
+#
 
-NAME		=	zia
-
+PATH_BIN	=	.
 PATH_SRC	=	../src
-PATH_INTERFACE	=	../api
+PATH_INCLUDE	=	.
+PATH_LIBRARY	=	.
+PATH_API	=	../api
 
-SRCS		=	$(PATH_SRC)/main.cpp			\
-			$(PATH_SRC)/ConnectionInfos.cpp		\
-			$(PATH_SRC)/Config.cpp			\
-			$(PATH_SRC)/FileInfo.cpp		\
-			$(PATH_SRC)/FluxClient.cpp		\
-			$(PATH_SRC)/Logger.cpp			\
-			$(PATH_SRC)/ServerSocket.cpp		\
-			$(PATH_SRC)/Socket.cpp			\
-			$(PATH_SRC)/Request.cpp			\
-			$(PATH_SRC)/Thread.cpp			\
-			$(PATH_SRC)/Consumer.cpp		\
-			$(PATH_SRC)/Client.cpp			\
-			$(PATH_SRC)/HookManager.cpp		\
-			$(PATH_SRC)/Message.cpp			\
-			$(PATH_SRC)/Response.cpp		\
-			$(PATH_SRC)/Tools.cpp			\
-			$(PATH_SRC)/Server.cpp			\
-			$(PATH_SRC)/ServerState.cpp		\
-			$(PATH_SRC)/XmlParser.cpp		\
-			$(PATH_SRC)/HttpParser.cpp		\
-			$(PATH_SRC)/URIParser.cpp		\
-			$(PATH_SRC)/FluxString.cpp		\
-			$(PATH_SRC)/Signal.cpp
+NAME		=	$(PATH_BIN)/zia
+
+SRCS		=	$(PATH_SRC)/main.cpp		\
+			$(PATH_SRC)/Client.cpp		\
+			$(PATH_SRC)/Config.cpp		\
+			$(PATH_SRC)/ConnectionInfos.cpp	\
+			$(PATH_SRC)/Consumer.cpp	\
+			$(PATH_SRC)/FileInfo.cpp	\
+			$(PATH_SRC)/FluxClient.cpp	\
+			$(PATH_SRC)/FluxString.cpp	\
+			$(PATH_SRC)/HookManager.cpp	\
+			$(PATH_SRC)/HttpParser.cpp	\
+			$(PATH_SRC)/Logger.cpp		\
+			$(PATH_SRC)/Message.cpp		\
+			$(PATH_SRC)/Request.cpp		\
+			$(PATH_SRC)/Response.cpp	\
+			$(PATH_SRC)/Server.cpp		\
+			$(PATH_SRC)/ServerSocket.cpp	\
+			$(PATH_SRC)/ServerState.cpp	\
+			$(PATH_SRC)/Signal.cpp		\
+			$(PATH_SRC)/Socket.cpp		\
+			$(PATH_SRC)/Thread.cpp		\
+			$(PATH_SRC)/Tools.cpp		\
+			$(PATH_SRC)/URIParser.cpp	\
+			$(PATH_SRC)/XmlParser.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
-
-INCLUDES_XML	=	`xml2-config --cflags`
-LIBRARY_XML	=	`xml2-config --libs`
-
-INCLUDES	+=	-I$(PATH_SRC) -I$(PATH_INTERFACE) $(INCLUDES_XML) -D__BSD_VISIBLE
-LIBRARIES	+=	-lpthread $(LIBRARY_XML)
 
 CXX		=	g++
 RM		=	rm -f
 
-DEBUG_42	=	-g
+INCLUDES	+=	-I$(PATH_INCLUDE) -I$(PATH_API) `xml2-config --cflags`
+LIBRARIES	+=	-L$(PATH_LIBRARY) `xml2-config --libs` -lpthread
 
+DEBUG_42	=	-g -DDEBUG
+COMPAT		+=	-D__BSD_VISIBLE
 WARNINGS	+=	-W -Wall -Werror
 
-CFLAGS		+=	$(WARNINGS) $(INCLUDES) $(DEBUG_$(DEBUG))
+CFLAGS		+=	$(INCLUDES) $(DEBUG_$(DEBUG)) $(COMPAT) $(WARNINGS)
 LDFLAGS		+=	$(LIBRARIES)
 
 .SUFFIXES	:	.cpp.o
