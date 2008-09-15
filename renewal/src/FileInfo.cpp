@@ -8,6 +8,8 @@
 // Last update Mon Sep 15 14:56:56 2008 majdi toumi
 //
 
+#include <iostream>
+#include <algorithm>
 #include <sys/types.h>
 
 #ifdef WIN32
@@ -22,6 +24,13 @@
 FileInfo::FileInfo(const std::string& path)
   : _path(path), _type(OTHER)
 {
+#ifdef WIN32
+	std::replace(_path.begin(), _path.end(), '/', '\\');
+
+	if (_path[_path.size() - 1] == '\\')
+		_path += '*';
+#endif
+
   _setGood();
   _setType();
   _setSize();
@@ -41,11 +50,25 @@ void	FileInfo::_setGood()
 #ifdef WIN32
 	WCHAR	wszPath[MAX_PATH];
 
-	this->_path = "\\\\?\\" + this->_path;
+	//this->_path = "\\\\?\\" + this->_path;
 	MultiByteToWideChar(CP_ACP, 0, this->_path.c_str(), -1, wszPath, MAX_PATH);
 
-  this->_good = ((_hFind = ::FindFirstFile(wszPath, &this->_findFileData))
-		 != INVALID_HANDLE_VALUE);
+  //this->_good = ((_hFind = ::FindFirstFile(wszPath, &this->_findFileData))
+//		 != INVALID_HANDLE_VALUE);
+	if ((_hFind = FindFirstFile(wszPath, &this->_findFileData)) == INVALID_HANDLE_VALUE)
+	{
+		TCHAR	wczErr[255];
+		char	err[255];
+
+		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), 0, wczErr, 255, NULL);
+		WideCharToMultiByte(CP_ACP, 0, wczErr, -1, err, 255, NULL, NULL);
+
+		std::cerr << this->_path << ": " << err << std::endl;
+
+		this->_good = false;
+	}
+	else
+		this->_good = true;
 #else
   this->_good = (!lstat(this->_path.c_str(), &this->_sb));
 #endif

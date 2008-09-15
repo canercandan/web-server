@@ -61,7 +61,8 @@ void	Client::run()
 
   this->_unloadModules();
 
-  this->_sck->send(*tools.data());
+  if (this->_sck->send(*tools.data()) < 0)
+	  std::cerr << "error while sending request" << std::endl;
 
   //  this->_hook.manageHookPoint(ZenZiAPI::READ, tools);
   //  this->_hook.manageHookPoint(ZenZiAPI::WRITE, tools);
@@ -94,10 +95,13 @@ void	Client::_loadModules()
 
       if (!(handle = LoadLibrary(wszModule)))
 	  {
-		  TCHAR	err[255];
+		  TCHAR	wczErr[255];
+			char	err[255];
 
-		  FormatMessage(0, NULL, GetLastError(), 0, err, 255, NULL);
-		  std::cout << err << std::endl;
+		  FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), 0, wczErr, 255, NULL);
+		  WideCharToMultiByte(CP_ACP, 0, wczErr, -1, err, 255, NULL, NULL);
+
+		  std::cerr << err << std::endl;
 		  continue;
 	  }
 #else

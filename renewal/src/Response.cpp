@@ -107,9 +107,9 @@ std::string	Response::buildResponse()
   Config*		config = Config::getInstance();
   std::string	resource = config->getParam("document_root") + uri.getPath();
 
-#ifdef WIN32
-  std::replace(resource.begin(), resource.end(), '/', '\\');
-#endif
+//#ifdef WIN32
+//  std::replace(resource.begin(), resource.end(), '/', '\\');
+//#endif
 	FileInfo	info(resource);
 
   if (this->getMethod() == "HEAD")
@@ -142,9 +142,9 @@ std::string	Response::_sendMessageBody(FileInfo& info)
 
   std::string	path(config->getParam("document_root") + '/'
 		     + config->getParam("file_404"));
-#ifdef WIN32
-  std::replace(path.begin(), path.end(), '/', '\\');
-#endif
+//#ifdef WIN32
+//  std::replace(path.begin(), path.end(), '/', '\\');
+//#endif
   std::cout << "debug: [" << path << ']' << std::endl;
 
   FileInfo	infoErr(path);

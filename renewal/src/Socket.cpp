@@ -158,6 +158,21 @@ int	Socket::recv(char* buf, int len)
 
 int	Socket::send(std::string& buf)
 {
+	const char*	data = buf.c_str();
+	int			len = buf.length();
+	int			ret;
+
+	while (len > 0)
+	{
+		if ((ret = ::send(this->_sck, data, len, 0)) < 0)
+			return (-1);
+
+		len -= ret;
+		data += ret;
+	}
+
+	return (buf.length());
+	/*
   int	ret;
   if ((ret = ::send(this->_sck, buf.c_str(), buf.length(), 0)) < 0)
     return (-1);
@@ -167,6 +182,7 @@ int	Socket::send(std::string& buf)
       return (Socket::send(buf));
     }
   return (ret);
+  */
 }
 
 bool	Socket::isValid()
