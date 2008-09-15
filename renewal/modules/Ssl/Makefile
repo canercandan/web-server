@@ -5,7 +5,7 @@
 ## Login   <candan_c@epitech.net>
 ## 
 ## Started on  Thu Sep 11 15:38:38 2008 caner candan
-## Last update Fri Sep 12 19:30:09 2008 morgan armand
+## Last update Mon Sep 15 14:54:44 2008 morgan armand
 ##
 
 NAME		=	../mod_ssl.so
@@ -23,13 +23,14 @@ RM		=	rm -f
 WARNING		+=	-W -Wall -Werror
 
 INCLUDES	+=	-I$(PATH_SRCS) -I$(PATH_INTERFACE)
+LIBRARIES	+=	#-lssl
 
 CFLAGS		+=	$(WARNING) $(INCLUDES)
 
 .SUFFIXES	:	.cpp.o
 
 $(NAME)		:	$(OBJS)
-			$(CXX) -o $@ -shared $(OBJS)
+			$(CXX) -o $@ -shared $(OBJS) $(LIBRARIES)
 
 all		:	$(NAME)
 

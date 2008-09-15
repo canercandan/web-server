@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Mon Sep 15 11:03:48 2008 majdi toumi
+// Last update Mon Sep 15 14:55:45 2008 morgan armand
 //
 
 #include <iostream>
@@ -97,7 +97,7 @@ void	Client::_loadModules()
 	if (!(handle = dlopen((*itb).c_str(), RTLD_NOW)))
 #endif
 	  {
-	    std::cerr << (*itb) << " not found" << std::endl;
+	    std::cout << dlerror() << std::endl;
 	    continue;
 	  }
 #ifdef WIN32
