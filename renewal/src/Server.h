@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:25:17 2008 caner candan
-// Last update Mon Sep 15 17:57:35 2008 caner candan
+// Last update Tue Sep 16 17:27:14 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -21,7 +21,7 @@
 class	Server : public IRunnable, public ISignalManager
 {
 public:
-  Server(int port);
+  Server(int port, std::string& type);
 
   void	run();
 

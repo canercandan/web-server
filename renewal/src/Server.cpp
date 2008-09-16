@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Tue Sep 16 17:22:27 2008 caner candan
+// Last update Tue Sep 16 17:27:19 2008 caner candan
 //
 
 #include <iostream>
@@ -20,11 +20,11 @@
 Server::Server(int port)
   : _port(port)
 {
-//   Signal*	signal = Signal::getInstance();
+  Signal*	signal = Signal::getInstance();
 
-//   signal->addCallback(Signal::INT, this,
-// 		      static_cast<ISignalManager::callback>
-// 		      (&Server::signal));
+  signal->addCallback(Signal::INT, this,
+		      static_cast<ISignalManager::callback>
+		      (&Server::signal));
 }
 
 void	Server::run()
