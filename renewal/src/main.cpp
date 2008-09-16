@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Tue Sep 16 10:05:14 2008 caner candan
+// Last update Mon Sep 15 18:44:14 2008 morgan armand
 //
 
 #include <sstream>
@@ -21,12 +21,12 @@ int		main()
 
   XmlParser::listParam	list(conf->getListParam("//config"));
 
-  for (XmlParser::listParam::const_iterator
+  for (XmlParser::listParam::iterator
 	 it = list.begin(),
 	 end = list.end();
        it != end; ++it)
     {
-      const XmlParser::listAttribute&	attr = *it;
+      XmlParser::listAttribute&	attr = *it;
 
       std::stringstream	ss(attr["port"]);
       int		port;
@@ -42,7 +42,7 @@ int		main()
       std::cout << "debug: [" << attr["port"] << ']' << std::endl;
     }
 
-//   Server	server(4242);
+  //   Server	server(4242);
 
-//   server.run();
+  //   server.run();
 }
