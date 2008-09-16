@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 22:22:42 2008 caner candan
-// Last update Sat Sep 13 22:22:42 2008 caner candan
+// Last update Mon Sep 15 18:58:07 2008 morgan armand
 //
 
 #ifndef __THREAD_H__
@@ -26,6 +26,7 @@ public:
   Thread(IRunnable* run);
 
   void	start();
+  void	join();
 private:
 # ifdef WIN32
   static DWORD WINAPI	_threadProc(LPVOID arg);

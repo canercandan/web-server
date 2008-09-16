@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:22:40 2008 caner candan
-// Last update Tue Sep 16 08:53:07 2008 caner candan
+// Last update Mon Sep 15 18:57:56 2008 morgan armand
 //
 
 #include <iostream>
@@ -31,6 +31,12 @@ void	Thread::start()
     std::cerr << "pthread_detach() failed" << std::endl;
 #endif
   std::cout << "debug: [" << "thread start end" << ']' << std::endl;
+}
+
+void	Thread::join()
+{
+  if (::pthread_join(this->_thread, NULL))
+    std::cerr << "pthread_join() failed" << std::endl;
 }
 
 #ifdef WIN32

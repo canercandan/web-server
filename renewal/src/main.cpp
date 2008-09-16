@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Mon Sep 15 18:44:14 2008 morgan armand
+// Last update Mon Sep 15 18:58:39 2008 morgan armand
 //
 
 #include <sstream>
@@ -18,6 +18,7 @@
 int		main()
 {
   Config*	conf = Config::getInstance();
+  std::list<Thread*>	threads;
 
   XmlParser::listParam	list(conf->getListParam("//config"));
 
@@ -34,11 +35,12 @@ int		main()
       ss >> port;
 
       Server*	server = new Server(port);
-      Thread	thread(server);
+      Thread*	thread = new Thread(server);
       Logger	logger;
 
       logger.info("accept new port");
       thread.start();
+      threads.push_back(thread);
       std::cout << "debug: [" << attr["port"] << ']' << std::endl;
     }
 
