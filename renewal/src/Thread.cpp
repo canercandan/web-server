@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:22:40 2008 caner candan
-// Last update Sat Sep 13 18:05:54 2008 caner candan
+// Last update Tue Sep 16 08:53:07 2008 caner candan
 //
 
 #include <iostream>
@@ -17,6 +17,7 @@ Thread::Thread(IRunnable* obj)
 
 void	Thread::start()
 {
+  std::cout << "debug: [" << "thread start" << ']' << std::endl;
 #ifdef WIN32
   if (!(this->_thread = ::CreateThread(NULL, 0,
 				       Thread::_threadProc,
@@ -29,6 +30,7 @@ void	Thread::start()
   if (::pthread_detach(this->_thread))
     std::cerr << "pthread_detach() failed" << std::endl;
 #endif
+  std::cout << "debug: [" << "thread start end" << ']' << std::endl;
 }
 
 #ifdef WIN32
@@ -37,6 +39,7 @@ DWORD WINAPI	Thread::_threadProc(LPVOID arg)
   void*		Thread::_threadProc(void* arg)
 #endif
 {
+  std::cout << "debug: [" << "thread proc" << ']' << std::endl;
   ((IRunnable *)arg)->run();
 #ifdef WIN32
   return (0);

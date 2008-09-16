@@ -5,8 +5,8 @@
 <server name="ZapII">
   <default_port value="4242" />
   <config>
-    <listen port="4280" type="HTTP" />
-    <listen port="42443" type="SSL" />
+    <listen port="4242" type="HTTP" />
+    <listen port="4245" type="SSL" />
   </config>
   <ssl_certificate_file file="../ssl/zia.crt" />
   <ssl_certificate_keyfile file="../ssl/zia.key" />

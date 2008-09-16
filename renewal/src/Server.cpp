@@ -5,9 +5,10 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Mon Sep 15 18:07:54 2008 caner candan
+// Last update Tue Sep 16 08:52:48 2008 caner candan
 //
 
+#include <iostream>
 #include "Server.h"
 #include "Socket.h"
 #include "Client.h"
@@ -19,11 +20,11 @@
 Server::Server(int port)
   : _port(port)
 {
-  Signal*	signal = Signal::getInstance();
+//   Signal*	signal = Signal::getInstance();
 
-  signal->addCallback(Signal::INT, this,
-		      static_cast<ISignalManager::callback>
-		      (&Server::signal));
+//   signal->addCallback(Signal::INT, this,
+// 		      static_cast<ISignalManager::callback>
+// 		      (&Server::signal));
 }
 
 void	Server::run()
