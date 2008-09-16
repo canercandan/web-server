@@ -82,12 +82,12 @@ std::string	AutoIndex::_listingDirectory(ZenZiAPI::ITools& tools,
 
 extern "C"
 {
-  AutoIndex*	create()
+  EXPORT AutoIndex*	create()
   {
     return (new AutoIndex);
   }
 
-  void		destroy(void* p)
+  EXPORT void		destroy(void* p)
   {
     delete static_cast<AutoIndex*>(p);
   }

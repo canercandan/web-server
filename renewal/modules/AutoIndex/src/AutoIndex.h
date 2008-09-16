@@ -5,6 +5,12 @@
 # include "FileInfo.h"
 # include "URIParser.h"
 
+# ifdef WIN32
+#  define EXPORT	__declspec(dllexport)
+# else
+#  define EXPORT
+#endif
+
 class	AutoIndex : public ZenZiAPI::IModule
 {
   typedef std::pair<p_callback, ZenZiAPI::hookPosition>	pairCallback;

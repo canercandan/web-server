@@ -101,7 +101,7 @@ void	Client::_loadModules()
 		  FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), 0, wczErr, 255, NULL);
 		  WideCharToMultiByte(CP_ACP, 0, wczErr, -1, err, 255, NULL, NULL);
 
-		  std::cerr << err << std::endl;
+		  std::cerr << (*itb) << ": " << err << std::endl;
 		  continue;
 	  }
 #else
@@ -115,6 +115,13 @@ void	Client::_loadModules()
       if (!(create = (create_t)GetProcAddress(handle, "create")) ||
 	  !(destroy = (destroy_t)GetProcAddress(handle, "destroy")))
 	{
+		TCHAR	wczErr[255];
+		char	err[255];
+
+		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), 0, wczErr, 255, NULL);
+		WideCharToMultiByte(CP_ACP, 0, wczErr, -1, err, 255, NULL, NULL);
+
+		std::cerr << (*itb) << ": " << err << std::endl;
 	  FreeLibrary(handle);
 	  continue;
 	}

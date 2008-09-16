@@ -123,8 +123,8 @@ void	FileInfo::_setListDir()
   if (this->getType() != DIR)
     return;
 #ifdef WIN32
-  const std::string&	file
-    = (this->getType() == DIR) ? this->_path + "\\*" : this->_path;
+  //const std::string&	file
+    //= (this->getType() == DIR) ? this->_path + "\\*" : this->_path;
 
   if (this->_hFind)
   {

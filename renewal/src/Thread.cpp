@@ -30,8 +30,12 @@ void	Thread::start()
 
 void	Thread::join()
 {
+#ifdef WIN32
+	WaitForSingleObject(this->_thread, INFINITE);
+#else
   if (::pthread_join(this->_thread, NULL))
     std::cerr << "pthread_join() failed" << std::endl;
+#endif
 }
 
 #ifdef WIN32
