@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Tue Sep 16 08:50:13 2008 caner candan
+// Last update Tue Sep 16 10:05:14 2008 caner candan
 //
 
 #include <sstream>
@@ -28,7 +28,7 @@ int		main()
     {
       const XmlParser::listAttribute&	attr = *it;
 
-      std::stringstream	ss(attr.at("port"));
+      std::stringstream	ss(attr["port"]);
       int		port;
 
       ss >> port;
@@ -39,7 +39,7 @@ int		main()
 
       logger.info("accept new port");
       thread.start();
-      std::cout << "debug: [" << attr.at("port") << ']' << std::endl;
+      std::cout << "debug: [" << attr["port"] << ']' << std::endl;
     }
 
 //   Server	server(4242);
