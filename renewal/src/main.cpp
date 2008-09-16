@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Tue Sep 16 13:27:23 2008 caner candan
+// Last update Mon Sep 15 20:48:03 2008 morgan armand
 //
 
 #include <sstream>
@@ -39,8 +39,23 @@ int		main()
       Logger	logger;
 
       logger.info("accept new port");
-      thread.start();
+      thread->start();
       threads.push_back(thread);
       std::cout << "debug: [" << attr["port"] << ']' << std::endl;
     }
+
+  std::list<Thread*>::iterator itb;
+  std::list<Thread*>::iterator ite;
+
+  itb = threads.begin();
+  ite = threads.end();
+
+  for (; itb != ite; ++itb)
+    (*itb)->join();
+
+  itb = threads.begin();
+  ite = threads.end();
+
+  for (; itb != ite; ++itb)
+    delete (*itb);
 }
