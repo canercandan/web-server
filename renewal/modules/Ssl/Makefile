@@ -5,7 +5,7 @@
 ## Login   <candan_c@epitech.net>
 ## 
 ## Started on  Thu Sep 11 15:38:38 2008 caner candan
-## Last update Mon Sep 15 14:54:44 2008 morgan armand
+## Last update Mon Sep 15 20:56:57 2008 morgan armand
 ##
 
 NAME		=	../mod_ssl.so
@@ -23,7 +23,7 @@ RM		=	rm -f
 WARNING		+=	-W -Wall -Werror
 
 INCLUDES	+=	-I$(PATH_SRCS) -I$(PATH_INTERFACE)
-LIBRARIES	+=	#-lssl
+LIBRARIES	+=	-lssl
 
 CFLAGS		+=	$(WARNING) $(INCLUDES)
 

@@ -16,11 +16,13 @@ bool	Ssl::onLoad()
 
   // init PRNG
   //  actions_to_seed_PRNG();
+  std::cout << "[mod_ssl] loading..." << std::endl;
   return (true);
 }
 
 void	Ssl::onUnLoad()
 {
+  std::cout << "[mod_ssl] unloading..." << std::endl;
 }
 
 const std::vector<Ssl::callback_t>&	Ssl::getCallbacks()
@@ -89,7 +91,14 @@ bool		Ssl::onAccept(ITools& tools)
       SSL_set_bio(ssl, sbio, sbio);
 
       if ((r = SSL_accept(ssl)) <= 0)
-	return (false); // ?
+	{
+	  std::cout << "SSL_accept failed" << std::endl;
+	  //	  return (false); // ?
+	}
+      else
+	{
+	  std::cout << "SSL_accept ok?!?" << std::endl;
+	}
     }
   return (true);
 }

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 20:20:01 2008 caner candan
-// Last update Sat Sep 13 21:09:29 2008 caner candan
+// Last update Mon Sep 15 21:52:25 2008 morgan armand
 //
 
 #include "HookManager.h"
@@ -25,13 +25,19 @@ bool	HookManager::addModule(ZenZiAPI::IModule* module)
   for (size_t i = 0, size = callbacks.size();
        i < size; i++)
     {
-      if (callbacks[i].second == ZenZiAPI::VERY_FIRST &&
-	  this->_checkHookPoint(static_cast<ZenZiAPI::hookPoint>(i),
-				ZenZiAPI::VERY_FIRST) ||
-	  callbacks[i].second == ZenZiAPI::VERY_LAST &&
-	  this->_checkHookPoint(static_cast<ZenZiAPI::hookPoint>(i),
-				ZenZiAPI::VERY_LAST))
-	return (false);
+      if (callbacks[i].first)
+	{
+	  if ((callbacks[i].second == ZenZiAPI::VERY_FIRST &&
+	       this->_checkHookPoint(static_cast<ZenZiAPI::hookPoint>(i),
+				     ZenZiAPI::VERY_FIRST)) ||
+	      (callbacks[i].second == ZenZiAPI::VERY_LAST &&
+	       this->_checkHookPoint(static_cast<ZenZiAPI::hookPoint>(i),
+				     ZenZiAPI::VERY_LAST)))
+	    {
+	      std::cout << "pb" << std::endl;
+	      return (false);
+	    }
+	}
     }
 
   this->_modules[module] = callbacks;
@@ -85,8 +91,11 @@ bool	HookManager::_manageHookPoint(ZenZiAPI::hookPoint point,
 	  ZenZiAPI::IModule::p_callback	handler = cb.at(point).first;
 
 	  if (handler && cb[point].second == position)
-	    if ((mod->*handler)(tools) == false)
-	      return (false);
+	    {
+	      std::cout << "FOUND a module with hookPoint equal to " << point << std::endl;
+	      if ((mod->*handler)(tools) == false)
+		return (false);
+	    }
 	}
     }
   return (true);
@@ -105,7 +114,7 @@ bool	HookManager::_checkHookPoint(ZenZiAPI::hookPoint point,
       cb = (*itb).second;
 
       if (static_cast<size_t>(point) <= cb.size())
-	if (cb[point].second == position)
+	if (cb[point].first && cb[point].second == position)
 	  return (true);
     }
   return (false);
