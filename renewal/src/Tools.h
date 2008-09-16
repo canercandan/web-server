@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 22:23:01 2008 caner candan
-// Last update Sat Sep 13 22:23:02 2008 caner candan
+// Last update Tue Sep 16 17:46:34 2008 caner candan
 //
 
 #ifndef _TOOLS_H_
@@ -19,7 +19,7 @@
 class	Tools : public ZenZiAPI::ITools
 {
 public:
-  Tools(SOCKET sck);
+  Tools(SOCKET sck, const std::string& type);
 
   ZenZiAPI::IMessage&		message();
   ZenZiAPI::IConfig&		config();

@@ -5,18 +5,19 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 20:19:42 2008 caner candan
-// Last update Sat Sep 13 20:19:43 2008 caner candan
+// Last update Tue Sep 16 17:54:58 2008 caner candan
 //
 
 #ifndef	__CONNECTIONINFOS_H__
 # define __CONNECTIONINFOS_H__
 
+# include <string>
 # include "IConnectionInfos.hpp"
 
 class	ConnectionInfos : public ZenZiAPI::IConnectionInfos
 {
 public:
-  ConnectionInfos(SOCKET sck);
+  ConnectionInfos(SOCKET sck, const std::string& type);
 
   const SOCKET		getSocket() const;
   const connectionType	getConnectType(void) const;

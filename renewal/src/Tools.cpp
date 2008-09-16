@@ -5,13 +5,13 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 22:22:44 2008 caner candan
-// Last update Sun Sep 14 20:28:26 2008 caner candan
+// Last update Tue Sep 16 17:46:54 2008 caner candan
 //
 
 #include "Tools.h"
 
-Tools::Tools(SOCKET sck)
-  : _config(*Config::getInstance()), _cinfos(sck),
+Tools::Tools(SOCKET sck, const std::string& type)
+  : _config(*Config::getInstance()), _cinfos(sck, type),
     _data(NULL)
 {}
 

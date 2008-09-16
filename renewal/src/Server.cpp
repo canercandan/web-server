@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Tue Sep 16 17:27:19 2008 caner candan
+// Last update Tue Sep 16 17:55:05 2008 caner candan
 //
 
 #include <iostream>
@@ -17,8 +17,8 @@
 #include "ServerState.h"
 #include "Signal.h"
 
-Server::Server(int port)
-  : _port(port)
+Server::Server(int port, const std::string& type)
+  : _port(port), _type(type)
 {
   Signal*	signal = Signal::getInstance();
 
@@ -55,7 +55,7 @@ void	Server::_loop()
 
       if ((socket = this->_server.accept()))
 	{
-	  Client*	client = new Client(socket);
+	  Client*	client = new Client(socket, this->_type);
 	  Thread	thread(client);
 
 	  info << "accept new connection from a client";

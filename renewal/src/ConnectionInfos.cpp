@@ -5,14 +5,28 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 20:19:45 2008 caner candan
-// Last update Sat Sep 13 20:19:46 2008 caner candan
+// Last update Tue Sep 16 17:49:33 2008 caner candan
 //
 
 #include "ConnectionInfos.h"
 
-ConnectionInfos::ConnectionInfos(SOCKET sck)
+ConnectionInfos::ConnectionInfos(SOCKET sck,
+				 const std::string& type)
   : _sck(sck)
-{}
+{
+  if (type == "SIMPLE")
+    _connectionType = SIMPLE;
+  else if (type == "SSL")
+    _connectionType = SSL;
+  else if (type == "SSL2")
+    _connectionType = SSL2;
+  else if (type == "SSL3")
+    _connectionType = SSL3;
+  else if (type == "TLS")
+    _connectionType = TLS;
+  else
+    _connectionType = OTHER;
+}
 
 const SOCKET	ConnectionInfos::getSocket() const
 {

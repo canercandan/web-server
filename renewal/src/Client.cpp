@@ -5,19 +5,19 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Mon Sep 15 14:55:45 2008 morgan armand
+// Last update Tue Sep 16 17:54:48 2008 caner candan
 //
 
 #include <iostream>
 #include "Client.h"
-#include "Tools.h"
 #include "Consumer.h"
 #include "FluxClient.h"
 #include "HttpParser.h"
 #include "FileInfo.h"
+#include "Logger.h"
 
-Client::Client(Socket* sck)
-  : _sck(sck)
+Client::Client(Socket* sck, const std::string& type)
+  : _sck(sck), _tools(_sck->getSocket(), type)
 {}
 
 Client::~Client()
@@ -28,41 +28,44 @@ Client::~Client()
 
 void	Client::run()
 {
-  Tools		tools(this->_sck->getSocket());
   FluxClient	flux(this->_sck);
   Consumer	consumer(flux);
-  HttpParser	parser(consumer, tools.message().request());
+  HttpParser	parser(consumer, this->_tools.message().request());
   std::string	response;
 
-  tools.data(&response);
+  this->_tools.data(&response);
 
   this->_loadModules();
 
-  this->_hook.manageHookPoint(ZenZiAPI::NEW_CLIENT, tools);
-  this->_hook.manageHookPoint(ZenZiAPI::DATA_IN, tools);
+  this->_hook.manageHookPoint(ZenZiAPI::NEW_CLIENT, this->_tools);
+  this->_hook.manageHookPoint(ZenZiAPI::DATA_IN, this->_tools);
 
   parser.run();
 
-  this->_hook.manageHookPoint(ZenZiAPI::PARSED, tools);
-  this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, tools);
+  this->_hook.manageHookPoint(ZenZiAPI::PARSED, this->_tools);
+  this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, this->_tools);
 
-  if (tools.data()->empty())
+  if (this->_tools.data()->empty())
     {
-      response = tools.message().response().buildResponse();
-      tools.data(&response);
+      response = this->_tools.message().response().buildResponse();
+      this->_tools.data(&response);
     }
 
   std::cout << "buildResponse: " << std::endl
-	    << *tools.data() << std::endl
+	    << *this->_tools.data() << std::endl
 	    << std::endl;
 
-  this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, tools);
-  this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, tools);
+  this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, this->_tools);
+  this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, this->_tools);
 
   this->_unloadModules();
 
-  if (this->_sck->send(*tools.data()) < 0)
-	  std::cerr << "error while sending request" << std::endl;
+  if (this->_sck->send(*this->_tools.data()) < 0)
+    {
+      Logger::Error	error(__FUNCTION__);
+
+      error << "error while sending request";
+    }
 
   //  this->_hook.manageHookPoint(ZenZiAPI::READ, tools);
   //  this->_hook.manageHookPoint(ZenZiAPI::WRITE, tools);

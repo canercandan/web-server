@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:45 2008 caner candan
-// Last update Mon Sep 15 10:36:03 2008 majdi toumi
+// Last update Tue Sep 16 17:52:05 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -33,6 +33,7 @@
 # include "HookManager.h"
 # include "FileInfo.h"
 # include "Config.h"
+# include "Tools.h"
 
 class Client : public IRunnable
 {
@@ -43,7 +44,7 @@ class Client : public IRunnable
   typedef std::pair<ZenZiAPI::IModule*, destroy_t>	pairModule;
   typedef std::list<pairModule>				listModule;
 public:
-  Client(Socket* sck);
+  Client(Socket* sck, const std::string& type);
   ~Client();
 
   void	run();
@@ -55,6 +56,7 @@ private:
   void			_refreshListModule(FileInfo& info);
 private:
   Socket*		_sck;
+  Tools			_tools;
   HookManager		_hook;
   listNameModule	_listNameModule;
   listModule		_listModule;
