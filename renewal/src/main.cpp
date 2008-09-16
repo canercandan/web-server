@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Mon Sep 15 18:58:39 2008 morgan armand
+// Last update Tue Sep 16 13:27:23 2008 caner candan
 //
 
 #include <sstream>
@@ -43,8 +43,4 @@ int		main()
       threads.push_back(thread);
       std::cout << "debug: [" << attr["port"] << ']' << std::endl;
     }
-
-  //   Server	server(4242);
-
-  //   server.run();
 }

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:22:40 2008 caner candan
-// Last update Mon Sep 15 18:57:56 2008 morgan armand
+// Last update Tue Sep 16 13:27:31 2008 caner candan
 //
 
 #include <iostream>
@@ -27,7 +27,7 @@ void	Thread::start()
   if (::pthread_create(&(this->_thread), NULL,
 		       Thread::_threadProc, this->_obj))
     std::cerr << "pthread_create() failed" << std::endl;
-  if (::pthread_detach(this->_thread))
+  if (::pthread_join(this->_thread, NULL))
     std::cerr << "pthread_detach() failed" << std::endl;
 #endif
   std::cout << "debug: [" << "thread start end" << ']' << std::endl;
