@@ -5,64 +5,84 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 12:23:59 2008 majdi toumi
-// Last update Sat Sep 13 22:20:08 2008 caner candan
+// Last update Tue Sep 16 17:20:02 2008 caner candan
 //
 
 #include <time.h>
 #include <iostream>
 #include "Logger.h"
 
-void	Logger::log(const Logger::Level level,
-		    const std::string& msg)
+Logger::Log::Log(const Logger::Log::Level& level,
+		 const std::string& section)
+  : _level(level), _section(section)
+{}
+
+Logger::Log&	Logger::Log::operator<<(const std::string& msg)
 {
   time_t	tm;
   char*		stm;
 
   time(&tm);
-
   stm = ctime(&tm);
   stm[24] = 0;
-
   std::clog << "[" << stm << "] ";
-
-  switch (level)
-    {
-    case Logger::DEBUG:
-      std::clog << "DEBUG";
-      break;
-
-    case Logger::INFO:
-      std::clog << "INFO";
-      break;
-
-    case Logger::WARN:
-      std::clog << "WARN";
-      break;
-
-    case Logger::ERROR:
-      std::clog << "ERROR";
-      break;
-    }
-
-  std::clog << " -- " << msg << std::endl;
+  if (_level == DEBUG)
+    std::clog << "DEBUG";
+  else if (_level == INFO)
+    std::clog << "INFO";
+  else if (_level == WARN)
+    std::clog << "WARN";
+  else if (_level == ERROR)
+    std::clog << "ERROR";
+  std::clog << " -- " << _section << " -- "
+	    << msg << std::endl;
+  return (*this);
 }
 
-void	Logger::debug(const std::string& msg)
+Logger::Debug::Debug(const std::string& section)
+  : _section(section)
+{}
+
+Logger::Debug&	Logger::Debug::operator<<(const std::string& msg)
 {
-  this->log(Logger::DEBUG, msg);
+  Log	log(Log::DEBUG, _section);
+
+  log << msg;
+  return (*this);
 }
 
-void	Logger::info(const std::string& msg)
+Logger::Info::Info(const std::string& section)
+  : _section(section)
+{}
+
+Logger::Info&	Logger::Info::operator<<(const std::string& msg)
 {
-  this->log(Logger::INFO, msg);
+  Log	log(Log::INFO, _section);
+
+  log << msg;
+  return (*this);
 }
 
-void	Logger::warn(const std::string& msg)
+Logger::Warn::Warn(const std::string& section)
+  : _section(section)
+{}
+
+Logger::Warn&	Logger::Warn::operator<<(const std::string& msg)
 {
-  this->log(Logger::WARN, msg);
+  Log	log(Log::WARN, _section);
+
+  log << msg;
+  return (*this);
 }
 
-void	Logger::error(const std::string& msg)
+Logger::Error::Error(const std::string& section)
+  : _section(section)
+{}
+
+Logger::Error&	Logger::Error::operator<<(const std::string& msg)
 {
-  this->log(Logger::ERROR, msg);
+  Log	log(Log::ERROR, _section);
+
+  log << msg;
+  return (*this);
 }

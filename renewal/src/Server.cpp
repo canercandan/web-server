@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Tue Sep 16 08:52:48 2008 caner candan
+// Last update Tue Sep 16 17:22:27 2008 caner candan
 //
 
 #include <iostream>
@@ -29,12 +29,14 @@ Server::Server(int port)
 
 void	Server::run()
 {
-  Logger	logger;
+  Logger::Info	info(__FUNCTION__);
 
-  logger.info("starting zia server");
+  info << "starting zia server";
   if (!this->_server.create(this->_port))
     {
-      logger.error("an error occured while starting the server");
+      Logger::Error	error("server create");
+
+      error << "an error occured while starting the server";
       return;
     }
   ServerState::getInstance()->setState(ServerState::PROCESS);
@@ -44,7 +46,7 @@ void	Server::run()
 
 void	Server::_loop()
 {
-  Logger	logger;
+  Logger::Info	info(__FUNCTION__);
 
   while (ServerState::getInstance()->getState()
 	 == ServerState::PROCESS)
@@ -56,7 +58,7 @@ void	Server::_loop()
 	  Client*	client = new Client(socket);
 	  Thread	thread(client);
 
-	  logger.info("accept new connection from a client");
+	  info << "accept new connection from a client";
 	  thread.start();
 	}
     }
@@ -64,13 +66,13 @@ void	Server::_loop()
 
 void	Server::_stop()
 {
-  Logger	logger;
+  Logger::Info	info(__FUNCTION__);
 
   this->_server.close();
   ServerState::getInstance()->setState(ServerState::BREAK);
   Config::kill();
   ServerState::kill();
-  logger.info("stopping zia server");
+  info << "stopping zia server";
 }
 
 void	Server::signal()

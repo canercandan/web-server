@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 12:07:23 2008 majdi toumi
-// Last update Sat Sep 13 22:20:10 2008 caner candan
+// Last update Tue Sep 16 17:19:28 2008 caner candan
 //
 
 #ifndef __LOGGER_H__
@@ -13,22 +13,60 @@
 
 #include <string>
 
-class	Logger
+namespace	Logger
 {
-public:
-  enum	Level
-    {
-      DEBUG,
-      INFO,
-      WARN,
-      ERROR
-      };
+  class	Log
+  {
+  public:
+    enum	Level	{DEBUG, INFO, WARN, ERROR};
+  public:
+    Log(const Level&, const std::string& section /*= ""*/);
 
-  void	log(const Level level, const std::string& msg);
-  void	debug(const std::string& msg);
-  void	info(const std::string& msg);
-  void	warn(const std::string& msg);
-  void	error(const std::string& msg);
-};
+    Log&	operator<<(const std::string&);
+  private:
+    Level	_level;
+    std::string	_section;
+  };
+
+  class	Debug
+  {
+  public:
+    Debug(const std::string& section /*= ""*/);
+
+    Debug&	operator<<(const std::string&);
+  private:
+    std::string	_section;
+  };
+
+  class	Info
+  {
+  public:
+    Info(const std::string& section /*= ""*/);
+
+    Info&	operator<<(const std::string&);
+  private:
+    std::string	_section;
+  };
+
+  class	Warn
+  {
+  public:
+    Warn(const std::string& section /*= ""*/);
+
+    Warn&	operator<<(const std::string&);
+  private:
+    std::string	_section;
+  };
+
+  class	Error
+  {
+  public:
+    Error(const std::string& section /*= ""*/);
+
+    Error&	operator<<(const std::string&);
+  private:
+    std::string	_section;
+  };
+}
 
 #endif // __LOGGER_H__
