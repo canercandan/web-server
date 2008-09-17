@@ -12,13 +12,13 @@ AutoIndex::~AutoIndex()
 
 bool	AutoIndex::onLoad()
 {
-  std::cout << "AutoIndex loading..." << std::endl;
+  std::cout << "[mod_autoindex] loading..." << std::endl;
   return (true);
 }
 
 void	AutoIndex::onUnLoad()
 {
-  std::cout << "AutoIndex unloading..." << std::endl;
+  std::cout << "[mod_autoindex] unloading..." << std::endl;
 }
 
 const AutoIndex::listCallback&	AutoIndex::getCallbacks()
@@ -31,7 +31,7 @@ const AutoIndex::listCallback&	AutoIndex::getCallbacks()
 
 bool	AutoIndex::run(ZenZiAPI::ITools& tools)
 {
-  std::cout << "AutoIndex is running..." << std::endl;
+  std::cout << "[mod_autoindex] running..." << std::endl;
 
   ZenZiAPI::IRequest*	request = &tools.message().request();
   ZenZiAPI::IConfig*	config = &tools.config();
@@ -44,8 +44,9 @@ bool	AutoIndex::run(ZenZiAPI::ITools& tools)
   FileInfo	info(config->getParam("document_root")
 		     + uri.getPath());
 
-  if (info.isGood() && info.getType() == FileInfo::DIR)
-    tools.data(new std::string(this->_listingDirectory(tools, info, uri)));
+  if (!info.isGood() || !info.getType() == FileInfo::DIR)
+    return (false);
+  request->bodyAppend(this->_listingDirectory(tools, info, uri));
   return (true);
 }
 

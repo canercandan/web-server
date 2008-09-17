@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Wed Sep 17 17:53:23 2008 caner candan
+// Last update Wed Sep 17 21:02:16 2008 caner candan
 //
 
 #include <iostream>
@@ -58,18 +58,14 @@ void	Client::run()
 
   if (!this->_hook.manageHookPoint(ZenZiAPI::WRITE, this->_tools))
     {
-      const char*	buf = this->_tools.data()->c_str();
-      int		len = this->_tools.data()->size();
-      int		ret;
-
-      while (len > 0)
+      if (this->_tools.data())
 	{
-	  ret = this->_sck->send((char *)buf, len);
-	  buf += ret;
-	  len -= ret;
+	  if (!this->_sendString(*this->_tools.data()))
+	    this->_sendString(response->getBody());
 	}
+      else
+	this->_sendString(response->getBody());
     }
-
   this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, this->_tools);
 
   this->_unloadModules();
@@ -78,6 +74,23 @@ void	Client::run()
   //  this->_hook.manageHookPoint(ZenZiAPI::WRITE, tools);
   std::cout << "DEBUG: Closing connection" << std::endl;
   this->_sck->close();
+}
+
+bool	Client::_sendString(const std::string& string)
+{
+  const char*	buf = string.c_str();
+  int		len = string.size();
+  int		ret;
+  bool		res(false);
+
+  while (len > 0)
+    {
+      ret = this->_sck->send((char *)buf, len);
+      buf += ret;
+      len -= ret;
+      res |= true;
+    }
+  return (res);
 }
 
 void	Client::_loadModules()

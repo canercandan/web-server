@@ -20,13 +20,13 @@ Perl::~Perl()
 
 bool	Perl::onLoad()
 {
-  std::cout << "Perl loading..." << std::endl;
+  std::cout << "[mod_perl] loading..." << std::endl;
   return (true);
 }
 
 void	Perl::onUnLoad()
 {
-  std::cout << "Perl unloading..." << std::endl;
+  std::cout << "[mod_perl] unloading..." << std::endl;
 }
 
 const Perl::listCallback&	Perl::getCallbacks()
@@ -39,7 +39,7 @@ const Perl::listCallback&	Perl::getCallbacks()
 
 bool	Perl::run(ZenZiAPI::ITools& tools)
 {
-  std::cout << "Perl is running..." << std::endl;
+  std::cout << "[mod_perl] running..." << std::endl;
 
   ZenZiAPI::IRequest*	request = &tools.message().request();
   ZenZiAPI::IConfig*	config = &tools.config();
@@ -74,9 +74,7 @@ bool	Perl::run(ZenZiAPI::ITools& tools)
   int		count;
 
   ::pipe(pip);
-  if ((pid = ::fork()) < 0)
-    std::cout << "fork failed, mamamia !"<< std::endl;
-  if (pid == 0)
+  if (!(pid = ::fork()))
     {
       ::close(pip[0]);
       ::dup2(pip[1], 1);
@@ -85,17 +83,16 @@ bool	Perl::run(ZenZiAPI::ITools& tools)
     }
   else
     {
-      close(pip[1]);
+      ::close(pip[1]);
       ::wait(NULL);
 
-      std::string*	response = new std::string;
+      //std::string*	response = new std::string;
 
       while((count = ::read(pip[0], buff, 8192)) > 0)
 	{
 	  buff[count] = 0;
-	  response->append(buff);
+	  request->bodyAppend(buff);
 	}
-      tools.data(response);
     }
   return (true);
 #endif

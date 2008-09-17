@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:45 2008 caner candan
-// Last update Wed Sep 17 17:55:43 2008 caner candan
+// Last update Wed Sep 17 21:02:03 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -41,6 +41,8 @@ public:
 
   void	run();
 private:
+  bool	_sendString(const std::string&);
+
   void	_loadModules();
   void	_unloadModules();
 
