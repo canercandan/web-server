@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Wed Sep 17 10:17:58 2008 caner candan
+// Last update Wed Sep 17 12:04:23 2008 caner candan
 //
 
 #include <iostream>
@@ -47,13 +47,16 @@ void	Client::run()
 
   if (this->_tools.data()->empty())
     {
+      Logger::Info	info("response build");
+
       response = this->_tools.message().response().buildResponse();
       this->_tools.data(&response);
     }
-
-  std::cout << "buildResponse: " << std::endl
-	    << *this->_tools.data() << std::endl
-	    << std::endl;
+  else
+    {
+      Logger::Info	info("module build");
+    }
+  std::cout << std::endl << *this->_tools.data() << std::endl;
 
   this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, this->_tools);
   this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, this->_tools);
