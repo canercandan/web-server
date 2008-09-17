@@ -2,8 +2,6 @@
 # define __PERL_H__
 
 # include "IModule.hpp"
-# include "FileInfo.h"
-# include "URIParser.h"
 
 # ifdef WIN32
 #  define EXPORT	__declspec(dllexport)
@@ -25,9 +23,6 @@ public:
   const listCallback&	getCallbacks();
 
   bool	run(ZenZiAPI::ITools&);
-private:
-  std::string	_listingDirectory(ZenZiAPI::ITools&,
-				  FileInfo&, URIParser&);
 private:
   listCallback	_listCallback;
 };

@@ -13,8 +13,7 @@ NAME		=	$(PATH_BIN)/mod_perl.so
 SRCS		=	$(PATH_SRC)/Perl.cpp			\
 			$(PATH_SRC)/../../../src/FluxString.cpp	\
 			$(PATH_SRC)/../../../src/Consumer.cpp	\
-			$(PATH_SRC)/../../../src/URIParser.cpp	\
-			$(PATH_SRC)/../../../src/FileInfo.cpp
+			$(PATH_SRC)/../../../src/URIParser.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 

@@ -25,7 +25,7 @@ const AutoIndex::listCallback&	AutoIndex::getCallbacks()
 {
   this->_listCallback[ZenZiAPI::FILESYSTEM].first =
     static_cast<IModule::p_callback>(&AutoIndex::run);
-  this->_listCallback[ZenZiAPI::FILESYSTEM].second = ZenZiAPI::VERY_FIRST;
+  this->_listCallback[ZenZiAPI::FILESYSTEM].second = ZenZiAPI::FIRST;
   return (this->_listCallback);
 }
 

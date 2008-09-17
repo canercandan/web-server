@@ -1,7 +1,15 @@
+#ifdef WIN32
+#else
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
+#endif
+
 #include <iostream>
 #include "Perl.h"
 #include "FluxString.h"
 #include "Consumer.h"
+#include "URIParser.h"
 
 Perl::Perl()
   : _listCallback(ZenZiAPI::hookPointsNumber)
@@ -25,7 +33,7 @@ const Perl::listCallback&	Perl::getCallbacks()
 {
   this->_listCallback[ZenZiAPI::FILESYSTEM].first =
     static_cast<IModule::p_callback>(&Perl::run);
-  this->_listCallback[ZenZiAPI::FILESYSTEM].second = ZenZiAPI::VERY_FIRST;
+  this->_listCallback[ZenZiAPI::FILESYSTEM].second = ZenZiAPI::FIRST;
   return (this->_listCallback);
 }
 
@@ -41,43 +49,56 @@ bool	Perl::run(ZenZiAPI::ITools& tools)
 
   uri.run();
 
-  FileInfo	info(config->getParam("document_root")
-		     + uri.getPath());
+  const std::string&	path = uri.getPath();
+  size_t		pos;
 
-  if (info.isGood() && info.getType() == FileInfo::DIR)
-    tools.data(new std::string(this->_listingDirectory(tools, info, uri)));
-  return (true);
-}
+  if ((pos = path.find_last_of('.')) == std::string::npos)
+    return (false);
 
-std::string	Perl::_listingDirectory(ZenZiAPI::ITools& tools,
-					     FileInfo& info,
-					     URIParser& uri)
-{
-  ZenZiAPI::IConfig*	config = &tools.config();
-  FileInfo::listDir&	listDir = info.getListDir();
-  std::string		response;
+  std::string	ext(path.substr(pos));
 
-  response += "<h1>Index of ";
-  response += uri.getPath();
-  response += "</h1><ul>";
-  for (FileInfo::listDir::iterator
-	 it = listDir.begin(),
-	 end = listDir.end();
-       it != end; ++it)
+  if (ext.compare(".pl"))
+    return (false);
+
+  std::string	app(config->getParam("document_root") + path);
+
+  std::cout << "[mod_perl] executing " << app << std::endl;
+
+#ifdef WIN32
+  std::cout << "Not yet implemented."<< std::endl;
+  return (false);
+#else
+  pid_t		pid;
+  int		pip[2];
+  char		buff[8193];
+  int		count;
+
+  ::pipe(pip);
+  if ((pid = ::fork()) < 0)
+    std::cout << "fork failed, mamamia !"<< std::endl;
+  if (pid == 0)
     {
-      FileInfo		checkDir
-	(FileInfo(config->getParam("document_root")
-		  + '/' + info.getPath() + *it));
-      std::string	slashDir;
-
-      if (checkDir.isGood() && checkDir.getType() == FileInfo::DIR)
-	slashDir = '/';
-      response +=
-	"<li><a href=\"" + *it + slashDir + "\">"
-	+ *it + slashDir + "</a></li>";
+      ::close(pip[0]);
+      ::dup2(pip[1], 1);
+      ::execl("/usr/bin/perl", "perl", app.c_str(), (char*)0);
+      ::close(pip[1]);
     }
-  response += "</ul>";
-  return (response);
+  else
+    {
+      close(pip[1]);
+      ::wait(NULL);
+
+      std::string*	response = new std::string;
+
+      while((count = ::read(pip[0], buff, 8192)) > 0)
+	{
+	  buff[count] = 0;
+	  response->append(buff);
+	}
+      tools.data(response);
+    }
+  return (true);
+#endif
 }
 
 extern "C"
