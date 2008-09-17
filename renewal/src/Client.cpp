@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Tue Sep 16 17:54:48 2008 caner candan
+// Last update Wed Sep 17 10:17:58 2008 caner candan
 //
 
 #include <iostream>
@@ -62,7 +62,7 @@ void	Client::run()
 
   if (this->_sck->send(*this->_tools.data()) < 0)
     {
-      Logger::Error	error(__FUNCTION__);
+      Logger::Error	error("Client");
 
       error << "error while sending request";
     }

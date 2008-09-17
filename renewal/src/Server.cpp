@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Wed Sep 17 10:15:08 2008 caner candan
+// Last update Wed Sep 17 10:18:06 2008 caner candan
 //
 
 #include <iostream>
@@ -69,7 +69,7 @@ void	Server::_loop()
 
 void	Server::_stop()
 {
-  Logger::Info	info(__FUNCTION__);
+  Logger::Info	info(this->_type);
 
   this->_server.close();
   ServerState::getInstance()->setState(ServerState::BREAK);
