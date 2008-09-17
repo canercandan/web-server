@@ -7,8 +7,7 @@ using namespace	ZenZiAPI;
 Ssl::Ssl()
   : _ssl(NULL), _ctx(NULL),
     _callbacks(hookPointsNumber)
-{
-}
+{}
 
 bool		Ssl::onLoad()
 {
@@ -159,12 +158,12 @@ bool		Ssl::onWrite(ITools& tools)
 
 extern	"C"
 {
-  Ssl*		create()
+  EXPORT Ssl*	create()
   {
     return (new Ssl());
   }
 
-  void		destroy(void* p)
+  EXPORT void	destroy(void* p)
   {
     delete static_cast<Ssl*>(p);
   }

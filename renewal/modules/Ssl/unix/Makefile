@@ -1,44 +1,46 @@
-##
-## Makefile for MyModule in /home/candan_c/cu/rendu/zia/renewal/modules/MyModule
-## 
-## Made by caner candan
-## Login   <candan_c@epitech.net>
-## 
-## Started on  Thu Sep 11 15:38:38 2008 caner candan
-## Last update Mon Sep 15 20:56:57 2008 morgan armand
-##
+#
+# SSL Zia module
+#
 
-NAME		=	../mod_ssl.so
+PATH_BIN	=	../..
+PATH_SRC	=	../src
+PATH_INCLUDE	=	.
+PATH_LIBRARY	=	.
+PATH_API	=	../../../api
 
-PATH_SRCS	=	.
-PATH_INTERFACE	=	../../api
+NAME		=	$(PATH_BIN)/mod_ssl.so
 
-SRCS		=	$(PATH_SRCS)/Ssl.cpp
+SRCS		=	$(PATH_SRC)/Ssl.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
 CXX		=	g++
 RM		=	rm -f
 
-WARNING		+=	-W -Wall -Werror
+INCLUDES	+=	-I$(PATH_INCLUDE) -I$(PATH_API)
+LIBRARIES	+=	-L$(PATH_LIBRARY) -lssl
 
-INCLUDES	+=	-I$(PATH_SRCS) -I$(PATH_INTERFACE)
-LIBRARIES	+=	-lssl
+DEBUG_42	=	-g -DDEBUG
+COMPAT		+=	-D__BSD_VISIBLE
+WARNINGS	+=	-W -Wall -Werror
 
-CFLAGS		+=	$(WARNING) $(INCLUDES)
+CFLAGS		+=	$(INCLUDES) $(DEBUG_$(DEBUG)) $(COMPAT) $(WARNINGS)
+LDFLAGS		+=	$(LIBRARIES)
 
 .SUFFIXES	:	.cpp.o
 
 $(NAME)		:	$(OBJS)
-			$(CXX) -o $@ -shared $(OBJS) $(LIBRARIES)
+			$(CXX) -o $@ -shared $(OBJS) $(LDFLAGS)
 
 all		:	$(NAME)
 
 clean		:
-			$(RM) *~ *.o
+			-$(RM) $(PATH_SRC)/*~
+			-$(RM) $(PATH_SRC)/*.o
+			-$(RM) *.core
 
 fclean		:	clean
-			$(RM) $(NAME)
+			-$(RM) $(NAME)
 
 re		:	fclean all
 

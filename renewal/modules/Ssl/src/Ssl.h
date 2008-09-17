@@ -3,6 +3,12 @@
 
 # include "IModule.hpp"
 
+# ifdef WIN32
+#  define EXPORT	__declspec(dllexport)
+# else
+#  define EXPORT
+# endif
+
 // SSL Certificate
 # define SERVER_CERT	"server.pem"
 

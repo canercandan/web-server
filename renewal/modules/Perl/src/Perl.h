@@ -7,7 +7,7 @@
 #  define EXPORT	__declspec(dllexport)
 # else
 #  define EXPORT
-#endif
+# endif
 
 class	Perl : public ZenZiAPI::IModule
 {
