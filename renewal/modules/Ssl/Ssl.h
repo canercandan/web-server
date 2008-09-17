@@ -3,6 +3,9 @@
 
 # include "IModule.hpp"
 
+// SSL Certificate
+# define SERVER_CERT	"server.pem"
+
 using namespace	ZenZiAPI;
 
 class	Ssl : public IModule

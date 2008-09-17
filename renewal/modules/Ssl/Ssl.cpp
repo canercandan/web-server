@@ -11,12 +11,11 @@ Ssl::Ssl()
 
 bool	Ssl::onLoad()
 {
+  std::cout << "[mod_ssl] loading..." << std::endl;
+
   SSL_library_init();
   SSL_load_error_strings();
 
-  // init PRNG
-  //  actions_to_seed_PRNG();
-  std::cout << "[mod_ssl] loading..." << std::endl;
   return (true);
 }
 
@@ -38,6 +37,8 @@ bool		Ssl::onAccept(ITools& tools)
 {
   BIO*		bio_err;
   BIO*		sbio;
+  BIO*		io;
+  BIO*		ssl_bio;
   SSL*		ssl;
   SSL_CTX*	ctx;
   SSL_METHOD*	method;
@@ -57,29 +58,29 @@ bool		Ssl::onAccept(ITools& tools)
     {
       bio_err = BIO_new_fp(stderr, BIO_NOCLOSE);
 
-      if (connectionType == IConnectionInfos::TLS)
-	method = TLSv1_method();
-      else
-	method = SSLv23_method();
+      //if (connectionType == IConnectionInfos::TLS)
+      //	method = TLSv1_method();
+      //      else
 
+      method = SSLv23_method();
       ctx = SSL_CTX_new(method);
-      ssl = SSL_new(ctx);
 
-      if (!SSL_CTX_use_certificate_chain_file(ctx, "server.pem"))
+
+      if (!SSL_CTX_use_certificate_file(ctx, SERVER_CERT, SSL_FILETYPE_PEM))
 	{
-	  BIO_printf(bio_err, "Can't read certficate\n");
+	  BIO_printf(bio_err, "Can't read certificate\n");
 	  ERR_print_errors(bio_err);
 	}
 
-      if (!SSL_CTX_use_PrivateKey_file(ctx, "server.pem", SSL_FILETYPE_PEM))
+      if (!SSL_CTX_use_PrivateKey_file(ctx, SERVER_CERT, SSL_FILETYPE_PEM))
 	{
 	  BIO_printf(bio_err, "Can't read key file\n");
 	  ERR_print_errors(bio_err);
 	}
 
-      if (!SSL_CTX_load_verify_locations(ctx, "root.pem", 0))
+      if (!SSL_CTX_check_private_key(ctx))
 	{
-	  BIO_printf(bio_err, "Can't read CA list\n");
+	  BIO_printf(bio_err, "Private key doesn't match\n");
 	  ERR_print_errors(bio_err);
 	}
 
@@ -88,17 +89,30 @@ bool		Ssl::onAccept(ITools& tools)
 #endif
 
       sbio = BIO_new_socket(s, BIO_NOCLOSE);
+      ssl = SSL_new(ctx);
       SSL_set_bio(ssl, sbio, sbio);
 
       if ((r = SSL_accept(ssl)) <= 0)
 	{
 	  std::cout << "SSL_accept failed" << std::endl;
-	  //	  return (false); // ?
+	  //	  ERR_print_errors(bio_err);
+	  return (false); // ?
 	}
-      else
-	{
-	  std::cout << "SSL_accept ok?!?" << std::endl;
-	}
+      std::cout << "SSL_accept ok?!?" << std::endl;
+
+      io = BIO_new(BIO_f_buffer());
+      ssl_bio = BIO_new(BIO_f_ssl());
+      BIO_set_ssl(ssl_bio, ssl, BIO_CLOSE);
+      BIO_push(io, ssl_bio);
+
+      BIO_puts(io, "HTTP/1.1 200 OK\r\n");
+      BIO_puts(io, "Server: Zia\r\n\r\n");
+      BIO_puts(io, "Hello world");
+
+      BIO_flush(io);
+
+      SSL_shutdown(ssl);
+      SSL_free(ssl);
     }
   return (true);
 }
