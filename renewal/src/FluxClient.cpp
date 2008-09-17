@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:39 2008 caner candan
-// Last update Wed Sep 17 02:45:21 2008 morgan armand
+// Last update Wed Sep 17 17:41:54 2008 caner candan
 //
 
 #ifdef WIN32
@@ -18,9 +18,7 @@
 
 #include <sstream>
 #include "FluxClient.h"
-//#include "ITools.h"
 #include "Config.h"
-//#include "Socket.h"
 
 FluxClient::FluxClient(HookManager& hook, ZenZiAPI::ITools& tools)
   : _hook(hook), _tools(tools)
@@ -38,24 +36,16 @@ std::string		FluxClient::nextString()
   int			timeout;
   int			timestart;
 
-  std::cout << "ENTER: read" << std::endl;
   conf = Config::getInstance();
   timeout = conf->getParamInt("timeout");
   timestart = conf->getParamInt("timestart");
   //if (timeout > 0 && timestart + timeout >= ::time(NULL))
   //    return ("");
   if (this->_hook.manageHookPoint(ZenZiAPI::READ, this->_tools))
-    {
-      std::cout << "manageHookPoint returns true" << std::endl;
-      return (*this->_tools.data());
-    }
-  if ((cc = ::recv(this->_tools.connectInfos().getSocket(), buf, sizeof(buf) - 1, 0)) == 0)
-    {
-      std::cout << "bllll" << std::endl;
-      return ("");
-    }
-
+    return (*this->_tools.data());
+  if ((cc = ::recv(this->_tools.connectInfos().getSocket(),
+		   buf, sizeof(buf) - 1, 0)) == 0)
+    return ("");
   buf[cc] = 0;
-  std::cout << "LEAVE: read with [" << buf << "]" << std::endl;
   return (buf);
 }

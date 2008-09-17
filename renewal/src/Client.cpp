@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Wed Sep 17 17:31:16 2008 caner candan
+// Last update Wed Sep 17 17:53:23 2008 caner candan
 //
 
 #include <iostream>
@@ -28,13 +28,10 @@ Client::~Client()
 
 void	Client::run()
 {
-  FluxClient	flux(this->_hook, this->_tools);
-  //FluxClient	flux(this->_sck);
-  Consumer	consumer(flux);
-  HttpParser	parser(consumer, this->_tools.message().request());
-  std::string	response;
-
-  this->_tools.data(&response);
+  FluxClient		flux(this->_hook, this->_tools);
+  Consumer		consumer(flux);
+  HttpParser		parser(consumer, this->_tools.message().request());
+  ZenZiAPI::IResponse*	response = &this->_tools.message().response();
 
   this->_loadModules();
 
@@ -44,20 +41,18 @@ void	Client::run()
   parser.run();
 
   this->_hook.manageHookPoint(ZenZiAPI::PARSED, this->_tools);
-  this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, this->_tools);
 
-  if (this->_tools.data()->empty())
+  if (!this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, this->_tools))
     {
       Logger::Info	info("response build");
 
-      response = this->_tools.message().response().buildResponse();
-      this->_tools.data(&response);
+      response->bodyAppend(response->buildResponse());
     }
   else
     {
       Logger::Info	info("module build");
     }
-  std::cout << std::endl << *this->_tools.data() << std::endl;
+  std::cout << std::endl << response->getBody() << std::endl;
 
   this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, this->_tools);
 
