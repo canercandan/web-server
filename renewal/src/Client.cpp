@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Wed Sep 17 21:02:16 2008 caner candan
+// Last update Wed Sep 17 21:20:45 2008 caner candan
 //
 
 #include <iostream>
@@ -43,16 +43,7 @@ void	Client::run()
   this->_hook.manageHookPoint(ZenZiAPI::PARSED, this->_tools);
 
   if (!this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, this->_tools))
-    {
-      Logger::Info	info("response build");
-
-      response->bodyAppend(response->buildResponse());
-    }
-  else
-    {
-      Logger::Info	info("module build");
-    }
-  std::cout << std::endl << response->getBody() << std::endl;
+    response->bodyAppend(response->buildResponse());
 
   this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, this->_tools);
 
@@ -72,8 +63,6 @@ void	Client::run()
 
   //  this->_hook.manageHookPoint(ZenZiAPI::READ, tools);
   //  this->_hook.manageHookPoint(ZenZiAPI::WRITE, tools);
-  std::cout << "DEBUG: Closing connection" << std::endl;
-  this->_sck->close();
 }
 
 bool	Client::_sendString(const std::string& string)
