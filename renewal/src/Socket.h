@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 22:22:38 2008 caner candan
-// Last update Wed Sep 17 04:06:25 2008 morgan armand
+// Last update Wed Sep 17 17:18:40 2008 morgan armand
 //
 
 #ifndef __SOCKET_H__

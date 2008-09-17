@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Wed Sep 17 17:11:57 2008 caner candan
+// Last update Wed Sep 17 17:22:29 2008 morgan armand
 //
 
 #include <iostream>
@@ -62,21 +62,21 @@ void	Client::run()
   this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, this->_tools);
   this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, this->_tools);
 
-  this->_unloadModules();
-
-  const char*	buf = this->_tools.data();
-  int		len = this->_tools.size();
-  int		ret;
-
-  while (len > 0)
+  if (!this->_hook.manageHookPoint(ZenZiAPI::WRITE, this->_tools))
     {
-      if (!this->_hook.manageHookPoint(ZenZiAPI::WRITE, this->_tools))
+      const char*	buf = this->_tools.data()->c_str();
+      int		len = this->_tools.data()->size();
+      int		ret;
+
+      while (len > 0)
 	{
-	  ret = this->_sck->send(buf, len);
+	  ret = this->_sck->send((char *)buf, len);
 	  buf += ret;
 	  len -= ret;
 	}
     }
+
+  this->_unloadModules();
 
   //  this->_hook.manageHookPoint(ZenZiAPI::READ, tools);
   //  this->_hook.manageHookPoint(ZenZiAPI::WRITE, tools);
