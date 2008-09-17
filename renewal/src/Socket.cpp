@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 22:22:33 2008 caner candan
-// Last update Sun Sep 14 14:06:10 2008 caner candan
+// Last update Wed Sep 17 04:06:14 2008 morgan armand
 //
 
 #include <iostream>
@@ -163,33 +163,9 @@ int	Socket::recv(char* buf, int len)
   return ::recv(this->_sck, buf, len, 0);
 }
 
-int	Socket::send(std::string& buf)
+int	Socket::send(char* buf, int len)
 {
-	const char*	data = buf.c_str();
-	int			len = buf.length();
-	int			ret;
-
-	while (len > 0)
-	{
-		if ((ret = ::send(this->_sck, data, len, 0)) < 0)
-			return (-1);
-
-		len -= ret;
-		data += ret;
-	}
-
-	return (buf.length());
-	/*
-  int	ret;
-  if ((ret = ::send(this->_sck, buf.c_str(), buf.length(), 0)) < 0)
-    return (-1);
-  if (ret < (signed int)buf.length())
-    {
-      buf = buf.substr(ret);
-      return (Socket::send(buf));
-    }
-  return (ret);
-  */
+  return ::send(this->_sck, buf, len, 0);
 }
 
 bool	Socket::isValid()

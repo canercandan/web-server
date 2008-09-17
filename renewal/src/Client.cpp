@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Wed Sep 17 12:04:23 2008 caner candan
+// Last update Wed Sep 17 04:21:01 2008 morgan armand
 //
 
 #include <iostream>
@@ -28,7 +28,8 @@ Client::~Client()
 
 void	Client::run()
 {
-  FluxClient	flux(this->_sck);
+  FluxClient	flux(this->_hook, this->_tools);
+  //FluxClient	flux(this->_sck);
   Consumer	consumer(flux);
   HttpParser	parser(consumer, this->_tools.message().request());
   std::string	response;
@@ -63,15 +64,24 @@ void	Client::run()
 
   this->_unloadModules();
 
-  if (this->_sck->send(*this->_tools.data()) < 0)
-    {
-      Logger::Error	error("Client");
+  const char*	buf = this->_tools.data();
+  int		len = this->_tools.size();
+  int		ret;
 
-      error << "error while sending request";
+  while (len > 0)
+    {
+      if (!this->_hook.manageHookPoint(ZenZiAPI::WRITE, this->_tools))
+	{
+	  ret = this->_sck->send(buf, len);
+	  buf += ret;
+	  len -= ret;
+	}
     }
 
   //  this->_hook.manageHookPoint(ZenZiAPI::READ, tools);
   //  this->_hook.manageHookPoint(ZenZiAPI::WRITE, tools);
+  std::cout << "DEBUG: Closing connection" << std::endl;
+  this->_sck->close();
 }
 
 void	Client::_loadModules()

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 22:22:38 2008 caner candan
-// Last update Sun Sep 14 14:03:24 2008 caner candan
+// Last update Wed Sep 17 04:06:25 2008 morgan armand
 //
 
 #ifndef __SOCKET_H__
@@ -43,7 +43,7 @@ public:
   Socket*	accept();
   void		close();
   int		recv(char* buf, int len);
-  int		send(std::string& buf);
+  int		send(char* buf, int len);
   bool		isValid();
   SOCKET	getSocket();
 

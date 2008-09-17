@@ -22,9 +22,13 @@ public:
   const std::vector<callback_t>&	getCallbacks();
 
   bool	onAccept(ITools& tools);
+  bool	onRead(ITools& tools);
 
 private:
-  std::vector<callback_t>		_callbacks;
+  SSL*				_ssl;
+  SSL_CTX*			_ctx;
+  BIO*				_err;
+  std::vector<callback_t>	_callbacks;
 };
 
 #endif // __SSL_H__

@@ -5,23 +5,59 @@
 using namespace	ZenZiAPI;
 
 Ssl::Ssl()
-  : _callbacks(hookPointsNumber)
+  : _ssl(NULL), _ctx(NULL),
+    _callbacks(hookPointsNumber)
 {
 }
 
-bool	Ssl::onLoad()
+bool		Ssl::onLoad()
 {
+  SSL_METHOD*	method;
+
   std::cout << "[mod_ssl] loading..." << std::endl;
 
   SSL_library_init();
   SSL_load_error_strings();
 
+  this->_err = BIO_new_fp(stderr, BIO_NOCLOSE);
+
+  method = SSLv23_method();
+  this->_ctx = SSL_CTX_new(method);
+
+
+  if (!SSL_CTX_use_certificate_file(this->_ctx, SERVER_CERT, SSL_FILETYPE_PEM))
+    {
+      BIO_printf(this->_err, "Can't read certificate\n");
+      ERR_print_errors(this->_err);
+    }
+
+  if (!SSL_CTX_use_PrivateKey_file(this->_ctx, SERVER_CERT, SSL_FILETYPE_PEM))
+    {
+      BIO_printf(this->_err, "Can't read key file\n");
+      ERR_print_errors(this->_err);
+    }
+
+  if (!SSL_CTX_check_private_key(this->_ctx))
+    {
+      BIO_printf(this->_err, "Private key doesn't match\n");
+      ERR_print_errors(this->_err);
+    }
+
+#if (OPENSSL_VERSION_NUMBER < 0x00905100L)
+  SSL_CTX_set_verify_depth(this->_ctx, 1);
+#endif
   return (true);
 }
 
 void	Ssl::onUnLoad()
 {
   std::cout << "[mod_ssl] unloading..." << std::endl;
+
+  if (this->_ssl)
+    {
+      SSL_shutdown(this->_ssl);
+      SSL_free(this->_ssl);
+    }
 }
 
 const std::vector<Ssl::callback_t>&	Ssl::getCallbacks()
@@ -30,22 +66,21 @@ const std::vector<Ssl::callback_t>&	Ssl::getCallbacks()
     static_cast<IModule::p_callback>(&Ssl::onAccept);
   this->_callbacks[NEW_CLIENT].second = VERY_FIRST;
 
+  this->_callbacks[READ].first =
+    static_cast<IModule::p_callback>(&Ssl::onRead);
+  this->_callbacks[READ].second = VERY_FIRST;
+
   return (this->_callbacks);
 }
 
 bool		Ssl::onAccept(ITools& tools)
 {
-  BIO*		bio_err;
   BIO*		sbio;
-  BIO*		io;
-  BIO*		ssl_bio;
-  SSL*		ssl;
-  SSL_CTX*	ctx;
-  SSL_METHOD*	method;
   SOCKET	s;
   int		r;
-
   IConnectionInfos::connectionType	connectionType;
+
+  std::cout << "[mod_ssl] onAccept..." << std::endl;
 
   s = tools.connectInfos().getSocket();
   connectionType = tools.connectInfos().getConnectType();
@@ -56,64 +91,55 @@ bool		Ssl::onAccept(ITools& tools)
       connectionType == IConnectionInfos::SSL2 ||
       connectionType == IConnectionInfos::SSL3)
     {
-      bio_err = BIO_new_fp(stderr, BIO_NOCLOSE);
-
-      //if (connectionType == IConnectionInfos::TLS)
-      //	method = TLSv1_method();
-      //      else
-
-      method = SSLv23_method();
-      ctx = SSL_CTX_new(method);
-
-
-      if (!SSL_CTX_use_certificate_file(ctx, SERVER_CERT, SSL_FILETYPE_PEM))
-	{
-	  BIO_printf(bio_err, "Can't read certificate\n");
-	  ERR_print_errors(bio_err);
-	}
-
-      if (!SSL_CTX_use_PrivateKey_file(ctx, SERVER_CERT, SSL_FILETYPE_PEM))
-	{
-	  BIO_printf(bio_err, "Can't read key file\n");
-	  ERR_print_errors(bio_err);
-	}
-
-      if (!SSL_CTX_check_private_key(ctx))
-	{
-	  BIO_printf(bio_err, "Private key doesn't match\n");
-	  ERR_print_errors(bio_err);
-	}
-
-#if (OPENSSL_VERSION_NUMBER < 0x00905100L)
-      SSL_CTX_set_verify_depth(ctx, 1);
-#endif
-
       sbio = BIO_new_socket(s, BIO_NOCLOSE);
-      ssl = SSL_new(ctx);
-      SSL_set_bio(ssl, sbio, sbio);
 
-      if ((r = SSL_accept(ssl)) <= 0)
+      this->_ssl = SSL_new(this->_ctx);
+      SSL_set_bio(this->_ssl, sbio, sbio);
+
+      if ((r = SSL_accept(this->_ssl)) <= 0)
 	{
-	  std::cout << "SSL_accept failed" << std::endl;
-	  //	  ERR_print_errors(bio_err);
-	  return (false); // ?
+	  BIO_printf(this->_err, "SSL_accept failed\n");
+	  ERR_print_errors(this->_err);
+	  return (false);
 	}
       std::cout << "SSL_accept ok?!?" << std::endl;
 
-      io = BIO_new(BIO_f_buffer());
-      ssl_bio = BIO_new(BIO_f_ssl());
-      BIO_set_ssl(ssl_bio, ssl, BIO_CLOSE);
-      BIO_push(io, ssl_bio);
+      //      BIO_puts(io, "HTTP/1.1 200 OK\r\n");
+      //      BIO_puts(io, "Server: Zia\r\n\r\n");
+      //      BIO_puts(io, "Hello world");
 
-      BIO_puts(io, "HTTP/1.1 200 OK\r\n");
-      BIO_puts(io, "Server: Zia\r\n\r\n");
-      BIO_puts(io, "Hello world");
-
-      BIO_flush(io);
-
-      SSL_shutdown(ssl);
-      SSL_free(ssl);
+      //      BIO_flush(io);
     }
+  return (true);
+}
+
+bool		Ssl::onRead(ITools& tools)
+{
+  char		buf[128];
+  int		ret;
+
+  if (!this->_ssl)
+    return (false);
+
+  std::cout << "[mod_ssl] onRead..." << this->_ssl << std::endl;
+
+  if ((ret = SSL_read(this->_ssl, buf, 127)) <= 0)
+    return (false);
+
+  buf[ret] = 0;
+  tools.data(new std::string(buf));
+
+  std::cout << "SSL_read: " << tools.data() << std::endl;
+  return (true);
+}
+
+bool		Ssl::onWrite(ITools& tools)
+{
+  if (!this->_ssl)
+    return (false);
+
+  std::cout << "[mod_ssl] onWrite..." << this->_ssl << std::endl;
+
   return (true);
 }
 
