@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 20:20:01 2008 caner candan
-// Last update Mon Sep 15 21:52:25 2008 morgan armand
+// Last update Wed Sep 17 00:05:19 2008 morgan armand
 //
 
 #include "HookManager.h"
@@ -27,14 +27,19 @@ bool	HookManager::addModule(ZenZiAPI::IModule* module)
     {
       if (callbacks[i].first)
 	{
-	  if ((callbacks[i].second == ZenZiAPI::VERY_FIRST &&
-	       this->_checkHookPoint(static_cast<ZenZiAPI::hookPoint>(i),
-				     ZenZiAPI::VERY_FIRST)) ||
-	      (callbacks[i].second == ZenZiAPI::VERY_LAST &&
-	       this->_checkHookPoint(static_cast<ZenZiAPI::hookPoint>(i),
-				     ZenZiAPI::VERY_LAST)))
+	  if (callbacks[i].second == ZenZiAPI::VERY_FIRST &&
+	      this->_checkHookPoint(static_cast<ZenZiAPI::hookPoint>(i),
+				    ZenZiAPI::VERY_FIRST))
 	    {
-	      std::cout << "pb" << std::endl;
+	      std::cout << "warning: a module is already registered at VERY_FIRST" << std::endl;
+	      return (false);
+	    }
+
+	  if (callbacks[i].second == ZenZiAPI::VERY_LAST &&
+	      this->_checkHookPoint(static_cast<ZenZiAPI::hookPoint>(i),
+				    ZenZiAPI::VERY_LAST))
+	    {
+	      std::cout << "warning: a module is already registered at VERY_LAST" << std::endl;
 	      return (false);
 	    }
 	}
@@ -54,17 +59,11 @@ void	HookManager::delModule(ZenZiAPI::IModule* module)
 bool	HookManager::manageHookPoint(ZenZiAPI::hookPoint point,
 				     ZenZiAPI::ITools& tools)
 {
-  if (!this->_manageHookPoint(point, ZenZiAPI::VERY_FIRST, tools))
-    return (false);
-  if (!this->_manageHookPoint(point, ZenZiAPI::FIRST, tools))
-    return (false);
-  if (!this->_manageHookPoint(point, ZenZiAPI::MIDDLE, tools))
-    return (false);
-  if (!this->_manageHookPoint(point, ZenZiAPI::LAST, tools))
-    return (false);
-  if (!this->_manageHookPoint(point, ZenZiAPI::VERY_LAST, tools))
-    return (false);
-  return (true);
+  return (this->_manageHookPoint(point, ZenZiAPI::VERY_FIRST, tools)	||
+	  this->_manageHookPoint(point, ZenZiAPI::FIRST, tools)		||
+	  this->_manageHookPoint(point, ZenZiAPI::MIDDLE, tools)	||
+	  this->_manageHookPoint(point, ZenZiAPI::LAST, tools)		||
+	  this->_manageHookPoint(point, ZenZiAPI::VERY_LAST, tools));
 }
 
 
@@ -72,11 +71,13 @@ bool	HookManager::_manageHookPoint(ZenZiAPI::hookPoint point,
 				      ZenZiAPI::hookPosition position,
 				      ZenZiAPI::ITools& tools)
 {
+  bool	ret;
   std::map<ZenZiAPI::IModule*, Callbacks_t>::const_iterator	itb;
   std::map<ZenZiAPI::IModule*, Callbacks_t>::const_iterator	ite;
 
   itb = this->_modules.begin();
   ite = this->_modules.end();
+  ret = false;
 
   for (; itb != ite; ++itb)
     {
@@ -91,14 +92,11 @@ bool	HookManager::_manageHookPoint(ZenZiAPI::hookPoint point,
 	  ZenZiAPI::IModule::p_callback	handler = cb.at(point).first;
 
 	  if (handler && cb[point].second == position)
-	    {
-	      std::cout << "FOUND a module with hookPoint equal to " << point << std::endl;
-	      if ((mod->*handler)(tools) == false)
-		return (false);
-	    }
+	    ret |= (mod->*handler)(tools);
 	}
     }
-  return (true);
+
+  return (ret);
 }
 
 bool	HookManager::_checkHookPoint(ZenZiAPI::hookPoint point,
