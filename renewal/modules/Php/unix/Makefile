@@ -1,5 +1,5 @@
 #
-# Perl Zia module
+# Php Zia module
 #
 
 PATH_BIN	=	../..
@@ -8,9 +8,9 @@ PATH_INCLUDE	=	.
 PATH_LIBRARY	=	.
 PATH_API	=	../../../api
 
-NAME		=	$(PATH_BIN)/mod_perl.so
+NAME		=	$(PATH_BIN)/mod_php.so
 
-SRCS		=	$(PATH_SRC)/Perl.cpp			\
+SRCS		=	$(PATH_SRC)/Php.cpp			\
 			$(PATH_SRC)/../../../src/FluxString.cpp	\
 			$(PATH_SRC)/../../../src/Consumer.cpp	\
 			$(PATH_SRC)/../../../src/URIParser.cpp

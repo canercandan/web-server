@@ -1,5 +1,5 @@
-#ifndef __PERL_H__
-# define __PERL_H__
+#ifndef __PHP_H__
+# define __PHP_H__
 
 # include "IModule.hpp"
 
@@ -9,13 +9,13 @@
 #  define EXPORT
 # endif
 
-class	Perl : public ZenZiAPI::IModule
+class	Php : public ZenZiAPI::IModule
 {
   typedef std::pair<p_callback, ZenZiAPI::hookPosition>	pairCallback;
   typedef std::vector<pairCallback>			listCallback;
 public:
-  Perl();
-  ~Perl();
+  Php();
+  ~Php();
 
   bool	onLoad();
   void	onUnLoad();
@@ -27,4 +27,4 @@ private:
   listCallback	_listCallback;
 };
 
-#endif // !__PERL_H__
+#endif // !__PHP_H__
