@@ -23,6 +23,7 @@ public:
 
   bool	onAccept(ITools& tools);
   bool	onRead(ITools& tools);
+  bool	onWrite(ITools& tools);
 
 private:
   SSL*				_ssl;

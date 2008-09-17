@@ -70,6 +70,10 @@ const std::vector<Ssl::callback_t>&	Ssl::getCallbacks()
     static_cast<IModule::p_callback>(&Ssl::onRead);
   this->_callbacks[READ].second = VERY_FIRST;
 
+  this->_callbacks[WRITE].first =
+    static_cast<IModule::p_callback>(&Ssl::onWrite);
+  this->_callbacks[WRITE].second = VERY_FIRST;
+
   return (this->_callbacks);
 }
 
@@ -121,9 +125,9 @@ bool		Ssl::onRead(ITools& tools)
   if (!this->_ssl)
     return (false);
 
-  std::cout << "[mod_ssl] onRead..." << this->_ssl << std::endl;
+  std::cout << "[mod_ssl] onRead..." << std::endl;
 
-  if ((ret = SSL_read(this->_ssl, buf, 127)) <= 0)
+  if ((ret = SSL_read(this->_ssl, buf, sizeof(buf) - 1)) <= 0)
     return (false);
 
   buf[ret] = 0;
@@ -135,11 +139,21 @@ bool		Ssl::onRead(ITools& tools)
 
 bool		Ssl::onWrite(ITools& tools)
 {
+  const char*	buf = tools.data()->c_str();
+  int		len = tools.data()->size();
+  int		ret;
+
   if (!this->_ssl)
     return (false);
 
-  std::cout << "[mod_ssl] onWrite..." << this->_ssl << std::endl;
+  std::cout << "[mod_ssl] onWrite..." << std::endl;
 
+  while (len > 0)
+    {
+      ret = SSL_write(this->_ssl, buf, len);
+      buf += ret;
+      len -= ret;
+    }
   return (true);
 }
 
