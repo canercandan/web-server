@@ -43,7 +43,7 @@ RM		=	rm -f
 INCLUDES	+=	-I$(PATH_INCLUDE) -I$(PATH_API) `xml2-config --cflags`
 LIBRARIES	+=	-L$(PATH_LIBRARY) `xml2-config --libs` -lpthread
 
-DEBUG_42	=	-g
+DEBUG_42	=	-g -DDEBUG
 COMPAT		+=	-D__BSD_VISIBLE
 WARNINGS	+=	-W -Wall -Werror
 

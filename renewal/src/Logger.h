@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 12:07:23 2008 majdi toumi
-// Last update Wed Sep 17 10:03:55 2008 caner candan
+// Last update Wed Sep 17 10:50:54 2008 caner candan
 //
 
 #ifndef __LOGGER_H__
@@ -19,7 +19,7 @@ namespace	Logger
   class	Log
   {
   public:
-    enum	Level	{DEBUG, INFO, WARN, ERROR};
+    enum	Level	{LDEBUG, INFO, WARN, ERROR};
   public:
     Log(const Level&, const std::string& section = "");
   };

@@ -1,28 +1,27 @@
 #
-# Zia Perl
-# a perl module
+# Perl Zia module
 #
 
-PATH_BIN	=	..
-PATH_SRC	=	.
+PATH_BIN	=	../..
+PATH_SRC	=	../src
 PATH_INCLUDE	=	.
 PATH_LIBRARY	=	.
-PATH_API	=	../../api
+PATH_API	=	../../../api
 
 NAME		=	$(PATH_BIN)/mod_perl.so
 
 SRCS		=	$(PATH_SRC)/Perl.cpp			\
-			$(PATH_SRC)/../../src/FluxString.cpp	\
-			$(PATH_SRC)/../../src/Consumer.cpp	\
-			$(PATH_SRC)/../../src/URIParser.cpp	\
-			$(PATH_SRC)/../../src/FileInfo.cpp
+			$(PATH_SRC)/../../../src/FluxString.cpp	\
+			$(PATH_SRC)/../../../src/Consumer.cpp	\
+			$(PATH_SRC)/../../../src/URIParser.cpp	\
+			$(PATH_SRC)/../../../src/FileInfo.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
 CXX		=	g++
 RM		=	rm -f
 
-INCLUDES	+=	-I$(PATH_INCLUDE) -I$(PATH_API)
+INCLUDES	+=	-I$(PATH_INCLUDE) -I$(PATH_API) -I../../../src
 LIBRARIES	+=	-L$(PATH_LIBRARY)
 
 DEBUG_42	=	-g -DDEBUG
@@ -35,7 +34,7 @@ LDFLAGS		+=	$(LIBRARIES)
 .SUFFIXES	:	.cpp.o
 
 $(NAME)		:	$(OBJS)
-			$(CXX) -o $@ $(OBJS) $(LDFLAGS)
+			$(CXX) -o $@ -shared $(OBJS) $(LDFLAGS)
 
 all		:	$(NAME)
 

@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 12:23:59 2008 majdi toumi
-// Last update Wed Sep 17 10:12:58 2008 caner candan
+// Last update Wed Sep 17 10:51:06 2008 caner candan
 //
 
 #include <time.h>
@@ -22,7 +22,7 @@ Logger::Log::Log(const Logger::Log::Level& level,
   stm = ctime(&tm);
   stm[24] = 0;
   std::clog << "[" << stm << "] ";
-  if (level == DEBUG)
+  if (level == LDEBUG)
     std::clog << "DEBUG";
   else if (level == INFO)
     std::clog << "INFO";
@@ -37,7 +37,7 @@ Logger::Log::Log(const Logger::Log::Level& level,
 
 Logger::Debug::Debug(const std::string& section /*= ""*/)
 {
-  Log	log(Log::DEBUG, section);
+  Log	log(Log::LDEBUG, section);
 }
 
 Logger::Debug&	Logger::Debug::operator<<(const std::string& msg)
