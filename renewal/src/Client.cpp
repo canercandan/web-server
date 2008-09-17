@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Wed Sep 17 21:20:45 2008 caner candan
+// Last update Wed Sep 17 21:22:55 2008 caner candan
 //
 
 #include <iostream>
@@ -63,6 +63,7 @@ void	Client::run()
 
   //  this->_hook.manageHookPoint(ZenZiAPI::READ, tools);
   //  this->_hook.manageHookPoint(ZenZiAPI::WRITE, tools);
+  this->_sck->close();
 }
 
 bool	Client::_sendString(const std::string& string)
