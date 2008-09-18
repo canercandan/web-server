@@ -6,40 +6,40 @@
 #endif
 
 #include <iostream>
-#include "Php.h"
+#include "CgiBin.h"
 #include "FluxString.h"
 #include "Consumer.h"
 #include "URIParser.h"
 
-Php::Php()
+CgiBin::CgiBin()
   : _listCallback(ZenZiAPI::hookPointsNumber)
 {}
 
-Php::~Php()
+CgiBin::~CgiBin()
 {}
 
-bool	Php::onLoad()
+bool	CgiBin::onLoad()
 {
-  std::cout << "[mod_php] loading..." << std::endl;
+  std::cout << "[mod_cgibin] loading..." << std::endl;
   return (true);
 }
 
-void	Php::onUnLoad()
+void	CgiBin::onUnLoad()
 {
-  std::cout << "[mod_php] unloading..." << std::endl;
+  std::cout << "[mod_cgibin] unloading..." << std::endl;
 }
 
-const Php::listCallback&	Php::getCallbacks()
+const CgiBin::listCallback&	CgiBin::getCallbacks()
 {
   this->_listCallback[ZenZiAPI::FILESYSTEM].first =
-    static_cast<IModule::p_callback>(&Php::run);
+    static_cast<IModule::p_callback>(&CgiBin::run);
   this->_listCallback[ZenZiAPI::FILESYSTEM].second = ZenZiAPI::FIRST;
   return (this->_listCallback);
 }
 
-bool	Php::run(ZenZiAPI::ITools& tools)
+bool	CgiBin::run(ZenZiAPI::ITools& tools)
 {
-  std::cout << "[mod_php] running..." << std::endl;
+  std::cout << "[mod_cgibin] running..." << std::endl;
 
   ZenZiAPI::IRequest*	request = &tools.message().request();
   ZenZiAPI::IConfig*	config = &tools.config();
@@ -62,7 +62,7 @@ bool	Php::run(ZenZiAPI::ITools& tools)
 
   std::string	app(config->getParam("document_root") + path);
 
-  std::cout << "[mod_php] executing " << app << std::endl;
+  std::cout << "[mod_cgibin] executing " << app << std::endl;
 
 #ifdef WIN32
   std::cout << "Not yet implemented."<< std::endl;
@@ -97,13 +97,13 @@ bool	Php::run(ZenZiAPI::ITools& tools)
 
 extern "C"
 {
-  EXPORT Php*	create()
+  EXPORT CgiBin*	create()
   {
-    return (new Php);
+    return (new CgiBin);
   }
 
   EXPORT void		destroy(void* p)
   {
-    delete static_cast<Php*>(p);
+    delete static_cast<CgiBin*>(p);
   }
 }

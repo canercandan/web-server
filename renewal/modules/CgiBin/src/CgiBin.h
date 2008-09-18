@@ -1,5 +1,5 @@
-#ifndef __PHP_H__
-# define __PHP_H__
+#ifndef __CGIBIN_H__
+# define __CGIBIN_H__
 
 # include "IModule.hpp"
 
@@ -9,13 +9,13 @@
 #  define EXPORT
 # endif
 
-class	Php : public ZenZiAPI::IModule
+class	CgiBin : public ZenZiAPI::IModule
 {
   typedef std::pair<p_callback, ZenZiAPI::hookPosition>	pairCallback;
   typedef std::vector<pairCallback>			listCallback;
 public:
-  Php();
-  ~Php();
+  CgiBin();
+  ~CgiBin();
 
   bool	onLoad();
   void	onUnLoad();
@@ -27,4 +27,4 @@ private:
   listCallback	_listCallback;
 };
 
-#endif // !__PHP_H__
+#endif // !__CGIBIN_H__
