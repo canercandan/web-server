@@ -1,0 +1,12 @@
+<mime>
+  <type ext="html" content="text/html" />
+  <type ext="txt" content="text/html" />
+
+  <type ext="pl" content="text/plain" />
+  <type ext="php" content="text/plain" />
+
+  <type ext="jpeg" content="image/jpeg" />
+  <type ext="png" content="image/png" />
+  <type ext="gif" content="image/gif" />
+  <type ext="bmp" content="image/bmp" />
+</mime>

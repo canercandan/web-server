@@ -1,4 +1,4 @@
-<cgibin path="/usr/local/bin">
+<cgibin env="/usr/bin/env">
   <langage ext="php" bin="php-cgi" />
   <langage ext="php2" bin="php-cgi" />
   <langage ext="php3" bin="php-cgi" />
@@ -6,6 +6,6 @@
   <langage ext="php5" bin="php-cgi" />
 
   <langage ext="pl" bin="perl" />
-
   <langage ext="rb" bin="ruby" />
+  <langage ext="sh" bin="sh" />
 </cgibin>
