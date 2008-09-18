@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 11:30:03 2008 majdi toumi
-// Last update Mon Sep 15 16:12:09 2008 caner candan
+// Last update Fri Sep 19 00:53:25 2008 caner candan
 //
 
 #include <iostream>
@@ -58,7 +58,7 @@ void	Config::_loadConfig()
 {
   const time_t&		time = ::time(NULL);
   std::stringstream	ss;
-
+  
   this->_setXmlParam("name", "/server[@name]");
   this->_setXmlParam("port", "/server/default_port[@value]");
   this->_setXmlParam("shutdown", "/server/shutdown[@value]");

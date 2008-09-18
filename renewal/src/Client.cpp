@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Wed Sep 17 21:22:55 2008 caner candan
+// Last update Thu Sep 18 23:03:23 2008 caner candan
 //
 
 #include <iostream>
@@ -44,6 +44,8 @@ void	Client::run()
 
   if (!this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, this->_tools))
     response->bodyAppend(response->buildResponse());
+
+  std::cout << "response: [" << response->getBody() << ']' << std::endl;
 
   this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, this->_tools);
 

@@ -13,15 +13,16 @@ NAME		=	$(PATH_BIN)/mod_cgibin.so
 SRCS		=	$(PATH_SRC)/CgiBin.cpp			\
 			$(PATH_SRC)/../../../src/FluxString.cpp	\
 			$(PATH_SRC)/../../../src/Consumer.cpp	\
-			$(PATH_SRC)/../../../src/URIParser.cpp
+			$(PATH_SRC)/../../../src/URIParser.cpp	\
+			$(PATH_SRC)/../../../src/XmlParser.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
 CXX		=	g++
 RM		=	rm -f
 
-INCLUDES	+=	-I$(PATH_INCLUDE) -I$(PATH_API) -I../../../src
-LIBRARIES	+=	-L$(PATH_LIBRARY)
+INCLUDES	+=	-I$(PATH_INCLUDE) -I$(PATH_API) -I../../../src `xml2-config --cflags`
+LIBRARIES	+=	-L$(PATH_LIBRARY) `xml2-config --libs`
 
 DEBUG_42	=	-g -DDEBUG
 COMPAT		+=	-D__BSD_VISIBLE

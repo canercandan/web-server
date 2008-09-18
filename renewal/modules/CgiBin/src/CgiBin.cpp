@@ -10,6 +10,7 @@
 #include "FluxString.h"
 #include "Consumer.h"
 #include "URIParser.h"
+#include "XmlParser.h"
 
 CgiBin::CgiBin()
   : _listCallback(ZenZiAPI::hookPointsNumber)
@@ -55,10 +56,37 @@ bool	CgiBin::run(ZenZiAPI::ITools& tools)
   if ((pos = path.find_last_of('.')) == std::string::npos)
     return (false);
 
-  std::string	ext(path.substr(pos));
+  std::string	ext(path.substr(pos + 1));
 
-  if (ext.compare(".php"))
+  std::cout << "debug: [" << ext << ']' << std::endl;
+
+  XmlParser	xml(config->getParam("module_directory")
+		    + "mod_cgibin.xml");
+  std::string	pathBin(xml.xmlGetParam("/cgibin[@path]"));
+
+  std::cout << "debug: [" <<   pathBin << ']' << std::endl;
+
+  XmlParser::listParam	list(xml.xmlGetListParam("//cgibin"));
+  std::string		bin;
+
+  for (XmlParser::listParam::iterator
+	 it = list.begin(),
+	 end = list.end();
+       it != end; ++it)
+    {
+      XmlParser::listAttribute&	attr = *it;
+
+      if (!ext.compare(attr["ext"]))
+	{
+	  bin = attr["bin"];
+	  break;
+	}
+    }
+
+  if (bin.empty())
     return (false);
+
+  std::cout << "debug: [" << bin << ']' << std::endl;
 
   std::string	app(config->getParam("document_root") + path);
 
@@ -68,23 +96,25 @@ bool	CgiBin::run(ZenZiAPI::ITools& tools)
   std::cout << "Not yet implemented."<< std::endl;
   return (false);
 #else
-  pid_t		pid;
-  int		pip[2];
-  char		buff[8193];
-  int		count;
+  pid_t	pid;
+  int	pip[2];
+  char	buff[8193];
+  int	count;
 
   ::pipe(pip);
   if (!(pid = ::fork()))
     {
       ::close(pip[0]);
       ::dup2(pip[1], 1);
-      ::execl("/usr/bin/php-cgi", "php-cgi", app.c_str(), (char*)0);
+      ::execl(std::string(pathBin + '/' + bin).c_str(),
+	      bin.c_str(), app.c_str(), (char*)0);
       ::close(pip[1]);
     }
   else
     {
       ::close(pip[1]);
       ::wait(NULL);
+      request->bodyAppend(std::string("HTTP/1.1 200 OK\r\n"));
       while((count = ::read(pip[0], buff, 8192)) > 0)
 	{
 	  buff[count] = 0;
