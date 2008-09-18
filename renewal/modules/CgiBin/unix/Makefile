@@ -1,5 +1,5 @@
 #
-# Php Zia module
+# CGI BIN Zia module
 #
 
 PATH_BIN	=	../..
@@ -8,9 +8,9 @@ PATH_INCLUDE	=	.
 PATH_LIBRARY	=	.
 PATH_API	=	../../../api
 
-NAME		=	$(PATH_BIN)/mod_php.so
+NAME		=	$(PATH_BIN)/mod_cgibin.so
 
-SRCS		=	$(PATH_SRC)/Php.cpp			\
+SRCS		=	$(PATH_SRC)/CgiBin.cpp			\
 			$(PATH_SRC)/../../../src/FluxString.cpp	\
 			$(PATH_SRC)/../../../src/Consumer.cpp	\
 			$(PATH_SRC)/../../../src/URIParser.cpp
