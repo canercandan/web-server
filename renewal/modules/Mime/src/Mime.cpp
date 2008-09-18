@@ -6,39 +6,39 @@
 #endif
 
 #include <iostream>
-#include "CgiBin.h"
+#include "Mime.h"
 #include "FluxString.h"
 #include "Consumer.h"
 #include "URIParser.h"
 #include "XmlParser.h"
 
-CgiBin::CgiBin()
+Mime::Mime()
   : _listCallback(ZenZiAPI::hookPointsNumber)
 {}
 
-CgiBin::~CgiBin()
+Mime::~Mime()
 {}
 
-bool	CgiBin::onLoad()
+bool	Mime::onLoad()
 {
   std::cout << "[mod_cgibin] loading..." << std::endl;
   return (true);
 }
 
-void	CgiBin::onUnLoad()
+void	Mime::onUnLoad()
 {
   std::cout << "[mod_cgibin] unloading..." << std::endl;
 }
 
-const CgiBin::listCallback&	CgiBin::getCallbacks()
+const Mime::listCallback&	Mime::getCallbacks()
 {
   this->_listCallback[ZenZiAPI::FILESYSTEM].first =
-    static_cast<IModule::p_callback>(&CgiBin::run);
+    static_cast<IModule::p_callback>(&Mime::run);
   this->_listCallback[ZenZiAPI::FILESYSTEM].second = ZenZiAPI::FIRST;
   return (this->_listCallback);
 }
 
-bool	CgiBin::run(ZenZiAPI::ITools& tools)
+bool	Mime::run(ZenZiAPI::ITools& tools)
 {
   std::cout << "[mod_cgibin] running..." << std::endl;
 
@@ -127,13 +127,13 @@ bool	CgiBin::run(ZenZiAPI::ITools& tools)
 
 extern "C"
 {
-  EXPORT CgiBin*	create()
+  EXPORT Mime*	create()
   {
-    return (new CgiBin);
+    return (new Mime);
   }
 
   EXPORT void		destroy(void* p)
   {
-    delete static_cast<CgiBin*>(p);
+    delete static_cast<Mime*>(p);
   }
 }

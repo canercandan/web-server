@@ -1,5 +1,5 @@
 #
-# CGI BIN Zia module
+# Mime Type Zia module
 #
 
 PATH_BIN	=	../..
@@ -8,9 +8,9 @@ PATH_INCLUDE	=	.
 PATH_LIBRARY	=	.
 PATH_API	=	../../../api
 
-NAME		=	$(PATH_BIN)/mod_cgibin.so
+NAME		=	$(PATH_BIN)/mod_mime.so
 
-SRCS		=	$(PATH_SRC)/CgiBin.cpp			\
+SRCS		=	$(PATH_SRC)/Mime.cpp			\
 			$(PATH_SRC)/../../../src/FluxString.cpp	\
 			$(PATH_SRC)/../../../src/Consumer.cpp	\
 			$(PATH_SRC)/../../../src/URIParser.cpp	\

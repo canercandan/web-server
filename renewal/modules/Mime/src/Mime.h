@@ -1,5 +1,5 @@
-#ifndef __CGIBIN_H__
-# define __CGIBIN_H__
+#ifndef __MIME_H__
+# define __MIME_H__
 
 # include "IModule.hpp"
 
@@ -9,13 +9,13 @@
 #  define EXPORT
 # endif
 
-class	CgiBin : public ZenZiAPI::IModule
+class	Mime : public ZenZiAPI::IModule
 {
   typedef std::pair<p_callback, ZenZiAPI::hookPosition>	pairCallback;
   typedef std::vector<pairCallback>			listCallback;
 public:
-  CgiBin();
-  ~CgiBin();
+  Mime();
+  ~Mime();
 
   bool	onLoad();
   void	onUnLoad();
@@ -27,4 +27,4 @@ private:
   listCallback	_listCallback;
 };
 
-#endif // !__CGIBIN_H__
+#endif // !__MIME_H__
