@@ -1,10 +1,3 @@
-#ifdef WIN32
-#else
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <unistd.h>
-#endif
-
 #include <iostream>
 #include "Mime.h"
 #include "FluxString.h"
@@ -21,13 +14,13 @@ Mime::~Mime()
 
 bool	Mime::onLoad()
 {
-  std::cout << "[mod_cgibin] loading..." << std::endl;
+  std::cout << "[mod_mime] loading..." << std::endl;
   return (true);
 }
 
 void	Mime::onUnLoad()
 {
-  std::cout << "[mod_cgibin] unloading..." << std::endl;
+  std::cout << "[mod_mime] unloading..." << std::endl;
 }
 
 const Mime::listCallback&	Mime::getCallbacks()
@@ -40,7 +33,7 @@ const Mime::listCallback&	Mime::getCallbacks()
 
 bool	Mime::run(ZenZiAPI::ITools& tools)
 {
-  std::cout << "[mod_cgibin] running..." << std::endl;
+  std::cout << "[mod_mime] running..." << std::endl;
 
   ZenZiAPI::IRequest*	request = &tools.message().request();
   ZenZiAPI::IConfig*	config = &tools.config();
@@ -61,13 +54,10 @@ bool	Mime::run(ZenZiAPI::ITools& tools)
   std::cout << "debug: [" << ext << ']' << std::endl;
 
   XmlParser	xml(config->getParam("module_directory")
-		    + "mod_cgibin.xml");
-  std::string	pathBin(xml.xmlGetParam("/cgibin[@path]"));
+		    + "mod_mime.xml");
 
-  std::cout << "debug: [" <<   pathBin << ']' << std::endl;
-
-  XmlParser::listParam	list(xml.xmlGetListParam("//cgibin"));
-  std::string		bin;
+  XmlParser::listParam	list(xml.xmlGetListParam("//mime"));
+  std::string		content;
 
   for (XmlParser::listParam::iterator
 	 it = list.begin(),
@@ -78,51 +68,19 @@ bool	Mime::run(ZenZiAPI::ITools& tools)
 
       if (!ext.compare(attr["ext"]))
 	{
-	  bin = attr["bin"];
+	  content = attr["content"];
 	  break;
 	}
     }
 
-  if (bin.empty())
+  if (content.empty())
     return (false);
 
-  std::cout << "debug: [" << bin << ']' << std::endl;
+  std::cout << "debug: [" << content << ']' << std::endl;
+  std::cout << "[mod_mime] executing " << std::endl;
 
-  std::string	app(config->getParam("document_root") + path);
-
-  std::cout << "[mod_cgibin] executing " << app << std::endl;
-
-#ifdef WIN32
-  std::cout << "Not yet implemented."<< std::endl;
-  return (false);
-#else
-  pid_t	pid;
-  int	pip[2];
-  char	buff[8193];
-  int	count;
-
-  ::pipe(pip);
-  if (!(pid = ::fork()))
-    {
-      ::close(pip[0]);
-      ::dup2(pip[1], 1);
-      ::execl(std::string(pathBin + '/' + bin).c_str(),
-	      bin.c_str(), app.c_str(), (char*)0);
-      ::close(pip[1]);
-    }
-  else
-    {
-      ::close(pip[1]);
-      ::wait(NULL);
-      request->bodyAppend(std::string("HTTP/1.1 200 OK\r\n"));
-      while((count = ::read(pip[0], buff, 8192)) > 0)
-	{
-	  buff[count] = 0;
-	  request->bodyAppend(buff);
-	}
-    }
+  request->setChunk(true);
   return (true);
-#endif
 }
 
 extern "C"

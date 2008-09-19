@@ -62,9 +62,9 @@ bool	CgiBin::run(ZenZiAPI::ITools& tools)
 
   XmlParser	xml(config->getParam("module_directory")
 		    + "mod_cgibin.xml");
-  std::string	pathBin(xml.xmlGetParam("/cgibin[@path]"));
+  std::string	env(xml.xmlGetParam("/cgibin[@env]"));
 
-  std::cout << "debug: [" <<   pathBin << ']' << std::endl;
+  std::cout << "env: [" << env << ']' << std::endl;
 
   XmlParser::listParam	list(xml.xmlGetListParam("//cgibin"));
   std::string		bin;
@@ -104,9 +104,12 @@ bool	CgiBin::run(ZenZiAPI::ITools& tools)
   ::pipe(pip);
   if (!(pid = ::fork()))
     {
+      size_t		pos = env.find_last_of('/');
+      std::string	binEnv(env.substr(pos + 1));
+
       ::close(pip[0]);
       ::dup2(pip[1], 1);
-      ::execl(std::string(pathBin + '/' + bin).c_str(),
+      ::execl(env.c_str(), binEnv.c_str(),
 	      bin.c_str(), app.c_str(), (char*)0);
       ::close(pip[1]);
     }
