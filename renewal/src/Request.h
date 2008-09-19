@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 15:49:20 2008 caner candan
-// Last update Sat Sep 13 20:17:01 2008 caner candan
+// Last update Fri Sep 19 02:23:54 2008 caner candan
 //
 
 #ifndef __REQUEST_H__
@@ -18,6 +18,8 @@
 class	Request : public virtual ZenZiAPI::IRequest
 {
 public:
+  Request();
+
   const std::string&	getHTTPVersion();
   void			setHTTPVersion(const std::string& version);
 
