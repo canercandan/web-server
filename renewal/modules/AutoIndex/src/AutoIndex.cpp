@@ -113,6 +113,7 @@ std::string	AutoIndex::_listingDirectory(ZenZiAPI::ITools& tools,
   response +=
     "<html>\n"
     "<head>\n"
+    "<title>Index of " + uri.getPath() + "</title>\n"
     "<style><!--"
     "body{"
     "font-size:" + textSize + ";"
