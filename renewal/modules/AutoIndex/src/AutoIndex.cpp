@@ -97,8 +97,10 @@ std::string	AutoIndex::_listingDirectory(ZenZiAPI::ITools& tools,
 
   std::string	textSize(xml.xmlGetParam("/autoindex/text_size", "value"));
   std::string	hiddenFileEnabled
-
     (xml.xmlGetParam("/autoindex/show_hidden_file", "enabled"));
+
+  XmlParser::listAttribute	fileCss
+    (xml.xmlGetParam("/autoindex/file_css"));
   XmlParser::listAttribute	fileHeader
     (xml.xmlGetParam("/autoindex/file_header"));
   XmlParser::listAttribute	fileFooter
@@ -109,29 +111,37 @@ std::string	AutoIndex::_listingDirectory(ZenZiAPI::ITools& tools,
     (xml.xmlGetParam("/autoindex/text_footer"));
 
   response +=
-    "<html>"
-    "<head>"
+    "<html>\n"
+    "<head>\n"
     "<style><!--"
     "body{"
     "font-size:" + textSize + ";"
     "}"
-    "--></style>"
-    "</head>"
-    "<body>";
+    "--></style>\n";
+
+  if (fileCss["enabled"] == "true")
+    response +=
+      "<link rel=\"stylesheet\" href=\""
+      + fileCss["value"]
+      + "\" type=\"text/css\" />\n";
+
+  response +=
+    "</head>\n"
+    "<body>\n";
 
   if (fileHeader["enabled"] == "true")
     {
       FileInfo	file(info.getPath() + fileHeader["value"]);
 
-      response += file.getContent();
+      response += file.getContent() + '\n';
     }
 
   if (textHeader["enabled"] == "true")
-    response += textHeader["value"];
+    response += textHeader["value"] + '\n';
 
   response +=
-    "<h1>Index of " + uri.getPath() + "</h1>"
-    "<ul>";
+    "<h1>Index of " + uri.getPath() + "</h1>\n"
+    "<ul>\n";
 
   for (FileInfo::listDir::iterator
 	 it = listDir.begin(),
@@ -149,34 +159,31 @@ std::string	AutoIndex::_listingDirectory(ZenZiAPI::ITools& tools,
 
       FileInfo		checkDir(path);
 
-      response += "<li>";
-
       if (checkDir.getType() == FileInfo::DIR)
 	response +=
-	  "[D] <a href=\"" + file + '/' + "\">"
-	  + file + '/' + "</a>";
+	  "<li class=\"dir\"><a href=\"" + file + '/' + "\">"
+	  + file + '/' + "</a></li>\n";
       else
 	response +=
-	  "[F] <a href=\"" + file + "\">"
-	  + file + "</a>";
-      response += "</li>";
+	  "<li class=\"file\"><a href=\"" + file + "\">"
+	  + file + "</a></li>\n";
     }
 
-  response += "</ul>";
+  response += "</ul>\n";
 
   if (textFooter["enabled"] == "true")
-    response += textFooter["value"];
+    response += textFooter["value"] + '\n';
 
   if (fileFooter["enabled"] == "true")
     {
       FileInfo	file(info.getPath() + fileFooter["value"]);
 
-      response += file.getContent();
+      response += file.getContent() + '\n';
     }
 
   response +=
-    "</body>"
-    "</html>";
+    "</body>\n"
+    "</html>\n";
 
   return (response);
 }
