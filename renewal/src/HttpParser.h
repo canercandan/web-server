@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Thu Sep 11 14:28:09 2008 morgan armand
-// Last update Sat Sep 13 22:17:15 2008 caner candan
+// Last update Sun Sep 21 01:30:56 2008 caner candan
 //
 #ifndef __HTTPPARSER_H__
 # define __HTTPPARSER_H__
@@ -63,6 +63,7 @@ private:
   bool	_readAuthorization();
   bool	_readExcept();
   bool	_readFrom();
+  bool	_readHost();
 
   bool	_readIfMatch();
   bool	_readIfModifiedSince();
@@ -72,6 +73,7 @@ private:
 
   bool	_readMaxForwards();
   bool	_readProxyAuthorization();
+  bool	_readRange();
   bool	_readReferer();
   bool	_readTE();
   bool	_readUserAgent();

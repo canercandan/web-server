@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 21:12:41 2008 caner candan
-// Last update Sun Sep 14 19:58:23 2008 caner candan
+// Last update Sun Sep 21 01:30:58 2008 caner candan
 //
 
 #include <string>
@@ -271,7 +271,7 @@ bool	HttpParser::_readRequestHeader()
 	  this->_readAuthorization() ||
 	  this->_readExcept() ||
 	  this->_readFrom() ||
-	  //	  this->_readHost() ||
+	  this->_readHost() ||
 	  this->_readIfMatch() ||
 	  this->_readIfModifiedSince() ||
 	  this->_readIfNoneMatch() ||
@@ -279,7 +279,7 @@ bool	HttpParser::_readRequestHeader()
 	  this->_readIfUnmodifiedSince() ||
 	  this->_readMaxForwards() ||
 	  this->_readProxyAuthorization() ||
-	  //	  this->_readRange() ||
+	  this->_readRange() ||
 	  this->_readReferer() ||
 	  this->_readTE() ||
 	  this->_readUserAgent());
@@ -320,10 +320,10 @@ bool	HttpParser::_readFrom()
   NOT_IMPLEMENTED;
 }
 
-// bool	HttpParser::_readHost()
-// {
-//   NOT_IMPLEMENTED;
-// }
+bool	HttpParser::_readHost()
+{
+  NOT_IMPLEMENTED;
+}
 
 bool	HttpParser::_readIfMatch()
 {
@@ -360,10 +360,10 @@ bool	HttpParser::_readProxyAuthorization()
   NOT_IMPLEMENTED;
 }
 
-// bool	HttpParser::_readRange()
-// {
-//   NOT_IMPLEMENTED;
-// }
+bool	HttpParser::_readRange()
+{
+  NOT_IMPLEMENTED;
+}
 
 bool	HttpParser::_readReferer()
 {

@@ -1,6 +1,7 @@
 <mime>
   <type ext="html" content="text/html" />
   <type ext="txt" content="text/html" />
+  <type ext="css" content="text/css" />
 
   <type ext="pl" content="text/plain" />
   <type ext="php" content="text/plain" />
