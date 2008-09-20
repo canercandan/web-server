@@ -1,6 +1,5 @@
 <cgibin env="/usr/bin/env">
   <langage ext="php" bin="php-cgi" />
-  <langage ext="php2" bin="php-cgi" />
   <langage ext="php3" bin="php-cgi" />
   <langage ext="php4" bin="php-cgi" />
   <langage ext="php5" bin="php-cgi" />
