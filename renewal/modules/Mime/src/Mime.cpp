@@ -51,8 +51,6 @@ bool	Mime::run(ZenZiAPI::ITools& tools)
 
   std::string	ext(path.substr(pos + 1));
 
-  std::cout << "debug: [" << ext << ']' << std::endl;
-
   XmlParser	xml(config->getParam("module_directory")
 		    + "mod_mime.xml");
 
@@ -76,8 +74,7 @@ bool	Mime::run(ZenZiAPI::ITools& tools)
   if (content.empty())
     return (false);
 
-  std::cout << "debug: [" << content << ']' << std::endl;
-  std::cout << "[mod_mime] executing " << std::endl;
+  std::cout << "[mod_mime] executing" << std::endl;
 
   request->setChunk(true);
   return (true);

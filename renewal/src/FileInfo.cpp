@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:12 2008 caner candan
-// Last update Mon Sep 15 14:56:56 2008 majdi toumi
+// Last update Fri Sep 19 22:21:53 2008 caner candan
 //
 
 #include <iostream>
@@ -25,12 +25,11 @@ FileInfo::FileInfo(const std::string& path)
   : _path(path), _type(OTHER)
 {
 #ifdef WIN32
-	std::replace(_path.begin(), _path.end(), '/', '\\');
+  std::replace(_path.begin(), _path.end(), '/', '\\');
 
-	if (_path[_path.size() - 1] == '\\')
-		_path += '*';
+  if (_path[_path.size() - 1] == '\\')
+    _path += '*';
 #endif
-
   _setGood();
   _setType();
   _setSize();
@@ -48,27 +47,27 @@ FileInfo::~FileInfo()
 void	FileInfo::_setGood()
 {
 #ifdef WIN32
-	WCHAR	wszPath[MAX_PATH];
+  WCHAR	wszPath[MAX_PATH];
 
-	//this->_path = "\\\\?\\" + this->_path;
-	MultiByteToWideChar(CP_ACP, 0, this->_path.c_str(), -1, wszPath, MAX_PATH);
+  //this->_path = "\\\\?\\" + this->_path;
+  MultiByteToWideChar(CP_ACP, 0, this->_path.c_str(), -1, wszPath, MAX_PATH);
 
   //this->_good = ((_hFind = ::FindFirstFile(wszPath, &this->_findFileData))
-//		 != INVALID_HANDLE_VALUE);
-	if ((_hFind = FindFirstFile(wszPath, &this->_findFileData)) == INVALID_HANDLE_VALUE)
-	{
-		TCHAR	wczErr[255];
-		char	err[255];
+  //		 != INVALID_HANDLE_VALUE);
+  if ((_hFind = FindFirstFile(wszPath, &this->_findFileData)) == INVALID_HANDLE_VALUE)
+    {
+      TCHAR	wczErr[255];
+      char	err[255];
 
-		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), 0, wczErr, 255, NULL);
-		WideCharToMultiByte(CP_ACP, 0, wczErr, -1, err, 255, NULL, NULL);
+      FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), 0, wczErr, 255, NULL);
+      WideCharToMultiByte(CP_ACP, 0, wczErr, -1, err, 255, NULL, NULL);
 
-		std::cerr << this->_path << ": " << err << std::endl;
+      std::cerr << this->_path << ": " << err << std::endl;
 
-		this->_good = false;
-	}
-	else
-		this->_good = true;
+      this->_good = false;
+    }
+  else
+    this->_good = true;
 #else
   this->_good = (!lstat(this->_path.c_str(), &this->_sb));
 #endif
@@ -124,20 +123,20 @@ void	FileInfo::_setListDir()
     return;
 #ifdef WIN32
   //const std::string&	file
-    //= (this->getType() == DIR) ? this->_path + "\\*" : this->_path;
+  //= (this->getType() == DIR) ? this->_path + "\\*" : this->_path;
 
   if (this->_hFind)
-  {
-	  char		czFilename[MAX_PATH];
+    {
+      char		czFilename[MAX_PATH];
 
-    while (::FindNextFile(this->_hFind, &this->_findFileData))
+      while (::FindNextFile(this->_hFind, &this->_findFileData))
 	{
-		WideCharToMultiByte(CP_ACP, 0, this->_findFileData.cFileName, -1,
-			czFilename, MAX_PATH, NULL, NULL);
+	  WideCharToMultiByte(CP_ACP, 0, this->_findFileData.cFileName, -1,
+			      czFilename, MAX_PATH, NULL, NULL);
 
-      this->_listDir.push_back(czFilename);
+	  this->_listDir.push_back(czFilename);
 	}
-  }
+    }
 #else
   struct dirent	*dp;
   ::DIR		*dirp;

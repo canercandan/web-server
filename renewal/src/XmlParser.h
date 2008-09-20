@@ -1,12 +1,11 @@
 //
-
 // XmlParser.h for zia in /home/toumi_m/zia/renewal/api
 // 
 // Made by majdi toumi
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 13:00:15 2008 majdi toumi
-// Last update Mon Sep 15 17:44:43 2008 caner candan
+// Last update Fri Sep 19 21:49:17 2008 caner candan
 //
 
 #ifndef __XMLPARSER_H__

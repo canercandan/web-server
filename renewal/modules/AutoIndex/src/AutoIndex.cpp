@@ -2,6 +2,7 @@
 #include "AutoIndex.h"
 #include "FluxString.h"
 #include "Consumer.h"
+#include "XmlParser.h"
 
 AutoIndex::AutoIndex()
   : _listCallback(ZenZiAPI::hookPointsNumber)
@@ -46,6 +47,9 @@ bool	AutoIndex::run(ZenZiAPI::ITools& tools)
 
   if (!info.isGood() || !info.getType() == FileInfo::DIR)
     return (false);
+
+  std::cout << "[mod_autoindex] executing" << std::endl;
+
   request->bodyAppend(this->_listingDirectory(tools, info, uri));
   return (true);
 }
@@ -58,26 +62,59 @@ std::string	AutoIndex::_listingDirectory(ZenZiAPI::ITools& tools,
   FileInfo::listDir&	listDir = info.getListDir();
   std::string		response;
 
-  response += "<h1>Index of ";
-  response += uri.getPath();
-  response += "</h1><ul>";
+  XmlParser		xml(config->getParam("module_directory")
+			    + "mod_autoindex.xml");
+
+  std::string	size(xml.xmlGetParam("/autoindex/size[@value]"));
+  std::string	fileHidden(xml.xmlGetParam("/autoindex/file_hidden[@enabled]"));
+
+  response +=
+    "<html>"
+    "<head>"
+    "<style><!--"
+    "body{"
+    "font-size:" + size + ";"
+    "}"
+    "--></style>"
+    "</head>"
+    "<body>"
+    "<h1>Index of " + uri.getPath() + "</h1>"
+    "<ul>";
+
   for (FileInfo::listDir::iterator
 	 it = listDir.begin(),
 	 end = listDir.end();
        it != end; ++it)
     {
-      FileInfo		checkDir
-	(FileInfo(config->getParam("document_root")
-		  + '/' + info.getPath() + *it));
-      std::string	slashDir;
+      std::string	file = *it;
 
-      if (checkDir.isGood() && checkDir.getType() == FileInfo::DIR)
-	slashDir = '/';
-      response +=
-	"<li><a href=\"" + *it + slashDir + "\">"
-	+ *it + slashDir + "</a></li>";
+      if (fileHidden != "true")
+	if (file != "." && file != "..")
+	  if (file[0] == '.')
+	    continue;
+
+      std::string	path(info.getPath() + file);
+
+      FileInfo		checkDir(path);
+
+      response += "<li>";
+
+      if (checkDir.getType() == FileInfo::DIR)
+	response +=
+	  "[D] <a href=\"" + file + '/' + "\">"
+	  + file + '/' + "</a>";
+      else
+	response +=
+	  "[F] <a href=\"" + file + "\">"
+	  + file + "</a>";
+      response += "</li>";
     }
-  response += "</ul>";
+
+  response +=
+    "</ul>"
+    "</body>"
+    "</html>";
+
   return (response);
 }
 

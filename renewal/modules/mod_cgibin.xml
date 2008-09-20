@@ -7,5 +7,4 @@
 
   <langage ext="pl" bin="perl" />
   <langage ext="rb" bin="ruby" />
-  <langage ext="sh" bin="sh" />
 </cgibin>
