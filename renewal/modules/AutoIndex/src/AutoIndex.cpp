@@ -62,22 +62,43 @@ std::string	AutoIndex::_listingDirectory(ZenZiAPI::ITools& tools,
   FileInfo::listDir&	listDir = info.getListDir();
   std::string		response;
 
-  XmlParser		xml(config->getParam("module_directory")
-			    + "mod_autoindex.xml");
+  XmlParser	xml(config->getParam("module_directory")
+		    + "mod_autoindex.xml");
 
-  std::string	size(xml.xmlGetParam("/autoindex/size[@value]"));
-  std::string	fileHidden(xml.xmlGetParam("/autoindex/file_hidden[@enabled]"));
+  std::string	textSize(xml.xmlGetParam("/autoindex/text_size", "value"));
+  std::string	hiddenFileEnabled
+    (xml.xmlGetParam("/autoindex/show_hidden_file", "enabled"));
+  XmlParser::listAttribute	fileHeader
+    (xml.xmlGetParam("/autoindex/file_header"));
+  XmlParser::listAttribute	fileFooter
+    (xml.xmlGetParam("/autoindex/file_footer"));
+  XmlParser::listAttribute	textHeader
+    (xml.xmlGetParam("/autoindex/text_header"));
+  XmlParser::listAttribute	textFooter
+    (xml.xmlGetParam("/autoindex/text_footer"));
 
   response +=
     "<html>"
     "<head>"
     "<style><!--"
     "body{"
-    "font-size:" + size + ";"
+    "font-size:" + textSize + ";"
     "}"
     "--></style>"
     "</head>"
-    "<body>"
+    "<body>";
+
+  if (fileHeader["enabled"] == "true")
+    {
+      FileInfo	file(info.getPath() + fileHeader["value"]);
+
+      response += file.getContent();
+    }
+
+  if (textHeader["enabled"] == "true")
+    response += textHeader["value"];
+
+  response +=
     "<h1>Index of " + uri.getPath() + "</h1>"
     "<ul>";
 
@@ -88,7 +109,7 @@ std::string	AutoIndex::_listingDirectory(ZenZiAPI::ITools& tools,
     {
       std::string	file = *it;
 
-      if (fileHidden != "true")
+      if (hiddenFileEnabled != "true")
 	if (file != "." && file != "..")
 	  if (file[0] == '.')
 	    continue;
@@ -110,8 +131,19 @@ std::string	AutoIndex::_listingDirectory(ZenZiAPI::ITools& tools,
       response += "</li>";
     }
 
+  response += "</ul>";
+
+  if (textFooter["enabled"] == "true")
+    response += textFooter["value"];
+
+  if (fileFooter["enabled"] == "true")
+    {
+      FileInfo	file(info.getPath() + fileFooter["value"]);
+
+      response += file.getContent();
+    }
+
   response +=
-    "</ul>"
     "</body>"
     "</html>";
 

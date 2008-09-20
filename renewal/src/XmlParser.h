@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 13:00:15 2008 majdi toumi
-// Last update Fri Sep 19 21:49:17 2008 caner candan
+// Last update Sat Sep 20 20:53:12 2008 caner candan
 //
 
 #ifndef __XMLPARSER_H__
@@ -26,8 +26,12 @@ public:
   XmlParser(const std::string& filename);
   ~XmlParser();
 
-  std::string	xmlGetParam(const std::string& path);
+  listAttribute	xmlGetParam(const std::string& path);
+  std::string	xmlGetParam(const std::string& path,
+			    const std::string& attr);
   listParam	xmlGetListParam(const std::string& path);
+private:
+  xmlXPathObjectPtr	_xPath(const std::string& path);
 private:
   std::string		_filename;
   xmlDocPtr		_doc;

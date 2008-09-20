@@ -22,10 +22,6 @@
   <cgi_script value="/tmp/cgi-bin" />
   <timeout value="30" />
   <!-- <timeout value="-1" /> : disable -->
-  <mime_type>
-    <tools ext="html" content="text/html" />
-    <tools ext="jpeg" content="text/jpeg" />
-  </mime_type>
   <status_code>
     <file file_404="file404.html" />
   </status_code>
