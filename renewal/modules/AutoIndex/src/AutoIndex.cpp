@@ -65,8 +65,39 @@ std::string	AutoIndex::_listingDirectory(ZenZiAPI::ITools& tools,
   XmlParser	xml(config->getParam("module_directory")
 		    + "mod_autoindex.xml");
 
+  std::string	indexEnabled(xml.xmlGetParam("/autoindex/index", "enabled"));
+
+  if (indexEnabled == "true")
+    {
+      XmlParser::listParam	list(xml.xmlGetListParam("//autoindex/index"));
+
+      for (XmlParser::listParam::iterator
+	     it = list.begin(),
+	     end = list.end();
+	   it != end; ++it)
+	{
+	  XmlParser::listAttribute	attr = *it;
+
+	  for (FileInfo::listDir::iterator
+		 it = listDir.begin(),
+		 end = listDir.end();
+	       it != end; ++it)
+	    {
+	      std::string	sFile(*it);
+
+	      if (attr["value"] == sFile)
+		{
+		  FileInfo	iFile(info.getPath() + sFile);
+
+		  return (iFile.getContent());
+		}
+	    }
+	}
+    }
+
   std::string	textSize(xml.xmlGetParam("/autoindex/text_size", "value"));
   std::string	hiddenFileEnabled
+
     (xml.xmlGetParam("/autoindex/show_hidden_file", "enabled"));
   XmlParser::listAttribute	fileHeader
     (xml.xmlGetParam("/autoindex/file_header"));
