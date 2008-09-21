@@ -11,10 +11,6 @@ PATH_API	=	../../../api
 NAME		=	$(PATH_BIN)/mod_vhost.so
 
 SRCS		=	$(PATH_SRC)/VHost.cpp			\
-			$(PATH_SRC)/../../../src/FluxString.cpp	\
-			$(PATH_SRC)/../../../src/Consumer.cpp	\
-			$(PATH_SRC)/../../../src/URIParser.cpp	\
-			$(PATH_SRC)/../../../src/FileInfo.cpp	\
 			$(PATH_SRC)/../../../src/XmlParser.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)

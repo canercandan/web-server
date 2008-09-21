@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 11:30:03 2008 majdi toumi
-// Last update Sat Sep 20 21:48:40 2008 caner candan
+// Last update Sun Sep 21 11:40:14 2008 caner candan
 //
 
 #include <iostream>
@@ -16,7 +16,7 @@
 Config::Config()
   : _xmlParser(CONFIG_FILE)
 {
-  _setParam("port", "80");
+  setParam("port", "80");
   _loadConfig();
 }
 
@@ -59,27 +59,33 @@ void	Config::_loadConfig()
   const time_t&		time = ::time(NULL);
   std::stringstream	ss;
 
-  this->_setXmlParam("name", "/server", "name");
-  this->_setXmlParam("port", "/server/default_port", "value");
-  this->_setXmlParam("shutdown", "/server/shutdown", "value");
-  this->_setXmlParam("debug", "/server/debug", "value");
-  this->_setXmlParam("document_root", "/server/document_root", "value");
-  this->_setXmlParam("module_directory", "/server/module_directory", "value");
-  this->_setXmlParam("file_404", "/server/file_404", "value");
-  this->_setXmlParam("timeout", "/server/timeout", "value");
+  this->setXmlParam("name", "/server", "name");
+  this->setXmlParam("port", "/server/default_port", "value");
+  this->setXmlParam("shutdown", "/server/shutdown", "value");
+  this->setXmlParam("debug", "/server/debug", "value");
+  this->setXmlParam("document_root", "/server/document_root", "value");
+  this->setXmlParam("module_directory", "/server/module_directory", "value");
+  this->setXmlParam("file_404", "/server/file_404", "value");
+  this->setXmlParam("timeout", "/server/timeout", "value");
   ss << time;
-  this->_setParam("timestart", ss.str());
+  this->setParam("timestart", ss.str());
 }
 
-void	Config::_setParam(const std::string& key,
-			  const std::string& value)
+void	Config::setParam(const std::string& key,
+			 const std::string& value)
 {
+  this->_mapLastConfig[key] = this->_mapConfig[key];
   this->_mapConfig[key] = value;
 }
 
-void	Config::_setXmlParam(const std::string& key,
-			     const std::string& path,
-			     const std::string& attr)
+void	Config::setLastParam(const std::string& key)
 {
-  this->_setParam(key, this->_xmlParser.xmlGetParam(path, attr));
+  this->_mapConfig[key] = this->_mapLastConfig[key];
+}
+
+void	Config::setXmlParam(const std::string& key,
+			    const std::string& path,
+			    const std::string& attr)
+{
+  this->setParam(key, this->_xmlParser.xmlGetParam(path, attr));
 }

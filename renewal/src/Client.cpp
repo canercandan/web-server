@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Thu Sep 18 23:03:23 2008 caner candan
+// Last update Sun Sep 21 11:40:29 2008 caner candan
 //
 
 #include <iostream>
@@ -15,6 +15,7 @@
 #include "HttpParser.h"
 #include "FileInfo.h"
 #include "Logger.h"
+#include "Config.h"
 
 Client::Client(Socket* sck, const std::string& type)
   : _sck(sck), _tools(_sck->getSocket(), type)
@@ -28,44 +29,54 @@ Client::~Client()
 
 void	Client::run()
 {
-  FluxClient		flux(this->_hook, this->_tools);
+  FluxClient		flux(_hook, _tools);
   Consumer		consumer(flux);
-  HttpParser		parser(consumer, this->_tools.message().request());
-  ZenZiAPI::IResponse*	response = &this->_tools.message().response();
+  HttpParser		parser(consumer, _tools.message().request());
+  ZenZiAPI::IResponse*	response = &_tools.message().response();
+  Config*		config = Config::getInstance();
 
-  this->_loadModules();
+  _loadModules();
 
-  this->_hook.manageHookPoint(ZenZiAPI::NEW_CLIENT, this->_tools);
-  this->_hook.manageHookPoint(ZenZiAPI::DATA_IN, this->_tools);
+  _hook.manageHookPoint(ZenZiAPI::NEW_CLIENT, _tools);
+  _hook.manageHookPoint(ZenZiAPI::DATA_IN, _tools);
 
   parser.run();
 
-  this->_hook.manageHookPoint(ZenZiAPI::PARSED, this->_tools);
+  _hook.manageHookPoint(ZenZiAPI::PARSED, _tools);
 
-  if (!this->_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, this->_tools))
+  std::string	documentRoot;
+
+  if (!((documentRoot = response->getHeader("Zia", "document_root")).empty()))
+    config->setParam("document_root", documentRoot);
+
+  if (!_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, _tools))
     response->bodyAppend(response->buildResponse());
+
+  if (!documentRoot.empty())
+    config->setLastParam("document_root");
 
   std::cout << "response: [" << response->getBody() << ']' << std::endl;
 
-  this->_hook.manageHookPoint(ZenZiAPI::DATA_OUT, this->_tools);
+  _hook.manageHookPoint(ZenZiAPI::DATA_OUT, _tools);
 
-  if (!this->_hook.manageHookPoint(ZenZiAPI::WRITE, this->_tools))
+  if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
     {
-      if (this->_tools.data())
+      if (_tools.data())
 	{
-	  if (!this->_sendString(*this->_tools.data()))
-	    this->_sendString(response->getBody());
+	  if (!_sendString(*_tools.data()))
+	    _sendString(response->getBody());
 	}
       else
-	this->_sendString(response->getBody());
+	_sendString(response->getBody());
     }
-  this->_hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, this->_tools);
 
-  this->_unloadModules();
+  _hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, _tools);
 
-  //  this->_hook.manageHookPoint(ZenZiAPI::READ, tools);
-  //  this->_hook.manageHookPoint(ZenZiAPI::WRITE, tools);
-  this->_sck->close();
+  _unloadModules();
+
+  //  _hook.manageHookPoint(ZenZiAPI::READ, tools);
+  //  _hook.manageHookPoint(ZenZiAPI::WRITE, tools);
+  delete this;
 }
 
 bool	Client::_sendString(const std::string& string)

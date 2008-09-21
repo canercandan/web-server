@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Mon Sep  8 13:45:46 2008 majdi toumi
-// Last update Sat Sep 20 21:03:47 2008 caner candan
+// Last update Sun Sep 21 11:34:48 2008 caner candan
 //
 
 #ifndef __CONFIG_H__
@@ -30,18 +30,23 @@ public:
   OS		getOS();
 
   XmlParser::listParam	getListParam(const std::string& param);
+
+  void	setParam(const std::string& key,
+		 const std::string& value);
+
+  void	setLastParam(const std::string& key);
+
+  void	setXmlParam(const std::string& key,
+		    const std::string& path,
+		    const std::string& attr);
 private:
   Config();
 
   void	_loadConfig();
-  void	_setParam(const std::string& key,
-		  const std::string& value);
-  void	_setXmlParam(const std::string& key,
-		     const std::string& path,
-		     const std::string& attr);
 private:
   mapConfig	_mapConfig;
+  mapConfig	_mapLastConfig;
   XmlParser	_xmlParser;
 };
 
-#endif /*! __CONFIG_H__ */
+#endif /* !__CONFIG_H__ */

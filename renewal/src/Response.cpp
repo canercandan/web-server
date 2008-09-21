@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Mon Sep 15 14:33:14 2008 caner candan
+// Last update Sun Sep 21 11:16:14 2008 caner candan
 //
 
 #include <algorithm>
@@ -104,13 +104,13 @@ std::string	Response::buildResponse()
 
   uri.run();
 
-  Config*		config = Config::getInstance();
+  Config*	config = Config::getInstance();
   std::string	resource = config->getParam("document_root") + uri.getPath();
 
-//#ifdef WIN32
-//  std::replace(resource.begin(), resource.end(), '/', '\\');
-//#endif
-	FileInfo	info(resource);
+  //#ifdef WIN32
+  //  std::replace(resource.begin(), resource.end(), '/', '\\');
+  //#endif
+  FileInfo	info(resource);
 
   if (this->getMethod() == "HEAD")
     return (this->_generateResponse(info) + "\r\n");
