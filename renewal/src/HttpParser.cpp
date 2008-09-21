@@ -5,11 +5,14 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 21:12:41 2008 caner candan
-// Last update Sun Sep 21 01:30:58 2008 caner candan
+// Last update Sun Sep 21 03:03:44 2008 caner candan
 //
 
 #include <string>
 #include "HttpParser.h"
+#include "FluxString.h"
+#include "Consumer.h"
+#include "URIParser.h"
 
 HttpParser::HttpParser(Consumer& consumer, ZenZiAPI::IRequest& request)
   : _consumer(consumer), _request(request)
@@ -17,7 +20,7 @@ HttpParser::HttpParser(Consumer& consumer, ZenZiAPI::IRequest& request)
 
 bool	HttpParser::run()
 {
-  return (this->_readRequest());
+  return (_readRequest());
 }
 
 bool	HttpParser::_readChar()
@@ -47,45 +50,45 @@ bool	HttpParser::_readToken()
   int	i;
 
   for (i = 0;
-       !this->_peekCTL() && !this->_peekSeparators();
+       !_peekCTL() && !_peekSeparators();
        i++)
-    this->_readChar();
+    _readChar();
   return (i > 0);
 }
 
 bool	HttpParser::_readRequest()
 {
-  return (this->_readRequestLine() &&
-	  this->_readRequestOpt()); //&& CRLF);
+  return (_readRequestLine() &&
+	  _readRequestOpt()); //&& CRLF);
 }
 
 bool	HttpParser::_readRequestOpt()
 {
-  while (this->_readRequestOptPart2());
+  while (_readRequestOptPart2());
   return (true);
 }
 
 bool	HttpParser::_readRequestOptPart2()
 {
-  this->_consumer.save();
-  if ((this->_readGeneralHeader() ||
-       this->_readRequestHeader() ||
-       this->_readEntityHeader()) && CRLF)
+  _consumer.save();
+  if ((_readGeneralHeader() ||
+       _readRequestHeader() ||
+       _readEntityHeader()) && CRLF)
     return (true);
-  this->_consumer.back();
+  _consumer.back();
   return (false);
 }
 
 bool	HttpParser::_readRequestLine()
 {
-  return (this->_readMethod() && SP &&
-	  this->_readRequestURI() && SP &&
-	  this->_readHttpVersion() && CRLF);
+  return (_readMethod() && SP &&
+	  _readRequestURI() && SP &&
+	  _readHttpVersion() && CRLF);
 }
 
 bool	HttpParser::_readMethod()
 {
-  this->_consumer.prepare();
+  _consumer.prepare();
   if (TEXT_("OPTIONS") ||
       TEXT_("GET") ||
       TEXT_("HEAD") ||
@@ -94,10 +97,10 @@ bool	HttpParser::_readMethod()
       TEXT_("DELETE") ||
       TEXT_("TRACE") ||
       TEXT_("CONNECT") ||
-      this->_readExtensionMethod())
+      _readExtensionMethod())
     {
-      this->_request.setMethod(this->_consumer.extract());
-      this->_consumer.consume();
+      _request.setMethod(_consumer.extract());
+      _consumer.consume();
       return (true);
     }
   return (false);
@@ -105,28 +108,28 @@ bool	HttpParser::_readMethod()
 
 bool	HttpParser::_readExtensionMethod()
 {
-  return (this->_readToken());
+  return (_readToken());
 }
 
 bool		HttpParser::_readRequestURI()
 {
-  this->_consumer.prepare();
+  _consumer.prepare();
   while (!PCHAR(' '))
     RANGE(0, 127);
-  this->_request.setUri(this->_consumer.extract());
+  _request.setUri(_consumer.extract());
   return (true);
 }
 
 bool	HttpParser::_readHttpVersion()
 {
-  this->_consumer.prepare();
+  _consumer.prepare();
   if (TEXT_("HTTP") &&
       CHAR('/') &&
       INTEGER &&
       CHAR('.') &&
       INTEGER)
     {
-      this->_request.setHTTPVersion(this->_consumer.extract());
+      _request.setHTTPVersion(_consumer.extract());
       return (true);
     }
   return (false);
@@ -134,36 +137,36 @@ bool	HttpParser::_readHttpVersion()
 
 bool	HttpParser::_readGeneralHeader()
 {
-  return (this->_readCacheControl() ||
-	  this->_readConnection() ||
-	  this->_readDate() ||
-	  this->_readPragma() ||
-	  this->_readTrailer() ||
-	  this->_readTransferEncoding() ||
-	  this->_readUpgrade() ||
-	  this->_readVia() ||
-	  this->_readWarning());
+  return (_readCacheControl() ||
+	  _readConnection() ||
+	  _readDate() ||
+	  _readPragma() ||
+	  _readTrailer() ||
+	  _readTransferEncoding() ||
+	  _readUpgrade() ||
+	  _readVia() ||
+	  _readWarning());
 }
 
 bool	HttpParser::_readCacheControl()
 {
   NOT_IMPLEMENTED;
   //   return (TEXT_("Cache-Control") && CHAR(':') &&
-  //    	  this->_readCacheDirective());
+  //    	  _readCacheDirective());
 }
 
 bool	HttpParser::_readCacheDirective()
 {
-  if (!this->_readCacheDirectiveSharp())
+  if (!_readCacheDirectiveSharp())
     return (false);
-  SHARP(this->_readCacheDirectiveSharp());
+  SHARP(_readCacheDirectiveSharp());
   return (true);
 }
 
 bool	HttpParser::_readCacheDirectiveSharp()
 {
-  return (this->_readCacheRequestDirective() ||
-	  this->_readCacheResponseDirective());
+  return (_readCacheRequestDirective() ||
+	  _readCacheResponseDirective());
 }
 
 bool	HttpParser::_readCacheRequestDirective()
@@ -182,23 +185,23 @@ bool	HttpParser::_readCacheResponseDirective()
 {
   return (TEXT_("public") ||
 	  (TEXT_("private") &&
-	   (CHAR('=') && CHAR('"') && this->_readFieldName() && CHAR('"'))) ||
+	   (CHAR('=') && CHAR('"') && _readFieldName() && CHAR('"'))) ||
 	  (TEXT_("no-cache") &&
-	   (CHAR('=') && CHAR('"') && this->_readFieldName() && CHAR('"'))) ||
+	   (CHAR('=') && CHAR('"') && _readFieldName() && CHAR('"'))) ||
 	  TEXT_("no-store") ||
 	  TEXT_("no-transform") ||
 	  TEXT_("must-revalidate") ||
 	  TEXT_("proxy-revalidate") ||
-	  (TEXT_("max-age") && CHAR('=') && this->_readDeltaSeconds()) ||
-	  (TEXT_("s-maxage") && CHAR('=') && this->_readDeltaSeconds()) ||
-	  this->_readCacheExtension());
+	  (TEXT_("max-age") && CHAR('=') && _readDeltaSeconds()) ||
+	  (TEXT_("s-maxage") && CHAR('=') && _readDeltaSeconds()) ||
+	  _readCacheExtension());
 }
 
 bool	HttpParser::_readCacheExtension()
 {
-  return (this->_readToken() &&
-	  (this->_readToken() || // todo: backtracking
-	   this->_readQuotedString()));
+  return (_readToken() &&
+	  (_readToken() || // todo: backtracking
+	   _readQuotedString()));
 }
 
 bool	HttpParser::_readDeltaSeconds()
@@ -211,15 +214,15 @@ bool	HttpParser::_readDeltaSeconds()
 
 bool	HttpParser::_readFieldName()
 {
-  if (!this->_readFieldNameSharp())
+  if (!_readFieldNameSharp())
     return (false);
-  SHARP(this->_readFieldNameSharp());
+  SHARP(_readFieldNameSharp());
   return (true);
 }
 
 bool	HttpParser::_readFieldNameSharp()
 {
-  return (this->_readToken());
+  return (_readToken());
 }
 
 bool	HttpParser::_readConnection()
@@ -264,65 +267,214 @@ bool	HttpParser::_readWarning()
 
 bool	HttpParser::_readRequestHeader()
 {
-  return (this->_readAccept() ||
-	  this->_readAcceptCharset() ||
-	  this->_readAcceptEncoding() ||
-	  this->_readAcceptLanguage() ||
-	  this->_readAuthorization() ||
-	  this->_readExcept() ||
-	  this->_readFrom() ||
-	  this->_readHost() ||
-	  this->_readIfMatch() ||
-	  this->_readIfModifiedSince() ||
-	  this->_readIfNoneMatch() ||
-	  this->_readIfRange() ||
-	  this->_readIfUnmodifiedSince() ||
-	  this->_readMaxForwards() ||
-	  this->_readProxyAuthorization() ||
-	  this->_readRange() ||
-	  this->_readReferer() ||
-	  this->_readTE() ||
-	  this->_readUserAgent());
+  return (_readAccept() ||
+	  _readAcceptCharset() ||
+	  _readAcceptEncoding() ||
+	  _readAcceptLanguage() ||
+	  _readAuthorization() ||
+	  _readExcept() ||
+	  _readFrom() ||
+	  _readHost() ||
+	  _readIfMatch() ||
+	  _readIfModifiedSince() ||
+	  _readIfNoneMatch() ||
+	  _readIfRange() ||
+	  _readIfUnmodifiedSince() ||
+	  _readMaxForwards() ||
+	  _readProxyAuthorization() ||
+	  _readRange() ||
+	  _readReferer() ||
+	  _readTE() ||
+	  _readUserAgent());
 }
 
 bool	HttpParser::_readAccept()
 {
-  NOT_IMPLEMENTED;
+  if (!(TEXT_("Accept") && CHAR(':')))
+    return (false);
+  SHARP(_readAcceptSharp());
+  return (true);
+}
+
+bool	HttpParser::_readAcceptSharp()
+{
+  if (!_readMediaRange())
+    return (false);
+  _readAcceptParam();
+  return (true);
+}
+
+bool	HttpParser::_readMediaRange()
+{
+  if (!(TEXT_("*/*") ||
+	(_readType() && CHAR('/') && CHAR('*')) ||
+	(_readType() && CHAR('/') && _readSubType())))
+    return (false);
+  while (CHAR(';') && _readParameter());
+  return (true);
+}
+
+bool	HttpParser::_readAcceptParam()
+{
+  if (!(CHAR(';') && CHAR('q') && CHAR('=')
+	&& _readQvalue()))
+    return (false);
+  while (_readAcceptExtension());
+  return (true);
+}
+
+bool	HttpParser::_readAcceptExtension()
+{
+  if (!(CHAR(';') && _readToken()))
+    return (false);
+  (CHAR('=') &&
+   (_readToken() || _readQuotedString()));
+  return (true);
+}
+
+bool	HttpParser::_readType()
+{
+  return (_readToken());
+}
+
+bool	HttpParser::_readSubType()
+{
+  return (_readToken());
+}
+
+bool	HttpParser::_readParameter()
+{
+  return (_readAttribute() &&
+	  CHAR('=') &&
+	  _readValue());
+}
+
+bool	HttpParser::_readAttribute()
+{
+  return (_readToken());
+}
+
+bool	HttpParser::_readValue()
+{
+  return (_readToken() ||
+	  _readQuotedString());
+}
+
+bool	HttpParser::_readQvalue()
+{
+  return (_readQvalueOpt1() ||
+	  _readQvalueOpt2());
+}
+
+bool	HttpParser::_readQvalueOpt1()
+{
+  if (!CHAR('0'))
+    return (false);
+  (CHAR('.') && DIGIT && DIGIT && DIGIT);
+  return (true);
+}
+
+bool	HttpParser::_readQvalueOpt2()
+{
+  if (!CHAR('1'))
+    return (false);
+  (CHAR('.') && CHAR('0') && CHAR('0') && CHAR('0'));
+  return (true);
 }
 
 bool	HttpParser::_readAcceptCharset()
+{
+  if (!(TEXT_("Accept-Charset") && CHAR(':')))
+    return (false);
+  SHARP(_readAcceptCharsetSharp());
+  return (true);
+}
+
+bool	HttpParser::_readAcceptCharsetSharp()
 {
   NOT_IMPLEMENTED;
 }
 
 bool	HttpParser::_readAcceptEncoding()
 {
+  if (!(TEXT_("Accept-Encoding") && CHAR(':')))
+    return (false);
+  SHARP(_readAcceptEncodingSharp());
+  return (true);
+}
+
+bool	HttpParser::_readAcceptEncodingSharp()
+{
   NOT_IMPLEMENTED;
 }
 
 bool	HttpParser::_readAcceptLanguage()
+{
+  if (!(TEXT_("Accept-Language") && CHAR(':')))
+    return (false);
+  SHARP(_readAcceptLanguageSharp());
+  return (true);
+}
+
+bool	HttpParser::_readAcceptLanguageSharp()
 {
   NOT_IMPLEMENTED;
 }
 
 bool	HttpParser::_readAuthorization()
 {
+  return (TEXT_("Authorization") && CHAR(':') &&
+	  _readCredentials());
+}
+
+bool	HttpParser::_readCredentials()
+{
   NOT_IMPLEMENTED;
 }
 
 bool	HttpParser::_readExcept()
+{
+  if (!(TEXT_("Except") && CHAR(':')))
+    return (false);
+  SHARP(_readExpectation());
+  return (true);
+}
+
+bool	HttpParser::_readExpectation()
 {
   NOT_IMPLEMENTED;
 }
 
 bool	HttpParser::_readFrom()
 {
+  return (TEXT_("From") && CHAR(':') &&
+	  _readMailbox());
+}
+
+bool	HttpParser::_readMailbox()
+{
   NOT_IMPLEMENTED;
 }
 
 bool	HttpParser::_readHost()
 {
-  NOT_IMPLEMENTED;
+  if (!(TEXT_("Host") && CHAR(':')))
+    return (false);
+  while (SP);
+  _consumer.prepare();
+  while (!PCHAR('\n'))
+    RANGE(0, 127);
+
+  FluxString	flux(_consumer.extract());
+  Consumer	consumer(flux);
+  URIParser	uri(consumer);
+
+  uri.run();
+
+  _request.setHeader("Host", "host", uri.getHost());
+  _request.setHeader("Host", "port", uri.getPort());
+
+  return (true);
 }
 
 bool	HttpParser::_readIfMatch()
@@ -378,7 +530,7 @@ bool	HttpParser::_readTE()
 bool	HttpParser::_readUserAgent()
 {
   return (TEXT_("User-Agent") && CHAR(':') &&
-	  this->_readUserAgentPart2());
+	  _readUserAgentPart2());
 }
 
 bool	HttpParser::_readUserAgentPart2()
@@ -386,44 +538,44 @@ bool	HttpParser::_readUserAgentPart2()
   int	i;
 
   for (i = 0;
-       this->_readProduct() || this->_readComment();
+       _readProduct() || _readComment();
        i++);
   return (i > 0);
 }
 
 bool	HttpParser::_readProduct()
 {
-  return (this->_readToken() &&
-	  this->_readProductOpt());
+  return (_readToken() &&
+	  _readProductOpt());
 }
 
 bool	HttpParser::_readComment()
 {
   return (CHAR('(') &&
-	  this->_readCommentOpt() &&
+	  _readCommentOpt() &&
 	  CHAR(')'));
 }
 
 bool	HttpParser::_readProductOpt()
 {
-  this->_consumer.save();
+  _consumer.save();
   if (CHAR('/') &&
-      this->_readProductVersion())
+      _readProductVersion())
     return (true);
-  this->_consumer.back();
+  _consumer.back();
   return (false);
 }
 
 bool	HttpParser::_readProductVersion()
 {
-  return (this->_readToken());
+  return (_readToken());
 }
 
 bool	HttpParser::_readCommentOpt()
 {
-  while (this->_readCtext() ||
-	 this->_readQuotedPair() ||
-	 this->_readComment());
+  while (_readCtext() ||
+	 _readQuotedPair() ||
+	 _readComment());
   return (true);
 }
 

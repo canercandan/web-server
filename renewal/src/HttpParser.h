@@ -5,7 +5,7 @@
 // Login   <armand_m@epitech.net>
 // 
 // Started on  Thu Sep 11 14:28:09 2008 morgan armand
-// Last update Sun Sep 21 01:30:56 2008 caner candan
+// Last update Sun Sep 21 02:24:34 2008 caner candan
 //
 #ifndef __HTTPPARSER_H__
 # define __HTTPPARSER_H__
@@ -56,13 +56,44 @@ private:
   bool	_readRequestHeader();
 
   bool	_readAccept();
+  bool	_readAcceptSharp();
+
+  bool	_readMediaRange();
+
+  bool	_readAcceptParam();
+  bool	_readAcceptExtension();
+
+  bool	_readType();
+  bool	_readSubType();
+
+  bool	_readParameter();
+  bool	_readAttribute();
+  bool	_readValue();
+
+  bool	_readQvalue();
+  bool	_readQvalueOpt1();
+  bool	_readQvalueOpt2();
+
   bool	_readAcceptCharset();
+  bool	_readAcceptCharsetSharp();
+
   bool	_readAcceptEncoding();
+  bool	_readAcceptEncodingSharp();
+
   bool	_readAcceptLanguage();
+  bool	_readAcceptLanguageSharp();
 
   bool	_readAuthorization();
+
+  bool	_readCredentials();
+
   bool	_readExcept();
+  bool	_readExpectation();
+
   bool	_readFrom();
+
+  bool	_readMailbox();
+
   bool	_readHost();
 
   bool	_readIfMatch();
