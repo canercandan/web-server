@@ -105,13 +105,7 @@ bool		Ssl::onAccept(ITools& tools)
 	  ERR_print_errors(this->_err);
 	  return (false);
 	}
-      std::cout << "SSL_accept ok?!?" << std::endl;
-
-      //      BIO_puts(io, "HTTP/1.1 200 OK\r\n");
-      //      BIO_puts(io, "Server: Zia\r\n\r\n");
-      //      BIO_puts(io, "Hello world");
-
-      //      BIO_flush(io);
+      //      std::cout << "SSL_accept ok?!?" << std::endl;
     }
   return (true);
 }
@@ -138,18 +132,24 @@ bool		Ssl::onRead(ITools& tools)
 
 bool		Ssl::onWrite(ITools& tools)
 {
-  const char*	buf = tools.data()->c_str();
-  int		len = tools.data()->size();
+  std::string*	str = tools.data();
+  const char*	buf;
+  int		len;
   int		ret;
 
-  if (!this->_ssl)
+  if (!this->_ssl || !str)
     return (false);
+
+  buf = str->c_str();
+  len = str->size();
 
   std::cout << "[mod_ssl] onWrite..." << std::endl;
 
   while (len > 0)
     {
-      ret = SSL_write(this->_ssl, buf, len);
+      if ((ret = SSL_write(this->_ssl, buf, len)) <= 0)
+	break;
+
       buf += ret;
       len -= ret;
     }
