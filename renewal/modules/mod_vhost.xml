@@ -1,0 +1,9 @@
+<vhost>
+  <host hostname="localhost"
+	port="4242"
+	root="/home" />
+
+  <host hostname="192.168.254.42"
+	port="4245"
+	root="/" />
+</vhost>

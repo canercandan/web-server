@@ -1,0 +1,16 @@
+<autoindex>
+  <text_size value="16px" />
+  <show_hidden_file enabled="false" />
+
+  <file_css enabled="true" value="/styles.css" />
+  <file_header enabled="true" value="header.html" />
+  <file_footer enabled="true" value="footer.html" />
+
+  <text_header enabled="true" value="MOD AUTOINDEX HEADER" />
+  <text_footer enabled="true" value="MOD AUTOINDEX FOOTER" />
+
+  <index enabled="false">
+    <file value="index.html" />
+    <file value="index.htm" />
+  </index>
+</autoindex>
