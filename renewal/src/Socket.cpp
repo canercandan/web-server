@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 22:22:33 2008 caner candan
-// Last update Thu Sep 18 01:45:00 2008 morgan armand
+// Last update Tue Sep 23 16:12:23 2008 majdi toumi
 //
 
 #include <iostream>
@@ -142,7 +142,6 @@ Socket*		Socket::accept()
       return (NULL);
     }
 #endif
-
   return (new Socket(sck, sin));
 }
 

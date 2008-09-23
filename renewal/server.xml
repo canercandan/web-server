@@ -8,8 +8,6 @@
     <listen port="4242" type="HTTP" />
     <listen port="4245" type="SSL" />
   </config>
-  <ssl_certificate_file file="../ssl/zia.crt" />
-  <ssl_certificate_keyfile file="../ssl/zia.key" />
   <shutdown value="shutdown42"/>
   <debug value="true" />
   <log>

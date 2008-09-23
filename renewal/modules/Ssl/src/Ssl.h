@@ -10,7 +10,7 @@
 # endif
 
 // SSL Certificate
-# define SERVER_CERT	"server.pem"
+# define SERVER_CERT	"../server.pem"
 
 using namespace	ZenZiAPI;
 
