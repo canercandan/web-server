@@ -1,0 +1,3 @@
+li.file a{color: SteelBlue;}
+li.dir a{color: GrayText;}
+li.file:hover, li.dir:hover{background-color: Silver;}
