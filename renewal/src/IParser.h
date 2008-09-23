@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 21:15:01 2008 caner candan
-// Last update Sun Sep 21 01:31:13 2008 caner candan
+// Last update Tue Sep 23 11:55:34 2008 caner candan
 //
 
 #ifndef __IPARSER_H__
@@ -42,11 +42,15 @@
 
 # define SHARP(a)	while (LWS && CHAR(',') && LWS && (a))
 
-# define NOT_IMPLEMENTED				\
+# ifndef DEBUG
+#  define NOT_IMPLEMENTED	return (false);
+# else
+#  define NOT_IMPLEMENTED				\
   if (DEBUG)						\
     std::cout << __FUNCTION__				\
 	      << " NOT IMPLEMENTED" << std::endl;	\
   return (false);
+# endif
 
 class	IParser
 {
