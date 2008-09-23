@@ -1,0 +1,29 @@
+Cahier des recettes
+
+ORGANISATION
+
+Recette Usine
+
+	tests unitaires
+module server:
+	- thread de ports
+		- recuper donnees dans config xml
+		- thread cree en fonction du port et du type de connexion
+		- purge des threads
+	- 
+
+benchmarking (test a travers des outils externes-> ab)
+
+	tests de validation
+
+	tests integration
+
+
+Recette Utilisateur, VA, VABF
+
+	Recette Fonctionnelle
+
+	Recette Technique
+
+Seuils d’acceptation du produit ???
+
