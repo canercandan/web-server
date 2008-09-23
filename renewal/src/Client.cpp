@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Sun Sep 21 11:40:29 2008 caner candan
+// Last update Wed Sep 17 23:42:20 2008 morgan armand
 //
 
 #include <iostream>
@@ -61,13 +61,13 @@ void	Client::run()
 
   if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
     {
-      if (_tools.data())
-	{
-	  if (!_sendString(*_tools.data()))
-	    _sendString(response->getBody());
-	}
-      else
-	_sendString(response->getBody());
+      //if (_tools.data())
+      //	{
+      //  if (!_sendString(*_tools.data()))
+      //    _sendString(response->getBody());
+      //}
+      //else
+      _sendString(response->getBody());
     }
 
   _hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, _tools);
