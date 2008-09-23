@@ -57,6 +57,11 @@ void	Ssl::onUnLoad()
       SSL_shutdown(this->_ssl);
       SSL_free(this->_ssl);
     }
+
+  if (this->_ctx)
+    SSL_CTX_free(this->_ctx);
+  if (this->_err)
+    BIO_free(this->_err);
 }
 
 const std::vector<Ssl::callback_t>&	Ssl::getCallbacks()

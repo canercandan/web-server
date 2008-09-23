@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:39 2008 caner candan
-// Last update Wed Sep 17 17:41:54 2008 caner candan
+// Last update Thu Sep 18 01:26:09 2008 morgan armand
 //
 
 #ifdef WIN32
@@ -42,7 +42,14 @@ std::string		FluxClient::nextString()
   //if (timeout > 0 && timestart + timeout >= ::time(NULL))
   //    return ("");
   if (this->_hook.manageHookPoint(ZenZiAPI::READ, this->_tools))
-    return (*this->_tools.data());
+    {
+      std::string	data(*this->_tools.data());
+
+      delete this->_tools.data();
+
+      this->_tools.data(NULL);
+      return (data);
+    }
   if ((cc = ::recv(this->_tools.connectInfos().getSocket(),
 		   buf, sizeof(buf) - 1, 0)) == 0)
     return ("");

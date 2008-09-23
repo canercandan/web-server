@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 22:22:33 2008 caner candan
-// Last update Wed Sep 17 17:23:57 2008 morgan armand
+// Last update Thu Sep 18 01:45:00 2008 morgan armand
 //
 
 #include <iostream>
@@ -155,6 +155,7 @@ void	Socket::close()
 #else
       ::close(this->_sck);
 #endif
+      this->_sck = INVALID_SOCKET;
     }
 }
 
