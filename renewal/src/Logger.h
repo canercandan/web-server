@@ -19,7 +19,7 @@ namespace	Logger
   class	Log
   {
   public:
-    enum	Level	{LDEBUG, INFO, WARN, ERROR};
+    enum	Level	{LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR};
   public:
     Log(const Level&, const std::string& section = "");
   };

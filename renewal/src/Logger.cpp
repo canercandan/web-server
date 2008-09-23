@@ -22,13 +22,13 @@ Logger::Log::Log(const Logger::Log::Level& level,
   stm = ctime(&tm);
   stm[24] = 0;
   std::clog << "[" << stm << "] ";
-  if (level == LDEBUG)
+  if (level == LOG_DEBUG)
     std::clog << "DEBUG";
-  else if (level == INFO)
+  else if (level == LOG_INFO)
     std::clog << "INFO";
-  else if (level == WARN)
+  else if (level == LOG_WARN)
     std::clog << "WARN";
-  else if (level == ERROR)
+  else if (level == LOG_ERROR)
     std::clog << "ERROR";
   if (!section.empty())
     std::clog << " -- " << section;
@@ -38,7 +38,7 @@ Logger::Log::Log(const Logger::Log::Level& level,
 
 Logger::Debug::Debug(const std::string& section /*= ""*/)
 {
-  Log	log(Log::LDEBUG, section);
+  Log	log(Log::LOG_DEBUG, section);
 }
 
 Logger::Debug&	Logger::Debug::operator<<(const std::string& msg)
@@ -56,7 +56,7 @@ Logger::Debug&	Logger::Debug::operator<<(const int& value)
 
 Logger::Info::Info(const std::string& section /*= ""*/)
 {
-  Log	log(Log::INFO, section);
+  Log	log(Log::LOG_INFO, section);
 }
 
 Logger::Info&	Logger::Info::operator<<(const std::string& msg)
@@ -75,7 +75,7 @@ Logger::Info&	Logger::Info::operator<<(const int& value)
 
 Logger::Warn::Warn(const std::string& section /*= ""*/)
 {
-  Log	log(Log::WARN, section);
+  Log	log(Log::LOG_WARN, section);
 }
 
 Logger::Warn&	Logger::Warn::operator<<(const std::string& msg)
@@ -94,7 +94,7 @@ Logger::Warn&	Logger::Warn::operator<<(const int& value)
 
 Logger::Error::Error(const std::string& section /*= ""*/)
 {
-  Log	log(Log::ERROR, section);
+  Log	log(Log::LOG_ERROR, section);
 }
 
 Logger::Error&	Logger::Error::operator<<(const std::string& msg)

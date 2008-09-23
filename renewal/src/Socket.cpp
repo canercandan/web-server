@@ -129,12 +129,12 @@ Socket*		Socket::accept()
     }
 
   optname = -1;
-#ifdef WIN32
-#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
+#ifndef WIN32
+# if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
   optname = SO_NOSIGPIPE;
-#else
+# else
   optname = MSG_NOSIGNAL;
-#endif
+# endif
   if (::setsockopt(sck, SOL_SOCKET, optname, &optval, sizeof(optval)) == SOCKET_ERROR)
     {
       std::cerr << "accept() failed" << std::endl;
