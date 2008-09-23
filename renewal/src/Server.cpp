@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Sep 10 17:53:56 2008 caner candan
-// Last update Wed Sep 17 10:18:06 2008 caner candan
+// Last update Tue Sep 23 15:13:29 2008 caner candan
 //
 
 #include <iostream>
@@ -73,7 +73,6 @@ void	Server::_stop()
 
   this->_server.close();
   ServerState::getInstance()->setState(ServerState::BREAK);
-  Config::kill();
   ServerState::kill();
   info << "stopping zia server";
   std::cout << std::endl;

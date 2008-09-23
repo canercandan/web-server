@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 20:14:09 2008 majdi toumi
-// Last update Sat Sep 20 21:41:12 2008 caner candan
+// Last update Tue Sep 23 15:13:30 2008 caner candan
 //
 
 #include <sstream>
@@ -49,4 +49,5 @@ int		main()
 	 end = threads.end();
        it != end; ++it)
     delete (*it);
+  Config::kill();
 }

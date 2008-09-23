@@ -5,12 +5,51 @@ ORGANISATION
 Recette Usine
 
 	tests unitaires
-module server:
+server:
 	- thread de ports
 		- recuper donnees dans config xml
 		- thread cree en fonction du port et du type de connexion
 		- purge des threads
-	- 
+
+	- thread de clients
+	  	 - creation de socket avec port et type de connexion
+		 - acceptation du client
+		 - purge du client
+		 - purge des threads (todo)
+
+	- client run
+	 	 - hooks (NEW_CLIENT, DATA_IN, PARSED, FILESYSTEM, DATA_OUT, DEL_CLIENT)
+		 - load modules
+		 - unload modules
+		 - parsing
+		 - send response
+		 - destroy client
+
+	- etape parsing
+	  	- recuperation de la requete
+		- parsing rfc http
+		- parsing rfc uri
+		- remplir request
+
+modules:
+	- mod_ssl:
+		- config xml
+		- initialisation
+		- accept si SSL
+		- read request / write response
+		- destroy
+
+	- mod_perl
+		- config xml
+		- determine extension fichier
+		- execute fichier
+		- recupere sortie
+
+	- mod_php
+	- mod_ruby
+
+	- mod_cgibin
+		- config xml
 
 benchmarking (test a travers des outils externes-> ab)
 
@@ -25,5 +64,4 @@ Recette Utilisateur, VA, VABF
 
 	Recette Technique
 
-Seuils d’acceptation du produit ???
-
+Seuils d'acceptation du produit ???
