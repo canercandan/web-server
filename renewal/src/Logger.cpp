@@ -33,7 +33,6 @@ Logger::Log::Log(const Logger::Log::Level& level,
   if (!section.empty())
     std::clog << " -- " << section;
   std::clog << " -- ";
-  std::clog.flush();
 }
 
 Logger::Debug::Debug(const std::string& section /*= ""*/)
@@ -50,7 +49,6 @@ Logger::Debug&	Logger::Debug::operator<<(const std::string& msg)
 Logger::Debug&	Logger::Debug::operator<<(const int& value)
 {
   std::clog << value;
-  std::clog.flush();
   return (*this);
 }
 
@@ -62,14 +60,12 @@ Logger::Info::Info(const std::string& section /*= ""*/)
 Logger::Info&	Logger::Info::operator<<(const std::string& msg)
 {
   std::clog << msg;
-  std::clog.flush();
   return (*this);
 }
 
 Logger::Info&	Logger::Info::operator<<(const int& value)
 {
   std::clog << value;
-  std::clog.flush();
   return (*this);
 }
 
@@ -81,14 +77,12 @@ Logger::Warn::Warn(const std::string& section /*= ""*/)
 Logger::Warn&	Logger::Warn::operator<<(const std::string& msg)
 {
   std::clog << msg;
-  std::clog.flush();
   return (*this);
 }
 
 Logger::Warn&	Logger::Warn::operator<<(const int& value)
 {
   std::clog << value;
-  std::clog.flush();
   return (*this);
 }
 
@@ -100,13 +94,11 @@ Logger::Error::Error(const std::string& section /*= ""*/)
 Logger::Error&	Logger::Error::operator<<(const std::string& msg)
 {
   std::clog << msg;
-  std::clog.flush();
   return (*this);
 }
 
 Logger::Error&	Logger::Error::operator<<(const int& value)
 {
   std::clog << value;
-  std::clog.flush();
   return (*this);
 }

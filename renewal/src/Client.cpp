@@ -55,8 +55,6 @@ void	Client::run()
   if (!documentRoot.empty())
     config->setLastParam("document_root");
 
-  std::cout << "response: [" << response->getBody() << ']' << std::endl;
-
   _hook.manageHookPoint(ZenZiAPI::DATA_OUT, _tools);
 
   if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
@@ -74,26 +72,27 @@ void	Client::run()
 
   _unloadModules();
 
-  //  _hook.manageHookPoint(ZenZiAPI::READ, tools);
-  //  _hook.manageHookPoint(ZenZiAPI::WRITE, tools);
   delete this;
 }
 
-bool	Client::_sendString(const std::string& string)
+void	Client::_sendString(const std::string& string)
 {
   const char*	buf = string.c_str();
   int		len = string.size();
-  int		ret;
-  bool		res(false);
+  int		cc;
 
   while (len > 0)
     {
-      ret = this->_sck->send((char *)buf, len);
-      buf += ret;
-      len -= ret;
-      res |= true;
+      if ((cc = this->_sck->send((char *)buf, len)) < 0)
+		  break;
+
+	  buf += cc;
+      len -= cc;
+
+	  std::cout << "[" << this->_sck->getSocket()
+		  << "] " << "Send " << cc << " bytes (still "
+<< len << " bytes)" << std::endl;
     }
-  return (res);
 }
 
 void	Client::_loadModules()

@@ -207,14 +207,14 @@ FileInfo::listDir&	FileInfo::getListDir()
 
 std::string	FileInfo::getContent()
 {
-  std::ifstream	in(this->getPath().c_str());
+	std::ifstream	in(this->getPath().c_str(), std::ios::binary);
   std::string	content;
   char		buf[4096];
 
-  //  if (this->getType() == FILE)
-  //    return (content);
   if (!in.is_open())
     return (content);
+
+  in.seekg(0, std::ios::beg);
 
   while (in.good())
     {

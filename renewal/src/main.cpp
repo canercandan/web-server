@@ -21,6 +21,24 @@ int		main()
   std::list<Thread*>	threads;
   XmlParser::listParam	list(conf->getListParam("//config"));
 
+#ifdef WIN32
+  int		err;
+  WSADATA	wsaData;
+
+  if ((err = WSAStartup(MAKEWORD(2, 2), &wsaData)) != 0)
+    {
+      std::cerr << "WSAStartup failed with error " << err << std::endl;
+      return (false);
+    }
+
+  if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2)
+    {
+      std::cerr << "Could not find a useable version of winsock.dll" << std::endl;
+      WSACleanup();
+      return (false);
+    }
+#endif
+
   for (XmlParser::listParam::iterator
 	 it = list.begin(),
 	 end = list.end();
@@ -50,4 +68,7 @@ int		main()
        it != end; ++it)
     delete (*it);
   Config::kill();
+#ifdef WIN32
+      WSACleanup();
+#endif
 }

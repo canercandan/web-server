@@ -32,7 +32,7 @@ void	Server::run()
   Logger::Info	info(this->_type);
 
   info << "starting zia server | "
-       << "port: " << this->_port << "\n";
+       << "port: " << this->_port << "\r\n";
   if (!this->_server.create(this->_port))
     {
       Logger::Error	error("server create");

@@ -41,7 +41,7 @@ public:
 
   void	run();
 private:
-  bool	_sendString(const std::string&);
+  void	_sendString(const std::string&);
 
   void	_loadModules();
   void	_unloadModules();

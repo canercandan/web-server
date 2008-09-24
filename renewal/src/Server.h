@@ -18,7 +18,7 @@
 # include "IRunnable.h"
 # include "ISignalManager.h"
 
-class	Server : public IRunnable, public ISignalManager
+class	Server : public ISignalManager, public IRunnable
 {
 public:
   Server(int port, const std::string& type);

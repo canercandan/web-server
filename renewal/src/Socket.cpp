@@ -28,9 +28,6 @@ Socket::Socket(const SOCKET sck,
 Socket::~Socket()
 {
   this->close();
-#ifdef WIN32
-  WSACleanup();
-#endif
 }
 
 void	Socket::_setSignal()
@@ -44,29 +41,9 @@ void	Socket::_setSignal()
 
 bool	Socket::create()
 {
-#ifdef WIN32
-  int		err;
-  WSADATA	wsaData;
-
-  if ((err = WSAStartup(MAKEWORD(2, 2), &wsaData)) != 0)
-    {
-      std::cerr << "WSAStartup failed with error " << err << std::endl;
-      return (false);
-    }
-
-  if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2)
-    {
-      std::cerr << "Could not find a useable version of winsock.dll" << std::endl;
-      WSACleanup();
-      return (false);
-    }
-#endif
   if ((this->_sck = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) == INVALID_SOCKET)
     {
       std::cerr << "socket() failed" << std::endl;
-#ifdef WIN32
-      WSACleanup();
-#endif
       return (false);
     }
   return (true);
@@ -84,9 +61,6 @@ bool	Socket::bind(const int port)
   if (::bind(this->_sck, (struct sockaddr *)&this->_sin, sizeof(this->_sin)) == SOCKET_ERROR)
     {
       std::cerr << "bind() failed" << std::endl;
-#ifdef WIN32
-      WSACleanup();
-#endif
       return (false);
     }
   return (true);
@@ -100,9 +74,6 @@ bool	Socket::listen(const int backlog)
   if (::listen(this->_sck, backlog) == SOCKET_ERROR)
     {
       std::cerr << "listen() failed" << std::endl;
-#ifdef WIN32
-      WSACleanup();
-#endif
       return (false);
     }
   return (true);
@@ -114,6 +85,7 @@ Socket*		Socket::accept()
   int			optval;
   SOCKET		sck;
   struct sockaddr_in	sin;
+  struct linger linger;
   socklen_t		len;
 
   if (!this->isValid())
@@ -142,6 +114,15 @@ Socket*		Socket::accept()
       return (NULL);
     }
 #endif
+  linger.l_onoff = 1;
+  linger.l_linger = 1;
+
+  if (::setsockopt(sck, SOL_SOCKET, SO_LINGER, (char *)&linger, sizeof(linger)) == SOCKET_ERROR)
+  {
+	  std::cerr << "setsockopt() failed" << std::endl;
+	  this->close();
+	  return (NULL);
+  }
   return (new Socket(sck, sin));
 }
 
