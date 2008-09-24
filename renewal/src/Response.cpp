@@ -143,8 +143,21 @@ void	Response::sendFile(Socket* sck)
 
       while (in.good())
 	{
-	  in.read(buf, 4096);
-	  sck->send(buf, in.gcount());
+		int					cc;
+		std::stringstream	ss;
+		std::string			data;
+
+	  in.read(buf, 512);
+
+	  cc = in.gcount();
+	  ss << std::hex << cc;
+	  
+	  data  = ss.str();
+	  data += "\r\n";
+	  data += std::string(buf, cc);
+	  data += "\r\n";
+
+	  sck->send((char *)data.c_str(), data.size());
 	}
 
       in.close();
@@ -199,7 +212,10 @@ std::string	Response::_createStatusLine()
 
 std::string	Response::_createGeneralHeader()
 {
-  return ("");
+	if (this->isChunk())
+		return ("Transfer-Encoding: chunked\r\nConnection: close\r\n");
+	else
+		return ("Connection: close\r\n");
 }
 
 std::string	Response::_createResponseHeader()
@@ -208,7 +224,7 @@ std::string	Response::_createResponseHeader()
   Config*		config = Config::getInstance();
 
   ss //<< "Location:" << config->getParam("location") << "\r\n"
-    << "Server:" << config->getParam("name") << "\r\n";
+    << "Server: " << config->getParam("name") << "\r\n";
   return (ss.str());
 }
 

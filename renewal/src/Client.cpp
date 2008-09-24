@@ -16,7 +16,6 @@
 #include "FileInfo.h"
 #include "Logger.h"
 #include "Config.h"
-#include "Response.h"
 
 Client::Client(Socket* sck, const std::string& type)
   : _sck(sck), _tools(_sck->getSocket(), type)
@@ -49,6 +48,8 @@ void	Client::run()
 
   if (!((documentRoot = response->getHeader("Zia", "document_root")).empty()))
     config->setParam("document_root", documentRoot);
+
+  //response->setChunk(true);
 
   std::string	res(response->buildResponse());
 
