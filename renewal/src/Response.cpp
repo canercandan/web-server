@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Sun Sep 21 11:16:14 2008 caner candan
+// Last update Wed Sep 24 18:27:03 2008 caner candan
 //
 
 #include <algorithm>
@@ -105,55 +105,70 @@ std::string	Response::buildResponse()
   uri.run();
 
   Config*	config = Config::getInstance();
-  std::string	resource = config->getParam("document_root") + uri.getPath();
+  _resource = config->getParam("document_root") + uri.getPath();
 
-  //#ifdef WIN32
-  //  std::replace(resource.begin(), resource.end(), '/', '\\');
-  //#endif
-  FileInfo	info(resource);
+  FileInfo	info(_resource);
 
   if (this->getMethod() == "HEAD")
     return (this->_generateResponse(info) + "\r\n");
 
-  std::string	response(this->_sendMessageBody(info));
-
-  return (this->_generateResponse(info) + response);
+  return (this->_generateResponse(info));
 }
 
 void	Response::resetHeaders()
 {}
 
-std::string	Response::_sendMessageBody(FileInfo& info)
+void	Response::sendFile(Socket* sck)
 {
+  FileInfo	info(_resource);
   Config*	config = Config::getInstance();
 
   if (info.isGood() && info.getType() == FileInfo::FILE)
     {
       this->setStatusCode(200);
       this->setStatusMessage(this->_mapResponse[200]);
-      return (info.getContent());
+      if (!this->isChunk())
+	{
+	  this->bodyAppend(info.getContent());
+	  return;
+	}
+
+      std::ifstream	in(_resource.c_str(), std::ios::binary);
+      char		buf[4096];
+
+      if (!in.is_open())
+	return;
+
+      in.seekg(0, std::ios::beg);
+
+      while (in.good())
+	{
+	  in.read(buf, 4096);
+	  sck->send(buf, in.gcount());
+	}
+
+      in.close();
+      return;
     }
   if (info.isGood() && info.getType() == FileInfo::DIR)
     {
       this->setStatusCode(403);
       this->setStatusMessage(this->_mapResponse[403]);
-      return ("<h1>Permission denied</h1>");
+      this->bodyAppend(std::string("<h1>Permission denied</h1>"));
+      return;
     }
 
   std::string	path(config->getParam("document_root") + '/'
 		     + config->getParam("file_404"));
-//#ifdef WIN32
-//  std::replace(path.begin(), path.end(), '/', '\\');
-//#endif
-  std::cout << "debug: [" << path << ']' << std::endl;
 
   FileInfo	infoErr(path);
 
   this->setStatusCode(404);
   this->setStatusMessage(this->_mapResponse[404]);
   if (infoErr.isGood())
-    return (infoErr.getContent());
-  return ("<h1>File not found</h1>");
+    bodyAppend(infoErr.getContent());
+  else
+    bodyAppend(std::string("<h1>File not found</h1>"));
 }
 
 std::string	Response::_generateResponse(FileInfo& info)

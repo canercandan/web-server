@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:50:12 2008 caner candan
-// Last update Fri Sep 19 22:21:53 2008 caner candan
+// Last update Wed Sep 24 17:24:23 2008 caner candan
 //
 
 #include <iostream>
@@ -207,7 +207,7 @@ FileInfo::listDir&	FileInfo::getListDir()
 
 std::string	FileInfo::getContent()
 {
-	std::ifstream	in(this->getPath().c_str(), std::ios::binary);
+  std::ifstream	in(this->getPath().c_str(), std::ios::binary);
   std::string	content;
   char		buf[4096];
 

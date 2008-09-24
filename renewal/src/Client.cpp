@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Wed Sep 17 23:42:20 2008 morgan armand
+// Last update Wed Sep 24 18:22:37 2008 caner candan
 //
 
 #include <iostream>
@@ -16,6 +16,7 @@
 #include "FileInfo.h"
 #include "Logger.h"
 #include "Config.h"
+#include "Response.h"
 
 Client::Client(Socket* sck, const std::string& type)
   : _sck(sck), _tools(_sck->getSocket(), type)
@@ -49,8 +50,15 @@ void	Client::run()
   if (!((documentRoot = response->getHeader("Zia", "document_root")).empty()))
     config->setParam("document_root", documentRoot);
 
+  std::string	res(response->buildResponse());
+
+  if (!response->isChunk())
+    response->bodyAppend(res);
+  else
+    _sck->send((char*)res.c_str(), res.size());
+
   if (!_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, _tools))
-    response->bodyAppend(response->buildResponse());
+    ((Response*)(response))->sendFile(_sck);
 
   if (!documentRoot.empty())
     config->setLastParam("document_root");

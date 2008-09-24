@@ -14,8 +14,8 @@
     <warning file="../logs/zia_warning.log" />
     <error file="../logs/zia_error.log" />
   </log>
-  <document_root value="C:\www" />
-  <!--<document_root value="/tmp" />-->
+  <!--<document_root value="C:\www" />-->
+  <document_root value="/tmp" />
   <module_directory value="../modules/" />
   <cgi_script value="/tmp/cgi-bin" />
   <timeout value="30" />

@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:43:56 2008 majdi toumi
-// Last update Mon Sep 15 14:22:43 2008 caner candan
+// Last update Wed Sep 24 18:20:15 2008 caner candan
 //
 
 #ifndef __RESPONSE_H__
@@ -16,6 +16,7 @@
 # include "Request.h"
 # include "FileInfo.h"
 # include "URIParser.h"
+# include "Socket.h"
 
 # ifdef WIN32
 #  pragma warning(disable : 4250)
@@ -35,6 +36,7 @@ public:
 
   std::string		buildResponse();
   void			resetHeaders();
+  void			sendFile(Socket*);
 private:
   void	_generateMapResponse();
 
@@ -47,6 +49,7 @@ private:
   std::string	_createResponseHeader();
   std::string	_createEntityHeader(FileInfo&);
 private:
+  std::string	_resource;
   mapResponse	_mapResponse;
   std::string	_code;
   std::string	_message;
