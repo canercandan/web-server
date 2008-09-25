@@ -10,7 +10,9 @@ NAME		=	$(PATH_BIN)/unitary_server
 SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/ConfigParameter.cpp		\
 			$(PATH_SRC)/XmlParserGetter.cpp		\
-			$(PATH_SRC)/FileInfoTest.cpp		\
+			$(PATH_SRC)/FileInfoTestFile.cpp	\
+			$(PATH_SRC)/FileInfoTestDirectory.cpp	\
+			$(PATH_SRC)/FluxStringTest.cpp		\
 			$(PATH_ZIA_SRC)/Client.cpp		\
 			$(PATH_ZIA_SRC)/Config.cpp		\
 			$(PATH_ZIA_SRC)/ConnectionInfos.cpp	\
