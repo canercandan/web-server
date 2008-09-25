@@ -1,6 +1,6 @@
 <autoindex>
   <text_size value="16px" />
-  <show_hidden_file enabled="false" />
+  <show_hidden_file enabled="true" />
 
   <file_css enabled="true" value="/styles.css" />
   <file_header enabled="true" value="header.html" />

@@ -6,4 +6,8 @@
   <host hostname="192.168.254.42"
 	port="4245"
 	root="/" />
+
+  <host hostname="192.168.254.42"
+	port="8484"
+	root="/" />
 </vhost>

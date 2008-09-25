@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Thu Sep 18 03:57:46 2008 morgan armand
+// Last update Thu Sep 25 15:02:34 2008 caner candan
 //
 
 #include <algorithm>
@@ -164,7 +164,10 @@ std::string	Response::buildResponse()
 }
 
 void	Response::resetHeaders()
-{}
+{
+  this->_headers.clear();
+  this->_header.clear();
+}
 
 void	Response::sendFile(Socket* sck)
 {
