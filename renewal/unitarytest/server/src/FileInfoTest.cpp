@@ -1,17 +1,38 @@
 #include <cppunit/TestAssert.h>
-#include "FileInfoTest.h"
+#include "FileInfoTestFile.h"
 
-void	FileInfoTest::setUp()
+void	FileInfoTestFile::setUp()
 {
-  _info = new FileInfo("../server.xml");
+  _path = "../server.xml";
+  _info = new FileInfo(_path);
 }
 
-void	FileInfoTest::tearDown()
+void	FileInfoTestFile::tearDown()
 {
   delete _info;
 }
 
-void	FileInfoTest::testIsGood()
+void	FileInfoTestFile::testIsGood()
 {
   CPPUNIT_ASSERT(_info->isGood());
+}
+
+void	FileInfoTestFile::testGetPath()
+{
+  CPPUNIT_ASSERT(_info->getPath() == _path);
+}
+
+void	FileInfoTestFile::testGetType()
+{
+  CPPUNIT_ASSERT(_info->getType() == FileInfo::FILE);
+}
+
+void	FileInfoTestFile::testGetSize()
+{
+  CPPUNIT_ASSERT(_info->getSize() > 0);
+}
+
+void	FileInfoTestFile::testGetContent()
+{
+  CPPUNIT_ASSERT(!_info->getContent().empty());
 }
