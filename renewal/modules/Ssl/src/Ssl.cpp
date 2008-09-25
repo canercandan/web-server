@@ -136,23 +136,34 @@ bool		Ssl::onRead(ITools& tools)
 
 bool		Ssl::onWrite(ITools& tools)
 {
-  const char*	buf = tools.message().response().getBody().c_str();
-  int		len = tools.message().response().getBody().size();
-  int		ret;
+  std::string*	data = tools.data();
 
   if (!this->_ssl)
     return (false);
 
-  std::cout << "[mod_ssl] onWrite..." << std::endl;
+  /*
+    const char*	buf = tools.message().response().getBody().c_str();
+    int		len = tools.message().response().getBody().size();
+    int		ret;
 
-  while (len > 0)
+    if (!this->_ssl)
+    return (false);
+
+    std::cout << "[mod_ssl] onWrite..." << std::endl;
+
+    while (len > 0)
     {
-      if ((ret = SSL_write(this->_ssl, buf, len)) <= 0)
-	break;
+    if ((ret = SSL_write(this->_ssl, buf, len)) <= 0)
+    break;
 
-      buf += ret;
-      len -= ret;
+    buf += ret;
+    len -= ret;
     }
+  */
+
+  if (SSL_write(this->_ssl, data->c_str(), data->size()) <= 0)
+    return (false);
+
   return (true);
 }
 
