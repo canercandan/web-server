@@ -51,7 +51,7 @@ public:
 
   bool	isChunk() const;
   void	setChunk(bool isChunked);
-private:
+protected:
   std::string	_version;
   std::string	_method;
   std::string	_uri;

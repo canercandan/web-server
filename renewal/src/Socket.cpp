@@ -108,7 +108,7 @@ Socket*		Socket::accept()
     }
 #endif
   linger.l_onoff = 1;
-  linger.l_linger = 1;
+  linger.l_linger = 10;
 
   if (::setsockopt(sck, SOL_SOCKET, SO_LINGER, (char *)&linger, sizeof(linger)) == SOCKET_ERROR)
   {
@@ -116,6 +116,7 @@ Socket*		Socket::accept()
 	  this->close();
 	  return (NULL);
   }
+  
   return (new Socket(sck, sin));
 }
 

@@ -13,7 +13,6 @@
 #include <iostream>
 #include <fstream>
 #include "Response.h"
-#include "FluxString.h"
 #include "Consumer.h"
 #include "Config.h"
 
@@ -98,6 +97,37 @@ const std::string&	Response::getStatusMessage()
 
 std::string	Response::buildResponse()
 {
+	std::map<std::string, std::string>::const_iterator	itb;
+	std::map<std::string, std::string>::const_iterator	ite;
+	std::string											content;
+	std::string											status;
+	std::stringstream									ss;
+	int													code;
+	Config*												config = Config::getInstance();
+
+	status = this->getStatusCode();
+	ss << status;
+	ss >> code;
+
+	this->setStatusMessage(this->_mapResponse[code]);
+
+	// add standard headers
+	this->setHeader("Server", config->getParam("name"));
+	//this->setHeader("Connection", "close");
+
+	if (this->isChunk())
+		this->setHeader("Transfer-Encoding", "chunked");
+
+	itb = this->_header.begin();
+	ite = this->_header.end();
+
+	for (; itb != ite; ++itb)
+		content += itb->first + ": " + itb->second + "\r\n";
+
+	return (this->_createStatusLine() + content + "\r\n");
+
+	//return (this->_generateResponse());
+	/*
   FluxString	flux(this->getUri());
   Consumer	consumer(flux);
   URIParser	uri(consumer);
@@ -109,10 +139,28 @@ std::string	Response::buildResponse()
 
   FileInfo	info(_resource);
 
-  if (this->getMethod() == "HEAD")
-    return (this->_generateResponse(info) + "\r\n");
+  if (info.isGood() && info.getType() == FileInfo::FILE)
+    {
+      this->setStatusCode(200);
+      this->setStatusMessage(this->_mapResponse[200]);
+	  //this->setChunk(true);
+  }
+  else if (info.isGood() && info.getType() == FileInfo::DIR)
+    {
+      this->setStatusCode(403);
+      this->setStatusMessage(this->_mapResponse[403]);
+    }
+  else
+  {
+	  this->setStatusCode(404);
+	this->setStatusMessage(this->_mapResponse[404]);
+  }
 
-  return (this->_generateResponse(info));
+  //if (this->getMethod() == "HEAD")
+  return (this->_generateResponse(info) + "\r\n");
+
+  //return (this->_generateResponse(info));
+  */
 }
 
 void	Response::resetHeaders()
@@ -123,25 +171,24 @@ void	Response::sendFile(Socket* sck)
   FileInfo	info(_resource);
   Config*	config = Config::getInstance();
 
-  if (info.isGood() && info.getType() == FileInfo::FILE)
-    {
-      this->setStatusCode(200);
-      this->setStatusMessage(this->_mapResponse[200]);
-      if (!this->isChunk())
+	if (info.isGood() && info.getType() == FileInfo::FILE)
+	{
+
+    if (!this->isChunk())
 	{
 	  this->bodyAppend(info.getContent());
 	  return;
 	}
 
-      std::ifstream	in(_resource.c_str(), std::ios::binary);
-      char		buf[4096];
+    std::ifstream	in(_resource.c_str(), std::ios::binary);
+    char		buf[4096];
 
-      if (!in.is_open())
-	return;
+    if (!in.is_open())
+		return;
 
-      in.seekg(0, std::ios::beg);
+    in.seekg(0, std::ios::beg);
 
-      while (in.good())
+    while (in.good())
 	{
 	  int			cc;
 	  std::stringstream	ss;
@@ -167,27 +214,26 @@ void	Response::sendFile(Socket* sck)
       sck->send((char *)last_chunk.c_str(), last_chunk.size());
 
       in.close();
-      return;
-    }
-  if (info.isGood() && info.getType() == FileInfo::DIR)
-    {
-      this->setStatusCode(403);
-      this->setStatusMessage(this->_mapResponse[403]);
-      this->bodyAppend(std::string("<h1>Permission denied</h1>"));
-      return;
-    }
-
-  std::string	path(config->getParam("document_root") + '/'
+	}
+	else if (info.isGood() && info.getType() == FileInfo::DIR)
+	{
+		this->bodyAppend("<html><head><title>403 Forbidden</title></head><body>"
+						"<h1>Forbidden</h1><p>You don't have permission to access"
+						+ info.getPath() + "on this server.</p></body></html>");
+	}
+	else
+	{
+			std::string	path(config->getParam("document_root") + '/'
 		     + config->getParam("file_404"));
+	
+			FileInfo	infoErr(path);
 
-  FileInfo	infoErr(path);
-
-  this->setStatusCode(404);
-  this->setStatusMessage(this->_mapResponse[404]);
-  if (infoErr.isGood())
-    bodyAppend(infoErr.getContent());
-  else
-    bodyAppend(std::string("<h1>File not found</h1>"));
+  
+			if (infoErr.isGood())
+				bodyAppend(infoErr.getContent());
+			else
+				bodyAppend(std::string("<h1>File not found</h1>"));
+	}
 }
 
 std::string	Response::_generateResponse(FileInfo& info)
