@@ -5,7 +5,7 @@
 <server name="Zia">
   <default_port value="4242" />
   <config>
-    <listen port="80" type="HTTP" />
+    <listen port="8484" type="HTTP" />
     <listen port="8585" type="SSL" />
   </config>
   <shutdown value="shutdown42"/>
