@@ -81,7 +81,6 @@ bool	Socket::listen(const int backlog)
 
 Socket*		Socket::accept()
 {
-  int			optname;
   int			optval;
   SOCKET		sck;
   struct sockaddr_in	sin;
@@ -100,14 +99,8 @@ Socket*		Socket::accept()
       return (NULL);
     }
 
-  optname = -1;
-#ifndef WIN32
 # if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
-  optname = SO_NOSIGPIPE;
-# else
-  optname = MSG_NOSIGNAL;
-# endif
-  if (::setsockopt(sck, SOL_SOCKET, optname, &optval, sizeof(optval)) == SOCKET_ERROR)
+  if (::setsockopt(sck, SOL_SOCKET, SO_NOSIGPIPE, &optval, sizeof(optval)) == SOCKET_ERROR)
     {
       std::cerr << "accept() failed" << std::endl;
       this->close();
