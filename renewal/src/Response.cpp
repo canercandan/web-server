@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Wed Sep 10 16:44:00 2008 majdi toumi
-// Last update Wed Sep 24 18:27:03 2008 caner candan
+// Last update Thu Sep 18 03:57:46 2008 morgan armand
 //
 
 #include <algorithm>
@@ -143,15 +143,15 @@ void	Response::sendFile(Socket* sck)
 
       while (in.good())
 	{
-		int					cc;
-		std::stringstream	ss;
-		std::string			data;
+	  int			cc;
+	  std::stringstream	ss;
+	  std::string		data;
 
 	  in.read(buf, 512);
 
 	  cc = in.gcount();
 	  ss << std::hex << cc;
-	  
+
 	  data  = ss.str();
 	  data += "\r\n";
 	  data += std::string(buf, cc);
@@ -159,6 +159,12 @@ void	Response::sendFile(Socket* sck)
 
 	  sck->send((char *)data.c_str(), data.size());
 	}
+
+      // Last chunk
+      std::string	last_chunk;
+
+      last_chunk = "0\r\n\r\n";
+      sck->send((char *)last_chunk.c_str(), last_chunk.size());
 
       in.close();
       return;

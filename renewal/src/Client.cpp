@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Wed Sep 24 18:22:37 2008 caner candan
+// Last update Thu Sep 18 04:01:41 2008 morgan armand
 //
 
 #include <iostream>
@@ -49,8 +49,6 @@ void	Client::run()
   if (!((documentRoot = response->getHeader("Zia", "document_root")).empty()))
     config->setParam("document_root", documentRoot);
 
-  //response->setChunk(true);
-
   std::string	res(response->buildResponse());
 
   if (!response->isChunk())
@@ -59,7 +57,10 @@ void	Client::run()
     _sck->send((char*)res.c_str(), res.size());
 
   if (!_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, _tools))
-    ((Response*)(response))->sendFile(_sck);
+    {
+      response->setChunk(true);
+      ((Response*)(response))->sendFile(_sck);
+    }
 
   if (!documentRoot.empty())
     config->setLastParam("document_root");
