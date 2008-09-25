@@ -5,7 +5,7 @@
 // Login   <toumi_m@epitech.net>
 // 
 // Started on  Tue Sep  9 13:09:45 2008 majdi toumi
-// Last update Thu Sep 18 01:38:21 2008 morgan armand
+// Last update Thu Sep 25 06:22:31 2008 caner candan
 //
 
 #include <string>
@@ -19,25 +19,24 @@ XmlParser::XmlParser(const std::string& filename)
   ::xmlInitParser();
   this->_doc = ::xmlParseFile(this->_filename.c_str());
   if (!this->_doc)
-    std::cerr << "errror - xml file configuration invalid" << std::endl;
-  else
     {
-      this->_root = ::xmlDocGetRootElement(this->_doc);
-      if (!this->_root)
-	{
-	  ::xmlFreeDoc(this->_doc);
-	  std::cerr << "error - xml file configuration is empty" << std::endl;
-	}
-      else
-	{
-	  ::xmlXPathInit();
-	  this->_ctxt = ::xmlXPathNewContext(_doc);
-	  if (!this->_ctxt)
-	    {
-	      ::xmlFreeDoc(this->_doc);
-	      std::cerr << "error - can't create xml path context" << std::endl;
-	    }
-	}
+      std::cerr << "errror - xml file configuration invalid" << std::endl;
+      exit(-1);
+    }
+  this->_root = ::xmlDocGetRootElement(this->_doc);
+  if (!this->_root)
+    {
+      ::xmlFreeDoc(this->_doc);
+      std::cerr << "error - xml file configuration is empty" << std::endl;
+      exit(-1);
+    }
+  ::xmlXPathInit();
+  this->_ctxt = ::xmlXPathNewContext(_doc);
+  if (!this->_ctxt)
+    {
+      ::xmlFreeDoc(this->_doc);
+      std::cerr << "error - can't create xml path context" << std::endl;
+      exit(-1);
     }
 }
 

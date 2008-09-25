@@ -13,6 +13,7 @@ SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/FileInfoTestFile.cpp	\
 			$(PATH_SRC)/FileInfoTestDirectory.cpp	\
 			$(PATH_SRC)/FluxStringTest.cpp		\
+			$(PATH_SRC)/HttpParserConsume.cpp	\
 			$(PATH_ZIA_SRC)/Client.cpp		\
 			$(PATH_ZIA_SRC)/Config.cpp		\
 			$(PATH_ZIA_SRC)/ConnectionInfos.cpp	\
