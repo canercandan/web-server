@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Thu Sep 25 14:54:02 2008 caner candan
+// Last update Thu Sep 18 09:59:13 2008 morgan armand
 //
 
 #include <iostream>
@@ -123,6 +123,7 @@ void	Client::run()
   delete _tools.data();
 
   std::cout << headers << std::endl;
+  std::cout << response->getBody() << std::endl;
 
   if (response->isChunk())
     {
