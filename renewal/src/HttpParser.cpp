@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 21:12:41 2008 caner candan
-// Last update Thu Sep 25 14:29:57 2008 caner candan
+// Last update Thu Sep 25 14:49:23 2008 caner candan
 //
 
 #include <string>
@@ -396,7 +396,7 @@ bool	HttpParser::_readQvalueOpt2()
   return (true);
 }
 
-bool	HttpParser::_readAcceptCharset()
+ bool	HttpParser::_readAcceptCharset()
 {
   if (!(TEXT_("Accept-Charset") && CHAR(':')))
     return (false);

@@ -35,9 +35,9 @@ void	HttpParserConsume::testParsingLow()
 
   http.run();
 
-  CPPUNIT_ASSERT(request.getMethod() == "GET");
-  CPPUNIT_ASSERT(request.getHTTPVersion() == "HTTP/1.1");
-  CPPUNIT_ASSERT(request.getUri() == "/");
+  CPPUNIT_ASSERT(request.getMethod() == _method);
+  CPPUNIT_ASSERT(request.getHTTPVersion() == _version);
+  CPPUNIT_ASSERT(request.getUri() == _path);
 }
 
 void	HttpParserConsume::testParsingMiddle()
@@ -75,5 +75,4 @@ void	HttpParserConsume::testParsingHigh()
   http.run();
 
   CPPUNIT_ASSERT(request.getHeader("Accept") == _accept);
-
 }

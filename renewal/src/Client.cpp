@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  9 17:47:43 2008 caner candan
-// Last update Thu Sep 18 04:01:41 2008 morgan armand
+// Last update Thu Sep 25 14:51:34 2008 caner candan
 //
 
 #include <iostream>
@@ -37,7 +37,7 @@ void	Client::run()
   HttpParser		parser(consumer, _tools.message().request());
   ZenZiAPI::IResponse*	response = &_tools.message().response();
   Config*		config = Config::getInstance();
-std::string		res;
+  std::string		res;
 
   _loadModules();
 
@@ -57,55 +57,55 @@ std::string		res;
 
   //if (!response->isChunk())
   //else
-    //_sck->send((char*)res.c_str(), res.size());
+  //_sck->send((char*)res.c_str(), res.size());
 
-	//bool res_filesystem(true);
+  //bool res_filesystem(true);
 
   if (!_hook.manageHookPoint(ZenZiAPI::FILESYSTEM, _tools))
     {
-		FluxString	flux(response->getUri());
-		Consumer	consumer(flux);
-		URIParser	uri(consumer);
+      FluxString	flux(response->getUri());
+      Consumer	consumer(flux);
+      URIParser	uri(consumer);
 
-		uri.run();
+      uri.run();
 
-		//Config*		config = Config::getInstance();
-		res = config->getParam("document_root") + uri.getPath();
-		
-		FileInfo	info(res);
+      //Config*		config = Config::getInstance();
+      res = config->getParam("document_root") + uri.getPath();
 
-		// File is ok
-		if (info.isGood() && info.getType() == FileInfo::FILE)
-		{
-			std::stringstream	ss("");
+      FileInfo	info(res);
 
-			response->setStatusCode(200);
+      // File is ok
+      if (info.isGood() && info.getType() == FileInfo::FILE)
+	{
+	  std::stringstream	ss("");
 
-			ss << info.getSize();
+	  response->setStatusCode(200);
 
-			if (info.getSize() > 0)
-				response->setHeader("Content-Length", ss.str());
+	  ss << info.getSize();
 
-			response->setChunk(true);
-		}
+	  if (info.getSize() > 0)
+	    response->setHeader("Content-Length", ss.str());
 
-		// Request a directory
-		else if (info.isGood() && info.getType() == FileInfo::DIR)
-		{
-			response->setStatusCode(403);
-			response->setBody("<html><head><title>403 Forbidden</title></head><body>"
-						"<h1>Forbidden</h1><p>You don't have permission to access"
-						+ info.getPath() + "on this server.</p></body></html>");
-		}
-		// Request something's wrong
-		else
-  {
-			response->setStatusCode(404);
-			response->setBody("<html><head><title>404 Not Found</title></head><body>"
-						"<h1>Forbidden</h1><p>The ressource" + info.getPath() +
-						"cannot be found on this server.</p></body></html>");
-		}
-			//res_filesystem = false;
+	  response->setChunk(true);
+	}
+
+      // Request a directory
+      else if (info.isGood() && info.getType() == FileInfo::DIR)
+	{
+	  response->setStatusCode(403);
+	  response->setBody("<html><head><title>403 Forbidden</title></head><body>"
+			    "<h1>Forbidden</h1><p>You don't have permission to access"
+			    + info.getPath() + "on this server.</p></body></html>");
+	}
+      // Request something's wrong
+      else
+	{
+	  response->setStatusCode(404);
+	  response->setBody("<html><head><title>404 Not Found</title></head><body>"
+			    "<h1>Forbidden</h1><p>The ressource" + info.getPath() +
+			    "cannot be found on this server.</p></body></html>");
+	}
+      //res_filesystem = false;
     }
 
   std::string	headers(response->buildResponse());
@@ -114,102 +114,101 @@ std::string		res;
 
   _hook.manageHookPoint(ZenZiAPI::DATA_OUT, _tools);
 
-  
   // Send headers
   _tools.data(new std::string(headers));
 
   if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
-	  this->_sendString(headers);
+    this->_sendString(headers);
 
   delete _tools.data();
 
   std::cout << headers << std::endl;
 
   if (response->isChunk())
-  {
-	  // UGLY HACK : 14h19
-	  if (res.empty())
-	  {
-			_tools.data(new std::string(response->getBody()));
-				if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
-				this->_sendString(response->getBody());
-				delete _tools.data();
-	  }
-	  else
-	  {
-#define CHUNK_SIZE	512
-
-		  std::ifstream		in(res.c_str(), std::ios::binary);
-		  char				chunk[CHUNK_SIZE];
-
-		  if (in.is_open())
-		  {
-			  while (in.good())
-			  {
-				  int			cc;
-				std::stringstream	ss;
-				std::string		data;
-
-				in.read(chunk, CHUNK_SIZE);
-
-			cc = in.gcount();
-			  ss << std::hex << cc;
-
-				data  = ss.str();
-			  data += "\r\n";
-			  data += std::string(chunk, cc);
-			  data += "\r\n";
-
-			//sck->send((char *)data.c_str(), data.size());
-			  _tools.data(new std::string(data));
-			  if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
-				this->_sendString(data);
-			  delete _tools.data();
-			  }
-		  
-
-      // Last chunk
-      std::string	last_chunk;
-
-      last_chunk = "0\r\n\r\n";
-      //sck->send((char *)last_chunk.c_str(), last_chunk.size());
-	  this->_sendString(last_chunk);
-
-      in.close();
-		  }
-	  }
-	  
-  }
-  else
-  {
-	  FileInfo	info(res);
-
-	  if (info.isGood() && info.getType() == FileInfo::FILE)
-		  response->setBody(info.getContent());
-
+    {
+      // UGLY HACK : 14h19
+      if (res.empty())
+	{
 	  _tools.data(new std::string(response->getBody()));
 	  if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
-		  this->_sendString(response->getBody());
+	    this->_sendString(response->getBody());
 	  delete _tools.data();
 	}
+      else
+	{
+#define CHUNK_SIZE	512
 
-/*
-  if (!documentRoot.empty())
+	  std::ifstream		in(res.c_str(), std::ios::binary);
+	  char				chunk[CHUNK_SIZE];
+
+	  if (in.is_open())
+	    {
+	      while (in.good())
+		{
+		  int			cc;
+		  std::stringstream	ss;
+		  std::string		data;
+
+		  in.read(chunk, CHUNK_SIZE);
+
+		  cc = in.gcount();
+		  ss << std::hex << cc;
+
+		  data  = ss.str();
+		  data += "\r\n";
+		  data += std::string(chunk, cc);
+		  data += "\r\n";
+
+		  //sck->send((char *)data.c_str(), data.size());
+		  _tools.data(new std::string(data));
+		  if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
+		    this->_sendString(data);
+		  delete _tools.data();
+		}
+		  
+
+	      // Last chunk
+	      std::string	last_chunk;
+
+	      last_chunk = "0\r\n\r\n";
+	      //sck->send((char *)last_chunk.c_str(), last_chunk.size());
+	      this->_sendString(last_chunk);
+
+	      in.close();
+	    }
+	}
+	  
+    }
+  else
+    {
+      FileInfo	info(res);
+
+      if (info.isGood() && info.getType() == FileInfo::FILE)
+	response->setBody(info.getContent());
+
+      _tools.data(new std::string(response->getBody()));
+      if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
+	this->_sendString(response->getBody());
+      delete _tools.data();
+    }
+
+  /*
+    if (!documentRoot.empty())
     config->setLastParam("document_root");
 
-  _hook.manageHookPoint(ZenZiAPI::DATA_OUT, _tools);
+    _hook.manageHookPoint(ZenZiAPI::DATA_OUT, _tools);
 
-  if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
+    if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
     { 
-		if (!res_filesystem)
-		{
-			_sendString(response->getBody());
+    if (!res_filesystem)
+    {
+    _sendString(response->getBody());
       
-			if (response->isChunk())
-		  ((Response*)(response))->sendFile(_sck);
-		}
+    if (response->isChunk())
+    ((Response*)(response))->sendFile(_sck);
     }
-*/
+    }
+  */
   _hook.manageHookPoint(ZenZiAPI::DEL_CLIENT, _tools);
 
   _unloadModules();
