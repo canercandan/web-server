@@ -2,13 +2,15 @@ PATH_BIN	=	.
 PATH_SRC	=	../src
 PATH_INCLUDE	=	.
 PATH_LIBRARY	=	.
-PATH_ZIA_SRC	=	../../src
-PATH_ZIA_API	=	../../api
+PATH_ZIA_SRC	=	../../../src
+PATH_ZIA_API	=	../../../api
 
 NAME		=	$(PATH_BIN)/unitary_server
 
 SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/ConfigParameter.cpp		\
+			$(PATH_SRC)/XmlParserGetter.cpp		\
+			$(PATH_SRC)/FileInfoTest.cpp		\
 			$(PATH_ZIA_SRC)/Client.cpp		\
 			$(PATH_ZIA_SRC)/Config.cpp		\
 			$(PATH_ZIA_SRC)/ConnectionInfos.cpp	\

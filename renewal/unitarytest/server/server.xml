@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    server.xml for ** zia ** ->> server configuration file
+  -->
+<server name="Zia">
+  <default_port value="4242" />
+  <config>
+    <listen port="8484" type="HTTP" />
+    <listen port="8585" type="SSL" />
+  </config>
+  <shutdown value="shutdown42"/>
+  <debug value="true" />
+  <log>
+    <warning file="../logs/zia_warning.log" />
+    <error file="../logs/zia_error.log" />
+  </log>
+  <document_root value="C:\www" />
+  <!--<document_root value="/tmp" />-->
+  <module_directory value="../modules/" />
+  <cgi_script value="/tmp/cgi-bin" />
+  <timeout value="30" />
+  <!-- <timeout value="-1" /> : disable -->
+  <status_code>
+    <file file_404="file404.html" />
+  </status_code>
+  <file_404 value="file_404.html" />
+</server>
