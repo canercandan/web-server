@@ -161,7 +161,10 @@ std::string		res;
 			  data += "\r\n";
 
 			//sck->send((char *)data.c_str(), data.size());
-			  this->_sendString(data);
+			  _tools.data(new std::string(data));
+			  if (!_hook.manageHookPoint(ZenZiAPI::WRITE, _tools))
+				this->_sendString(data);
+			  delete _tools.data();
 			  }
 		  
 
