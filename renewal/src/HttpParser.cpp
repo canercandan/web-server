@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Sep 13 21:12:41 2008 caner candan
-// Last update Sun Sep 21 03:03:44 2008 caner candan
+// Last update Thu Sep 25 14:29:57 2008 caner candan
 //
 
 #include <string>
@@ -292,15 +292,29 @@ bool	HttpParser::_readAccept()
 {
   if (!(TEXT_("Accept") && CHAR(':')))
     return (false);
-  SHARP(_readAcceptSharp());
+
+  while (SP);
+
+  _consumer.prepare();
+
+  while (!PCHAR('\r'))
+    RANGE(0, 127);
+
+  _request.setHeader("Accept", _consumer.extract());
+
+  TEXT_("\r\n");
+
+  //SHARP(_readAcceptSharp());
   return (true);
 }
 
 bool	HttpParser::_readAcceptSharp()
 {
+  _consumer.prepare();
   if (!_readMediaRange())
     return (false);
   _readAcceptParam();
+  _request.setHeader("Accept", _consumer.extract());
   return (true);
 }
 
@@ -474,6 +488,8 @@ bool	HttpParser::_readHost()
   _request.setHeader("Host", "host", uri.getHost());
   _request.setHeader("Host", "port", uri.getPort());
 
+  TEXT_("\r\n");
+
   return (true);
 }
 
@@ -529,18 +545,38 @@ bool	HttpParser::_readTE()
 
 bool	HttpParser::_readUserAgent()
 {
-  return (TEXT_("User-Agent") && CHAR(':') &&
-	  _readUserAgentPart2());
+  if (!(TEXT_("User-Agent") && CHAR(':')))
+    return (false);
+  //_readUserAgentPart2()
+
+  while (SP);
+
+  _consumer.prepare();
+
+  while (!PCHAR('\r'))
+    RANGE(0, 127);
+
+  _request.setHeader("User-Agent", _consumer.extract());
+
+  TEXT_("\r\n");
+
+  return (true);
 }
 
 bool	HttpParser::_readUserAgentPart2()
 {
+  _consumer.prepare();
+
   int	i;
 
-  for (i = 0;
-       _readProduct() || _readComment();
-       i++);
-  return (i > 0);
+  for (i = 0; _readProduct() || _readComment(); i++);
+
+  if (i > 0)
+    {
+      _request.setHeader("User-Agent", _consumer.extract());
+      return (true);
+    }
+  return (false);
 }
 
 bool	HttpParser::_readProduct()

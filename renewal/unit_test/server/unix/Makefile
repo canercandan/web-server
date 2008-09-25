@@ -5,7 +5,7 @@ PATH_LIBRARY	=	.
 PATH_ZIA_SRC	=	../../../src
 PATH_ZIA_API	=	../../../api
 
-NAME		=	$(PATH_BIN)/unitary_server
+NAME		=	$(PATH_BIN)/testserver
 
 SRCS		=	$(PATH_SRC)/main.cpp			\
 			$(PATH_SRC)/ConfigParameter.cpp		\
